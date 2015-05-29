@@ -32,7 +32,7 @@ app.controller('LilVerifyCtrl', function ($scope, $sce, $timeout, $http) {
             height: 625
         }, 1000 );
 
-	$( "#codePreview pre" ).append('<div align="center" style="margin-top: 50px"><img style="display: none;" src="/images/720.gif" id="loading"/></div>');
+	$( "#codePreview pre" ).append('<div align="center" style="margin-top: 50px"><img style="display: none;" src="/images/progress.gif" id="loading"/></div>');
 	$( "#loading" ).fadeIn();
 
 	
