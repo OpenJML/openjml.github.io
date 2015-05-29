@@ -1,1 +1,2 @@
 highlighter: pygments
+exclude: ["LICENSE", "README.md", "Vagrantfile", "bower.json", "hook.el", "npm-debug.log", "refresh.bat", "refresh_vagrant.sh", "texput.log"]
