@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% include header.html  %}
+
+    <script src="/bower_components/angular/angular.min.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/markdown.min.js"></script>
+  
+  </head> 
+  
+  <body>
+    {% include nav.html %}
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron" ng-app="OpenJML">
+      <div class="container" ng-controller="LilVerifyCtrl">
+	<div class="row">
+	  <div class="col-md-7">
+            <h1>Does your program do what it is supposed to do?</h1> 
+            <p>OpenJML is a program verification tool for Java programs that allows you to check the specifications of programs annotated in the Java Modeling Language. </p>
+
+	    <div align="center"> 
+	      <p><a class="btn btn-success btn-lg" href="#" role="button">Download OpenJML</a></p>
+	    </div> 
+	    
+	  </div>
+	  <div class="col-md-5"  id="codePreview"> 
+	    {% highlight java %}
+	    {% include homepageexample.java %}  
+	    {% endhighlight %}  
+	    <div id="playButton" style="position: relative; top: -65px; right: 10px;" align="right" ><a class="btn btn-primary play btn-lg" role="button" data-ng-click="verifyExampleProgram()" ><img src="/images/play.png" width="50" /></a></div>
+	    <div id="learnMoreButton" style="position: relative; top: -65px; right: 10px; display: none;" align="right" ><a class="btn btn-primary btn-lg" role="button" data-ng-click="learnMore()">Learn More &raquo;</a></div>
+	    <div style="position: relative; top: -300px;  background: rgba(0,0,0,.5); width: 90%; margin-left: auto; margin-right: auto;" id="slider"></div>
+	  </div>
+	</div>
+      </div>  
+    </div>     
+
+    
+    <div class="container">
+      {{ content }}
+      <hr>
+      <footer>
+        <p>&copy; Company 2014</p>
+      </footer>
+    </div> <!-- /container -->
+    {% include script-footer.html %}
+  </body>
+</html>
+
