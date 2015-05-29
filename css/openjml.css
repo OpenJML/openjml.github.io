@@ -1,0 +1,22 @@
+
+.jumbotron .highlight {
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
+
+
+.jumbotron pre{
+    padding-left: 20px;
+    padding-right: 20px;
+    overflow: hidden;
+
+} 
+
+.jumbotron .play.btn-lg {
+    padding: 1px 1px;
+}
+
+body {
+  padding-top: 50px;
+  padding-bottom: 20px;
+}
