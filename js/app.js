@@ -1,6 +1,6 @@
 var app = angular.module('OpenJML', []);
 
-var verificationServer  = "eval";
+var verificationServer  = "ec2-52-25-26-222.us-west-2.compute.amazonaws.com"; //"eval";
 
 
 var exampleProgram = "//\n// This program contains a coding error and one other possible error. \n// Can you find them?\n//\n\
@@ -37,7 +37,7 @@ app.controller('LilVerifyCtrl', function ($scope, $sce, $timeout, $http) {
 
 	
 	$http({
-	    url:'http://eval/ExtendedStaticChecker/run',
+	    url:'http://ec2-52-25-26-222.us-west-2.compute.amazonaws.com/ExtendedStaticChecker/run',
 	    data: {Source:exampleProgram},
 	    method: 'POST',
 	    headers: {'Content-Type': 'application/json'}
