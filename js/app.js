@@ -37,7 +37,7 @@ app.controller('LilVerifyCtrl', function ($scope, $sce, $timeout, $http) {
 
 	
 	$http({
-	    url:'http://ec2-52-25-26-222.us-west-2.compute.amazonaws.com/ExtendedStaticChecker/run',
+	    url:'http://ec2-52-24-50-141.us-west-2.compute.amazonaws.com/ExtendedStaticChecker/run',
 	    data: {Source:exampleProgram},
 	    method: 'POST',
 	    headers: {'Content-Type': 'application/json'}
