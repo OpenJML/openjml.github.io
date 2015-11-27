@@ -1,6 +1,6 @@
 var app = angular.module('OpenJML', []);
 
-var verificationServer  = "ec2-52-25-26-222.us-west-2.compute.amazonaws.com"; //"eval";
+var verificationServer  = "ec2-52-24-50-141.us-west-2.compute.amazonaws.com";
 
 
 var exampleProgram = "//\n// This program contains a coding error and one other possible error. \n// Can you find them?\n//\n\
