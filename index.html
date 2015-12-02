@@ -6,7 +6,10 @@ title: Home | OpenJML
   <div class="row">
     <div class="col-md-4">
       <h2>Verify Your Java Programs with JML</h2>
-      <p>The <a href="http://www.eecs.ucf.edu/~leavens/JML/jmldbc.pdf">Java Modeling Language</a> is a mature program specification with over a decade of history. OpenJML is capable of checking of checking programs written in the Java Modeling Language and provides robust support for many of <a href="/features">JML's features</a>.  </p>
+      <p>The <a href="http://www.eecs.ucf.edu/~leavens/JML/jmldbc.pdf">Java Modeling Language</a> is a mature program specification language with over a decade of history. OpenJML is capable of checking Java programs annotated with specifications in the Java Modeling Language and provides robust support for many of <a href="/features">JML's features</a>.  </p>
+<p>
+The goal of the OpenJML project is to implement a full tool for JML and currnet Java, that is easy for practioners and students to use to specify and verify Java programs. In addition, the project seeks to advance to theory and experience of software verification in practical, indsutrially-relevant contexts.
+</p>
       <p><a class="btn btn-default" href="#" role="button">Learn more &raquo;</a></p>
     </div>
     <div class="col-md-4">
@@ -16,7 +19,7 @@ title: Home | OpenJML
     </div>
     <div class="col-md-4">
       <h2>Integrates with Most Popular SMT Solvers</h2>
-      <p>OpenJML is not a theorem prover or model checker itself. OpenJML translates JML specifications into SMT-LIB format and passes the proof problems implied by the Java+JML program to backend SMT solvers. OpenJML provides for major SMT solvers such as Z3 and Yices.</p>
+      <p>OpenJML is not a theorem prover or model checker itself. OpenJML translates JML specifications into SMT-LIB format and passes the proof problems implied by the Java+JML program to backend SMT solvers. OpenJML supports major SMT solvers such as Z3, CVC4 and Yices. The success of the proofs will depend on the capability of the SMT colver (e.g., which logics it supports), the particular logical encoding of the code+specifications, and the complexity and style in which the code and specifications are written.</p>
       <p><a class="btn btn-default" href="#" role="button">Learn more &raquo;</a></p>
     </div>
   </div>
