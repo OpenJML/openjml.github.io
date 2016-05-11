@@ -1,6 +1,6 @@
-//
-// This program contains two errors. Can you find them?
-//
+
+// This program contains two errors.
+// Can you find them?
 public class MaybeAdd {
      //@ requires a > 0;
      //@ requires b > 0;
