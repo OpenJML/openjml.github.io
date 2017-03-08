@@ -24,6 +24,13 @@ app.controller('LilVerifyCtrl', function ($scope, $sce, $timeout, $http) {
 
     $scope.verifyExampleProgram = function(){
 
+
+        location.href='http://www.rise4fun.com/OpenJMLESC/MaybeAdd';
+
+        if(1==1){
+            return;
+        }
+
 	verified = true;
 	$("#playButton").hide();
 	
