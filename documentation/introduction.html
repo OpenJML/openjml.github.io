@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+  <head>
+    <link href="style.css" rel="STYLESHEET" type="text/css" />
+    <meta name="description" content="OpenJML, formal methods tool for Java and the Java Modeling Language (JML)" />
+    <link rel="SHORTCUT ICON" href="favicon.ico"/>
+
+    <!-- customize the page title -->
+    <title>OpenJML User Guide and Reference</title>
+    <!-- end customized page title -->
+    </head>
+
+<body>
+  
+<div id="menu">
+<table>
+<tr>
+<td class="logo">
+<img class="center" src="jml-logo-small64.png" alt="JML Logo" />
+</td>
+</tr>
+</table>
+<br/>
+<br/>
+<p><a href="index.html">Home</a></p>
+
+<p class="title">Guide to Use</p>
+<p><a href="onlinemanual.shtml">Introduction</a></p>
+<p><a href="installation.shtml">Obtaining OpenJML</a></p>
+<p><a href="commandline.shtml">Command-line tool</a></p>
+<p><a href="plugin.shtml">Eclipse plug-in</a></p>
+<p><a href="contact.shtml">Contact</a></p>
+
+<p class="title">JML Details</p>
+
+<p class="title">OpenJML Reference</p>
+
+<p><a href="checks.shtml">Java and JML checks</a></p>
+<p><a href="features.shtml">Implementation status</a></p>
+<p><a href="references.shtml">References</a></p>
+<p><a href="projects.shtml">Projects built on OpenJML</a></p>
+
+<p class="title">For Developers</p>
+
+<p>
+<a href="http://sourceforge.net/projects/jmlspecs">Sourceforge project</a>
+<a href="http://sourceforge.net/projects/jmlspecs"><img src="http://sflogo.sourceforge.net/sflogo.php?group_id=65346&amp;type=13" width="120" height="30" alt="Get Java Modeling Language (JML) at SourceForge.net. Fast, secure and Free Open Source software downloads" /></a>
+</p>
+<p><a href="http://sourceforge.net/p/jmlspecs/wiki/Home/">Wiki</a></p>
+
+
+<p class="title">Valid</p>
+<p><a href="http://validator.w3.org/check/referer">XHTML 1.0</a></p>
+<p><a href="http://jigsaw.w3.org/css-validator/check/referer">CSS2</a></p>
+
+</div>
+
+  
+<div id="rest">  
+
+<div id="banner">
+ <h1><a name="top">OpenJML - formal methods tool for Java and the Java Modeling Language
+     (<span style="color:#006000">J</span><span style="color:#a00000">M</span><span style="color:#000090">L</span>)
+      </a>
+    </h1>
+</div>
+
+
+<div id="content">
+
+
+<h2>JML</h2>
+<p>
+The Java Modeling Language (JML) is a language used to describe the functional behavior of Java classes and methods.
+The descriptions of behavior are expressed as structured 
+Java comments or Java annotations that use Java-like logical expressions. Various tools can then read the JML 
+information and do static checking, runtime checking, test generation, display for documentation,
+or other useful tasks.
+</p>
+<p>
+More information about JML can be found on the 
+<a href="http://www.jmlspecs.org">JML web site</a>.
+The information includes publications, groups using or contributing to JML, 
+mailing lists, etc.
+There is also a <a href="https://sourceforge.net/projects/jmlspecs/">sourceforge project</a>,
+including a <a href="https://sourceforge.net/p/jmlspecs/wiki/Home">wiki</a> for JML.
+</p>
+<h2>OpenJML</h2>
+<p>
+OpenJML is a tool set for JML, built on the OpenJDK framework for Java.
+It is intended as the replacement for ESC/Java2, which is only for Java 1.4.
+OpenJML is current with Java 1.7u40.
+This page makes available some resources for OpenJML and links give information about installing and running OpenJML.
+</p>
+<p>
+<b>Note that OpenJML is not a theorem prover or model checker itself.</b> OpenJML 
+translates JML specifications into <a href="http://www.smtlib.org">SMT-LIB format</a> and passes the proof 
+problems implied by the Java+JML program to backend SMT solvers. Success in checking
+the consistency of the specifications and the code will depend on 
+</p>
+<ul>
+<li>(a) the capability of the backend SMT solver, </li>
+<li>(b) the particular encoding of code+specifications into SMT by OpenJML, and</li>
+<li>(c) the complexity and style in which the code and specifications are written.</li>
+</ul>
+
+<p>
+<b>The key goal of OpenJML is to implement a full tool for JML that is easy for practitioners and students
+to use to specify and verify Java programs. 
+In addition, however, and corresponding to the points above, other goals of OpenJML are to provide challenge problems to 
+SMT solvers (point a), particularly around quantified expressions,
+to experiment with the encoding of code and specifications in OpenJML itself (point b)
+and to allow users to easily experiment with styles of specification writing (point c).
+</b>
+</p>
+<p>
+A summary of the features and the implementation status of OpenJML is 
+<a href="features.shtml">here</a>.
+</p>
+
+<p>
+Note that OpenJML requires Java 1.7 to run (and in particular one based on OpenJDK); it will not operate with Java 8.
+[OpenJML uses components of OpenJDK 1.7 and consequently must be run in the context of the rest of OpenJDK 1.7.]
+Such builds can be obtained from 
+<a href="http://www.oracle.com/technetwork/java/javase/downloads">the Oracle release site</a>.
+
+The source code for OpenJML is kept in sourceforge as a module of the 
+<a href="https://sourceforge.net/p/jmlspecs/code/HEAD/tree/">JML Project</a>.
+The JMLAnnotations and Specs projects (also modules of JML) are used by OpenJML.
+Information about creating a developer's environment for the OpenJML source
+can be found below.
+</p>
+ 
+<h3>Documentation</h3>
+<p>
+The OpenJML user guide is part of the download, but is also available 
+<a href="OpenJMLUserGuide.pdf">here (as pdf)</a> and as <a href="OpenJMLUserGuide.html">html</a>
+(or as <a href="OpenJMLUserGuide.html">one frame-less HTML page</a>).
+There is also an <a href="onlinemanual.shtml">online quick-start user guide</a>.
+</p>
+
+<h3>Command-line tool</h3>
+<p>
+The OpenJML command line tool can be downloaded as a
+<a href="openjml.tar.gz">tar.gz file</a> or a <a href="openjml.zip">zip file</a>.
+</p>
+
+
+<h3>Eclipse plug-in</h3>
+<p>
+The Update site for the Eclipse plug-in that encapsulates the OpenJML tool
+is <a href="http://jmlspecs.sourceforge.net/openjml-updatesite">http://jmlspecs.sourceforge.net/openjml-updatesite</a>.
+</p>
+
+
+<h3>Development of OpenJML</h3>
+<p>Developers contributing to OpenJML can retrieve a project-set file to download source code from SVN and 
+create the corresponding projects within Eclipse from 
+<a href="OpenJML-projectSet.psf">here</a>.
+</p>
+<p>Alternately, the set of SVN commands needed to checkout all the pieces of the
+OpenJML source code into the directory structure expected by Eclipse (or to be used by some other tool) is
+<a href="svn_commands">here</a>.
+</p>
+<p>
+The general instructions for setting up a development environment are found on the <a href="https://sourceforge.net/p/jmlspecs/wiki/OpenJmlSetup">JML wiki</a>.
+</p>
+
+
+    <!-- end customized content -->
+
+<p class="note">
+      
+      Last modified  MODDATE.
+  </p>
+  
+  </div>
+  </div>
+
+  </body>
+
+</html>
+
+
