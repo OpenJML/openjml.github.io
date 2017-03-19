@@ -1,0 +1,1443 @@
+---
+layout: default
+title: Features | OpenJML  
+---
+
+<link rel="stylesheet" href="/bower_components/bootstrap-vertical-tabs/bootstrap.vertical-tabs.min.css">
+  <!-- Example row of columns --> 
+  <div class="row">
+    <div class="col-md-12">
+      
+      <h1>Currently Supported Features</h1>
+      <div class="col-xs-9"> 
+	
+	<!-- Tab panes -->
+	<div class="tab-content">
+	  <div role="tabpanel" class="tab-pane active" id="t">
+
+	    <h3>Tools</h3>
+
+	    <table class="table table-bordered table-striped">
+	      <thead>
+		<th>Tool</th>
+		<th>Description</th>
+		<th>Status</th>
+	      </thead>
+	      <tr>
+		<td >Eclipse integration</td>
+		<td>Problem indication, source code browsing, auto static checking and runtime compilation, counterexample browsing are implemented; syntax coloring, JML_aware editing is in planning</td>
+		<td><span class="label label-success">Complete</span></td>
+	      </tr>
+	      <tr>
+		<td >static checking tool</td>
+		<td>See the feature status in the tables linked to the headings on the right</td>
+		<td><span class="label label-success">Complete</span></td>
+
+	      </tr>
+	      <tr>
+		<td >runtime assertion checking tool</td>
+		<td>See the feature status in the tables linked to the headings on the right</td>
+		<td><span class="label label-success">Complete</span></td>
+
+	      </tr>
+	      <tr>
+		<td >jmldoc tool</td>
+		<td>Specifications shown for all Java elements; needs implementation of model methods and model classes</td>
+		<td><span class="label label-warning">Planned</span></td>
+
+	      </tr>
+	      <tr>
+		<td >Test suite generation</td>
+		<td><a href="http://insttech.secretninjaformalmethods.org/software/jmlunitng/">See JMLUnitNG</a></td>
+		<td><span class="label label-success">Complete</span></td>
+
+	      </tr>
+	      <tr>
+		<td >high-coverage test case generation</td>
+		<td>Generating test cases using symbolic execution, guided by specifications; idealy working with
+            respect to a given test suite, so that test additions are found, not just a replacement test suite</td>
+		<td><span class="label label-warning">Planned</span></td>
+				
+	      </tr>
+	      <tr>
+		<td >specification discovery</td>
+		<td>Inferring or guessing specifications from the source code, both loop and procedure specifications</td>
+		<td><span class="label label-warning">Planned</span></td>
+		
+	      </tr>
+	      <tr>
+		<td >JML template generation</td>
+		<td>Generating simple default specifications, to guide the user on what specs need to be written</td>
+		<td><span class="label label-warning">Planned</span></td>
+
+	      </tr>
+	      <tr>
+		<td >multi-threaded checking</td>
+		<td>Writing and checking specifications for multi-threaded programs.</td>
+		<td><span class="label label-warning">Planned</span></td>
+
+	      </tr>
+	      <tr>
+		<td >specification checking using method inlining</td>
+		<td>In-lining (non-recursive) methods to avoid needing specifications for all methods.</td>
+		<td><span class="label label-warning">Planned</span></td>
+
+	      </tr>
+	    </table>
+
+
+	  </div>
+	  <div role="tabpanel" class="tab-pane" id="jle">
+
+	    <h3>Java language elements</h3>
+	    Except where indicated, all Java language elements through Java 7 are parsed, typechecked and compiled in RAC.
+	    Some elements are not modeled by OpenJML logic or have the corresponding checks inserted in RAC
+	    <ul>
+	      <li>Java through Java 4: All features are modeled and checked except
+		<ul>
+		  <li><font style="background-color:#FF4444">Enum classes</font>
+		  <li><font style="background-color:#FF4444">The synchronized modifier</font>
+		  <li><font style="background-color:#FF4444">The strictfp modifier</font>
+		  <li><font style="background-color:#FF4444">The volatile, transient, native modifiers</font>
+		</ul>
+	      <li>Java 5:
+		<ul>
+		  <li><font style="background-color:#FFFF44">Generic types : partially modeled by ESC.</font>
+		  <li><font style="background-color:#44FF44">Enhanced for loop: Modeled and checked using JML's loop annotations</font>
+		  <li><font style="background-color:#44FF44">Autoboxing/unboxing: (OK for Java, needed yet for JML expression)</font></li>
+		  <li><font style="background-color:#FFFF44">Typesafe enums : enums are not modeled by ESC; they are compiled but not checked by RAC</font>
+		  <li><font style="background-color:#44FF44">Static import : OK</font> <font style="background-color:#FFFF44">( but JML model imports are treated just like Java imports)</font>
+		  <li><font style="background-color:#FF4444">Varargs : Not yet modeled or checked</font></li>
+		  <li><font style="background-color:#FF4444">Java annotations : No checks on annotations are modeled by ESC or compiled by RAC</font>.
+		</ul>
+	      <li>Java 6: No language changes
+
+	      <li>Java 7:
+		<ul>
+		  <li><font style="background-color:#44FF44">binary literals: Implemented</font></li>
+		  <li><font style="background-color:#44FF44">literals with underscores: Implemented</font></li>
+		  <li><font style="background-color:#FF4444">Strings in switch statements: Implemented</font></li>
+		  <li><font style="background-color:#44FF44">try with resources: Implemented except recording of suppressed exceptions</font></li>
+		  <li><font style="background-color:#44FF44">Catching multiple exception types</font></li>
+		  <li><font style="background-color:#FF4444">Type inference: NOT implemented</font></li>
+		  <li><font style="background-color:#FF4444">Runtime errors associated with varargs parameter lists: NOT implemented</font></li>
+		</ul>
+	      <li>Java 8:
+		<ul>
+		  <li><font style="background-color:#FF4444">lambda expressions</font></li>
+		  <li><font style="background-color:#FF4444">enhancements to annotations (including JSR308)</font></li>
+		</ul>
+
+
+	  </div>
+	  <div role="tabpanel" class="tab-pane" id="gjffear">
+
+	    <h3>General JML features for ESC and RAC</h3>
+	    <table class="table table-bordered table-striped">
+	      <thead>
+		<th></th>
+		<th>Level</th>
+		<th>Parser</th>
+		<th>Type Checker</th>
+		<th>Static Checker</th>
+		<th>Runtime Checker</th>
+		<th>Comments</th>
+	      </thead>
+
+	      	
+
+	      <tr>
+		<td>JML annotation comments</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>Optional JML annotations (e.g. //+ESC@ )</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>model imports</td>
+		<td align=center>1</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-warning">OK*</span></td>
+		<td align=center ><span class="label label-warning">OK*</span></td>
+		<td align=center ><span class="label label-warning">OK*</span></td>
+		<td>Model imports are treated just like regular Java imports</td>
+	      </tr>
+	      <tr>
+		<td>nowarn annotations</td>
+		<td align=center>2</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>JML modifiers as Java annotations (e.g. @NonNull) </td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>Specification files (.jml)</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td >The search algorithm for specification files is not standardized</td>
+	      </tr>
+	      <tr>
+		<td>Specifications in class files (via JIR or BML)</td>
+		<td align=center></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td>Not yet implemented.</td>
+	      </tr>
+	      <tr>
+		<td>Library specifications</td>
+		<td align=center>0?</td>
+		<td align=center ><span class="label label-warning">OK*</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td>Many JDK library specifications must still be written and tuned to static and runtime checking. RAC compiles checks into the caller, but not into the library itself.</td>
+	      </tr>
+	      <tr>
+		<td>field, method, constructor keywords</td>
+		<td align=center>2</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td>These keywords are simply parsed and ignored</td>
+	      </tr>
+	      <tr>
+		<td>\not_specified</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td>OpenJML treats a specification clause using \not_specified the same as if the clause were not present.</td>
+	      </tr>
+	      <tr>
+		<td>Synonyms</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td>All JML keyword synonyms are implemented (e.g. exsures, pre, post, assignable vs. modifiable, behaviour vs. behavior)</td>
+	      </tr>
+	      <tr>
+		<td>*_redundantly keywords</td>
+		<td align=center>1</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center >--</td>
+		<td align=center >--</td>
+		<td>Keywords ending in _redundantly are treated just like the corresponding non-redundant keyword; ideally they are handled differently by ESC or can be separately disabled in RAC</td>
+	      </tr>
+	      <tr>
+		<td>Java or JML comments embedded in JML comments</td>
+		<td align=center >Z?</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td>It is under discussion whether embedded comments are legal syntax.</td>
+	      </tr>
+	    </table>
+
+
+
+	  </div>
+	  <div role="tabpanel" class="tab-pane" id="ts">
+
+	    <h3>Type specifications</h3>
+	    <table class="table table-bordered table-striped">
+	      <thead>
+		<th></th>
+		<th>Level</th>
+		<th>Parser</th>
+		<th>Type Checker</th>
+		<th>Static Checker</th>
+		<th>Runtime Checker</th>
+		<th>Comments</th>
+	      </thead>
+	      <tr>
+		<td>ghost fields</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>model fields</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-warning">OK*</span></td>
+		<td align=center ><span class="label label-warning">OK*</span></td>
+		<td>Model fields have tricky semantics in ESC; RAC implements model fields incompletely for inherited fields and represents clauses</td>
+	      </tr>
+	      <tr>
+		<td>model methods</td>
+		<td align=center>1</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>model classes and interfaces</td>
+		<td align=center>3</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>invariant</td>
+		<td align=center>0,1</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td>instance invariants are Level 0; static invariants are level 1</td>
+	      </tr>
+
+	      <tr>
+		<td>constraint</td>
+		<td align=center>1</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-warning">OK*</span></td>
+		<td align=center ><span class="label label-warning">OK*</span></td>
+		<td>The optional 'for' suffix of constraint clauses is not checked</td>
+	      </tr>
+
+	      <tr>
+		<td>represents</td>
+		<td align=center>0,2</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-warning">OK*</span></td>
+		<td>Functional represents clauses are level 0; \such_that clauses are level 2; RAC/ESC need implementation for multiple or inherited represents clauses</td>
+	      </tr>
+
+	      <tr>
+		<td>axiom</td>
+		<td align=center>1</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center >N/A</td>
+		<td>When checking a method, axioms are included for all classes mentioned in the body of the method.</td>
+	      </tr>
+
+	      <tr>
+		<td>initially</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>initializer, static_initializer</td>
+		<td align=center>1</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	    </table>
+
+	  </div>
+	  <div role="tabpanel" class="tab-pane" id="ms">
+
+	    <h3>Method specifications</h3>
+	    <table class="table table-bordered table-striped">
+	      <thead>
+		<th></th>
+		<th>Level</th>
+		<th>Parser</th>
+		<th>Type Checker</th>
+		<th>Static Checker</th>
+		<th>Runtime Checker</th>
+		<th>Comments</th>
+	      </thead>
+	      <tr>
+		<td>inherited specifications</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>lightweight specifications</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>heavyweight specifications</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>implies_that specifications</td>
+		<td align=center>1</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td>parsed, checked, and ignored</td>
+	      </tr>
+	      <tr>
+		<td>for_example specifications</td>
+		<td align=center>1</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td>parsed, checked, and ignored</td>
+	      </tr>
+	      <tr>
+		<td>model programs</td>
+		<td align=center>2</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td>parsed, checked, and ignored</td>
+	      </tr>
+	      <tr>
+		<td><tt>code</tt> modifier</td>
+		<td align=center>3</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>requires</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>ensures</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>signals</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>signals_only</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td>Some outstanding implementation issues with default clauses</td>
+	      </tr>
+	      <tr>
+		<td>modifies,assignable,modifiable</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-warning">OK*</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td>Checks of assignable statements are implemented, but the appropriate havoc statements on calling a method with 
+		  array index range expressions are imcomplete</td>
+	      </tr>
+	      <tr>
+		<td>diverges</td>
+		<td align=center>2</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>forall</td>
+		<td align=center>1</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>old</td>
+		<td align=center>1</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>callable</td>
+		<td align=center>2</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>accessible</td>
+		<td align=center>2</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>captures</td>
+		<td align=center>2</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>when</td>
+		<td align=center>C</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>measured_by</td>
+		<td align=center>2</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>duration, working_space</td>
+		<td align=center>2</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>choose, choose_if</td>
+		<td align=center>2</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>model program continues, breaks, returns statements</td>
+		<td align=center>2</td>
+		<td align=center ><span class="label label-warning">OK*</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td>Optional labels on these statements is not parsed.</td>
+	      </tr>
+	    </table>
+
+	    
+	  </div>
+	  <div role="tabpanel" class="tab-pane" id="fs">
+
+	    <h3>Field specifications</h3>
+	    <table class="table table-bordered table-striped">
+	      <thead>
+		<th></th>
+		<th>Level</th>
+		<th>Parser</th>
+		<th>Type Checker</th>
+		<th>Static Checker</th>
+		<th>Runtime Checker</th>
+		<th>Comments</th>
+	      </thead>
+	      <tr>
+		<td>in</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>maps</td>
+		<td align=center>1</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>readable, writable</td>
+		<td align=center>2</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>monitors_for</td>
+		<td align=center>C</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td></td>
+	      </tr>
+	    </table>
+
+	    
+
+	  </div>
+	  <div role="tabpanel" class="tab-pane" id="jt">
+
+	    <h3>JML types</h3>
+	    <table class="table table-bordered table-striped">
+	      <thead>
+		<th></th>
+		<th>Level</th>
+		<th>Parser</th>
+		<th>Type Checker</th>
+		<th>Static Checker</th>
+		<th>Runtime Checker</th>
+		<th>Comments</th>
+	      </thead>
+	      <tr>
+		<td>\TYPE</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-warning">OK*</span></td>
+		<td align=center ><span class="label label-warning">OK*</span></td>
+		<td>There is some cleanup to be done of the semantics and implementation of \TYPE in conjunction with Java generics</td>
+	      </tr>
+	      <tr>
+		<td>\bigint</td>
+		<td align=center>1</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td>
+		  <a href="references.shtml#Arithmetic">see Chalin, 2004</a>
+		</td>
+	      </tr>
+	      <tr>
+		<td>\real</td>
+		<td align=center>2</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td></td>
+	      </tr>
+	    </table>
+
+
+	  </div>
+
+	  <div role="tabpanel" class="tab-pane" id="je">
+
+
+	    <h3>JML expressions</h3>
+	    <table class="table table-bordered table-striped">
+	      <thead>
+		<th></th>
+		<th>Level</th>
+		<th>Parser</th>
+		<th>Type Checker</th>
+		<th>Static Checker</th>
+		<th>Runtime Checker</th>
+		<th>Comments</th>
+	      </thead>
+	      <tr>
+		<td>==&gt; &lt;== &lt;==&gt; &lt;=!=&gt; operators</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>&lt;: operator (subtype)</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>&lt;# &lt;=# operators</td>
+		<td align=center>C</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td>These are lock-ordering operators</td>
+	      </tr>
+	      <tr>
+		<td>pure method calls in specification expressions</td>
+		<td align=center>1</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td>No recursion allowed, currently</td>
+	      </tr>
+	      <tr>
+		<td>\result</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>\old, \pre</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td >There are on-going discussions about the semantics of cross-state comparisons</td>
+	      </tr>
+	      <tr>
+		<td > \past</td>
+		<td align=center>?</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td >This feature is under discussion as an addition or replacement for \old</td>
+	      </tr>
+	      <tr>
+		<td>\fresh</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>\nonnullelements</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span> (uses quantification)</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>\elemtype</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>\typeof</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>\type</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>\lblneg, \lblpos</td>
+		<td align=center>2</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td >\lbl</td>
+		<td align=center>Z</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td>\lbl is an extension</td>
+	      </tr>
+	      <tr>
+		<td >\key</td>
+		<td align=center>Z</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td>\key is an extension</td>
+	      </tr>
+	      <tr>
+		<td>Quantified expressions: \forall, \exists, \max, \min</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-warning">OK*</span></td>
+		<td align=center ><span class="label label-warning">OK*</span></td>
+		<td>RAC is implemented for expressions with just one declaration; not all provers handle quantification</td>
+	      </tr>
+	      <tr>
+		<td>Quantified expressions: \num_of, \sum, \product</td>
+		<td align=center>1</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-warning">OK*</span></td>
+		<td>RAC is implemented for expressions with just one declaration; proposed extensions not yet implemented. SMT solvers do not generally handle induction well, as needed for these operators.</td>
+	      </tr>
+	      <tr>
+		<td>Set comprehension</td>
+		<td align=center>1</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td >There are outstanding issues regarding this feature</td>
+	      </tr>
+	      <tr>
+		<td>\not_modified</td>
+		<td align=center>2</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center >-(not implemented for model fields or for o.*, a[*] and a[..] syntax, semantics for x.f is under consideration)</td>
+		<td align=center >-(same as above)</td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>\not_assigned, \only_accessed<br>
+		  \only_assigned, \only_called, \only_captured</td>
+		<td align=center>2</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>\reach</td>
+		<td align=center>2</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>\is_initialized</td>
+		<td align=center>2</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>\invariant_for</td>
+		<td align=center>2</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>\duration, \space, \working_space</td>
+		<td align=center>3</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>\lockset, \max</td>
+		<td align=center>C</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>\same</td>
+		<td align=center>3</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td >semantics needs clarification</td>
+	      </tr>
+	      <tr>
+		<td >\index, \values</td>
+		<td align=center>Z</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td >Extensions to specify for-each loops</td>
+	      </tr>
+	      <tr>
+		<td>\peer, \rep, \readonly</td>
+		<td align=center>0,X</td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>\warn_op, \warn, \nowarn_op, \nowarn</td>
+		<td align=center>2</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td>Parsed, but treated as a no-op</td>
+	      </tr>
+	      <tr>
+		<td>\java_math, \safe_math, \bigint_math</td>
+		<td align=center>2</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-warning">OK*</span></td>
+		<td align=center ><span class="label label-warning">OK*</span></td>
+		<td>Partially implemented</td>
+	      </tr>
+	      <tr>
+		<td>Informal expression</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td>The (* *) form is translated to true; the proposed functional form  - JML.informal(\_) - is also implemented.</td>
+	      </tr>
+	      <tr>
+		<td>Let expression (introduced at Dagstuhl 2009)</td>
+		<td align=center>?</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td >Would be nice to have a such-that form of let.</td>
+	      </tr>
+	    </table>
+
+	    
+	  </div>
+	  <div role="tabpanel" class="tab-pane" id="sre">
+
+	    <h3>Store-ref expressions</h3>
+	    <table class="table table-bordered table-striped">
+	      <thead>
+		<th></th>
+		<th>Level</th>
+		<th>Parser</th>
+		<th>Type Checker</th>
+		<th>Static Checker</th>
+		<th>Runtime Checker</th>
+		<th>Comments</th>
+	      </thead>
+	      <tr>
+		<td>\nothing, \everything</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>x, o.f, T.f, a[i] syntax</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>o.*, T.*, a[1..2], a[*] syntax</td>
+		<td align=center>2?</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td >a[1..] syntax</td>
+		<td align=center>Z</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	    </table>
+
+
+	  </div>
+	  <div role="tabpanel" class="tab-pane" id="js">
+
+	    <h3>JML statements</h3>
+	    <table class="table table-bordered table-striped">
+	      <thead>
+		<th></th>
+		<th>Level</th>
+		<th>Parser</th>
+		<th>Type Checker</th>
+		<th>Static Checker</th>
+		<th>Runtime Checker</th>
+		<th>Comments</th>
+	      </thead>
+	      <tr>
+		<td>specifications on local Java class declarations</td>
+		<td align=center>1</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td>The specs are checked to the extent they are on other declarations</td>
+	      </tr>
+	      <tr>
+		<td>specifications on anonymous class declarations</td>
+		<td align=center>1</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td>The specs are checked to the extent they are on other declarations</td>
+	      </tr>
+	      <tr>
+		<td>ghost variable declarations</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>assert statement</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>assume statement</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>set statement</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td >Need to clarify the permitted syntax</td>
+	      </tr>
+	      <tr>
+		<td>debug statement</td>
+		<td align=center>2</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td >Need to clarify the permitted syntax</td>
+	      </tr>
+	      <tr>
+		<td>loop_invariant</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+	      <tr>
+		<td>decreases</td>
+		<td align=center>1</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>refining</td>
+		<td align=center>2</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>unreachable</td>
+		<td align=center>2</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td >reachable</td>
+		<td align=center>2</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td>This is an extension</td>
+	      </tr>
+	      <tr>
+		<td>hence_by</td>
+		<td align=center>2</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td></td>
+	      </tr>
+	    </table>
+
+
+	  </div>
+	  <div role="tabpanel" class="tab-pane" id="mojd">
+
+	    <h3>Modifiers on JML declarations</h3>
+	    JML modifiers can be expressed in either JML form (e.g. /*@ pure */) or in Java form(e.g. @org.jmlspecs.org.Pure).
+	    <table class="table table-bordered table-striped">
+	      <thead>
+		<th></th>
+		<th>Level</th>
+		<th>Parser</th>
+		<th>Type Checker</th>
+		<th>Static Checker</th>
+		<th>Runtime Checker</th>
+		<th>Comments</th>
+	      </thead>
+	      <tr>
+		<td>public, protected, private</td>
+		<td align=center>0?</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>spec_public, spec_protected</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>instance, static on interface declarations</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td >is instance allowed anywhere?</td>
+	      </tr>
+	      <tr>
+		<td>helper</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>ghost, model</td>
+		<td align=center></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>pure</td>
+		<td align=center>1</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td>Pure is implemented but is too strong to be useful; see secret and query</td>
+	      </tr>
+	      <tr>
+		<td>monitored</td>
+		<td align=center>C</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>uninitialized</td>
+		<td align=center>1</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td >query, secret</td>
+		<td align=center>Z</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-warning">OK*</span></td>
+		<td align=center ><span class="label label-warning">OK*</span></td>
+		<td>Extension</td>
+	      </tr>
+	      <tr>
+		<td>code_bigint_math, code_java_math, code_safe_math,<br>
+		  spec_bigint_math, spec_java_math, spec_safe_math</td>
+		<td align=center>2</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-warning">OK*</span></td>
+		<td align=center ><span class="label label-warning">OK*</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>non_null, nullable</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td></td>
+	      </tr>
+	      <tr>
+		<td>nullable_by_default</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td >This one or its complement is an extension</td>
+	      </tr>
+	      <tr>
+		<td>non_null_by_default</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td >This one or its complement is an extension</td>
+	      </tr>
+	      <tr>
+		<td>Universe types: peer, rep, \peer, \rep</td>
+		<td align=center>0</td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td>Universe annotations are parsed and ignored</td>
+	      </tr>
+	      <tr>
+		<td>Universe types: readonly, \readonly</td>
+		<td align=center><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-success">OK</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td align=center ><span class="label label-danger">X</span></td>
+		<td>Universe annotations are parsed and ignored</td>
+	      </tr>
+	      <tr>
+		<td>extract</td>
+		<td align=center>2</td>
+		<td align=center ><span class="label label-success">OK</span>?</td>
+		<td align=center >X?</td>
+		<td align=center >X?</td>
+		<td align=center >X?</td>
+		<td>Insufficiently defined in the reference manual</td>
+	      </tr>
+	    </table>
+
+
+
+	  </div>
+	  <div role="tabpanel" class="tab-pane" id="oetj">
+
+	    <h3>OpenJML extensions to JML</h3>
+	    <ul>
+	      <li>The \lbl expression</li>
+	      <li>The \key expression</li>
+	      <li>The \values and \index expressions (used with for-each loops)</li>
+	      <li>The \distinct expression</li>
+	      <li>Flexibility in writing method specifications? Optional 'also'? an else?</li>
+	      <li>Query and Secret annotations</li>
+	      <li>The use of Java or JML comments within JML comments</li>
+	      <li>Predefined ESC and RAC and DOC and DEBUG annotation keys</li>
+	      <li>Predefined JAVA4 JAVA5 JAVA6 JAVA7 annotation keys</li>
+	      <li>The reachable statement</li>
+	    </ul>
+
+	  </div>
+	</div> <!-- tab content end -->
+      </div> <!-- / col end -->
+
+
+      
+      <div class="col-xs-3"> 
+	<ul class="nav nav-tabs tabs-right" role="tablist">
+	  <li role="presentation" class="active"><a href="#t" aria-controls="home" role="tab" data-toggle="tab">Tools</a></li>
+	  <li role="presentation"><a href="#jle" aria-controls="profile" role="tab" data-toggle="tab">Java Language Elements</a></li>
+	  <li role="presentation"><a href="#gjffear" aria-controls="messages" role="tab" data-toggle="tab">General JML Features for ESC and RAC</a></li>
+	  <li role="presentation"><a href="#ts" aria-controls="settings" role="tab" data-toggle="tab">Type Specifications</a></li>
+
+
+	  <li role="presentation"><a href="#ms" aria-controls="settings" role="tab" data-toggle="tab">Method Specifications</a></li>
+	  <li role="presentation"><a href="#fs" aria-controls="settings" role="tab" data-toggle="tab">Field Specifications</a></li>
+	  <li role="presentation"><a href="#jt" aria-controls="settings" role="tab" data-toggle="tab">JML Types</a></li>
+	  <li role="presentation"><a href="#je" aria-controls="settings" role="tab" data-toggle="tab">JML Expressions</a></li>
+
+
+	  <li role="presentation"><a href="#sre" aria-controls="settings" role="tab" data-toggle="tab">Store-Ref Expressions</a></li>
+	  <li role="presentation"><a href="#js" aria-controls="settings" role="tab" data-toggle="tab">JML statements</a></li>
+	  <li role="presentation"><a href="#mojd" aria-controls="settings" role="tab" data-toggle="tab">Modifiers on JML declarations</a></li>
+	  <li role="presentation"><a href="#oetj" aria-controls="settings" role="tab" data-toggle="tab">OpenJML extensions to JML</a></li>
+	</ul>
+      </div>
+
+
+
+
+
+
+
+    </div> <!-- col -->
+  </div> <!-- row -->
+
+
+  <div class="row">
+
+      <B>Key:</B>
+      <ul>
+	<li> <span class="label label-success">OK</span> = implemented within OpenJML</li>
+	<li> <span class="label label-warning">OK*</span> = implemented with some restrictions</li>
+	<li> -- = implemented with significant restrictions</li>
+	<li> <span class="label label-danger">X</span> = not or only partially implemented</li>
+	<li> ? = definition of the feature is under discussion</li>
+      </ul>
+      <B>Level:</B> The level column gives the language level of the feature as defined in the JML Reference Manual.
+      <ul>
+	<li>0 = supported by a minimal tool</li>
+	<li>1 = supported and used by most tools and specifications</li>
+	<li>2 = generally useful but more specialized features</li>
+	<li>3 = uncommonly used features</li>
+	<li>C = features related to concurrency</li>
+	<li>X = experimental features</li>
+	<li>Z = extensions (not defined as even experimental for JML)</li>
+      </ul>
+
+
+    
+  </div>
+ 
