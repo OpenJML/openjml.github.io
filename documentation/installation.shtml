@@ -98,6 +98,7 @@ Further instructions are given <a href="#Execution">below</a>.
 </li>
 </ul> 
 
+<a name="plugininstallation"/>
 <h2>Installation - Eclipse plug-in</h2>
 
 <h3>Installing Eclipse</h3>
@@ -139,7 +140,8 @@ that code as an Eclipse Project:
 <li>Click Finish</li>
 <li>(This converts the directory into an Eclipse project by adding a <code>.project</code> file</li>
 </ul>
-<li>Instructions for using the plug-in can be found in the OpenJML User Guide; some documentation is present at links below and elsewhere on this site.</li>
+<li>Instructions for using the plug-in can be found in the OpenJML User Guide; 
+some documentation is present at links below and elsewhere on this site, such as <a href="plugin.shtml">here</a>.</li>
 </ul>
 
 
@@ -371,13 +373,11 @@ java -jar <i>$OJ</i>/openjml.jar -doc -no-purityCheck </code><i>files-or-package
 </div>
  -->
  
-<p class="note">
-      
+<p class="note">    
 <script language="Javascript">
 document.write("This page was last modified on: " + document.lastModified +"");
 </SCRIPT>
-
-  </p>
+</p>
   
   </div>
   </div>
