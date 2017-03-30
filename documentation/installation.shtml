@@ -50,41 +50,98 @@ The functionality is available
 </ul>
 
 <p>
+<a href="#requirements">System requirements</a><br/>
 <a href="#installation">Installation</a><br/>
 <a href="#Execution">Execution</a><br/>
 <a href="plugin.shtml">OpenJML in Eclipse</a>
 </p>
 
+<a name="requirements"/>
+<h2>System requirements: OS and Java</h2>
+
+<p>OpenJML requires</p>
+     <ul>
+	<li>A modern operating system such as Windows 7, Mac OS X, or Linux capable of running Java.</li>
+	<li>A JDK for Java 8, such as OpenJDK or Oracle's JDK (Java 8 required, not 9 or 7). Java can be installed from</li>
+	<ul>
+	<li><a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Oracle's Java site</a></li>
+	</ul>
+      </ul>
+
+
 <a name="installation"/>
-<h2>Installation</h2>
+<h2>Installation - Command-line Java application</h2>
 
 <p>
-To install the <b>command-line tool</b>, complete these steps: [TBD - revise the discussion of SMT solvers ]
+To install the <b>command-line tool</b>, complete these steps:
 </p>
 <ul>
-<li>download the <a href="openjml.zip">zip file</a> or the <a href="openjml.tar.gz">tar.gz file</a>. 
-Then select (creating if necessary) a folder of your choice to hold the installation, cd to that directory, and either
+<li>Download a <a href="http://jmlspecs.sourceforge.net/openjml.zip">zip</a> or <a href="http://jmlspecs.sourceforge.net/openjml.tar.gz">tar file</a>. </li>
+<li>Select (creating if necessary) a folder of your choice to hold the installation (referred to here as <i>$OJ</i>), cd to that directory, and either
 <ul>
 <li>unzip the .zip file: <code>gunzip openjml.zip</code></li>
 <li>or, untar the tar.gz file: <code>tar -xvfz openjml.tar.gz</code></li>
 </ul>
+The <i>$OJ</i> folder should contain a file <code>openjml.jar</code>, among others.
 </li>
 <li>For static checking, you will need an SMT solver. Make a choice from the
 list <a href="#SMT">below</a>, and install it according to its instructions.</li>
+<li>Customize the installation for your local system:</li>
+<ul>
+<li>Make a copy of the file <i>$OJ</i><code>/openjml-template.properties</code> as <code>openjml.properties</code>.
+<li>Edit the file to record the absolute path to the SMT solver you installed.
+<li>Edit other aspects of the file to customize your installation as described in the OpenJML User Guide; some documentation is present at links below and elsewhere on this site.
 </ul> 
+<li>You can run OpenJML with a command-line like<br>
+<code>java -jar </code><i>$OJ</i><code>/openjml.jar -help</code><br>
+Further instructions are given <a href="#Execution">below</a>.
+</li>
+</ul> 
+
+<h2>Installation - Eclipse plug-in</h2>
+
+<h3>Installing Eclipse</h3>
+<p>Note that you need Java 8 on your system to use OpenJML through Eclipse.</p>
+<p>You can download and install Eclipse from <a href="http://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/neon3">here</a>.
+You should download the 'Eclipse IDE for Java Developers' package, version Neon.2 or later.
+(Other packages may do as well as long as they have support for Java development.)
+
+<h3>Installing the plug-in</h3>
 <p>
 To install the <b>Eclipse plug-in</b>, use the Eclipse mechanism for installing
 plug-ins from an update site, using this URL for the update site: 
 <code>http://jmlspecs.sourceforge.net/openjml-updatesite</code>.
-The plug-in works with the Eclipse Kepler SR2 and Luna 4.4.0ff releases; 
-most functionality may work with the Juno release (Eclipse 4.2.2ff), but support for Juno is deprecated..
+The plug-in works with the Eclipse Neon.2 and later releases.
+After installation and restarting, you should see a 'JML' entry in the top menu bar.
 </p><p>
 The plug-in also needs SMT solvers as described above, for static checking.
 </p><p>
 Before performing static checking with the plug-in, you need to open the 
-OpenJML Solvers preference page, set a default prover (yices2 or z3_4_3),
+OpenJML Solvers preference page, set a default prover (e.g., z3_4_3),
 and enter the absolute path on your system to the prover executable.
 </p>
+<p>
+If you have a directory tree of code to which you want to apply OpenJML, it is most convenient to import
+that code as an Eclipse Project:
+<ul>
+<li>Start Eclipse in a new workspace.</li>
+<li>Close the welcome page that may be showing</li>
+<li>If the code is already a shared Eclipse project (e.g., because it is shared in a code repository such as git), then</li>
+<ul>
+<li>Choose File &gt;&gt; Import &gt;&gt; General &gt;&gt; Existing Projects into Workspace</li>
+<li>Click 'Browse' and navigate to the directory containing your source code</li>
+<li>Click Finish</li>
+</ul>
+<li>If the code is just a directory tree, then </li>
+<ul>
+<li>Choose File &gt;&gt; Import &gt;&gt; General &gt;&gt; Projects from Folder or Archive</li>
+<li>Click the 'Directory' button and navigate to the folder containing your source code</li>
+<li>Click Finish</li>
+<li>(This converts the directory into an Eclipse project by adding a <code>.project</code> file</li>
+</ul>
+<li>Instructions for using the plug-in can be found in the OpenJML User Guide; some documentation is present at links below and elsewhere on this site.</li>
+</ul>
+
 
 <a name="SMT"/>
 <h2>SMT provers</h2>
@@ -93,6 +150,7 @@ In general, OpenJML can use any SMT-LIBv2-compliant
 solver, but since tools vary in their SMT-compliance and their support for various logics, 
 adapter code is often needed. OpenJML has been tested with 
 </p>
+<p>THESE LINKS NEED UPDATING</p>
 <ul>
 <li><a href="http://z3.codeplex.com/">Z3</a> (version 4.3) on Windows and Mac (not quite working yet on Linux)</li>
 <li><a href="http://cvc4.cs.nyu.edu">CVC4</a> (version 1.2) on Windows</li>
@@ -104,13 +162,15 @@ adapter code is often needed. OpenJML has been tested with
 <h2>Execution</h2>
 
 <p>
-To execute OpenJML, you need
+To execute OpenJML (command-line version), you need
 </p>
 <ul>
-<li>An appropriate Java VM: Java 7</li>
+<li>An appropriate Java VM: Java 8</li>
 <li>A copy of the OpenJML release. The release
 contains the openjml.jar, jmlspecs.jar, and jmlruntime.jar files.
-The release may be installed anywhere you like. In the examples below, the (absolute path or path relative to the current working directory to the) installation directory is indicated by <i>$INSTALL</I></li>
+The release may be installed anywhere you like. 
+In the examples below, the (absolute path or path relative to the current working directory to the) 
+installation directory is indicated by <i>$OJ</I></li>
 <li>For static checking, an appropriate SMT solver.</li>
 </ul>
 
@@ -132,7 +192,7 @@ The OpenJML tool operates like a Java compiler, on a set of files.  For example,
 <div style="background-color:lightblue">
  <pre>
 
-java -jar <I>$INSTALL</I>/openjml.jar -no-purityCheck A.java
+java -jar <I>$OJ</I>/openjml.jar -no-purityCheck A.java
 
 </pre> 
 </div>
@@ -175,12 +235,13 @@ of provers above and select one or more to install on your system.
 <p>
 To run the static checker, use a command-line like the following, substituting 
 the path to the (in this case Z3) executable in your system. If you are using
-yices, substitute "yices2" for "z3_4_3".
+yices, substitute "yices2" for "z3_4_3". If you have customized your environment by putting the solver path in
+the <code>openjml.properties</code> file, then the <code>-exec</code> option and its argument may be omitted.
 </p>
 <div style="background-color:lightblue">
 <pre>
 
-java -jar <i>$INSTALL</i>/openjml.jar -esc -prover z3_4_3 -exec <em>path-to-executable</em> -no-purityCheck B.java
+java -jar <i>$OJ</i>/openjml.jar -esc -prover z3_4_3 -exec <em>path-to-executable</em> -no-purityCheck B.java
 
 </pre>
 </div>
@@ -244,18 +305,19 @@ To compile the JML specifications in the given files and in any files that they 
 <div style="background-color:lightblue">
 <pre>
 
-java -jar <i>$INSTALL</i>/openjml.jar -rac -noPurityCheck B.java
+java -jar <i>$OJ</i>/openjml.jar -rac -noPurityCheck B.java
 
 </pre>
 </div>
 
 <p>
-Then execute this command (the jmlruntime.jar is part of the OpenJML installation -- include the full path to that library as needed)
+Then execute this command (the jmlruntime.jar is part of the OpenJML installation -- include the full path to that library as needed).
+(Use a colon instead of a semicolon in the classpath on Linux and MacOS systems.)
 </p>
 <div style="background-color:lightblue">
 <pre>
 
-java -classpath ".;<i>$INSTALL</i>/jmlruntime.jar" B
+java -classpath ".;<i>$OJ</i>/jmlruntime.jar" B
 
 </pre>
 </div>
@@ -303,7 +365,7 @@ To produce javadoc files with JML specifications inserted, use the following com
 <div style="background-color:lightblue">
 <pre>
 
-java -jar <i>$INSTALL</i>/openjml.jar -doc -no-purityCheck </code><i>files-or-packages</i>
+java -jar <i>$OJ</i>/openjml.jar -doc -no-purityCheck </code><i>files-or-packages</i>
 
 </pre>
 </div>
@@ -311,16 +373,20 @@ java -jar <i>$INSTALL</i>/openjml.jar -doc -no-purityCheck </code><i>files-or-pa
  
 <p class="note">
       
-      Last modified  MODDATE.
+<script language="Javascript">
+document.write("This page was last modified on: " + document.lastModified +"");
+</SCRIPT>
+
   </p>
   
   </div>
   </div>
 
+<!--
 <p class="title">Valid</p>
 <p><a href="http://validator.w3.org/check/referer">XHTML 1.0</a></p>
 <p><a href="http://jigsaw.w3.org/css-validator/check/referer">CSS2</a></p>
-
+-->
 
 
   </body>
