@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+  <head>
+    <link href="../css/openjml.css" rel="STYLESHEET" type="text/css" />
+    <meta name="description" content="OpenJML, formal methods tool for Java and the Java Modeling Language (JML)" />
+    <link rel="SHORTCUT ICON" href="favicon.ico"/>
+
+    <!-- customize the page title -->
+    <title>Running OpenJML</title>
+    <!-- end customized page title -->
+    </head>
+
+<body>
+  
+
+  
+<div id="rest">  
+
+<img class="center" src="jml-logo-small64.png" alt="JML Logo" />
+
+<div id="banner">
+ <h1><a name="top">OpenJML
+     (<span style="color:#006000">J</span><span style="color:#a00000">M</span><span style="color:#000090">L</span>)
+      </a>
+    </h1>
+</div>
+
+
+<div id="content">
+
+
+<h2 align="center">Running OpenJML (Command-line version)</h2>
+<p>
+OpenJML is a tool for working with logical annotations in Java programs. It
+enables static or run-time checking of the validity of the annotations; it also
+provides an enhanced version of javadoc that includes the annotations in the
+javadoc documentation.
+</p>
+<a name="Execution"/>
+
+<p>
+To execute OpenJML (command-line version), you need
+</p>
+<ul>
+<li>An appropriate Java VM: Java 8</li>
+<li>A copy of the OpenJML release. The release
+contains the openjml.jar, jmlspecs.jar, and jmlruntime.jar files.
+The release may be installed anywhere you like. 
+In the examples below, the (absolute path or path relative to the current working directory to the) 
+installation directory is indicated by <i>$OJ</I></li>
+<li>For static checking, an appropriate SMT solver.</li>
+</ul>
+
+
+<p>
+There are a few important topics for the user to know; these are discussed at the indicated links:
+</p>
+<ul>
+<li><a href="paths.shtml">How source files, class files, and specification files are specified by the user and found by OpenJML</a></li>
+<li><a href="commandline.shtml">Command-line options</a></li>
+<li><a href="checks.shtml">The set of checks the tools perform</a></li>
+</ul>
+
+<h3>Type-checking</h3>
+
+<p>
+The OpenJML tool operates like a Java compiler, on a set of files.  For example, the command
+</p>
+<div style="background-color:lightblue">
+ <pre>
+
+java -jar <I>$OJ</I>/openjml.jar -no-purityCheck A.java
+
+</pre> 
+</div>
+<p>
+will type-check the Java and JML in the A.java file and any classes on which it depends.
+Include the full absolute or relative path to the openjml.jar file as needed.
+(The <code>-noPurityCheck</code> option suppresses many warnings about the use of non-pure functions, since the JDK libraries are not yet populated with appropriate pure annotations.)
+</p><p>
+For example, put the following text in a file named <code>A.java</code> and execute the command above. 
+</p>
+<div style="background-color:lightblue">
+ <pre>
+public class A {
+
+  //@ ensures \result == true;
+  public void m() {}
+
+}
+</pre> 
+</div>
+<p>
+The following output is obtained:
+</p>
+<div style="background-color:lightblue">
+<pre>
+A.java:3: A \result expression may not be used in the specification of a method that returns void
+  //@ ensures \result == true;
+               ^
+1 error
+</pre>
+</div>
+
+
+<h3>Static checking</h3>
+<p>
+To perform static checking of the JML specifications you will need an SMT solver 
+to determine logical satisfiability. See the installation instructions and the list
+of provers above and select one or more to install on your system.
+</p>
+<p>
+To run the static checker, use a command-line like the following, substituting 
+the path to the (in this case Z3) executable in your system. If you are using
+yices, substitute "yices2" for "z3_4_3". If you have customized your environment by putting the solver path in
+the <code>openjml.properties</code> file, then the <code>-exec</code> option and its argument may be omitted.
+</p>
+<div style="background-color:lightblue">
+<pre>
+
+java -jar <i>$OJ</i>/openjml.jar -esc -prover z3_4_3 -exec <em>path-to-executable</em> -no-purityCheck B.java
+
+</pre>
+</div>
+<p>
+For example, place the following text in the file <code>B.java</code> and execute the command above.
+</p>
+<div style="background-color:lightblue">
+ <pre>
+public class B {
+
+  static int j,k;
+
+  //@ requires i >= 0;
+  //@ modifies j;
+  //@ ensures j == i;
+  public static void setj(int i) {
+    k = i;
+  }
+
+  //@ ensures j == 1;
+  public static void main(String[] args) {
+    setj(3);
+  }
+
+}
+</pre> 
+</div>
+
+
+<p>
+The following output is produced:
+</p>
+<div style="background-color:lightblue">
+ <pre>
+B.java:9: warning: The prover cannot establish an assertion (Assignable) in method setj
+    k = i;
+      ^
+B.java:6: warning: Associated declaration
+  //@ modifies j;
+      ^
+B.java:13: warning: The prover cannot establish an assertion (Postcondition) in method main
+  public static void main(String[] args) {
+                     ^
+B.java:12: warning: Associated declaration
+  //@ ensures j == 1;
+      ^
+4 warnings
+</pre> 
+</div>
+<ul>
+<li>The first two messages point out that the specification of the method <code>setj</code> states that the field <code>j</code> (and nothing else) is modified by the method, but the method actually modifies <code>k</code>.
+</li>
+<li>The second pair of messages points out that the call of <code>setj</code> in method <code>main</code> does not satisfy the postcondition; the "Associated declaration" warning that follows indicates the violated postcondition.
+</li>
+</ul>
+
+<h3>Runtime assertion checking</h3>
+<p>
+To compile the JML specifications in the given files and in any files that they reference as assertions to be checked at runtime, use the -rac option:
+</p>
+<div style="background-color:lightblue">
+<pre>
+
+java -jar <i>$OJ</i>/openjml.jar -rac -noPurityCheck B.java
+
+</pre>
+</div>
+
+<p>
+Then execute this command (the jmlruntime.jar is part of the OpenJML installation -- include the full path to that library as needed).
+(Use a colon instead of a semicolon in the classpath on Linux and MacOS systems.)
+</p>
+<div style="background-color:lightblue">
+<pre>
+
+java -classpath ".;<i>$OJ</i>/jmlruntime.jar" B
+
+</pre>
+</div>
+
+<p>
+The following output is produced:
+</p>
+<div style="background-color:lightblue">
+<pre>
+B.java:9: JML An item is assigned that is not in the assignable statement
+    k = i;
+      ^
+B.java:6: Associated declaration
+  //@ modifies j;
+      ^
+B.java:8: JML postcondition is false
+  public static void setj(int i) {
+                     ^
+B.java:7: Associated declaration
+  //@ ensures j == i;
+      ^
+B.java:14: JML postcondition is false
+    setj(3);
+        ^
+B.java:7: Associated declaration
+  //@ ensures j == i;
+      ^
+B.java:13: JML postcondition is false
+  public static void main(String[] args) {
+                     ^
+B.java:12: Associated declaration
+  //@ ensures j == 1;
+      ^
+</pre>
+</div>
+<p>
+Here you see a postcondition failure reported both by <code>setj</code>, which checks the postconditions on exit, and by <code>main</code>, which checks the postconditions of methods it calls when they return.
+In addition, the postcondition of <code>main</code> fails when <code>main</code> itself exits.
+</p>
+
+
+<!-- 
+<h3>Producing documentation</h3>
+To produce javadoc files with JML specifications inserted, use the following command:
+<div style="background-color:lightblue">
+<pre>
+
+java -jar <i>$OJ</i>/openjml.jar -doc -no-purityCheck </code><i>files-or-packages</i>
+
+</pre>
+</div>
+ -->
+ 
+<p class="note">    
+<script language="Javascript">
+document.write("This page was last modified on: " + document.lastModified +"");
+</SCRIPT>
+</p>
+  
+  </div>
+  </div>
+
+<!--
+<p class="title">Valid</p>
+<p><a href="http://validator.w3.org/check/referer">XHTML 1.0</a></p>
+<p><a href="http://jigsaw.w3.org/css-validator/check/referer">CSS2</a></p>
+-->
+
+
+  </body>
+
+</html>
+
+ 
