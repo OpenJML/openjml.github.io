@@ -5,25 +5,22 @@ title: Downloads | OpenJML
   <div class="row">
     <div class="col-md-12">
       <h1>Downloads</h1>
-      <p>OpenJML is a tool for working with logical annotations in Java programs. It enables static or run-time checking of the validity of the annotations, with other features in planning.
-      <p>The following software packages are available:</p>
+      <p>OpenJML is a tool for working with logical annotations in Java programs. It enables static or run-time checking of the validity of the annotations, with other features underway.
+      <p>The tool is available as either </p>
       <ul>
-	<li>A command-line tool to do type-checking, static checking or runtime checking</li>
-	<li>An Eclipse plug-in which allows you to use OpenJML from within the Eclipse IDE</li>
+	<li>a command-line Java application or</li>
+	<li>as an Eclipse plugin.</li>
       </ul>
-
       
-      <h2>OpenJML (Command Line Tool)</h2>
-
-      The OpenJML command line tool may be downloaded via one of the download links, below. OpenJML has the following system requirements:
+      Information about the system requirements and installation can be found <a href="../documentation/installation.shtml">here</a>.
       
-      <ul>
-	<li>A modern operating system such as Windows 7, Mac OS X, or Linux capable of running Java.</li>
-	<li>A JDK, such as OpenJDK or Oracle's JDK (currently Java 7 only)</li>
-      </ul>
-
-      In order to use the static checking capabilities of OpenJML, you will need to install a theorem prover. The following provers are supported by OpenJML:
       
+
+<h2>SMT solvers</h2>
+ 
+<p>In order to use the static checking capabilities of OpenJML, you will need to install a theorem prover. 
+The following provers are supported by OpenJML:
+</p>      
 
       <ul>
 	<li><a href="http://z3.codeplex.com/">Z3</a> (version 4.3) on Windows and Mac (not quite working yet on Linux)</li>
@@ -31,11 +28,27 @@ title: Downloads | OpenJML
 	<li><a href="http://yices.csl.sri.com/">Yices3</a> (version 2.1) on Windows or Mac OSX</li>
 
       </ul>
+      
+      <h2>OpenJML (Command Line Tool)</h2>
 
+      <p>The OpenJML command line tool may be downloaded via the green download link button, below.</p>
+ 
       <div align="center"> 
 	<p><a class="btn btn-success btn-lg" href="https://github.com/OpenJML/OpenJML/releases/" role="button">Download OpenJML (All Platforms) </a></p>
       </div> 
 
+     <p>
+     The download retrieves a .zip or .tar.gz file. 
+     Unzip or untar the file into a new directory or your choice (call it <i>$OJ</i>).
+      <i>$OJ</i> should contain openjml.jar and other files.
+      </p>
+      
+      <p>You can run OpenJML by, for example, this command-line.</p>
+      
+      <code>java -jar <i>$OJ</i>/openjml.jar -help</code>
+      
+      <p>Instructions about running OpenJML can be found here.</p>
+      
       
       
       <h2>Eclipse Plugin (Includes OpenJML)</h2>
