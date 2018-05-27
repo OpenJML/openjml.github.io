@@ -36,9 +36,7 @@
 <h2 align="center">Running OpenJML (Command-line version)</h2>
 <p>
 OpenJML is a tool for working with logical annotations in Java programs. It
-enables static or run-time checking of the validity of the annotations; it also
-provides an enhanced version of javadoc that includes the annotations in the
-javadoc documentation.
+enables static or run-time checking of the validity of the annotations.
 </p>
 <a name="Execution"/>
 
@@ -52,7 +50,6 @@ contains the openjml.jar, jmlspecs.jar, and jmlruntime.jar files.
 The release may be installed anywhere you like. 
 In the examples below, the (absolute path or path relative to the current working directory to the) 
 installation directory is indicated by <i>$OJ</I></li>
-<li>For static checking, an appropriate SMT solver.</li>
 </ul>
 
 
@@ -73,14 +70,13 @@ The OpenJML tool operates like a Java compiler, on a set of files.  For example,
 <div style="background-color:lightblue">
  <pre>
 
-java -jar <I>$OJ</I>/openjml.jar -no-purityCheck A.java
+java -jar <I>$OJ</I>/openjml.jar A.java
 
 </pre> 
 </div>
 <p>
-will type-check the Java and JML in the A.java file and any classes on which it depends.
+will type-check the Java and JML in the A.java file and any classes on which A.java depends.
 Include the full absolute or relative path to the openjml.jar file as needed.
-(The <code>-noPurityCheck</code> option suppresses many warnings about the use of non-pure functions, since the JDK libraries are not yet populated with appropriate pure annotations.)
 </p><p>
 For example, put the following text in a file named <code>A.java</code> and execute the command above. 
 </p>
@@ -109,20 +105,12 @@ A.java:3: A \result expression may not be used in the specification of a method 
 
 <h3>Static checking</h3>
 <p>
-To perform static checking of the JML specifications you will need an SMT solver 
-to determine logical satisfiability. See the installation instructions and the list
-of provers above and select one or more to install on your system.
-</p>
-<p>
-To run the static checker, use a command-line like the following, substituting 
-the path to the (in this case Z3) executable in your system. If you are using
-yices, substitute "yices2" for "z3_4_3". If you have customized your environment by putting the solver path in
-the <code>openjml.properties</code> file, then the <code>-exec</code> option and its argument may be omitted.
+To run the static checker, use a command-line like the following.
 </p>
 <div style="background-color:lightblue">
 <pre>
 
-java -jar <i>$OJ</i>/openjml.jar -esc -prover z3_4_3 -exec <em>path-to-executable</em> -no-purityCheck B.java
+java -jar <i>$OJ</i>/openjml.jar -esc B.java
 
 </pre>
 </div>
@@ -133,18 +121,20 @@ For example, place the following text in the file <code>B.java</code> and execut
  <pre>
 public class B {
 
-  static int j,k;
+  static /*@ spec_public*/ int j,k;
 
   //@ requires i >= 0;
   //@ modifies j;
   //@ ensures j == i;
   public static void setj(int i) {
     k = i;
+    return;
   }
 
   //@ ensures j == 1;
   public static void main(String[] args) {
     setj(3);
+    return;
   }
 
 }
@@ -153,29 +143,41 @@ public class B {
 
 
 <p>
-The following output is produced:
+The following output is produced; the various pairs of warnings can be output in any order:
 </p>
 <div style="background-color:lightblue">
  <pre>
-B.java:9: warning: The prover cannot establish an assertion (Assignable) in method setj
-    k = i;
-      ^
-B.java:6: warning: Associated declaration
-  //@ modifies j;
-      ^
-B.java:13: warning: The prover cannot establish an assertion (Postcondition) in method main
-  public static void main(String[] args) {
-                     ^
-B.java:12: warning: Associated declaration
+B.java:16: warning: The prover cannot establish an assertion (Postcondition: B.java:13: ) in method main
+    return;
+    ^
+B.java:13: warning: Associated declaration: B.java:16: 
   //@ ensures j == 1;
       ^
-4 warnings
+B.java:10: warning: The prover cannot establish an assertion (Postcondition: B.java:7: ) in method setj
+    return;
+    ^
+B.java:7: warning: Associated declaration: B.java:10: 
+  //@ ensures j == i;
+      ^
+B.java:9: warning: The prover cannot establish an assertion (Assignable: B.java:6: ) in method setj:  k
+    k = i;
+      ^
+B.java:6: warning: Associated declaration: B.java:9: 
+  //@ modifies j;
+      ^
+6 warnings
 </pre> 
 </div>
 <ul>
-<li>The first two messages point out that the specification of the method <code>setj</code> states that the field <code>j</code> (and nothing else) is modified by the method, but the method actually modifies <code>k</code>.
+<li>The message about line 9 says that variable k is being assigned, but is not
+indicated in the specification (on line 6) as being permitted to be modified.
 </li>
-<li>The second pair of messages points out that the call of <code>setj</code> in method <code>main</code> does not satisfy the postcondition; the "Associated declaration" warning that follows indicates the violated postcondition.
+<li>The message about line 10 says thet at this exit from the method, 
+a postcondition (on line 7) is not true. Changing the assignment statement to 
+<code>j = i</code> will fix this and the previous warning.
+</li>
+<li>The message about line 13 says that the postcondition on line 10 is not true on exit from the method. This can be fixed by changing the expression in the
+ensures clause to <code>j == 3</code>.
 </li>
 </ul>
 
@@ -186,7 +188,7 @@ To compile the JML specifications in the given files and in any files that they 
 <div style="background-color:lightblue">
 <pre>
 
-java -jar <i>$OJ</i>/openjml.jar -rac -noPurityCheck B.java
+java -jar <i>$OJ</i>/openjml.jar -rac B.java
 
 </pre>
 </div>
@@ -208,28 +210,16 @@ The following output is produced:
 </p>
 <div style="background-color:lightblue">
 <pre>
-B.java:9: JML An item is assigned that is not in the assignable statement
-    k = i;
-      ^
-B.java:6: Associated declaration
-  //@ modifies j;
-      ^
 B.java:8: JML postcondition is false
   public static void setj(int i) {
                      ^
-B.java:7: Associated declaration
+B.java:7: Associated declaration: B.java:8: 
   //@ ensures j == i;
       ^
 B.java:14: JML postcondition is false
-    setj(3);
-        ^
-B.java:7: Associated declaration
-  //@ ensures j == i;
-      ^
-B.java:13: JML postcondition is false
   public static void main(String[] args) {
                      ^
-B.java:12: Associated declaration
+B.java:13: Associated declaration: B.java:14: 
   //@ ensures j == 1;
       ^
 </pre>
