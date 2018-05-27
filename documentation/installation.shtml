@@ -76,20 +76,17 @@ The functionality is available
 To install the <b>command-line tool</b>, complete these steps:
 </p>
 <ul>
-<li>Download a <a href="http://jmlspecs.sourceforge.net/openjml.zip">zip</a> or <a href="http://jmlspecs.sourceforge.net/openjml.tar.gz">tar file</a>. </li>
+<li>Download the <a href="http://jmlspecs.sourceforge.net/openjml.zip">release zip file</a>. </li>
 <li>Select (creating if necessary) a folder of your choice to hold the installation (referred to here as <i>$OJ</i>), cd to that directory, and either
 <ul>
-<li>unzip the .zip file: <code>gunzip openjml.zip</code></li>
-<li>or, untar the tar.gz file: <code>tar -xvfz openjml.tar.gz</code></li>
+<li>unzip the .zip file: <code>unzip openjml.zip</code></li>
+<li>or, if the file was automatically unzipped for you, move the contents of the unzipped folder to the folder you created.</li>
 </ul>
 The <i>$OJ</i> folder should contain a file <code>openjml.jar</code>, among others.
 </li>
-<li>For static checking, you will need an SMT solver. Make a choice from the
-list <a href="#SMT">below</a>, and install it according to its instructions.</li>
-<li>Customize the installation for your local system:</li>
+<li>Optionally, customize the installation for your local system:</li>
 <ul>
 <li>Make a copy of the file <i>$OJ</i><code>/openjml-template.properties</code> as <code>openjml.properties</code>.
-<li>Edit the file to record the absolute path to the SMT solver you installed.
 <li>Edit other aspects of the file to customize your installation as described in the OpenJML User Guide; some documentation is present at links below and elsewhere on this site.
 </ul> 
 <li>You can run OpenJML with a command-line like<br>
@@ -110,7 +107,7 @@ You should download the 'Eclipse IDE for Java Developers' package, version Neon.
 <h3>Installing the plug-in</h3>
 <p>Four CAUTIONS:</p>
 <ul>
-<li>This procedure adds the latest release of the OpenJML plu-ing to Eclipse. If you want to use the
+<li>This procedure adds the latest release of the OpenJML plug-in to Eclipse. If you want to use the
 latest <i>development</i> version or to contribute to development of OpenJML, follow the 
 instructions <a href="https://github.com/OpenJML/OpenJML/wiki/OpenJML-Development-Environment-Setup">here</a>.</li>
 <li>Installing a plug-in adds it to the Eclipse installation. Any workspace using the same Eclipse installation
@@ -127,12 +124,6 @@ plug-ins from an update site, using this URL for the update site:
 <code>http://jmlspecs.sourceforge.net/openjml-updatesite</code>.
 The plug-in works with the Eclipse Neon.2 and later releases.
 After installation and restarting, you should see a 'JML' entry in the top menu bar.
-</p><p>
-The plug-in also needs SMT solvers as described above, for static checking.
-</p><p>
-Before performing static checking with the plug-in, you need to open the 
-OpenJML Solvers preference page, set a default prover (e.g., z3_4_3),
-and enter the absolute path on your system to the prover executable.
 </p>
 <p>
 If you have a directory tree of code to which you want to apply OpenJML, it is most convenient to import
@@ -157,7 +148,7 @@ that code as an Eclipse Project:
 some documentation is present at links below and elsewhere on this site, such as <a href="plugin.shtml">here</a>.</li>
 </ul>
 
-
+<!--
 <a name="SMT"/>
 <h2>SMT provers</h2>
 <p>
@@ -172,14 +163,8 @@ adapter code is often needed. OpenJML has been tested with
 <li><a href="http://yices.csl.sri.com/">Yices</a> (version 2.1) on Windows or Mac OSX</li>
 <li>(Linux platforms may well work but have not been tested.)</li>
 </ul>
-
+-->
  
-<p class="note">    
-<script language="Javascript">
-document.write("This page was last modified on: " + document.lastModified +"");
-</SCRIPT>
-</p>
-  
   </div>
   </div>
 
