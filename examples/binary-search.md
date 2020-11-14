@@ -1,3 +1,7 @@
+---
+layout: default
+title: Binary Search | Examples | OpenJML
+---
 
 # OpenJML Examples: Binary Search
 
