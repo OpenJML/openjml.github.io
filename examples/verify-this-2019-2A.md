@@ -25,7 +25,7 @@ Start
 <div class="language-java" highlighter="rouge">
 <div class="highlight"><pre class="syntax"><code>
 
-<embed type="text/plain" src="https://github.com/OpenJML/OpenJML/raw/master/OpenJMLTest/test/verifythis-2019-2/Challenge2A.java">
+<embed type="text/plain" src="https://github.com/OpenJML/OpenJML/raw/master/OpenJMLTest/test/verifythis-2019-2/Challenge2A.java" width="500" height="2000">
 </code></pre></div></div>
 End
 
