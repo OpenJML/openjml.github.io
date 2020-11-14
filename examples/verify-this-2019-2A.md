@@ -4,6 +4,7 @@
     VerifyThis
 
 ```java
+{% include "Code.java" %}
 public class BinarySearch{}
 ```
 
