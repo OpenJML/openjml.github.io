@@ -10,7 +10,7 @@ This is Challenge 2A from the 2019 VerifyThis competition.
 The full text of the challenge is 
 [here](https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Verify%20This/Challenges%202019/cartesian_trees.pdf).
 
-The solution is [here](https://github.com/OpenJML/OpenJML/blob/master/OpenJMLTest/test/verifythis-2019-2/Challenge2A.java).
+The solution is [here](https://github.com/OpenJML/OpenJML/raw/master/OpenJMLTest/test/verifythis-2019-2/Challenge2A.java).
 
 In brief, given an array of integers, for each position of the array
 find the nearest position with a smaller index that has a smaller value.
@@ -25,7 +25,7 @@ Start
 <div class="language-java" highlighter="rouge">
 <div class="highlight"><pre class="syntax"><code>
 
-<embed type="text/plain" src="https://github.com/OpenJML/OpenJML/blob/master/OpenJMLTest/test/verifythis-2019-2/Challenge2A.java">
+<embed type="text/plain" src="https://github.com/OpenJML/OpenJML/raw/master/OpenJMLTest/test/verifythis-2019-2/Challenge2A.java">
 </code></pre></div></div>
 End
 
