@@ -1,4 +1,25 @@
 highlighter: rouge
 exclude: ["LICENSE", "README.md", "Vagrantfile", "bower.json", "hook.el", "npm-debug.log", "refresh.bat", "refresh_vagrant.sh", "texput.log"]
 
-theme: jekyll-theme-minimal
+
+title: OpenJML
+email: david.r.cok@gmail.com
+description: >- # this means to ignore newlines until "baseurl:"
+  This site contains general user-level information about OpenJML
+  including information about installation, use, examples, and documenetation.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://openjml.org" # the base hostname & protocol for your site
+
+# Build settings
+theme: minima
+##theme: jekyll-theme-minimal
+
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  header_offset: 1
+  input: GFM
+  syntax_highlighter_opts:
+    default_lang: dafny
+    css_class: 'syntax'
+
