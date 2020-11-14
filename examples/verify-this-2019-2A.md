@@ -5,7 +5,7 @@ title: VBerifyThis 2019 #2A | Examples | OpenJML
 
 # OpenJML Examples: Verify This 2019 2A
 
-This is Challenge 2A from the 20129 VerifyThis competition.
+This is Challenge 2A from the 2019 VerifyThis competition.
 The full text of the challenge is 
 [here](https://ethz.ch/content/dam/ethz/special-interest/infk/chair-program-method/pm/documents/Verify%20This/Challenges%202019/cartesian_trees.pdf)
 
