@@ -16,6 +16,6 @@ find the nearest position with a smaller index that has a smaller value.
 
 {% include Code.java %}
 
-![code](https://github.com/OpenJML/OpenJML/blob/master/OpenJMLTest/test/verifythis-2019-2/Challenge2A.java)
+<embed type="text" src="https://github.com/OpenJML/OpenJML/blob/master/OpenJMLTest/test/verifythis-2019-2/Challenge2A.java">
 ```
 
