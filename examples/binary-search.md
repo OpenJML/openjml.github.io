@@ -1,10 +1,10 @@
 
 # OpenJML Examples: Binary Search
 
-    This is the classic binary search algorithm for finding the location 
-    of a value in a sorted array.
+This is the classic binary search algorithm for finding the location 
+of a value in a sorted array.
 
-    ```java
+```java
     public class BinarySearch{}
-    ```
+```
 
