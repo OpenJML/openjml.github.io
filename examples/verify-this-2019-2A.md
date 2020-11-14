@@ -17,13 +17,15 @@ find the nearest position with a smaller index that has a smaller value.
 
 ```java
 
-{% include Code.java %}
+{% include_relative Challenge2A.java %}
 
 ```
 
 Start
-<div>
+<div class="language-java" highlighter="rouge">
+<div class="highlight"><pre class="syntax"><code>
+
 <embed type="text/plain" src="https://github.com/OpenJML/OpenJML/blob/master/OpenJMLTest/test/verifythis-2019-2/Challenge2A.java">
-</div>
+</code></pre></div></div>
 End
 
