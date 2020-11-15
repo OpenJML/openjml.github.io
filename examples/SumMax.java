@@ -7,12 +7,9 @@ public class SumMax {
     int max = a[0];
 
     //@ loop_invariant 0 <= i <= a.length;
-    //@ loop_invariant sum <= \count * max;
+    //@ loop_invariant sum <= \count * max;  // Assertion to be proved
     for (int i=0; i<a.length; i++) {
-      //@ assume sum + a[i] <= Integer.MAX_VALUE; // Just assume we never overflow
-      //@ assume sum + a[i] >= Integer.MIN_VALUE; // Just assume we never overflow
-      //@ assume max * a.length <= Integer.MAX_VALUE; // Just assume we never overflow
-      //@ assume max * a.length >= Integer.MIN_VALUE; // Just assume we never overflow
+      //@ assume Integer.MIN_VALUE <= sum + a[i] <= Integer.MAX_VALUE; // Just assume we never overflow
       sum += a[i];
       if (max < a[i]) max = a[i];
     }
