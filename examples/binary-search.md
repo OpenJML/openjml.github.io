@@ -9,6 +9,6 @@ This is the classic binary search algorithm for finding the location
 of a value in a sorted array.
 
 ```java
-    public class BinarySearch{}
+{% include_relative BinarySearchGood.java %}
 ```
 

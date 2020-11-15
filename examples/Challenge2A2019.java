@@ -1,6 +1,6 @@
 // This is Challenge 2A from VerifyThis 2019
 
-public class Challenge2A {
+public class Challenge2A2019 {
 
     //@ public normal_behavior
     //@ assigns \nothing;
