@@ -6,9 +6,9 @@ stated in its _postcondition_, which is written in an
 _ensures_ clause.
 
 Consider this example of a method that computes the maximum of four int values.
-```
+
 %include 'T_ensures1.java'
-```
+
 
 The *ensures* clauses just prior to the method declaration states two 
 properties that are expected to hold about the result, which is designated
@@ -21,7 +21,7 @@ The body of the function computes this result. Note that the specification
 states the properties of the result but does not state how it is computed.
 In fact, the same specification could be used with a different implementation:
 ```
-%include_relative "T_ensures1a.java"
+%include "T_ensures1a.java"
 ```
 
 Now how can we check that the implementation actually implements the specification? That is the (or one) purpose of the OpenJML tool.
@@ -34,9 +34,9 @@ Similarly, `openjml -esc tutorial/T_ensures1a.java` indicates that this
 second example also verifies.
 
 Now consider a third example:
-```
+
 %include_relative "T_ensures2.java"
-```
+
 
 Running `openjml -esc tutorial/T_ensures2.java` produces this output (and an error exit code):
 ```
