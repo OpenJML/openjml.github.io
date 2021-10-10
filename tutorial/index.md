@@ -7,17 +7,17 @@ Aside from the installation instructions, you can read the _General_ pages as ne
 
 The tutorial does not cover all aspects of JML and OpenJML. See also the 
 [JML Reference Manual](../documentation/JML_Reference_Manual.pdf)
-and the [OpenJML Reference Manual](OpenJMLUserGuide.pdf).
+and the [OpenJML Reference Manual](../documentation/OpenJMLUserGuide.pdf).
 
 
 
 * General
-  * [Introduction]
-  * [Installation]
-  * [Syntax]
-  * [Execution]
+  * [Introduction](Introduction)
+  * [Installation](Installation)
+  * [Syntax](Syntax)
+  * [Execution](Execution)
 
 * Simple Method Specifications
-  * [Postconditions]
-  * [Preconditions]
+  * [Postconditions](Postconditions)
+  * [Preconditions](Preconditions)
   * [Frame Conditions](FrameConditions)
