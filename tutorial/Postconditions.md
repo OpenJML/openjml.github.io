@@ -1,3 +1,4 @@
+# Postconditions (`ensures` clauses)
 
 A method's specification states what the method does,
 and not how it is done. The effect of a method is
@@ -9,7 +10,7 @@ Consider this example of a method that computes the maximum of four int values.
 %include 'T_ensures1.java'
 ```
 
-The *ensures* clauses just prior to the method declaration state two 
+The *ensures* clauses just prior to the method declaration states two 
 properties that are expected to hold about the result, which is designated
 by the keyword `\result`.
 
@@ -54,11 +55,11 @@ While in this case the error was in the implementation, the error might
 instead be in the specification. In fact, it is possible that the 
 specification and implementation agree, but that they differ from what the user intended.
 
-Another situation can be that the speicification is not very specific.
+Another situation can be that the specification is not very specific.
 For example, the postcondition could simply be `ensures true;`, which is the
 default if no `ensures` clause is given. In this case the implementation
 trivially satisfies the specification, _no matter what result the implementation returns_.
-In this case, while no problem arises in verifying the method, it would not be
+However, while no problem arises in verifying the method, it would not be
 possible to verify _uses_ of the method in some calling method (unless it
 indeed did not matter what result was returned). We will return to this 
 subject in [Calling Specified Methods](CallingSpecifiedMethods).
