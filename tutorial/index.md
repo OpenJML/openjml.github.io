@@ -6,18 +6,18 @@ in the form of an on-line tutorial.
 Aside from the installation instructions, you can read the _General_ pages as needed and dive right in to the section on Method Specifications.
 
 The tutorial does not cover all aspects of JML and OpenJML. See also the 
-(JML Reference Manual)[../documentation/JML_Reference_Manual.pdf]
-and the (OpenJML Reference Manual)[OpenJMLUserGuide.pdf].
+[JML Reference Manual](../documentation/JML_Reference_Manual.pdf)
+and the [OpenJML Reference Manual](OpenJMLUserGuide.pdf).
 
 
 
 * General
-  * (Introduction)
-  * (Installation)
-  * (Syntax)
-  * (Execution)
+  * [Introduction]
+  * [Installation]
+  * [Syntax]
+  * [Execution]
 
 * Simple Method Specifications
-  * (Postconditions)
-  * (Preconditions)
-  * (Frame Conditions)[FrameConditions)
+  * [Postconditions]
+  * [Preconditions]
+  * [Frame Conditions](FrameConditions)
