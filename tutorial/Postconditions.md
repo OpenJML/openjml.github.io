@@ -63,7 +63,8 @@ Now how can we check that the implementation actually implements the specificati
 If we execute (cf. [Execution](Execution))
 `openjml -esc tutorial/T_ensures1.java`
 we find that the openjml tool completes with no error messages and a success
-error code, indicating that implementation is verified.
+error code, indicating that the implementation is verified with respect to
+the given specification.
 
 Similarly, `openjml -esc tutorial/T_ensures1a.java` indicates that this
 second example also verifies.
@@ -112,8 +113,8 @@ T_ensures2.java:3: verify: Associated declaration: T_ensures2.java:18:
 
 The error message tells us that the specification and implementation are
 not consistent; in particular, the `ensures` clause on line 3 is not satisfied
-when the method exits on line 10. Some code inspection reveals that there
-is an error in the `if` condition on line 9: it should be `b > d` (as it is in example `T_ensures1.java`).
+when the method exits on line 18. Some code inspection reveals that there
+is an error in the `if` condition on line 9: it should be `b > d` (as it is in example `T_ensures1.java` above).
 
 OpenJML is able to provide more debugging information than just the error
 message. Tutorial examples are given under the [Debugging](Debugging) topic.
