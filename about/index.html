@@ -26,34 +26,29 @@ title: About | OpenJML
       with some elements of the
       <a href="http://www.ecs.soton.ac.uk/~mjb/refcalc-tut/home.html">
 	refinement calculus</a>. 
-      There is a web site for JML <a href="http://www.jmlspecs.org">here</a>, including a <a href="http://www.eecs.ucf.edu/~leavens/JML/jmlrefman/jmlrefman_toc.html">
-	Reference Manual</a> [<a href="http://www.jmlspecs.org/OldReleases/jmlrefman.pdf">PDF</a>]
-      [<a href="http://www.jmlspecs.org/OldReleases/jmlrefman.ps.gz">postscript</a>], 
-      references to key publications, 
-      links to groups that contribute to or use JML, 
-      and other documentation.
+      There is a web site for JML <a href="http://www.jmlspecs.org">here</a>.
     </p>
 
     <p>
-      OpenJML has the following capabilities:
+      OpenJML is a command-line tool that has the following capabilities:
     </p>
-    <ul>
-      <li>a command-line tool that enables</li>
       <ul>
 	<li><strong>parsing and type-checking</strong> of Java+JML programs</li>
 	<li><strong>static checking</strong> of JML annotations using backend SMT solvers</li>
 	<li><strong>runtime-assertion checking</strong>, using an extension of the OpenJDK Java compiler</li>
       </ul>
+<!--
       <li>an Eclipse plug-in that </li>
       <ul>
 	<li>encapsulates the capabilities of the command-line tool in an Eclipse GUI that provides many UI features appropriate to JML annotations</li>
 	<li>permits <strong>interactively exploring counter-examples </strong>resulting from failed attempts to verify assertions</li>
       </ul>
       <li>a programmatic API that gives programmatic access to the command-line tool capabilities from Java programs</li>
-    </ul>
+-->
 
     Other features that are in development include
     <ul>
+      <li>integration with IDEs like IntelliJ and Eclipse,
       <li>generation of javadoc documentation embellished with JML information,</li>
       <li>generation of annotation templates,</li>
       <li>inference of specifications from implementations,</li>
@@ -82,11 +77,13 @@ title: About | OpenJML
       The following have also contributed to OpenJML in various ways:
     </p>
     <ul>
+      <li>Gary Leavens, for collaboration on JML syntax and semantics, as well as bug reports and sponsoring senior design teams
       <li><a href="http://cs.ucf.edu/~jls">John Singleton</a> (@ UCF with Gary Leavens)
       <li>Dan Zimmerman, Marieke Huisman, Wojciech Mostowski, Arend Rensink and others for usability suggestions and bugs while preparing course materials
       <li>Gunjan Aggarwal (GrammaTech engineer) for reworking the organization of OpenJML testing
       <li>Joshua Robbins (NSF REU intern at GrammaTech) for debugging and testing
       <li>Daniel Houck (Harvey-Mudd undergraduate, under Dan Zimmerman) for the initial implementation of syntax coloring
+      <li>Varous senior design teams at UCF
       <li>all those that communicated bug reports and tested fixes
     </ul>
     <h1>Acknowledgements</h1>
@@ -97,6 +94,7 @@ title: About | OpenJML
 <li>NSF grant CCF0916350 supported some of Gary Leavens and John Singleton’s work.
 <li>NSF Grant ACI-1314674 supported some of David Cok’s work.
 <li>Work on some improvements and bug fixes was supported by Amazon.
+<li>Work on some improvements and bug fixes was supported by Goldman-Sachs.
 <li>Work on some improvements and bug fixes and documentation was supported by CEA (France).
 </ul>
 NSF Disclaimer: This material is based upon work supported by the National Science Foundation under the grants listed above. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation.

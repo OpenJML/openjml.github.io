@@ -6,49 +6,41 @@ title: Downloads | OpenJML
     <div class="col-md-12">
       <h1>Downloads</h1>
       <p>OpenJML is a tool for working with logical annotations in Java programs. It enables static or run-time checking of the validity of the annotations, with other features underway.
-      <p>The tool is available as either </p>
-      <ul>
-	<li>a command-line Java application or</li>
-	<li>as an Eclipse plugin.</li>
-      </ul>
+      <p>The tool is available as a standalone command-line application
+      for MacOS, Linux, and Windows Cygwin (same executable as Linux).
       
-      Information about the system requirements and installation can be found <a href="../documentation/installation.shtml">here</a>.
       
       
 
-<h2>SMT solvers</h2>
- 
-<P>OpenJML uses SMT solvers as logic checkers. A selection of supported solvers
-is bundled with the OpenJML release.
-      
-      <h2>OpenJML (Command Line Tool)</h2>
+      <h2>Installing OpenJML (Command Line Tool)</h2>
 
-      <p>The OpenJML command line tool may be downloaded via the green download link button, below.</p>
- 
-      <div align="center"> 
-	<p><a class="btn btn-success btn-lg" href="http://jmlspecs.sourceforge.net/openjml.zip" role="button">Download OpenJML (All Platforms) </a></p>
-      </div> 
+      <p>The OpenJML command line tool is OS-dependent. Download the 
+      appropriate release from the 
+        <a href="https://github.com/OpenJML/OpenJML/releases/latest">github latest release page</a>.
 
-     <p>(Alternately you can use the 
-        <a href="https://github.com/OpenJML/OpenJML/releases">github project releases page</a>).
      <p>
      The download retrieves a .zip file. 
      Unzip the file into a new directory of your choice (call it <i>$OJ</i>).
-      <i>$OJ</i> should contain openjml.jar and other files.
+      <i>$OJ</i> should contain the `openjml` executable and other files and folders.
      Some browsers or download utilities will automatically unzip the .zip file
      for you, leaving an unzipped folder in your downloads folder. You can move
-     the folder (with all its contents) to a location of your choice.
+     or rename the folder (with all its contents) to a location of your choice.
       </p>
       
-      <p>You can run OpenJML by, for example, this command-line.</p>
+      <p>If <i>$OJ</i> is the installation directory, then you can run openjml 
+      using the command line <i>$OJ</i><tt>/openjml</tt>. For example,
+      <i>$OJ</i><tt>/openjml -version</tt> will emit the version number of this build.
       
-      <p><code>java -jar <i>$OJ</i>/openjml.jar -help</code></p>
-      
-      <p>Instructions about running OpenJML can be found 
+      <p>Further instructions about running OpenJML can be found 
          <a href=https://www.openjml.org/documentation>here</a>.</p>
       
       
+<h2>SMT solvers</h2>
+ 
+<P>OpenJML uses <a href="http://smtlib.cs.uiowa.edu">SMT solvers</a> as logic checkers. A selection of supported solvers
+is bundled with the OpenJML release.
       
+<!--      
       <h2>Eclipse Plugin (Includes OpenJML)</h2>
       
       <p>The Update site for the Eclipse plug-in that encapsulates the OpenJML tool is <a href="http://jmlspecs.sourceforge.net/openjml-updatesite"><strong>http://jmlspecs.sourceforge.net/openjml-updatesite</strong></a>.</p>
@@ -57,5 +49,6 @@ is bundled with the OpenJML release.
       add the OpenJML plugin to your Eclipse installation.</p>
 
       
+-->
     </div>
   </div>  
