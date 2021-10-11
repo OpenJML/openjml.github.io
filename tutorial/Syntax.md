@@ -17,20 +17,62 @@ public class Z {
 }
 ```
 
+Note that (aside from conditional annotations described below) if a
+Java comment starting with `@` as its very first character is a JML annotation;
+anything else is silently considered a Java comment.
+
+One pitfall with annotations is the following. Java annotations 
+begin with `@` (such as `@Override`). Thus a commented out Java
+annotation might well read `//@Override`. But this is interpreted by
+JML tools as a JML annotation and will result in error messages.
+
+One way to avoid this ambiguity is to adopt the personal best practice
+of 
+* (1) always placing a space before the @ when commenting out Java annotations and
+* (2) always placing white space after the @ and before the JML keyword.
+
+If you have source text from elsewhere that is not modifiable and that contains
+these problematic java comments, you can also use the `-require-white-space`
+option so that Java comments like `//@Override` are not considered 
+erroneous JML annotations.
+
 Expressions must be contained entirely within one JML comment.
 
-Comments can be conditional, as described in the topic [Conditional Comments](ConditionalComments).
+Comments can be conditional, as described below.
 
 JML annotations are one of these types:
-* A modifier. Modifiers are single words, such as `pure`, that are syntactially similar to Java modifiers like `public` and `static`.
-
+* A modifier. Modifiers are single words, such as `pure`, that are syntactically similar to Java modifiers like `public` and `static`.
 * Clauses. A JML clause begins with a keyword, such as `ensures`, followed by
 an expression or other information, and ending with a semicolon. The semicolon
 is optional if it is just prior to the end of the JML comment.
-
 * Types. JML defines a number of new specification-only types, such as `\resl` and `\bigint`.
-
 * Expression tokens. These occur within JML expressions.
 They begin with a backslash (e.g., `\result`). They can be either 
 single workds (like `\result`) or function-like, such as `\old(x)`.
 
+# Advanced topic: Conditional Specifications
+
+JML annotations can be *conditional* upon defining various keys.
+
+Instead of beginning with either `//@` or `/*@`, ther `@` may be preceded by
+one or more instances of a `+` or `-` followed by a Java identifier.
+The identifiers are keys controlling whether the comment is ignored or not.
+Keys are defined as follows:
+* One or more keys can be defined on the command-line using the `-keys` option;
+the value of the option is a comma-separated list of identifiers.
+* The `ESC` key is defined if `-esc` is the current command option
+* The `RAC` key is defined if `-rac` is the current command option
+* The 'OPENJML' key is defined within the OpenJML tool
+* The 'KEY' key is reserved for the KeY tool
+
+A JML comment with some keys present in the comment is used (i.e., not ignored)
+if 
+* (a) at least one of the keys given with a `+` sign is defined and
+* (b) none of the keys with a `-` sign are defined
+So positive keys enable a comment and negative keys disable it, with any
+negative key overriding any positive ones.
+
+For example, a comment beginning `//-RAC@` will be used for typechecking (-check) and static checking (-esc), but ignored for runtime checking (-rac). A comment beginning `//+ESC` will only be used when `-esc` is being applied.
+The most common use of conditional JML annotations is the first example: to turn off 
+non-executable annotations during runtime-assertion checking but leave
+them in place for static checking.
