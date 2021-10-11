@@ -56,9 +56,12 @@ single workds (like `\result`) or function-like, such as `\old(x)`.
 
 JML annotations can be *conditional* upon defining various keys.
 
-Instead of beginning with either `//@` or `/*@`, ther `@` may be preceded by
+Instead of beginning with either `//@` or `/*@`, the `@` may be preceded by
 one or more instances of a `+` or `-` followed by a Java identifier.
 The identifiers are keys controlling whether the comment is ignored or not.
+No whitespace is permitted before the `@`; in fact, if the above syntax
+is not followed precisely, the Java comment will be silently just a Java comment and not a JML annotation.
+
 Keys are defined as follows:
 * One or more keys can be defined on the command-line using the `-keys` option;
 the value of the option is a comma-separated list of identifiers.
@@ -74,7 +77,7 @@ if
 So positive keys enable a comment and negative keys disable it, with any
 negative key overriding any positive ones.
 
-For example, a comment beginning `//-RAC@` will be used for typechecking (-check) and static checking (-esc), but ignored for runtime checking (-rac). A comment beginning `//+ESC` will only be used when `-esc` is being applied.
+For example, a comment beginning `//-RAC@` will be used for typechecking (-check) and static checking (-esc), but ignored for runtime checking (-rac). A comment beginning `//+ESC@` will only be used when `-esc` is being applied.
 The most common use of conditional JML annotations is the first example: to turn off 
 non-executable annotations during runtime-assertion checking but leave
 them in place for static checking.
