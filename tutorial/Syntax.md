@@ -12,6 +12,7 @@ as in
 /*@ requires x;
   @ ensures y;
   @*/
+void m() { ... }
 ```
 
 Expressions must be contained entirely within one JML comment.
