@@ -8,7 +8,7 @@ JML text is written in comments that either
 * b) begin with `/*@` and end with `*/`. Lines with such a block comment
 may have the first non-whitespace characters be a series of `@` symbols,
 as in
-```
+```java
 public class Z {
   /*@ requires x;
     @ ensures y;
