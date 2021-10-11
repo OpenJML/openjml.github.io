@@ -9,10 +9,12 @@ JML text is written in comments that either
 may have the first non-whitespace characters be a series of `@` symbols,
 as in
 ```
-/*@ requires x;
-  @ ensures y;
-  @*/
-void m() { ... }
+public class Z {
+  /*@ requires x;
+    @ ensures y;
+    @*/
+  void m() { ... }
+}
 ```
 
 Expressions must be contained entirely within one JML comment.
