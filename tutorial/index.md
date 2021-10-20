@@ -15,7 +15,6 @@ example is present as the `T_ensures1.java` file. From within the tutorial
 folder, you can run the example using `../openjml -esc T_ensures1.java`.
 Examples that produce output (e.g., error messages) have a corresponding `.out`
 file containing the expected output.
-~                                          
 
 
 * General
