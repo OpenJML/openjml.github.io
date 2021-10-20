@@ -9,7 +9,7 @@ The tutorial does not cover all aspects of JML and OpenJML. See also the
 [JML Reference Manual](../documentation/JML_Reference_Manual.pdf)
 and the [OpenJML Reference Manual](../documentation/OpenJMLUserGuide.pdf).
 
-**Tutorial Material** All of the examples in ths tutorial are part of the installation
+**Tutorial Material** All of the examples in this tutorial are part of the installation
 zip file, in the top-level `tutorial` folder. For example, the `T_ensures1`
 example is present as the `T_ensures1.java` file. From within the tutorial
 folder, you can run the example using `../openjml -esc T_ensures1.java`.
