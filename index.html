@@ -6,7 +6,9 @@ title: Home | OpenJML
   <div class="row">
     <div class="col-md-4">
       <h2>Verify Your Java Programs with JML</h2>
-      <p>The <a href="http://www.jmlspecs.org">Java Modeling Language</a> is a mature program specification language with nearly two decades of history. OpenJML is capable of checking Java programs annotated with specifications in the Java Modeling Language and provides robust support for many of JML's features.  </p>
+      <p>The <a href="http://www.jmlspecs.org">Java Modeling Language</a> is a mature program specification language with nearly two decades of history. OpenJML is capable of checking Java programs annotated with specifications in the Java Modeling Language and provides robust support for many of JML's features. 
+That is, OpenJML does deductive program verificatino to check that a program's
+implmentation (in Java) satisfies its specification (in JML). </p>
 <p>
 The goal of the OpenJML project is to implement a full tool for JML and current Java that is easy for practioners and students to use to specify and verify Java programs. In addition, the project seeks to advance the theory and experience of software verification in practical, industrially-relevant contexts.
 </p>
@@ -14,13 +16,13 @@ The goal of the OpenJML project is to implement a full tool for JML and current 
     </div>
     <div class="col-md-4">
       <h2>Support for Static and Runtime Checking</h2>
-      <p>Verification in OpenJML can be performed either by using our extended static checking facilities or by using our runtime assertion checking features. Runtime assertion checking is often easier to write specifications for whereas static checking gives stronger guarantees about program behavior.  </p>
+      <p>Verification in OpenJML can be performed either by using our static ideductive verification capability or by using our runtime assertion checking features. Runtime assertion checking is often easier to write specifications for whereas static checking gives stronger guarantees about program behavior.  </p>
 <p><b>To learn more, select one of the menu buttons at the top of this web page.</b></p>
     </div>
 <!--
     <div class="col-md-4">
       <h2>Integrates with Most Popular SMT Solvers</h2>
-      <p>OpenJML is not a theorem prover or model checker itself. OpenJML translates JML specifications into SMT-LIB format and passes the proof problems implied by the Java+JML program to backend SMT solvers. OpenJML supports major SMT solvers such as Z3, CVC4 and Yices. The success of the proofs will depend on the capability of the SMT solver (e.g., which logics it supports), the particular logical encoding of the code+specifications, and the complexity and style in which the code and specifications are written.</p>
+      <p>OpenJML is not a theorem prover or model checker itself. OpenJML translates JML specifications into SMT-LIB format and passes the proof problems implied by the Java+JML program to backend SMT solvers. OpenJML supports uses major  SMT solvers such as Z3 and CVC5. The success of the proofs will depend on the capability of the SMT solver, the particular logical encoding of the code+specifications, and the complexity and style in which the code and specifications are written.</p>
 <p><b>To learn more, select one of the menu buttons at the top of this web page.</b></p>
     </div>
 -->
