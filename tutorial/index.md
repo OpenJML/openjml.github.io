@@ -19,8 +19,8 @@ file containing the expected output.
 
 * General
   * [Installation](Installation)
-  * [Syntax](Syntax)
   * [Execution](Execution)
+  * [Syntax](Syntax)
 
 * Simple Method Specifications
   * [Postconditions](Postconditions)

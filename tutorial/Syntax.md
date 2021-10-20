@@ -32,9 +32,9 @@ of
 * (2) always placing white space after the @ and before the JML keyword.
 
 If you have source text from elsewhere that is not modifiable and that contains
-these problematic java comments, you can also use the `-require-white-space`
+these problematic Java comments, you can also use the `-require-white-space`
 option so that Java comments like `//@Override` are ignored and not considered 
-erroneous JML annotations. With thhis option ebnabled, JML annotations must
+erroneous JML annotations. With this option enabled, JML annotations must
 be written with white space, such as `//@ ensures...`, 
 and not `//@ensures`.
 
