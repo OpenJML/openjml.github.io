@@ -1,30 +1,54 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2022.6">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; color: #000000; -webkit-text-stroke: #000000}
-    p.p3 {margin: 0.0px 0.0px 12.0px 0.0px; font: 12.0px Times; color: #000000; -webkit-text-stroke: #000000}
-    span.s1 {font-kerning: none}
-    span.s2 {text-decoration: underline ; font-kerning: none; color: #0000e9; -webkit-text-stroke: 0px #0000e9}
-    span.s3 {font: 12.0px Courier; font-kerning: none}
-  </style>
-</head>
-<body>
-<p class="p1"><span class="s1">--- layout: default title: Downloads | OpenJML ---</span></p>
-<h1 style="margin: 0.0px 0.0px 16.1px 0.0px; font: 24.0px Times; color: #000000; -webkit-text-stroke: #000000"><span class="s1"><b>Downloads</b></span></h1>
-<p class="p3"><span class="s1">OpenJML is a tool for working with logical annotations for Java programs. It enables static or run-time checking of the validity of the annotations, with other features underway.<span class="Apple-converted-space"> </span></span></p>
-<p class="p3"><span class="s1">The tool is available as a standalone command-line application for MacOS, Linux(Ubuntu 18.04, 20.04), with Windows Cygwin in progress.<span class="Apple-converted-space"> </span></span></p>
-<h2 style="margin: 0.0px 0.0px 14.9px 0.0px; font: 18.0px Times; color: #000000; -webkit-text-stroke: #000000"><span class="s1"><b>Installing OpenJML (Command Line Tool)</b></span></h2>
-<p class="p3"><span class="s1">The OpenJML command line tool is OS-dependent. Download the appropriate release from the <a href="https://github.com/OpenJML/OpenJML/releases/latest"><span class="s2">github latest release page</span></a>.<span class="Apple-converted-space"> </span></span></p>
-<p class="p3"><span class="s1">The download retrieves a .zip file. Unzip the file into a new directory of your choice (call it <i>$OJ</i>). <i>$OJ</i> should contain the `openjml` executable and other files and folders. Some browsers or download utilities will automatically unzip the .zip file for you, leaving an unzipped folder in your downloads folder. You can move or rename the folder (with all its contents) to a location of your choice.<span class="Apple-converted-space"> </span></span></p>
-<p class="p3"><span class="s1">If <i>$OJ</i> is the installation directory, then you can run openjml using the command line <i>$OJ</i></span><span class="s3">/openjml</span><span class="s1">. For example, <i>$OJ</i></span><span class="s3">/openjml -version</span><span class="s1"> will emit the version number of this build.<span class="Apple-converted-space"> </span></span></p>
-<p class="p3"><span class="s1">Further instructions about running OpenJML can be found <a href="https://www.openjml.org/documentation"><span class="s2">here</span></a>.</span></p>
-<h2 style="margin: 0.0px 0.0px 14.9px 0.0px; font: 18.0px Times; color: #000000; -webkit-text-stroke: #000000"><span class="s1"><b>SMT solvers</b></span></h2>
-<p class="p3"><span class="s1">OpenJML uses <a href="https://smtlib.cs.uiowa.edu/"><span class="s2">SMT solvers</span></a> as logic checkers. A selection of supported solvers is bundled with the OpenJML release.<span class="Apple-converted-space"> </span></span></p>
-</body>
-</html>
+---
+layout: default
+title: Downloads | OpenJML  
+---
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Downloads</h1>
+      <p>OpenJML is a tool for working with logical annotations in Java programs. It enables static or run-time checking of the validity of the annotations, with other features underway.
+      <p>The tool is available as a standalone command-line application
+      for MacOS, Linux, and Windows Cygwin (same executable as Linux).
+      
+      
+      
+
+      <h2>Installing OpenJML (Command Line Tool)</h2>
+
+      <p>The OpenJML command line tool is OS-dependent. Download the 
+      appropriate release from the 
+        <a href="https://github.com/OpenJML/OpenJML/releases/latest">github latest release page</a>.
+
+     <p>
+     The download retrieves a .zip file. 
+     Unzip the file into a new directory of your choice (call it <i>$OJ</i>).
+      <i>$OJ</i> should contain the `openjml` executable and other files and folders.
+     Some browsers or download utilities will automatically unzip the .zip file
+     for you, leaving an unzipped folder in your downloads folder. You can move
+     or rename the folder (with all its contents) to a location of your choice.
+      </p>
+      
+      <p>If <i>$OJ</i> is the installation directory, then you can run openjml 
+      using the command line <i>$OJ</i><tt>/openjml</tt>. For example,
+      <i>$OJ</i><tt>/openjml -version</tt> will emit the version number of this build.
+      
+      <p>Further instructions about running OpenJML can be found 
+         <a href=https://www.openjml.org/documentation>here</a>.</p>
+      
+      
+<h2>SMT solvers</h2>
+ 
+<P>OpenJML uses <a href="http://smtlib.cs.uiowa.edu">SMT solvers</a> as logic checkers. A selection of supported solvers
+is bundled with the OpenJML release.
+      
+<!--      
+      <h2>Eclipse Plugin (Includes OpenJML)</h2>
+      
+      <p>The Update site for the Eclipse plug-in that encapsulates the OpenJML tool is <a href="http://jmlspecs.sourceforge.net/openjml-updatesite"><strong>http://jmlspecs.sourceforge.net/openjml-updatesite</strong></a>.</p>
+
+      <p>Use the "Install New Software" command within the Eclipse IDE to
+      add the OpenJML plugin to your Eclipse installation.</p>
+
+      
+-->
+    </div>
+  </div>  
