@@ -35,7 +35,7 @@ public class T_ensures1 {
 ```
 
 
-The *ensures* clauses just prior to the method declaration states two 
+The *ensures* clauses just prior to the method declaration state two 
 properties that are expected to hold about the result, which is designated
 by the keyword `\result`.
 
@@ -99,7 +99,7 @@ public class T_ensures2 {
 ```
 
 
-Running `openjml -esc tutorial/T_ensures2.java` produces this output (and an error exit code):
+Running `openjml -esc tutorial/T_ensures2.java` produces this output (and a non-zero exit code):
 <!-- T_ensures2.out -->
 ```
 T_ensures2.java:18: verify: The prover cannot establish an assertion (Postcondition: T_ensures2.java:3:) in method max
@@ -115,6 +115,7 @@ The error message tells us that the specification and implementation are
 not consistent; in particular, the `ensures` clause on line 3 is not satisfied
 when the method exits on line 18. Some code inspection reveals that there
 is an error in the `if` condition on line 9: it should be `b > d` (as it is in example `T_ensures1.java` above).
+This is the kind of cut&paste error that can be easy to miss during code inspection.
 
 OpenJML is able to provide more debugging information than just the error
 message. Tutorial examples are given under the [Debugging](Debugging) topic.

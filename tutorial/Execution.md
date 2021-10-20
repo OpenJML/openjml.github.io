@@ -10,7 +10,7 @@ or paths relative to the current working directory
 (not relative to the location of `openjml`).
 * Options begin with a single hyphen (e.g., `-quiet`). Options that take a value either (a) have the value follow the option as the next argument or (b) 
 (for OpenJML options only) use the syntax `-option=value`.
-For some options, the value may be a comma separated list; if the value contains
+For some options, the value may be a comma-separated list; if the value contains
 whitespace, it must be enclosed in quotes.
 
 The details of all the options are given in the [OpenJML Reference Manual](../documentation/OpenJMLUserGuide.pdf). A few are worth mentioning here:
@@ -32,5 +32,5 @@ The executable returns with one of these exit values:
 * 5 - exit because an operation was cancelled 
 * 6 - exit because of a verification failure
 
-The exit code for a verification failure can be changed to one of the other exti codes using the `-verify-exit` option.
+The exit code for a verification failure can be changed to one of the other exit codes using the `-verify-exit` option.
 

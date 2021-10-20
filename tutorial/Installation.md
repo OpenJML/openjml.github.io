@@ -10,6 +10,7 @@ a clean directory, though the location and name of the directory are up to the u
 * The executable is the script named `openjml` in the top-level of the 
 installation. Do not move or rename this file, but you may make a link to the
 file or place it on your system PATH.
+* On a mac you may need to run `mac-setup` to enable permissions for the downloaded executables. You may also need to install `realpath` (for example, using `brew install coreutils`), so that symbolic links can be resolved (you only need this if you make a symbolic link to openjml or other executables in the installation.)
 * OpenJML is a modified version of the OpenJDK `javac`. It is a standalone, 
 encapsulated executable; no installation of Java is needed to run it.
 

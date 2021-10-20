@@ -5,7 +5,7 @@ Accordingly, to a Java compiler, the JML text is just comment.
 
 JML text is written in comments that either
 * a) begin with `//@` and end with the end of the line, or
-* b) begin with `/*@` and end with `*/`. Lines with such a block comment
+* b) begin with `/*@` and end with `*/`. Lines within such a block comment
 may have the first non-whitespace characters be a series of `@` symbols,
 as in
 ```java
@@ -17,7 +17,7 @@ public class Z {
 }
 ```
 
-Note that (aside from conditional annotations described below) if a
+Note that (aside from conditional annotations described below) a
 Java comment starting with `@` as its very first character is a JML annotation;
 anything else is silently considered a Java comment.
 
@@ -47,10 +47,10 @@ JML annotations are one of these types:
 * Clauses. A JML clause begins with a keyword, such as `ensures`, followed by
 an expression or other information, and ending with a semicolon. The semicolon
 is optional if it is just prior to the end of the JML comment.
-* Types. JML defines a number of new specification-only types, such as `\resl` and `\bigint`.
+* Types. JML defines a number of new specification-only types, such as `\real` and `\bigint`.
 * Expression tokens. These occur within JML expressions.
 They begin with a backslash (e.g., `\result`). They can be either 
-single workds (like `\result`) or function-like, such as `\old(x)`.
+single words (like `\result`) or function-like, such as `\old(x)`.
 
 # Advanced topic: Conditional Specifications
 
@@ -67,13 +67,14 @@ Keys are defined as follows:
 the value of the option is a comma-separated list of identifiers.
 * The `ESC` key is defined if `-esc` is the current command option
 * The `RAC` key is defined if `-rac` is the current command option
-* The 'OPENJML' key is defined within the OpenJML tool
-* The 'KEY' key is reserved for the KeY tool
+* The `OPENJML` key is defined within the OpenJML tool
+* The `KEY` key is reserved for the KeY tool
 
 A JML comment with some keys present in the comment is used (i.e., not ignored)
 if 
 * (a) at least one of the keys given with a `+` sign is defined and
 * (b) none of the keys with a `-` sign are defined
+
 So positive keys enable a comment and negative keys disable it, with any
 negative key overriding any positive ones.
 
