@@ -24,8 +24,8 @@ Use `-classpath` or `-cp` just as you would for `javac`.
 ## Exit codes
 
 The executable returns with one of these exit values:
-* 0 - success, though possibly warnings or informational message may have been emitted
-* 1 - errors occurredi, such as parsing or type checking errors
+* 0 - success, though possibly warnings or informational messages may have been emitted
+* 1 - errors occurred, such as parsing or type checking errors
 * 2 - an error in interpreting the command-line arguments
 * 3 - a system error, such as out of memory
 * 4 - a fatal error, such as an internal inconsistency or an unexpected exception
@@ -34,11 +34,3 @@ The executable returns with one of these exit values:
 
 The exit code for a verification failure can be changed to one of the other exti codes using the `-verify-exit` option.
 
-## Tutorial material
-
-All of the examples in the [tutorial](../index) are part of the installation
-zip file, in the top-level `tutorial` folder. For example, the `T_ensures1`
-example is present as the `T_ensures1.java` file. From within the tutorial
-folder, you can run the example using `../openjml -esc T_ensures1.java`.
-Examples that produce output (e.g., error messages) have a corresponding `.out`
-file containing the expected output.
