@@ -1,0 +1,24 @@
+This folder contains the files for the on-line tutorial.
+The files are in GitHub markup.
+Unfortunately, GitHub does not support file includes,
+which makes inserting code examples a nuisance.
+
+We want to be able to test the code examples, so we need them i
+and thier output in standalone files.
+We can either (1) write the examples directly in the file
+and use a tool to extract them or (2) write them in separate
+files and use a tool to assemble the .md files.
+
+We are doing the latter. Any file that desires to have an %include
+is written as a .mdt file. The the ./insert_includes script
+inserts the contents of included files into the .mdt file and
+produces a corresponding .md file, if there is any change.
+
+The .md files, although they are generated, need to be committed to
+the repo so that github will display them as part  of thte github pages
+for www.openjml.org.
+
+So 
+a) edit yoiur files as .mdt files, 
+b) use insert_includes to create or update the .md files,
+c) and commit & push all changed files to git

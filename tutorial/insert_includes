@@ -1,0 +1,26 @@
+#! /bin/bash
+T=temp_include
+
+for f in *.mdt; do
+  cat $f > $T
+  while grep -q '%include' $T; do
+    line=`grep -n '%include' $T | head -1 | sed -e 's/:.*//'`
+    file=`grep '%include' $T | head -1 | sed -e 's/%include//'`
+    linem=$(expr $line - 1)
+    linep=$(expr $line + 1)
+    head -$linem $T > begin
+    tail +$linep $T > rest
+    cat begin $file rest > $T
+    rm begin rest
+  done
+
+  mdfile=`echo $f | sed -e s/mdt/md/`
+  if diff -q $T $mdfile > /dev/null; then
+    echo $mdfile unchanged
+    rm $T
+  else
+    mv $T $mdfile
+    echo $mdfile updated
+  fi
+
+done
