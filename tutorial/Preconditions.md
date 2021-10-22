@@ -38,7 +38,7 @@ There may be an order to the requires clauses. In this case, the `a.length` in
 the second clause is undefined if `a` is null. Thus we also need the
 condition stated in the first clause, and it must be stated before the
 second clause. Reversing the order will result in an error:
-```java {.line-numbers}
+```java
 // openjml -esc -nullableByDefault T_requires3.java
 public class T_requires3 {
 
