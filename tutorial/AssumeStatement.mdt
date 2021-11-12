@@ -5,7 +5,7 @@ body of a method. The effect of an `assume` statement is to instruct
 the verification engine to assume, *without proof*, that the given 
 predicate is true. Such statements can be used to introduce
 facts that are too difficult for the proof engine to prove.
-They can also be used to temporarily sumamrize the effect of preceding code 
+They can also be used to temporarily summarize the effect of preceding code 
 for the purpose of attempting to prove later code; then one goes back later
 to work with the preceding code until the assumption is successfully 
 proven and the `assume` statement can be removed.
