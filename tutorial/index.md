@@ -29,6 +29,7 @@ example code; just add the appropriate path to the `openjml` command.
   * [Preconditions](Preconditions)
   * [Assert statements](AssertStatement)
   * [Assume statements](AssumeStatement)
+  * [JML Expressions](Expressions)
   * [Frame Conditions](FrameConditions)
 
 * Advanced topics
