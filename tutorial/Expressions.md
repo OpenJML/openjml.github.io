@@ -40,7 +40,7 @@ and has the same precedence as `<==>`.  `<=!=>` is left associative:
 
 Another important addition to JML is the *chaining* of relational operators.
 Instead of writing `i <= j && j < k`, one can write `i <= j < k`. Similarly
-`i > j > k` means `i > j & j > k`. <,` and `<=` can be chained together and
+`i > j > k` means `i > j & j > k`. `<` and `<=` can be chained together and
 `>` and`>=` can be chained together, but the two groups cannot be mixed.
 Furthermore, `==` does not chain and in fact has a lower precedence than the 
 relational operators: `a < b = c < d` means `(a < b) == (c < d)` in both Java and JML. These chained operations are particularly convenient for writing
