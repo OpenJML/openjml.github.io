@@ -30,7 +30,7 @@ Well, that depends on what the intent of the method is: should `neg` be a
 negative number or a non-positive number? The verifier can only identify
 the discrepancy between the code and the specification, giving the 
 software writer the opportunity to consider the problem and make an
-appropaite correction.
+appropriate correction.
 
 Java has its own `assert` statement. By default, the Java assert 
 statements are ignored by the Java compiler, unless explicitly enabled.
