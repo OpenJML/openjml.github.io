@@ -21,7 +21,7 @@ Other common preconditions are that a parameter is not null (e.g., `o != null`)
 or that an index is in range for an array (`0 <= i < a.length`).
 
 A method's specifications may include more than one requires clause. For example,
-```java=
+```
 // openjml -esc -nullableByDefault T_requires2.java
 public class T_requires2 {
 
@@ -38,7 +38,7 @@ There may be an order to the requires clauses. In this case, the `a.length` in
 the second clause is undefined if `a` is null. Thus we also need the
 condition stated in the first clause, and it must be stated before the
 second clause. Reversing the order will result in an error:
-```java
+```
 // openjml -esc -nullableByDefault T_requires3.java
 public class T_requires3 {
 

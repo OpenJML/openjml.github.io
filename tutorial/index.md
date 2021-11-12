@@ -27,6 +27,7 @@ example code; just add the appropriate path to the `openjml` command.
 * Simple Method Specifications
   * [Postconditions](Postconditions)
   * [Preconditions](Preconditions)
+  * [Assert statements][AssertStatement]
   * [Frame Conditions](FrameConditions)
 
 * Advanced topics
