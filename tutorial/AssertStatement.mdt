@@ -25,6 +25,7 @@ produces
 %include T_assert2.out
 ```
 
+because if `i` is 0, then `neg` is 0 and the assert fails.
 In this second example, which is at fault: the code or the assert statement?
 Well, that depends on what the intent of the method is: should `neg` be a 
 negative number or a non-positive number? The verifier can only identify
@@ -51,5 +52,5 @@ produces simlar output:
 
 ```
 %include T_assert3.out
-```.
+```
 

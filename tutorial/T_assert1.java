@@ -12,5 +12,3 @@ public class T_assert1 {
     //@ assert neg <= 0;
   }
 }
-      
-    

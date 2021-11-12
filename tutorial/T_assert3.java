@@ -12,5 +12,3 @@ public class T_assert3 {
     assert neg < 0; // A Java assert statement (but interpreted by JML)
   }
 }
-      
-    

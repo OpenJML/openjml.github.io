@@ -24,8 +24,6 @@ public class T_assert1 {
     //@ assert neg <= 0;
   }
 }
-      
-    
 ```
 
 The above example verifies with OpenJML, but the following variation does not:
@@ -45,8 +43,6 @@ public class T_assert2 {
     //@ assert neg < 0;
   }
 }
-      
-    
 ```
 
 produces
@@ -58,6 +54,7 @@ T_assert2.java:12: verify: The prover cannot establish an assertion (Assert) in 
 1 verification failure
 ```
 
+because if `i` is 0, then `neg` is 0 and the assert fails.
 In this second example, which is at fault: the code or the assert statement?
 Well, that depends on what the intent of the method is: should `neg` be a 
 negative number or a non-positive number? The verifier can only identify
@@ -91,8 +88,6 @@ public class T_assert3 {
     assert neg < 0; // A Java assert statement (but interpreted by JML)
   }
 }
-      
-    
 ```
 
 produces simlar output:
@@ -102,5 +97,5 @@ T_assert3.java:12: verify: The prover cannot establish an assertion (Assert) in 
     assert neg < 0; // A Java assert statement (but interpreted by JML)
     ^
 1 verification failure
-```.
+```
 
