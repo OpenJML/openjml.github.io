@@ -8,7 +8,7 @@ facts that are too difficult for the proof engine to prove.
 They can also be used to temporarily sumamrize the effect of preceding code 
 for the purpose of attempting to prove later code; then one goes back later
 to work with the preceding code until the assumption is successfully 
-proven and the assume statement can be removed.
+proven and the `assume` statement can be removed.
 
 For example, consider the following code:
 ```
@@ -33,7 +33,7 @@ specify the behavior of loops (that is coming later!), so we add some
 assumptions that we expect to be true. With those assumptions, the
 above example verifies.
 
-Assume statements can be very helpful in developing a proof of an implementation, bu they have a danger. If the given predicate is not actually 
+Assume statements can be very helpful in developing a proof of an implementation, but they have a danger. If the given predicate is not actually 
 true, then it will be possible to prove invalid statements about a program.
 You can even see that in the example above: if the array `a` does not
 contain any element that is zero, then the second `assume` statement is
@@ -59,9 +59,9 @@ T_assume2.java:5: verify: The prover cannot establish an assertion (Assert) in m
 1 verification failure
 ```
 
-But now we add an erroneous assume statement, one that contradicts the
+But now we add an erroneous `assume` statement, one that contradicts the
 precondition. Remember that the precondition is assumed at the start of a 
-method implementation and that the assume statement
+method implementation and that the `assume` statement
 is also silently assumed at its location in the body.
 ```
 // openjml -esc T_assume3.java
