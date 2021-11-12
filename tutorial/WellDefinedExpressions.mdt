@@ -29,13 +29,13 @@ The rules for well-definedness of an expression build up from the leaves of the 
 * `a[i]` is well-defined if expressions `a` and `i` are well-defined and `0 <= i < a.length`
 * all unary and binary operator expressions (excluding `&&` and `||` and `==>`,
 but including assignment and op-assignment)
- are well-defined if the operands are well-defined and, for division (`/`i and `/=`) and modulo (`%` and `%=`) the right operand is not zero
+ are well-defined if the operands are well-defined and, for division (`/` and `/=`) and modulo (`%` and `%=`), the right operand is not zero
 * TODO - what about shift, arithmetic overflow
 * the short-circuiting `&&` is well-defined if the left operand is well-defined and, if the left operand is true, the right operand is well-defined
 * the short-circuiting `||` is well-defined if the left operand is well-defined and, if the left operand is false, the right operand is well-defined
 * a `==>`  expression is well-defined if the left operand is well-defined and,
 if the left-operand is true, the right operand is well-defined
-* a conditional operator (`p ? q : r`) is well-defined if (a) the condition ai well defined and (b) if the condition is true, then the then-expression is well-defined and (c) if the condition is fale, then the else-expression is well-defined
+* a conditional operator (`p ? q : r`) is well-defined if (a) the condition ai well defined and (b) if the condition is true, then the then-expression is well-defined and (c) if the condition is false, then the else-expression is well-defined
 * the `instanceof` expression is well-defined if its left-hand expression is well-defined (the right hand-expression is a type name). Note that the `instanceof` expression is still well-defined if the left-had expression is `null` and its value will is false.
 * a cast operation (`(T)o`) is well-defined if its argument expression is well-defined (the type being cast to is just a type name). The argument may be `null`, in which case the result of the operation is `null`.
 * a method call expression (`o.m(..)`) or object creation expression (`o.new T(...)`)is well-defined if the receiver expression is either absent or a type name or a well-defined expression and all the arguments are well-defined
@@ -46,6 +46,7 @@ Java and JML statements are well-defined if all their component sub-statements a
 As for other JML operationas
 * singleton JML expression identifiers like `\result` are well-defined expressions (always presuming they are type-correct)
 * functional-form JML expressions are well-defined if all expression arguments are well-defined; any additional conditions will be stated when the expression is introduced
+* a [quantified expression](QuantifierExpressions) (`Q x; range; value`) is well-defined if (a) the  range expression is well-defined for all values of the local variable (for its type) and (b) the value expression is well-defined for any value of the local variable for which in range value is true
 
 
 The requirement that JML expressions be well-defined leads to writing guarded expressions, such as `o != null ==> o.f == 0` as `o.f` by itself might be not well-defined. However, `o.f` by itself is well-defined, if it can be proved for the context of that expression that `o != null`.
