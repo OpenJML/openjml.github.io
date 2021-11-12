@@ -132,3 +132,19 @@ possible to verify _uses_ of the method in some calling method (unless it
 indeed did not matter what result was returned). We will return to this 
 subject in [Calling Specified Methods](CallingSpecifiedMethods).
 
+Sometimes you may wish to refer to the value returned by a method in the postcon
+dition. This value is referenced as `\result`. Like all JML keywords in expressi
+on, `\result` begins with a backslash so it does conflioct with a Java identifie
+r. `\result` may only be used in `emnsures` clauses of method specifications for
+ methods that return values (and not for constructors). Here is a simple example
+:
+```
+// openjml -esc T_ensures3.java
+public class T_ensures3 {
+  //@ requires a.length > 0;
+  //@ ensures \result == a[0];
+  public int fist(int[] a) {
+    return a[0];
+  }
+}
+```
