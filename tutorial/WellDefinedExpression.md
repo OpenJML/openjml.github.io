@@ -1,0 +1,100 @@
+# Well-Defined Expressions
+
+Much confusion over error messages can be avoided by understanding that all JML expressions must be *well-defined*. Informally, one can think of a well-defined expression as one that, if it were a Java expression, would not throw an exception and would have an unambiguous meaning. JML reqjuires that each expression in a JML context must be well-defined; the OpenJML tool will complain if it cannot prove that an expression is well-defined.
+
+For example, `a[i]` is not well-defined if `i` is not in the range of the indices of `a`. So this example
+
+```
+/// openjml -esc T_WellDefined.java
+public class T_WellDefined1 {
+
+  public void example(int[] a, int i) {
+    //@ assert a[i] == 0;
+  }
+}
+```
+
+produces this result
+
+```
+T_WellDefined1.java:5: verify: The prover cannot establish an assertion (Assert) in method example
+    //@ assert a[i] == 0;
+        ^
+T_WellDefined1.java:5: verify: The prover cannot establish an assertion (UndefinedNegativeIndex) in method example
+    //@ assert a[i] == 0;
+                ^
+T_WellDefined1.java:5: verify: The prover cannot establish an assertion (UndefinedTooLargeIndex) in method example
+    //@ assert a[i] == 0;
+                ^
+3 verification failures
+```
+
+The output here deserves some explanation:
+* First, OpenJML will continue looking for errors until it can find no more, but the order in which the errors are found is non-deterministic. So in fact, the output you obtain by running the example above may have the error messages in a different order.
+* The tool explores all possible paths in the method, using all possible values of the inputs that conform to the p[reconditions (an implicit pre-condition here is that `a` is non-null --- we'll deal with that later: [null and non-null defaults](Nullness)).
+* Now `a[i]` is well-defined only if `i` is in range for the array `a`. But one possible combination of inputs is that `i` is actually in range, in which case the expression is well-defined and OpenJLM goes on to see if the assertion can be proved true. As we know nothing about the values in the array, the assertion cannot be proved true and a verification error message results.
+* The other two cases are when `i` is too large (at least as large as `a.length`) or too small (`i` is negative). In these cases the expression is not well-defined; OpenJML issues verification errors calling out this undefinedness.
+
+The rules for well-definedness of an expression build up from the leaves of the expression tree, with any compound expression requiring that each of its sub-expressions be well-defined. Note that even before OpenJML begins its work, an expression must not have any parse or type-checking errors.
+
+* Literals (`true`, `false`, `null`, numbers and literal strings) are all well-defined
+* Correctly resolved identifiers are well-defined
+* The expression `o.f` is well-defined if `o` is well-defined and `o != null` (and the expression is well-typed, that is, `f` is a field of the static type of `o`)
+* `a.length` is well-defined if `a` is well-defined
+* a[i] is well-defined if expressions `a` and `i` are well-defined and `0 <= i < a.length`
+* all unary and binary operator expressions are well-defined (excluding `&&` and `||` and `==>`) if the operands are well-defineda and, for division (`/`) and modulo (`%`) the right operand is not zero
+* TODO - what about shift
+* the short-circuiting `&&` is well-defined if the left operand is well-defined and, if the left operand is true, the right operand is well-defined
+* the short-circuiting `||` is well-defined if the left operand is well-defined and, if the left operand is false, the right operand is well-defined
+* a `==>`  expression is well-defined if the left operand is well-defined and,
+if the left-operand is true, the right operand is well-defined
+
+* TODO: add more
+
+The requirement that JML expressions be well-defined leads to writing guarded expressions, such as `o != null ==> o.f == 0` as `o.f` by itself might be not well-defined. However, `o.f` by itself is well-defined, if it can be proved for the context of that expression that `o != null`.
+
+So, since in this example, `o` is designated as non-null (which it would be by default), no definedness errors are issued:
+```
+// openjml -esc T_WellDefined2.java
+public class T_WellDefined2 {
+  int f;
+  public void example(/*@ non_null */ T_WellDefined2 o) {
+    //@ assert o.f == o.f;
+  }
+}
+```
+But if `o` might be null, as in the following example,
+```
+// openjml -esc T_WellDefined3.java
+public class T_WellDefined3 {
+  int f;
+  public void example(/*@ nullable */ T_WellDefined3 o) {
+    //@ assert o.f == o.f;
+  }
+}
+```
+then the following messages happen:
+```
+T_WellDefined3.java:5: verify: The prover cannot establish an assertion (UndefinedNullDeReference) in method example
+    //@ assert o.f == o.f;
+                ^
+1 verification failure
+```
+
+Finally well-definedness is a requirement for JML expressions, not Java expressions. But similar Java expressions would just throw exceptions, so OpenJML gives slightly different verification messages:
+```
+// openjml -esc T_WellDefined4.java
+public class T_WellDefined4 {
+  int f;
+  public void example(/*@ nullable */ T_WellDefined4 o) {
+    o.f = 0; // a Java statement
+  }
+}
+```
+gives
+```
+T_WellDefined4.java:5: verify: The prover cannot establish an assertion (PossiblyNullDeReference) in method example
+    o.f = 0; // a Java statement
+     ^
+1 verification failure
+```

@@ -23,7 +23,9 @@ In static reasoning, `&` and `|` are simpler to reason about, but
 
 But JML also adds to Java some new operators and expression syntax. The new operators are these:
 
-* `==>` (implication): this binary operator takes two boolean operands, e.g., `p` and `q`; `p ==> q` is read a "p implies q" and means the same as logical implication, that is, the same as "not p or q". The implication operator has lower 
+* `==>` (implication): this binary operator takes two boolean operands, e.g., `p` and `q`; `p ==> q` is read a "p implies q" and means the same as logical implication, that is, the same as "not p or q". 
+The implication opewrator is short-circuiting. That is, the value and well-definedness of the right-hand-side is immaterial, unless the left-hand-side is true. In other words, `p ==> q` is precisely eqiuvalent to `!p || q`.
+The implication operator has lower 
 precedence than `&&` and `||`, so `p && q ==> r || s` means
 `(p && q) ==> (r || s)`. `==>` is *right* associative, so that
 `p ==> q ==> r` means `p ==> (q ==> r)`, which is the same as `(p && q) ==> r`.
