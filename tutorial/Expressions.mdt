@@ -19,8 +19,8 @@ precedence than `&&` and `||`, so `p && q ==> r || s` means
 `p ==> q ==> r` means `p ==> (q ==> r)`, which is the same as `(p && q) ==> r`.
 * `<==>` (equivalence): this is also a binary operation between boolean values.
 `p <==> q` means the same as `p == q`, except that `<==>` has lower precedence than `&&` and `||`, whereas `==` has higher precedence. 
-Thus `p && q == r || s` means (p && (q == r)) || s`, whereas
-`p && q <==> r || s` means `(p && q) <==> (r || s)`. i
+Thus `p && q == r || s` means `(p && (q == r)) || s`, whereas
+`p && q <==> r || s` means `(p && q) <==> (r || s)`.
 Also `<==>` is left associative (`p <==> q <==>r` is `(p <==> q) <==> r`, 
 though (a) the meaning is the same as if it were right associative and (b) 
 expressions that rely on associativity of `<==>` tend to be confusing are should be avoided.
@@ -34,6 +34,6 @@ These operators are described in later tutorial lessons:
 * `<:` [subtype](SubtypeOperator)
 * `<#` `<#=` [lock ordering](LockOrdering)
 
-Finally, there are many keywords that diesgnate either singleton values (e.g. `\result`) or function-like operations (e.g., \typeof(...)`. These will be 
+Finally, there are many keywords that designate either singleton values (e.g. `\result`) or function-like operations (e.g., \typeof(...)`. These will be 
 explained as needed in future lessons, although one, `\result`, you have already seen. All JML keywords used within expressions begin with a backslash, so they
 cannot conflict with Java identifiers.
