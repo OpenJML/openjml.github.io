@@ -31,6 +31,7 @@ example code; just add the appropriate path to the `openjml` command.
   * [Assume statements](AssumeStatement)
   * [JML Expressions](Expressions)
   * [Well-defined Expressions](WellDefinedExpressions)
+  * [Verifying Method Calls](MethodCalls)
   * [Frame Conditions](FrameConditions)
 
 * Advanced topics
