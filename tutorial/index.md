@@ -34,7 +34,23 @@ example code; just add the appropriate path to the `openjml` command.
   * [Verifying Method Calls](MethodCalls)
   * [Frame Conditions](FrameConditions)
 
+  * [Using Method Calls in Specifications](MethodsInSpecifications)
+  * [Arithmetic](ArithmeticModes)
+  * [Null and non-null](Nullness)
+  * [Visibility](Visibility)
+  * [Specifiying Loops](Loops)
+  * [Specifying Exceptions](Exceptions)
+
+* Inheritane
+  * [Inheriting Specifications](InheritingSpecifications)
+  * [Abstracting Frame Conditions --- Datagroups](Datagroups)
+  * [Model Methods](ModelMethods)
+  
 * Advanced topics
+  * [Debugging Specifications](Debugging)
+  * [Reasoning about Types](TYPE)
+  * [Modularizing Specifications](SpecificationCases)
+  
 
 <!--
 embedded comments
@@ -45,4 +61,5 @@ invariants
 JML types
 JML expressions
 
+reasoning about lambda expressions
 -->

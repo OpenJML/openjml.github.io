@@ -135,3 +135,38 @@ A shorthand way to say that a method `writes \nothing;` is to designate it `pure
 //@ pure
 public void m() { ... }
 ```
+though there are a few other details to purity --- see the [lesson on pure](Pure).
+
+There are two other points to know about frame conditions. First, where a frame condition clause includes expressions, such as the indices of array expressions, those expressions are evaluated in the pre-state, not the post-state.
+
+Second, a fgrame condition is a method specification clause like `requires` and `ensures`. A method specification may contain more than one such clause.
+However, note that each cluase is considered individually. That is, each clause
+by itself lists the memory locations that may be written to by the method.
+As each frame condition clause must be valid on its own, the effect of multiple clauses is the same as one clause with the intersection of the sets of locations given by the separate clauses.
+For example,
+```
+writes i,j;
+writes i,k;
+```
+is the same as
+```
+writes i;
+```
+and
+```
+writes i;
+writes j;
+```
+is the same as
+```
+writes \nothing;
+```
+Admittedly,  it would be much more convenient and perhaps intuitive if the
+result of mutiple writes clauses was the *union* of their contents, but that is
+not the case, for historical reasons. The advice is then to
+*have only one frame condition clause per specification (case)*, even if that
+means the clause has a long list. (All the method specifications in the
+tutorial lessons so far have just one specification case; an advanced lesson
+presents [multiple specification cases](SpecificationCases).)
+
+
