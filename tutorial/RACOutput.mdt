@@ -53,6 +53,18 @@ The exception thrown is a `org.jmlspecs.runtime.JmlAssertionError`, which, unles
 It is the Java runtime system that prints the exception and its stack, not OpenJML, and the printing is to `System.err`.
 The particular kind of exception thrown can be changed by advanced features of OpenJML.
 
+## Use a Java assert
+
+A fourth alternative is to terminate using a Java assert statement. 
+
+`openjml-java -cp . -Dorg.jmlspecs.openjml.racjavaassert T_RacOutput`
+
+produces the output
+```
+%include T_RacOutput6.out
+```
+This is still a choice made at runtime. Upon encountering a false assertion, the program will terminate immediately with a Java `java.lang.AssertionError`.
+
 ## Compiling to Java assert statements
 
 By default, JML assertions are checked by code inserted in the test program by OpenJML. The OpenJML compilation can instead insert

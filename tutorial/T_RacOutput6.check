@@ -1,0 +1,2 @@
+
+openjml -rac T_RacOutput.java && openjml-java -cp . -Dorg.jmlspecs.openjml.racjavaassertion  T_RacOutput 2>&1 | diff - T_RacOutput6.out
