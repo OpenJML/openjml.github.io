@@ -27,10 +27,21 @@ title: Downloads | OpenJML
      or rename the folder (with all its contents) to a location of your choice.
       </p>
       
+      <p>These are the particularly relevant files in the top-level of the installation folder:
+      <ul>
+      <li> openjml -- the javac-like tool that does (static) deductive verification, 
+       compiles a Java program with runtime assertion checks, and other functions.
+      <li> openjml-java -- a build of Java (java-17-ga as of 5 December 2021) but with JML libraries included
+      <li> jmlruntime.jar -- the JML runtime files needed when executing Java files with runtime checks compiled in
+      <li> OpenJMLUserGuide.pdf -- a copy of the reference manual fot eh OpenJML tool
+      <li> JML_Reference_Manual.pdf -- a copy of the JML (langauge) reference manual
+      </ul>
+      Current versions of the pdf file are also available from <a><href="https://www.openjml.org/documentation">this web site</a>.
+
       <p>If <i>$OJ</i> is the installation directory, then you can run openjml 
       using the command line <i>$OJ</i><tt>/openjml</tt>. For example,
       <i>$OJ</i><tt>/openjml -version</tt> will emit the version number of this build.
-      
+
       <p>Further instructions about running OpenJML can be found 
          <a href=../tutorial/Execution.html>here</a>.</p>
       
