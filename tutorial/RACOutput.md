@@ -80,9 +80,30 @@ The exception thrown is a `org.jmlspecs.runtime.JmlAssertionError`, which, unles
 It is the Java runtime system that prints the exception and its stack, not OpenJML, and the printing is to `System.err`.
 The particular kind of exception thrown can be changed by advanced features of OpenJML.
 
+## Compiling to Java assert statements
+
+By default, JML assertions are checked by code inserted in the test program by OpenJML. The OpenJML compilation can instead insert
+*Java* assert statements to do the assertion checking. Wrhjen a Java program is executed, the Java assert statements are disabled by
+default.
+They must be enabled by the Java `-ea` option.
+Using our running example,
+
+`openjml -rac -racCompileToJavaAssert T_RacOutput.java && openjml-java -cp . -ea T_RacOutput`
+
+produces
+
+```
+Exception in thread "main" java.lang.AssertionError: T_RacOutput.java:10: verify: JML assertion is false
+    //@ assert len == 1;
+        ^
+	at T_RacOutput.checkArgs(T_RacOutput.java:10)
+	at T_RacOutput.main(T_RacOutput.java:5)
+```
+
+Now a Java `java.lang.AssertionError` is thrown and the program terminates immediately.
 ## Control of source information
 
-Finally, the amount of source information in an error message can be adjusted. The default message, as shown above, includes a snippet of source information to point to where the error is detected.
+The amount of source information in an error message can be adjusted. The default message, as shown above, includes a snippet of source information to point to where the error is detected.
 This is informative, but there are some reasons one might want to suppress this information. First, it can be verbose. Second it can change as
 the source program is edited making test output that inspects this source information volatile. Finally, a RAC-compiled class file is much larger than a simple Java-compiled class file because of the assertion checks that have been added; those assertion checks include the text of the
 error messages to be emitted should the assertion be false. Consequently a verbose error message contributes to the size of the 
@@ -105,6 +126,5 @@ END
 ```
 
 As the text of error messages is compiled into the class file, the control of error messages is a *compile-time*, not a runtime, option.
-
 
 

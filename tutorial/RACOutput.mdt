@@ -53,6 +53,23 @@ The exception thrown is a `org.jmlspecs.runtime.JmlAssertionError`, which, unles
 It is the Java runtime system that prints the exception and its stack, not OpenJML, and the printing is to `System.err`.
 The particular kind of exception thrown can be changed by advanced features of OpenJML.
 
+## Compiling to Java assert statements
+
+By default, JML assertions are checked by code inserted in the test program by OpenJML. The OpenJML compilation can instead insert
+*Java* assert statements to do the assertion checking. Wrhjen a Java program is executed, the Java assert statements are disabled by
+default.
+They must be enabled by the Java `-ea` option.
+Using our running example,
+
+`openjml -rac -racCompileToJavaAssert T_RacOutput.java && openjml-java -cp . -ea T_RacOutput`
+
+produces
+
+```
+%include T_RacOutput5.out
+```
+
+Now a Java `java.lang.AssertionError` is thrown and the program terminates immediately.
 ## Control of source information
 
 The amount of source information in an error message can be adjusted. The default message, as shown above, includes a snippet of source information to point to where the error is detected.
@@ -76,18 +93,3 @@ If the option is disabled during compilation, using `-no-racShowSource`, then on
 As the text of error messages is compiled into the class file, the control of error messages is a *compile-time*, not a runtime, option.
 
 
-## Compiling to Java assert statements
-
-By default, JML assertions are checked by code inserted in the test program by OpenJML. The OpenJML compilation can instead insert
-*Java* assert statements to do the assertion checking. Wrhjen a Java program is executed, the Java assert statements are disabled by
-default.
-They must be enabled by the Java `-ea` option.
-Using our running example,
-
-`openjml -rac -racCompileToJavaAssert T_RacOutput.java && openjml-java -cp . -ea T_RacOutput`
-
-produces
-
-```
-%include T_RacOutput5.out
-```
