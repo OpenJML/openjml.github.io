@@ -2,7 +2,11 @@
 public class T_RacOutput {
 
   public static void main(String... args) {
-    //@ assert args.length == 1;
+    checkArgs(args.length);
     System.out.println("END");
+  }
+
+  public static void checkArgs(int len) {
+    //@ assert len == 1;
   }
 }

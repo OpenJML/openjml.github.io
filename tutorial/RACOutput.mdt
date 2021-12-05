@@ -13,7 +13,7 @@ compiled with
 
 ## Error message and continue
 
-The default mode is to simply issue an error message (to System.out) and continue execution:
+The default mode is to simply issue an error message (to `System.out`) and continue execution:
 
 `openjml-java -cp . T_RacOutput`
 
@@ -25,7 +25,7 @@ produces
 
 ## Show call stack and continue
 
-An alternate mode shows the call stack leaading to the violated assertion:
+An alternate mode shows the call stack leading to the violated assertion:
 
 `openjml-java -cp . -Dorg.jmlspecs.openjml.racshowstack T_RacOutput`
 
@@ -57,7 +57,7 @@ The particular kind of exception thrown can be changed by advanced features of O
 
 Finally, the amount of source information in an error message can be adjusted. The default message, as shown above, includes a snippet of source information to point to where the error is detected.
 This is informative, but there are some reasons one might want to suppress this information. First, it can be verbose. Second it can change as
-the source program is edited making test output that inspects this source information volatile. FInally, a RAC-compiled class file is much larger than a simple Java-compiled class file because of the assertion checks that have been added; those assertion checks include the text of the
+the source program is edited making test output that inspects this source information volatile. Finally, a RAC-compiled class file is much larger than a simple Java-compiled class file because of the assertion checks that have been added; those assertion checks include the text of the
 error messages to be emitted should the assertion be false. Consequently a verbose error message contributes to the size of the 
 RAC-compiled file.
 
@@ -68,7 +68,7 @@ the error messages contain the source information:
 %include T_RacOutput1.out
 ```
 
-If the option is disabled, using `-no-racShowSource`, then only the line position is shown:
+If the option is disabled during compilation, using `-no-racShowSource`, then only the line position is shown:
 ```
 %include T_RacOutput4.out
 ```

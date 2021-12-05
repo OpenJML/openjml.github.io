@@ -1,8 +1,8 @@
 
 # Runtime Assertion Checking (RAC): Compilation and Execution
 
-A JML-annotated Java program and can compiled and executed like any Java program, but with the JML assertions checked at runtime.
-The JML assertions are only checked for the particular values of inputs, variables, etc. that occur during each particular run
+A JML-annotated Java program can be compiled and executed like any Java program, but with the JML assertions checked at runtime.
+The JML assertions are only checked for the particular values of inputs, variables, etc. that occur during that particular run
 of the program, not for all possible inputs (as in static deductive verification). Furthermore not all JML constructs are executable;
 some will be ignored during compilation for RAC.
 
@@ -28,10 +28,11 @@ compiles with `openjml -rac T_Rac1.java` to produce a `T_Rac1.class` file.
 ## Execution
 
 The RAC-compiled Java program can then be executed in two ways: either using `openjml-java` or the standard installed `java`.
+If you are using `openjml-java` you do not need to have an installatino of Java itself.
 
 ### openjml-java
 
-`openjml-java` is a build of `java` produced iand installed along with `openjml`. It functions like `java` except that it includes the 
+`openjml-java` is a build of `java` produced and installed along with `openjml`. It functions like `java` except that it includes the 
 runtime libraries needed for RAC. So to run the program compiled above one just executes
 
 `openjml-java -cp . T_Rac1`
