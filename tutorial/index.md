@@ -41,11 +41,16 @@ example code; just add the appropriate path to the `openjml` command.
   * [Specifiying Loops](Loops)
   * [Specifying Exceptions](Exceptions)
 
-* Inheritane
+* Inheritance
   * [Inheriting Specifications](InheritingSpecifications)
   * [Abstracting Frame Conditions --- Datagroups](Datagroups)
   * [Model Methods](ModelMethods)
   
+* Runtime Assertion Checking
+  * [Compilation and Execution](RACCompilation)
+  * [RAC Exit Code](RACExit)
+  * [RAC Output](RACOutput)
+
 * Advanced topics
   * [Debugging Specifications](Debugging)
   * [Reasoning about Types](TYPE)

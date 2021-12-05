@@ -1,3 +1,4 @@
 begin
 rest
 temp_include
+*.class
