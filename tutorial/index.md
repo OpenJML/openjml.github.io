@@ -50,6 +50,7 @@ example code; just add the appropriate path to the `openjml` command.
   * [Compilation and Execution](RACCompilation)
   * [RAC Exit Code](RACExit)
   * [RAC Output](RACOutput)
+  * [RAC and Java checks](RACJavaChecks)
 
 * Advanced topics
   * [Debugging Specifications](Debugging)
