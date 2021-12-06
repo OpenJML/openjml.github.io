@@ -1,6 +1,5 @@
 #! /bin/bash
 
-echo Testing tutorial files 
 J=../../OpenJML/OpenJDKModule
 X=0 
 for f in *.java ; do
@@ -13,7 +12,7 @@ for f in *.java ; do
 	if [ $e -eq "0" ]; then 
 	    X=1; echo $f "has out file but exit code of 0" 
 	fi 
-	cat log | sed -e 's/[0-9][0-9.]* secs/TTTT secs/' | tee $o.actual | diff - $o ; z=$? ;
+	cat log | sed -e 's/[0-9][0-9.]* secs/TTTT secs/' | sed -e 's/DURATION:[ ]*TTTT/DURATION:          TTTT/' | tee $o.actual | diff - $o ; z=$? ;
 	if [ $z -ne "0" ]; then 
 	    X=1; echo $f "has wrong output" ;
         else
