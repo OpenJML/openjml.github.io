@@ -5,7 +5,7 @@ Much confusion over error messages can be avoided by understanding that all JML 
 For example, `a[i]` is not well-defined if `i` is not in the range of the indices of `a`. So this example
 
 ```
-/// openjml -esc T_WellDefined.java
+// openjml -esc T_WellDefined1.java
 public class T_WellDefined1 {
 
   public void example(int[] a, int i) {

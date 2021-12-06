@@ -54,7 +54,7 @@ will always report that the assertion is not provable and will produce
 this output:
 ```
 T_assume2.java:5: verify: The prover cannot establish an assertion (Assert) in method example
-    //@ assert false;
+    //@ assert false; // Blatant verification failure
         ^
 1 verification failure
 ```
@@ -64,7 +64,7 @@ precondition. Remember that the precondition is assumed at the start of a
 method implementation and that the `assume` statement
 is also silently assumed at its location in the body.
 ```
-// openjml -esc T_assume3.java
+// openjml -esc -checkFeasibility=none T_assume3.java
 public class T_assume3 {
   //@ requires i > 0;
   public void example(int i) {

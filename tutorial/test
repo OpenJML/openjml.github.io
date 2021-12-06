@@ -1,0 +1,31 @@
+#! /bin/bash
+
+echo Testing tutorial files 
+J=../../OpenJML/OpenJDKModule
+X=0 
+for f in *.java ; do
+    o=`echo $f | sed -e 's/java/out/'`;
+    c=`cat $f | head -1 | sed -e 'sx//[ ]*xx' | sed -e "sxopenjmlx$J/openjmlxg"` 
+    echo EXEC "$c"
+    bash -c "$c" > log  2>&1
+    e=$? 
+    if [ -e $o ]; then 
+	if [ $e -eq "0" ]; then 
+	    X=1; echo $f "has out file but exit code of 0" 
+	fi 
+	cat log | sed -e 's/[0-9][0-9.]* secs/TTTT secs/' | tee $o.actual | diff - $o ; z=$? ;
+	if [ $z -ne "0" ]; then 
+	    X=1; echo $f "has wrong output" ;
+        else
+            rm $o.actual
+	fi 
+    elif [ -n "$( cat log )" ]; then 
+	echo "OK example has output: " $f 
+	cat log 
+    elif [ $e -ne "0" ]; then 
+	X=1; echo "OK example has unexpected exit code: " $f $e 
+    fi ; 
+done 
+for f in *.check; do echo $f; source $f || X=1; done 
+exit $X 
+

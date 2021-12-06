@@ -5,7 +5,7 @@ So OpenJML will omit the RAC check if it is immediately followed by an identical
 For example, with default settings, the file
 
 ```
-// openjml -rac T_RacJavaCheck.java; openjml-java -cp . T_RacJavaCheck
+//  openjml -rac T_RacJavaCheck.java && openjml-java -cp . T_RacJavaCheck 
 public class T_RacJavaCheck {
   public static void main(String... args) {
     int[] array = new int[-1];
@@ -15,9 +15,6 @@ public class T_RacJavaCheck {
 
 produces
 ```
-T_RacJavaCheck.java:4: verify: JML attempt to create an array with negative size
-    int[] array = new int[-1];
-                          ^
 Exception in thread "main" java.lang.NegativeArraySizeException: -1
 	at T_RacJavaCheck.main(T_RacJavaCheck.java:4)
 ```

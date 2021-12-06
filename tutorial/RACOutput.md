@@ -41,7 +41,7 @@ END
 
 An alternate mode shows the call stack leading to the violated assertion:
 
-`openjml-java -cp . -Dorg.jmlspecs.openjml.racshowstack T_RacOutput`
+`openjml-java -cp . -Dorg.jmlspecs.openjml.rac=stack T_RacOutput`
 
 produces the output
 
@@ -49,7 +49,7 @@ produces the output
 org.jmlspecs.runtime.JmlAssertionError: T_RacOutput.java:10: verify: JML assertion is false
     //@ assert len == 1;
         ^
-	at java.base/org.jmlspecs.runtime.Utils.createException(Utils.java:128)
+	at java.base/org.jmlspecs.runtime.Utils.createException(Utils.java:130)
 	at java.base/org.jmlspecs.runtime.Utils.assertionFailureL(Utils.java:86)
 	at T_RacOutput.checkArgs(T_RacOutput.java:1)
 	at T_RacOutput.main(T_RacOutput.java:5)
@@ -62,7 +62,7 @@ The program continues executing after issuing this expanded error messaage.
 
 A third alternative is to simply throw an exception upon encountering the first failed assertion. This might be used in fail-fast testing for example.
 
-`openjml-java -cp . -Dorg.jmlspecs.openjml.racexceptions T_RacOutput`
+`openjml-java -cp . -Dorg.jmlspecs.openjml.rac=exception T_RacOutput`
 
 produces the output
 
@@ -70,8 +70,8 @@ produces the output
 Exception in thread "main" org.jmlspecs.runtime.JmlAssertionError: T_RacOutput.java:10: verify: JML assertion is false
     //@ assert len == 1;
         ^
-	at java.base/org.jmlspecs.runtime.Utils.createException(Utils.java:128)
-	at java.base/org.jmlspecs.runtime.Utils.assertionFailureL(Utils.java:82)
+	at java.base/org.jmlspecs.runtime.Utils.createException(Utils.java:130)
+	at java.base/org.jmlspecs.runtime.Utils.assertionFailureL(Utils.java:84)
 	at T_RacOutput.checkArgs(T_RacOutput.java:1)
 	at T_RacOutput.main(T_RacOutput.java:5)
 ```
@@ -84,19 +84,19 @@ The particular kind of exception thrown can be changed by advanced features of O
 
 A fourth alternative is to terminate using a Java assert statement. 
 
-`openjml-java -cp . -esa -Dorg.jmlspecs.openjml.racjavaassert T_RacOutput`
+`openjml-java -cp . -esa -Dorg.jmlspecs.openjml.rac=assert T_RacOutput`
 
 produces the output
 ```
 Exception in thread "main" java.lang.AssertionError: T_RacOutput.java:10: verify: JML assertion is false
     //@ assert len == 1;
         ^
-	at java.base/org.jmlspecs.runtime.Utils.assertionFailureL(Utils.java:84)
+	at java.base/org.jmlspecs.runtime.Utils.assertionFailureL(Utils.java:89)
 	at T_RacOutput.checkArgs(T_RacOutput.java:1)
 	at T_RacOutput.main(T_RacOutput.java:5)
 ```
 This is still a choice made at runtime. Upon encountering a false assertion, the program will terminate immediately with a Java `java.lang.AssertionError`.
-Remember that assertions in Java are disabled at runtime by default. So if executing the compiled program with `openjml-java` requires the 
+Remember that assertions in Java are disabled at runtime by default. So executing the compiled program with `openjml-java` requires the 
 option `-esa` to enable the assertions; if executing with `java`, use `-ea`.
 
 ## Compiling to Java assert statements
@@ -128,9 +128,11 @@ the source program is edited making test output that inspects this source inform
 error messages to be emitted should the assertion be false. Consequently a verbose error message contributes to the size of the 
 RAC-compiled file.
 
-The content of the error message is controlled by the `-showRacSource` compilation command-line option. By default this is enabled and
-the error messages contain the source information:
+The content of the error message is controlled by the `-showRacSource` compilation command-line option, which takes one of
+three options: source, line, or none. The default is "source" and produces messages that show part of the source file;
+"line" just gives line information; "none" just gives the message.
 
+With `-showRacSource=source":
 ```
 T_RacOutput.java:10: verify: JML assertion is false
     //@ assert len == 1;
@@ -138,9 +140,15 @@ T_RacOutput.java:10: verify: JML assertion is false
 END
 ```
 
-If the option is disabled during compilation, using `-no-racShowSource`, then only the line position is shown:
+With `-showRacSource=line":
 ```
 T_RacOutput.java:10: verify: JML assertion is false
+END
+```
+
+With `-showRacSource=none":
+```
+verify: JML assertion is false
 END
 ```
 
