@@ -22,6 +22,8 @@ for f in *.java ; do
 	    if [ $z -ne 0 ]; then
 		diff $o.actual $o
 	        X=1; echo $f "has wrong output" ;
+	    else
+		rm $o.actual
 	    fi
         else
             rm $o.actual
