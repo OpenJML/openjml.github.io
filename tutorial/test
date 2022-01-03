@@ -12,9 +12,17 @@ for f in *.java ; do
 	if [ $e -eq "0" ]; then 
 	    X=1; echo $f "has out file but exit code of 0" 
 	fi 
-	cat log | sed -e 's/[0-9][0-9.]* secs/TTTT secs/' | sed -e 's/DURATION:[ ]*TTTT/DURATION:          TTTT/' | tee $o.actual | diff - $o ; z=$? ;
+	cat log | sed -e 's/[0-9][0-9.]* secs/TTTT secs/' | sed -e 's/DURATION:[ ]*TTTT/DURATION:          TTTT/' | tee $o.actual | cmp -s - $o ; z=$? ;
 	if [ $z -ne "0" ]; then 
-	    X=1; echo $f "has wrong output" ;
+	    n=1
+	    while [ -e $o$n ]; do
+		cmp -s $o.actual $o$n && z=$? && break
+		n++
+            done
+	    if [ $z -ne 0 ]; then
+		diff $o.actual $o
+	        X=1; echo $f "has wrong output" ;
+	    fi
         else
             rm $o.actual
 	fi 
