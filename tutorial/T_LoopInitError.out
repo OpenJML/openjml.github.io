@@ -1,6 +1,6 @@
-T_LoopInitError.java:2: error: class T_loopInitError is public, should be declared in a file named T_loopInitError.java
-public class T_loopInitError {
-       ^
+T_LoopInitError.java:5: verify: The prover cannot establish an assertion (LoopInvariantBeforeLoop) in method setToRamp
+    //@ maintaining 0 < i <= a.length;
+        ^
 Note: Some input files use unchecked or unsafe operations.
 Note: Recompile with -Xlint:unchecked for details.
-1 error
+1 verification failure

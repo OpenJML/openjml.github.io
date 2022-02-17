@@ -1,5 +1,5 @@
 // openjml -esc T_LoopInitError.java
-public class T_loopInitError {
+public class T_LoopInitError {
 
   public void setToRamp(int[] a) {
     //@ maintaining 0 < i <= a.length;
