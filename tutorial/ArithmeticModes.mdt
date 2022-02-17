@@ -38,7 +38,7 @@ described below.
 First an example. The simple code
 ```
 %include T_arithmetic1.java
-`
+```
 gives an error:
 ```
 %include T_arithmetic1.out

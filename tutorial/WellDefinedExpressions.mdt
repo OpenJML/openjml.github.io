@@ -1,6 +1,6 @@
 # Well-Defined Expressions
 
-Much confusion over error messages can be avoided by understanding that all JML expressions must be *well-defined*. Informally, one can think of a well-defined expression as one that, if it were a Java expression, would not throw an exception and would have an unambiguous meaning. JML reqjuires that each expression in a JML context must be well-defined; the OpenJML tool will complain if it cannot prove that an expression is well-defined.
+Much confusion over error messages can be avoided by understanding that all JML expressions must be *well-defined*. Informally, one can think of a well-defined expression as one that, if it were a Java expression, would not throw an exception and would have an unambiguous meaning. JML requires that each expression in a JML context must be well-defined; the OpenJML tool will complain if it cannot prove that an expression is well-defined.
 
 For example, `a[i]` is not well-defined if `i` is not in the range of the indices of `a`. So this example
 

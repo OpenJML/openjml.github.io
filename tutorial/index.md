@@ -38,7 +38,7 @@ example code; just add the appropriate path to the `openjml` command.
   * [Arithmetic](ArithmeticModes)
   * [Null and non-null](Nullness)
   * [Visibility](Visibility)
-  * [Specifiying Loops](Loops)
+  * [Specifying Loops](Loops)
   * [Specifying Exceptions](Exceptions)
 
 * Inheritance

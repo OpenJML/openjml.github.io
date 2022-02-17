@@ -44,7 +44,7 @@ public class T_arithmetic1 {
     return i+1;
   }
 }
-`
+```
 gives an error:
 ```
 T_arithmetic1.java:5: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method increment: overflow in int sum
