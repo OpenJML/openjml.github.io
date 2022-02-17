@@ -3,14 +3,14 @@ The files are in GitHub markup.
 Unfortunately, GitHub does not support file includes,
 which makes inserting code examples a nuisance.
 
-We want to be able to test the code examples, so we need them i
-and thier output in standalone files.
+We want to be able to test the code examples, so we need them 
+and their output in standalone files.
 We can either (1) write the examples directly in the file
 and use a tool to extract them or (2) write them in separate
 files and use a tool to assemble the .md files.
 
 We are doing the latter. Any file that desires to have an %include
-is written as a .mdt file. The the ./insert_includes script
+is written as a .mdt file. Then the ./insert_includes script
 inserts the contents of included files into the .mdt file and
 produces a corresponding .md file, if there is any change.
 
@@ -19,6 +19,11 @@ the repo so that github will display them as part  of thte github pages
 for www.openjml.org.
 
 So 
-a) edit yoiur files as .mdt files, 
+a) edit your files as .mdt files, 
 b) use insert_includes to create or update the .md files,
 c) and commit & push all changed files to git
+
+Git runs insert_includes as part of a pre-commit hook.
+If there are any updates to the .md file, the commit does not happen.
+Once the changes have been reviewed, the .md file can be committed
+ again.
