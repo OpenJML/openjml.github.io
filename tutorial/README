@@ -27,3 +27,5 @@ Git runs insert_includes as part of a pre-commit hook.
 If there are any updates to the .md file, the commit does not happen.
 Once the changes have been reviewed, the .md file can be committed
  again.
+
+[The commit hook is in ../.git/hooks/pre-commit]
