@@ -46,6 +46,10 @@ example code; just add the appropriate path to the `openjml` command.
   * [Abstracting Frame Conditions --- Datagroups](Datagroups)
   * [Model Methods](ModelMethods)
   
+* [Managing proofs](ManagingProofs)
+
+* [Debugging Techniques](Debugging)
+
 * Runtime Assertion Checking
   * [Compilation and Execution](RACCompilation)
   * [RAC Exit Code](RACExit)
@@ -53,7 +57,6 @@ example code; just add the appropriate path to the `openjml` command.
   * [RAC and Java checks](RACJavaChecks)
 
 * Advanced topics
-  * [Debugging Specifications](Debugging)
   * [Reasoning about Types](TYPE)
   * [Modularizing Specifications](SpecificationCases)
   
