@@ -98,7 +98,7 @@ checking the loop invariant again. So the loop invariant here is `0 <= i < 10`, 
 
 ## Loop verification errors
 
-The examples above all verify, so here are some examples showing the kinds of veriifcation errors that are produced by erroneous specifications.
+The examples above all verify, so here are some examples showing the kinds of verification errors that are produced by erroneous specifications.
 
 ### Loop initialization error
 
@@ -117,13 +117,13 @@ the loop index is one less than the array length. Indeed, in that case, when the
 first loop invariant will not hold. Interestingly, there is also a loop initialization error. Why? Because if `a.length` is 0, then the initial value of `i` does not satisfy the first 
 loop invariant.
 ```
-@include T_LoopBodyError.java
+%include T_LoopBodyError.java
 ```
 produces
 ```
 %include T_LoopBodyError.out
 ```
-(The order of error messages is non-deterministic.)
+(The order of error messages and the specific values returned by show are non-deterministic.)
 
 ### Loop decreasees error
 If the `decreases` expression does not decrease, one receives the error shown in this example:

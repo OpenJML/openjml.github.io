@@ -10,6 +10,4 @@ T_LoopBodyError.java:11: verify: Show statement expression a.length has value 1
 T_LoopBodyError.java:5: verify: The prover cannot establish an assertion (LoopInvariant) in method setToRamp
     //@ maintaining 0 <= i < a.length;
         ^
-Note: Some input files use unchecked or unsafe operations.
-Note: Recompile with -Xlint:unchecked for details.
 4 verification failures

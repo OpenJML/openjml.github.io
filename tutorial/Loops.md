@@ -157,7 +157,7 @@ checking the loop invariant again. So the loop invariant here is `0 <= i < 10`, 
 
 ## Loop verification errors
 
-The examples above all verify, so here are some examples showing the kinds of veriifcation errors that are produced by erroneous specifications.
+The examples above all verify, so here are some examples showing the kinds of verification errors that are produced by erroneous specifications.
 
 ### Loop initialization error
 
@@ -183,8 +183,6 @@ producing this output:
 T_LoopInitError.java:5: verify: The prover cannot establish an assertion (LoopInvariantBeforeLoop) in method setToRamp
     //@ maintaining 0 < i <= a.length;
         ^
-Note: Some input files use unchecked or unsafe operations.
-Note: Recompile with -Xlint:unchecked for details.
 1 verification failure
 ```
 
@@ -194,7 +192,21 @@ the loop index is one less than the array length. Indeed, in that case, when the
 first loop invariant will not hold. Interestingly, there is also a loop initialization error. Why? Because if `a.length` is 0, then the initial value of `i` does not satisfy the first 
 loop invariant.
 ```
-@include T_LoopBodyError.java
+// openjml -esc T_LoopBodyError.java
+public class T_LoopBodyError {
+
+  public void setToRamp(int[] a) {
+    //@ maintaining 0 <= i < a.length;
+    //@ maintaining \forall int k; 0 <= k < i; a[k] == k;
+    //@ loop_writes i, a[*];
+    //@ decreases a.length -i;
+    for (int i = 0; i < a.length; i++) {
+        a[i] = i;
+        //@ show i, a.length;
+    }
+    //@ assert \forall int i; 0 <= i < a.length; a[i] == i;
+  }
+}
 ```
 produces
 ```
@@ -210,11 +222,9 @@ T_LoopBodyError.java:11: verify: Show statement expression a.length has value 1
 T_LoopBodyError.java:5: verify: The prover cannot establish an assertion (LoopInvariant) in method setToRamp
     //@ maintaining 0 <= i < a.length;
         ^
-Note: Some input files use unchecked or unsafe operations.
-Note: Recompile with -Xlint:unchecked for details.
 4 verification failures
 ```
-(The order of error messages is non-deterministic.)
+(The order of error messages and the specific values returned by show are non-deterministic.)
 
 ### Loop decreasees error
 If the `decreases` expression does not decrease, one receives the error shown in this example:
@@ -239,8 +249,6 @@ with the output
 T_LoopDecreasesError.java:8: verify: The prover cannot establish an assertion (LoopDecreases) in method setToRamp
     //@ decreases i;
         ^
-Note: Some input files use unchecked or unsafe operations.
-Note: Recompile with -Xlint:unchecked for details.
 1 verification failure
 ```
 ### Negative termination value
@@ -266,7 +274,5 @@ which produces
 T_LoopNegativeError.java:8: verify: The prover cannot establish an assertion (LoopDecreasesNonNegative) in method setToRamp
     //@ decreases -i;
         ^
-Note: Some input files use unchecked or unsafe operations.
-Note: Recompile with -Xlint:unchecked for details.
 1 verification failure
 ```
