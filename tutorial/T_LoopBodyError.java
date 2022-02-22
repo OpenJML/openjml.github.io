@@ -1,4 +1,4 @@
-// openjml -esc T_LoopBodyError.java
+// openjml -esc --solver-seed=42 T_LoopBodyError.java
 public class T_LoopBodyError {
 
   public void setToRamp(int[] a) {

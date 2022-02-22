@@ -2,7 +2,7 @@
 
 J=../../OpenJML/OpenJDKModule
 X=0 
-files=`ls *.java | grep -v Rac`
+files=`ls *.java`
 for f in $files ; do
     o=`echo $f | sed -e 's/java/out/'`;
     c=`cat $f | head -1 | sed -e 'sx//[ ]*xx' | sed -e "sxopenjmlx$J/openjmlxg"` 
@@ -37,7 +37,7 @@ for f in $files ; do
 	X=1; echo "OK example has unexpected exit code: " $f $e 
     fi ; 
 done 
-for f in ` ls *.check | grep -v Rac`; do echo $f; source $f || X=1; done 
+for f in *.check ; do echo $f; source $f || X=1; done 
 rm -rf logt log
 exit $X 
 

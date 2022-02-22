@@ -1,10 +1,10 @@
 T_LoopBodyError.java:5: verify: The prover cannot establish an assertion (LoopInvariantBeforeLoop) in method setToRamp
     //@ maintaining 0 <= i < a.length;
         ^
-T_LoopBodyError.java:11: verify: Show statement expression i has value 0
+T_LoopBodyError.java:11: verify: Show statement expression i has value 1
         //@ show i, a.length;
                  ^
-T_LoopBodyError.java:11: verify: Show statement expression a.length has value 1
+T_LoopBodyError.java:11: verify: Show statement expression a.length has value 2
         //@ show i, a.length;
                     ^
 T_LoopBodyError.java:5: verify: The prover cannot establish an assertion (LoopInvariant) in method setToRamp

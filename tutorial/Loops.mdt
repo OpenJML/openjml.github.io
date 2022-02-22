@@ -125,7 +125,7 @@ produces
 ```
 (The order of error messages and the specific values returned by show are non-deterministic.)
 
-### Loop decreasees error
+### Loop decreases error
 If the `decreases` expression does not decrease, one receives the error shown in this example:
 ```
 %include T_LoopDecreasesError.java

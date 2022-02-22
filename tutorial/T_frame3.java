@@ -1,4 +1,4 @@
-// openjml -esc -checkFeasibility=none T_frame3.java
+// openjml --esc --check-feasibility=none T_frame3.java
 public class T_frame3 {
 
   public int counter1;

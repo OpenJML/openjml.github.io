@@ -1,2 +1,2 @@
 
-openjml -rac T_RacOutput.java && openjml-java -esa -cp . -Dorg.jmlspecs.openjml.rac=assert  T_RacOutput 2>&1 | diff - T_RacOutput6.out
+( openjml --rac T_RacOutput.java && openjml-java -esa -cp . -Dorg.jmlspecs.openjml.rac=assert T_RacOutput ) 2>&1 | grep -v unchecked | diff - T_RacOutput6.out

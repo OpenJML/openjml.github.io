@@ -1,2 +1,2 @@
 
-openjml -rac -racCompileToJavaAssert T_RacOutput.java && openjml-java -ea -cp . T_RacOutput 2>&1 | diff - T_RacOutput5.out
+( openjml --rac --rac-compile-to-java-assert T_RacOutput.java && openjml-java -ea -cp . T_RacOutput ) 2>&1 | grep -v unchecked | diff - T_RacOutput5.out
