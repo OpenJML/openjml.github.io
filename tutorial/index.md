@@ -39,7 +39,7 @@ example code; just add the appropriate path to the `openjml` command.
   * [Null and non-null](Nullness)
   * [Visibility](Visibility)
   * [Specifying Loops](Loops)
-  * [Specifying Exceptions](Exceptions)
+  * [Specifying Exceptions](SpecifyingExceptions)
 
 * Inheritance
   * [Inheriting Specifications](InheritingSpecifications)
