@@ -1,6 +1,3 @@
----
-title: Specifying Exceptions
----
 # Specifying behavior with exceptions
 
 JML can specify exception execution paths just as well as normal execution paths.
@@ -13,6 +10,22 @@ The meaning of this clause is --- if the method terminates with an exception der
 
 So we could write this trivial example:
 ```
+// openjml --esc T_Exception1.java
+//@ nullable_by_default
+public class T_Exception1 {
+
+    public static class V {
+        public int value;
+    }
+
+    //@ requires true;
+    //@ ensures \result == v.value;
+    //@ signals (NullPointerException e) v == null;
+    //@ signals_only RuntimeException;
+    public int value(V v) {
+        return v.value;
+    }
+}
 ```
 which verifies successfully. Note that the specification includes a second kind of clause, the `signals_only` clause.
 This clause lists the kinds of exceptions that are expected to be thrown from the method. 
