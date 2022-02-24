@@ -13,5 +13,3 @@ public class T_Exception1a {
         return v.value;
     }
 }
-
-   
