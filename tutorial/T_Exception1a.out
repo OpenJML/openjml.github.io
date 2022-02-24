@@ -1,0 +1,4 @@
+T_Exception1a.java:13: verify: The prover cannot establish an assertion (PossiblyNullDeReference) in method value
+        return v.value;
+                ^
+1 verification failure

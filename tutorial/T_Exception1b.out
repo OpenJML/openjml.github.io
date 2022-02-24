@@ -1,0 +1,7 @@
+T_Exception1b.java:14: verify: The prover cannot establish an assertion (ExceptionList: T_Exception1b.java:12:) in method value
+        if (v == null) throw new NullPointerException();
+                       ^
+T_Exception1b.java:12: verify: Associated declaration: T_Exception1b.java:14:
+    //@ signals_only \nothing;
+        ^
+2 verification failures

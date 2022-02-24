@@ -192,7 +192,7 @@ the loop index is one less than the array length. Indeed, in that case, when the
 first loop invariant will not hold. Interestingly, there is also a loop initialization error. Why? Because if `a.length` is 0, then the initial value of `i` does not satisfy the first 
 loop invariant.
 ```
-// openjml -esc T_LoopBodyError.java
+// openjml -esc --solver-seed=42 T_LoopBodyError.java
 public class T_LoopBodyError {
 
   public void setToRamp(int[] a) {
@@ -213,10 +213,10 @@ produces
 T_LoopBodyError.java:5: verify: The prover cannot establish an assertion (LoopInvariantBeforeLoop) in method setToRamp
     //@ maintaining 0 <= i < a.length;
         ^
-T_LoopBodyError.java:11: verify: Show statement expression i has value 0
+T_LoopBodyError.java:11: verify: Show statement expression i has value 1
         //@ show i, a.length;
                  ^
-T_LoopBodyError.java:11: verify: Show statement expression a.length has value 1
+T_LoopBodyError.java:11: verify: Show statement expression a.length has value 2
         //@ show i, a.length;
                     ^
 T_LoopBodyError.java:5: verify: The prover cannot establish an assertion (LoopInvariant) in method setToRamp
@@ -226,7 +226,7 @@ T_LoopBodyError.java:5: verify: The prover cannot establish an assertion (LoopIn
 ```
 (The order of error messages and the specific values returned by show are non-deterministic.)
 
-### Loop decreasees error
+### Loop decreases error
 If the `decreases` expression does not decrease, one receives the error shown in this example:
 ```
 // openjml -esc T_LoopDecreasesError.java
