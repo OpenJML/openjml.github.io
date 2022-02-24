@@ -1,0 +1,7 @@
+T_MultipleBehaviors2.java:13: verify: The prover cannot establish an assertion (Postcondition: T_MultipleBehaviors2.java:4:) in method max
+    return a >= b ? ( c >=  a ? c : a) : (c >= b ? c : b);
+    ^
+T_MultipleBehaviors2.java:4: verify: Associated declaration: T_MultipleBehaviors2.java:13:
+  //@  ensures \result == c;
+       ^
+2 verification failures
