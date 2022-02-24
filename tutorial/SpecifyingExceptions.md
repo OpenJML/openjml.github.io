@@ -37,8 +37,6 @@ public class T_Exception1a {
         return v.value;
     }
 }
-
-   
 ```
 ```
 T_Exception1a.java:13: verify: The prover cannot establish an assertion (PossiblyNullDeReference) in method value
@@ -66,8 +64,6 @@ public class T_Exception1b {
         return v.value;
     }
 }
-
-   
 ```
 It produces the output
 ```
@@ -103,8 +99,6 @@ public class T_Exception2 {
         return v.value;
     }
 }
-
-   
 ```
 But trying to verify this example produces a verification failure:
 ```
@@ -126,7 +120,5 @@ public class T_Exception3 {
         return v.value;
     }
 }
-
-   
 ```
 which now verifies again.
