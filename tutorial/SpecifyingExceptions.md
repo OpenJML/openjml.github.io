@@ -114,6 +114,10 @@ public class T_Exception2 {
 ```
 But trying to verify this example produces a verification failure:
 ```
+T_Exception2.java:13: verify: The prover cannot establish an assertion (PossiblyNullDeReference) in method value
+        return v.value;
+                ^
+1 verification failure
 ```
 as it should. We can guard against an exception by requiring that the method always be called with a non-null argument:
 ```
