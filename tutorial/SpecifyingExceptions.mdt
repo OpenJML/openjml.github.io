@@ -1,7 +1,6 @@
-----------
+---
 title: Specifying Exceptions
-----------
-
+---
 # Specifying behavior with exceptions
 
 JML can specify exception execution paths just as well as normal execution paths.
