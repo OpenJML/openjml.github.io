@@ -1,9 +1,10 @@
-
-# Installation
+---
+title: Installation
+---
 
 Installation of OpenJML is simple:
 
-* Download the current release (in the 16.* or higher series, not the 8.* series) from [here](https://openjml.github.com/releases/latest).
+* Download the current release (in the 16.* or higher series, not the 8.* series) from [here](https://github.com/OpenJML/OpenJML/releases/latest)
 * Unzip the downloaded .zip file
 * The contents of the .zip file (e.g., the `openjml` executable) should be in
 a clean directory, though the location and name of the directory are up to the user (though spaces in the folder name or path are not permitted).
