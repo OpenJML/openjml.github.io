@@ -1,0 +1,4 @@
+T_Visibility1.java:5: error: An identifier with private visibility may not be used in a ensures clause with public visibility
+    //@ ensures \result == value;
+                           ^
+1 error

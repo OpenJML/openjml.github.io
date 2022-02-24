@@ -1,17 +1,19 @@
 #! /bin/bash
 T=temp_include
+F=temp_file
 
 for f in *.mdt; do
   cat $f > $T
   while grep -q '%include' $T; do
     line=`grep -n '%include' $T | head -1 | sed -e 's/:.*//'`
-    file=`grep '%include' $T | head -1 | sed -e 's/%include//'`
+    file=`grep '%include' $T | head -1 | sed -e 's/%include *//'`
+    cat $file | sed -e "s^\\\$\@^$file^" > $F
     linem=$(expr $line - 1)
     linep=$(expr $line + 1)
     head -$linem $T > begin
     tail +$linep $T > rest
-    cat begin $file rest > $T
-    rm begin rest
+    cat begin $F rest > $T
+    rm begin rest $F
   done
 
   mdfile=`echo $f | sed -e s/mdt/md/`

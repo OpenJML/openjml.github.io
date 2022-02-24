@@ -5,7 +5,7 @@ X=0
 files=`ls *.java`
 for f in $files ; do
     o=`echo $f | sed -e 's/java/out/'`;
-    c=`cat $f | head -1 | sed -e 'sx//[ ]*xx' | sed -e "sxopenjmlx$J/openjmlxg"` 
+    c=`cat $f | head -1 | sed -e 'sx//[ ]*xx' | sed -e s/\\$@/$f/ | sed -e "sxopenjmlx$J/openjmlxg"` 
     echo EXEC "$c"
     bash -c "$c" > logt  2>&1
     e=$?
