@@ -40,6 +40,7 @@ example code; just add the appropriate path to the `openjml` command.
   * [Visibility](Visibility)
   * [Specifying Loops](Loops)
   * [Specifying Exceptions](SpecifyingExceptions)
+  * [Multiple Method Behaviors](MultipleBehaviors)
 
 * Inheritance
   * [Inheriting Specifications](InheritingSpecifications)
