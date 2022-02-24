@@ -27,7 +27,7 @@ So the postconditions of each of the behaviors must also be true.  Fortunately t
 
 As an experiment, this example introduces a mistake in one behavior:
 ```
-%include T_MultipleBehaviors.java
+%include T_MultipleBehaviors2.java
 ```
 which yields this result
 ```
