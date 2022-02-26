@@ -80,9 +80,9 @@ A while loop generally follows the same pattern as a traditional for loop. Here 
 %include T_whileloop.java
 ```
 
-## While-do loops
+## Do-while loops
 
-While-do loops can be tricky to specify because they do not follow the same update-at-the-start of a loop pattern. Here is a simple example.
+Do-while loops can be tricky to specify because they do not follow the same update-at-the-start of a loop pattern. Here is a simple example.
 ```
 %include T_dowhile.java
 ```

@@ -19,7 +19,13 @@ public class Z {
 
 Note that (aside from conditional annotations described below) a
 Java comment starting with `@` as its very first character is a JML annotation;
-anything else is silently considered a Java comment.
+anything else is silently considered a Java comment. Thus
+```
+public class Z {
+  // @ ensures P; // ---- NOT JML - whitespace between // and @
+  void m() {}
+}
+```
 
 One pitfall with annotations is the following. Java annotations 
 begin with `@` (such as `@Override`). Thus a commented out Java
@@ -38,7 +44,14 @@ erroneous JML annotations. With this option enabled, JML annotations must
 be written with white space, such as `//@ ensures...`, 
 and not `//@ensures`.
 
-Expressions must be contained entirely within one JML comment.
+Consecutive JML comments with only whitespace or Java comments between them
+are joined together; expressions can run from one to the other.
+```
+//@ requires P
+//@   && Q
+         // Need R also
+//@   && R;
+```
 
 Comments can be conditional, as described below.
 
@@ -68,7 +81,7 @@ the value of the option is a comma-separated list of identifiers.
 * The `ESC` key is defined if `-esc` is the current command option
 * The `RAC` key is defined if `-rac` is the current command option
 * The `OPENJML` key is defined within the OpenJML tool
-* The `KEY` key is reserved for the KeY tool
+* The `KEY` and `KeY` keys are reserved for the KeY tool
 
 A JML comment with some keys present in the comment is used (i.e., not ignored)
 if 

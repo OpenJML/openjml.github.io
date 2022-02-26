@@ -4,7 +4,7 @@ We have seen how to verify methods that have pre- and postconditions to desribe
 the behavior of method bodys that contain if statements and assignments.
 Now let's progress to method calls.
 
-The key point to remember is that verification in JLM (and other similara
+The key point to remember is that verification in JML (and other similar
 deductive verification languages and tools) is *modular by method*.
 That is, each method is verified on its own; only when all methods are 
 verified with a consistent set of specifications can the program as a whole be 
@@ -16,9 +16,9 @@ Consider two methods, a caller and a callee, as shown in this diagram.
 
 The callee, on the right, is a simple standalone method. When the method is
 verified, the logical engine
-* assumes the preconditions are true
+* assumes its preconditions are true
 * symbolically represents the actions of the method body
-* assert the postconditions---that is, proves the the postconditions logically follow from the preconditions and method body in any initial state allowed by the preconditions
+* assert the postconditions---that is, proves the the postconditions logically follow from the preconditions and method body in every initial state allowed by the preconditions
 
 As for the caller, it also follows the same three steps. But how do we represent the call to `callee()`? We could inline the whole callee method, but that would
 become unwieldy, would not work for recursion, and is not modular.
@@ -139,7 +139,7 @@ Summary:
 Looking at this piece by piece:
 * The method `lessThanDouble` requires positive inputs with the first argument
 larger than the second. It returns true if the first argument is less than double the second. The method proves without a problem. For now, ignore the 
-feasibility checks. [A later less](FeasibilityChecks) will explain those.
+feasibility checks. [A later lesson](FeasibilityChecks) will explain those.
 If you want you can turn off those checks for now with the option `-checkFeasibility=none`.
 The output about `lessThanDouble` is near the end of the listing.
 * The default constructor `T_CallerCallee()` also verifies without problem.
@@ -162,11 +162,11 @@ is reported as not verified.
 A few additional points might be helpful.
 
 Often one is working on the specifications for just one method and so one does not want to try to verify everything. You can specify the one method to run like this:  
-`openjml -esc -method=caller2 T_CallerCallee.java`
+`openjml --esc --method=caller2 T_CallerCallee.java`
 
-Secondly, the `-progress` option is useful to see the detail about what verified and what did not; it also puts out information as work is accomplished, so you can see what progress is being made in a long-running job. But you can also reduce the amount of output. For example, the default `-normal` option
+Secondly, the `--progress` option is useful to see the detail about what verified and what did not; it also puts out information as work is accomplished, so you can see what progress is being made in a long-running job. But you can also reduce the amount of output. For example, the default `--normal` option
 ```
-openjml -esc T_CallerCallee.java
+openjml --esc T_CallerCallee.java
 ```
 produces
 ```

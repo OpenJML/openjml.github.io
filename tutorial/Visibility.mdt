@@ -14,7 +14,7 @@ For example, this code
 %include T_Visibility1.java
 ```
 violates JML's visibility rules because a client that can see the public declaration of the 
-method `value()` does not necessarily have visibility to the private declaration of `value`.
+method `value()` does not necessarily have visibility to the private declaration of `_value`.
 This error results:
 ```
 %include T_Visibility1.out
@@ -34,7 +34,7 @@ protected visibility for specification purposes.
 But this solution leads easily to simply declaring all names as `spec_public`, which 
 obviates the goal of having hidden an implementation in the first place. If an 
 implementation is hidden in private declarations, exposed to a client only through
-public methods, then we need a specificxiation idiom that respects that.
+public methods, then we need a specification idiom that respects that.
 
 That is one purpose of model fields, which are preented in the [next lesson](ModelFields).
 But here we'll repeat our example using a model field.
@@ -42,11 +42,11 @@ But here we'll repeat our example using a model field.
 ```
 %include T_Visibility3.java
 ```
-The general point is this. The model field `_value` _models_ the state of the class object,
+The general point is this. The model field `value` _models_ the state of the class object,
 as a public abstraction. The `represents` clause, which is private, tells how the abstraction
-relates to concrete (private) fields. The specificaiton of `value()` only uses the public
-abstraction `_value`. Of course, in this case, the abstraction is quite trivial. In fact,
-the goal of the private `value` field is not so much implementation hiding but preventing
-access to the data field, that is, not allowin clients to modify `value` directly.
+relates to concrete (private) fields. The specification of `value()` only uses the public
+abstraction `value`. Of course, in this case, the abstraction is quite trivial. In fact,
+the goal of the private `_value` field is not so much implementation hiding but preventing
+access to the data field, that is, not allowinig clients to modify `_value` directly.
 So for simple cases like this the `spec_public` modifier is perfectly fine; in fact, it is
 syntactic sugar for the solution in terms of a model field.

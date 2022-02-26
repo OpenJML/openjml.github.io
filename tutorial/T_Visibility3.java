@@ -1,14 +1,14 @@
 // openjml --esc $@
 public class T_Visibility3 {
-    private int value; //@ in _value;
+    private int _value; //@ in value;
 
 
-    //@ public model int _value;
-    //@ private represents _value = value;
+    //@ public model int value;
+    //@ private represents value = _value;
 
 
-    //@ ensures \result == _value;
+    //@ ensures \result == value;
     public int value() {
-        return value;
+        return _value;
     }
 }

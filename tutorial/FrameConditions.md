@@ -48,7 +48,7 @@ post-state, the state after the method has completed.
 
 Also, why the comparison to `Integer.MAX_VALUE`? That is to avoid warnings about arithmetic overflow. We'll get to that topic [later](ArithmeticModes).
 
-Now to the point of this lesson. The two increment methods verify OK, but 
+Now to the point of this lesson. The two increment methods verify, but 
 what is happening in the test method?
 First we assume some values for `counter1` and `counter2`. This is just to give
 a concrete starting point.
@@ -60,13 +60,13 @@ But the second assert statement is not. Why not? `increment1()` does not change
 `counter2`. The problem is that the specification of `increment1()` does not say
 that `counter2` is unchanged. One solution would be to add an additional 
 ensures clause that states that `counter2 == \old(counter2)`. This specification
-verifies OK.
+verifies as correct.
 
 But this is not a practical solution. We can't add to `increment1()`'s specification a clause stating that every visible variable is unchanged.
 Instead we use a *frame condition* whose purpose is to state what memory
 locations a method might have modified. There are a variety of names for
-the frame clause: traditionally it is `assigns` or `assignable`, but in OpenJML
-we can also use the clearer `writes`. Note that `modifies` is also an
+the frame clause: traditionally it is `assignable`, but `assigns` is also permitted.
+Note that `modifies` is also an
 (implemented) synonym, but in some tools it has a slightly different meaning,
 so its use is not recommended.
 
@@ -119,7 +119,7 @@ themselves cannot be changed by a method, but if they are references to objects,
 their fields might be written to by a method. So a method `m(MyType q)`
 might have a frame condition `writes q.f;` if `f` is a field of `MyType`
 that is written to in the body of `m`.
-* If there are no side-effects of a method, you can specify a frame condition `writes \nothing;`
+* If there are no effects of a method, you can specify a frame condition `assigns \nothing;`
 * `q.*` for an expression `q` means all fields of q
 * `a[i]` for expression `a` and `i` means that particular array element
 * `a[*]` for array expression `a` means all elements of that array

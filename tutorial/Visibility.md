@@ -13,16 +13,16 @@ For example, this code
 ```
 // openjml --esc T_Visibility1.java
 public class T_Visibility1 {
-    private int value;
+    private int _value;
 
-    //@ ensures \result == value;
+    //@ ensures \result == _value;
     public int value() {
-        return value;
+        return _value;
     }
 }
 ```
 violates JML's visibility rules because a client that can see the public declaration of the 
-method `value()` does not necessarily have visibility to the private declaration of `value`.
+method `value()` does not necessarily have visibility to the private declaration of `_value`.
 This error results:
 ```
 T_Visibility1.java:5: error: An identifier with private visibility may not be used in a ensures clause with public visibility
@@ -38,11 +38,11 @@ The `spec_public` declaration does this:
 // openjml --esc T_Visibility2.java
 public class T_Visibility2 {
     //@ spec_public
-    private int value;
+    private int _value;
 
-    //@ ensures \result == value;
+    //@ ensures \result == _value;
     public int value() {
-        return value;
+        return _value;
     }
 }
 ```
@@ -54,7 +54,7 @@ protected visibility for specification purposes.
 But this solution leads easily to simply declaring all names as `spec_public`, which 
 obviates the goal of having hidden an implementation in the first place. If an 
 implementation is hidden in private declarations, exposed to a client only through
-public methods, then we need a specificxiation idiom that respects that.
+public methods, then we need a specification idiom that respects that.
 
 That is one purpose of model fields, which are preented in the [next lesson](ModelFields).
 But here we'll repeat our example using a model field.
@@ -62,24 +62,24 @@ But here we'll repeat our example using a model field.
 ```
 // openjml --esc T_Visibility3.java
 public class T_Visibility3 {
-    private int value; //@ in _value;
+    private int _value; //@ in value;
 
 
-    //@ public model int _value;
-    //@ private represents _value = value;
+    //@ public model int value;
+    //@ private represents value = _value;
 
 
-    //@ ensures \result == _value;
+    //@ ensures \result == value;
     public int value() {
-        return value;
+        return _value;
     }
 }
 ```
-The general point is this. The model field `_value` _models_ the state of the class object,
+The general point is this. The model field `value` _models_ the state of the class object,
 as a public abstraction. The `represents` clause, which is private, tells how the abstraction
-relates to concrete (private) fields. The specificaiton of `value()` only uses the public
-abstraction `_value`. Of course, in this case, the abstraction is quite trivial. In fact,
-the goal of the private `value` field is not so much implementation hiding but preventing
-access to the data field, that is, not allowin clients to modify `value` directly.
+relates to concrete (private) fields. The specification of `value()` only uses the public
+abstraction `value`. Of course, in this case, the abstraction is quite trivial. In fact,
+the goal of the private `_value` field is not so much implementation hiding but preventing
+access to the data field, that is, not allowinig clients to modify `_value` directly.
 So for simple cases like this the `spec_public` modifier is perfectly fine; in fact, it is
 syntactic sugar for the solution in terms of a model field.

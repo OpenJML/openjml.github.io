@@ -1,7 +1,7 @@
 # Preconditions (requires clauses)
 
-Sometimes a method may only be called under certain combinations of
-parameters. Such restrictions are called *preconditions* and
+Sometimes a method may only be called in certain combinations of program state and actual
+arguments. Such restrictions are called *preconditions* and
 are written with a *requires* clause.
 
 For example, a method to compute an integer square root requires its

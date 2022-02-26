@@ -50,11 +50,11 @@ but including assignment and op-assignment)
 * the short-circuiting `||` is well-defined if the left operand is well-defined and, if the left operand is false, the right operand is well-defined
 * a `==>`  expression is well-defined if the left operand is well-defined and,
 if the left-operand is true, the right operand is well-defined
-* a conditional operator (`p ? q : r`) is well-defined if (a) the condition ai well defined and (b) if the condition is true, then the then-expression is well-defined and (c) if the condition is false, then the else-expression is well-defined
-* the `instanceof` expression is well-defined if its left-hand expression is well-defined (the right hand-expression is a type name). Note that the `instanceof` expression is still well-defined if the left-had expression is `null` and its value will is false.
+* a conditional operator (`p ? q : r`) is well-defined if (a) the condition is well defined and (b) if the condition is true, then the then-expression is well-defined and (c) if the condition is false, then the else-expression is well-defined
+* the `instanceof` expression is well-defined if its left-hand expression is well-defined (the right hand-expression is a type name). Note that the `instanceof` expression is still well-defined if the left-hand expression is `null` and its value will be false.
 * a cast operation (`(T)o`) is well-defined if its argument expression is well-defined (the type being cast to is just a type name). The argument may be `null`, in which case the result of the operation is `null`.
 * a method call expression (`o.m(..)`) or object creation expression (`o.new T(...)`)is well-defined if the receiver expression is either absent or a type name or a well-defined expression and all the arguments are well-defined
-* a switch expression is well-defined if ... TODO is a switch-expression short-circuiting, null?
+* a switch expression is well-defined if the switch value is well-defined and the selected expression is well-defined. The switch expression is short-circuiting in the sense that any expression for cases that are not selected are not evaluated and so do not need to be well-defined.
 
 Java and JML statements are well-defined if all their component sub-statements and sub-expressions are well-defined. There is no-short-circuiting, even if the case of if, if-else, or switch statements.
 

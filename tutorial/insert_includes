@@ -18,7 +18,7 @@ for f in *.mdt; do
 
   mdfile=`echo $f | sed -e s/mdt/md/`
   if diff -q $T $mdfile > /dev/null; then
-    echo $mdfile unchanged
+    ##echo $mdfile unchanged
     rm $T
   else
     mv $T $mdfile

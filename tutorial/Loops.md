@@ -124,9 +124,9 @@ public class T_whileloop {
 }
 ```
 
-## While-do loops
+## Do-while loops
 
-While-do loops can be tricky to specify because they do not follow the same update-at-the-start of a loop pattern. Here is a simple example.
+Do-while loops can be tricky to specify because they do not follow the same update-at-the-start of a loop pattern. Here is a simple example.
 ```
 // openjml -esc T_dowhile.java
 public class T_dowhile {

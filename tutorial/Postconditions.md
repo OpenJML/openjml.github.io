@@ -135,7 +135,7 @@ subject in [Calling Specified Methods](CallingSpecifiedMethods).
 Sometimes you may wish to refer to the value returned by a method in the postcon
 dition. This value is referenced as `\result`. Like all JML keywords in expressi
 on, `\result` begins with a backslash so it does conflioct with a Java identifie
-r. `\result` may only be used in `emnsures` clauses of method specifications for
+r. `\result` may only be used in `ensures` clauses of method specifications for
  methods that return values (and not for constructors). Here is a simple example
 :
 ```

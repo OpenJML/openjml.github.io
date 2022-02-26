@@ -1,8 +1,8 @@
 # Assert statements (`assert` clauses)
 
-JML *assert* statement state a condition that is expected to hold at a point
-within the body of a method. They are not part of a method's interface 
-specification, but they can help (staticly) debug the execution of a method
+A JML *assert* statement states a condition that is expected to hold at a point
+within the body of a method. Such statements are not part of a method's interface 
+specification, but they can help (either staticly with ESC or at runtime with RAC)  debug the execution of a method
 or, sometimes, provide a lemma that aids in the verification of the method body.
 
 An assert statement is simple: in a JML comment, it is just the **assert**
@@ -63,9 +63,9 @@ software writer the opportunity to consider the problem and make an
 appropriate correction.
 
 Java has its own `assert` statement. By default, the Java assert 
-statements are ignored by the Java compiler, unless explicitly enabled.
-When enabled (cf. the Java `-ea` option) a Java program is compiled so that
-it throws an `AssertionError` if the predicate in the Java assert statement
+statements are ignored at runtime, unless explicitly enabled.
+When enabled (cf. the Java `-ea` or `-esa` runtime option) a Java program will
+throw an `AssertionError` if the predicate in the Java assert statement
 is false.
 
 OpenJML will interpret a Java `assert` statement in the same way that it
@@ -90,7 +90,7 @@ public class T_assert3 {
 }
 ```
 
-produces simlar output:
+produces similar output:
 
 ```
 T_assert3.java:12: verify: The prover cannot establish an assertion (Assert) in method example

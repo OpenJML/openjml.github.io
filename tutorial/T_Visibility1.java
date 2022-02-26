@@ -1,9 +1,9 @@
 // openjml --esc $@
 public class T_Visibility1 {
-    private int value;
+    private int _value;
 
-    //@ ensures \result == value;
+    //@ ensures \result == _value;
     public int value() {
-        return value;
+        return _value;
     }
 }

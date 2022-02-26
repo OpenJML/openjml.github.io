@@ -1,7 +1,7 @@
 # Tutorial
 
 These pages provide a quick introduction to JML (the Java Modeling Language) and 
-OpenJML (a tool that implements checks of the specifications written in JML for Java programs)
+OpenJML (a tool that checks specifications written in JML for Java programs)
 in the form of an on-line tutorial.
 Aside from the installation instructions, you can read the _General_ pages as needed and dive right in to the section on Method Specifications.
 
