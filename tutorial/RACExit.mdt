@@ -2,7 +2,7 @@
 
 A RAC-compiled program behaves just like the normally compiled program, except for the runtime assertion checks and, likely, taking longer
 to execute. In particular, the program produces the same exit code as it would without RAC, even if there are RAC error messages.
-This behavior is not always what is needed.
+This behavior is not always what is desired.
 
 The exit code of a RAC-compiled program can be changed by setting a Java property, `org.jmlspecs.openjml.racexitcode`, while the
 program is executing. For example, the program

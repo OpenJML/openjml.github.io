@@ -13,7 +13,7 @@ produces
 %include T_RacJavaCheck.out
 ```
 
-If you want to see bot the RAC check and the Java check, compile using the `-racJavaChecks` option:
+If you want to see both the RAC check and the Java check, compile using the `-racJavaChecks` option:
 `openjml -rac -racJavaChecks T_RacJavaCheck.java && openjml-java -cp . T_RacJavaCheck`
 produces
 ```

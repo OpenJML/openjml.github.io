@@ -27,8 +27,8 @@ compiles with `openjml -rac T_Rac1.java` to produce a `T_Rac1.class` file.
 
 ## Execution
 
-The RAC-compiled Java program can then be executed in two ways: either using `openjml-java` or the standard installed `java`.
-If you are using `openjml-java` you do not need to have an installatino of Java itself.
+The RAC-compiled Java program can then be executed in two ways: either using the command `openjml-java` or the standard installed `java` command.
+If you are using `openjml-java` you do not need to have an installation of Java itself.
 
 ### openjml-java
 

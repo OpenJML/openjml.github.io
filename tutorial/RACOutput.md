@@ -102,7 +102,7 @@ option `-esa` to enable the assertions; if executing with `java`, use `-ea`.
 ## Compiling to Java assert statements
 
 By default, JML assertions are checked by code inserted in the test program by OpenJML. The OpenJML compilation can instead insert
-*Java* assert statements to do the assertion checking. Wrhjen a Java program is executed, the Java assert statements are disabled by
+*Java* assert statements to do the assertion checking. When a Java program is executed, the Java assert statements are disabled by
 default.
 They must be enabled by the Java `-ea` option.
 Using our running example,

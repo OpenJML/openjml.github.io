@@ -4,9 +4,9 @@ title: Multiple Method Behaviors
 
 ## Multiple behaviors
 
-So far our method specifications have been simple sequences of clsuses: pre-, frame- and post-conditions.
-But as methods become more comples it is helpful to separate the specification into multiple _behaviors_
-(also called _specification cases_).
+So far our method specifications have been simple sequences of clauses: pre-, frame- and post-conditions.
+But as methods become more complex it is helpful to separate the method specification into multiple 
+ _specification cases_, which can be thought of as different _behaviors_.
 
 Each behavior is a simple sequence of clauses, with its own preconditions, postconditions, etc.
 The specification can consist of multiple behaviors, connected by the keyword `also`.

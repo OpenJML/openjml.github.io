@@ -19,7 +19,7 @@ Exception in thread "main" java.lang.NegativeArraySizeException: -1
 	at T_RacJavaCheck.main(T_RacJavaCheck.java:4)
 ```
 
-If you want to see bot the RAC check and the Java check, compile using the `-racJavaChecks` option:
+If you want to see both the RAC check and the Java check, compile using the `-racJavaChecks` option:
 `openjml -rac -racJavaChecks T_RacJavaCheck.java && openjml-java -cp . T_RacJavaCheck`
 produces
 ```
