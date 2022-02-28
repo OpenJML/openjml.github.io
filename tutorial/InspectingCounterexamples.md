@@ -51,8 +51,28 @@ public class T_show2 {
 ```
 which produces
 ```
-error: Class names, 'T_show2', are only accepted if annotation processing is explicitly requested
-1 error
+T_show2.java:10: verify: Show statement expression a has value ( - 2147480361 )
+    //@ show a, b, c, d, maxSoFar;
+             ^
+T_show2.java:10: verify: Show statement expression b has value ( - 2147480362 )
+    //@ show a, b, c, d, maxSoFar;
+                ^
+T_show2.java:10: verify: Show statement expression c has value ( - 2147477363 )
+    //@ show a, b, c, d, maxSoFar;
+                   ^
+T_show2.java:10: verify: Show statement expression d has value ( - 2147477362 )
+    //@ show a, b, c, d, maxSoFar;
+                      ^
+T_show2.java:10: verify: Show statement expression maxSoFar has value ( - 2147480362 )
+    //@ show a, b, c, d, maxSoFar;
+                         ^
+T_show2.java:11: verify: The prover cannot establish an assertion (Postcondition: T_show2.java:3:) in method max
+    return maxSoFar;
+    ^
+T_show2.java:3: verify: Associated declaration: T_show2.java:11:
+  //@ ensures \result >= a && \result >= b && \result >= c && \result >= d;
+      ^
+7 verification failures
 ```
 The values shown are the result of a non-deterministic search; they might very well be different values on subsequent runs.
 Nevertheless, it appears that the value of `maxSoFar`, which is the value returned, is the same as `c`, or perhaps the max of `a`, `b`, and `c`,
