@@ -11,7 +11,7 @@ T_show1.java:1: 	requires true;
 T_show1.java:6: 	int maxSoFar = a
 			VALUE: a	 === ( - 8946 )
 			VALUE: maxSoFar	 === ( - 8946 )
-T_show1.java:1: 	if (b > maxSoFar) ...
+T_show1.java:7: 	if (b > maxSoFar) ...
 			VALUE: b	 === ( - 8945 )
 			VALUE: maxSoFar	 === ( - 8946 )
 			VALUE: b > maxSoFar	 === true
@@ -20,7 +20,7 @@ T_show1.java:1: 	if (b > maxSoFar) ...
 T_show1.java:7: 	maxSoFar = b
 			VALUE: b	 === ( - 8945 )
 			VALUE: maxSoFar = b	 === ( - 8945 )
-T_show1.java:1: 	if (c > maxSoFar) ...
+T_show1.java:8: 	if (c > maxSoFar) ...
 			VALUE: c	 === 1
 			VALUE: maxSoFar	 === ( - 8945 )
 			VALUE: c > maxSoFar	 === true
@@ -29,7 +29,7 @@ T_show1.java:1: 	if (c > maxSoFar) ...
 T_show1.java:8: 	maxSoFar = c
 			VALUE: c	 === 1
 			VALUE: maxSoFar = c	 === 1
-T_show1.java:1: 	if (d > maxSoFar) ...
+T_show1.java:9: 	if (d > maxSoFar) ...
 			VALUE: d	 === 2
 			VALUE: maxSoFar	 === 1
 			VALUE: d > maxSoFar	 === true
