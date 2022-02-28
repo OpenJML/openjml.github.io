@@ -26,7 +26,7 @@ method `value()` does not necessarily have visibility to the private declaration
 This error results:
 ```
 T_Visibility1.java:5: error: An identifier with private visibility may not be used in a ensures clause with public visibility
-    //@ ensures \result == value;
+    //@ ensures \result == _value;
                            ^
 1 error
 ```

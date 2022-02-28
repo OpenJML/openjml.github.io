@@ -1,0 +1,7 @@
+T_show1.java:10: verify: The prover cannot establish an assertion (Postcondition: T_show1.java:3:) in method max
+    return maxSoFar;
+    ^
+T_show1.java:3: verify: Associated declaration: T_show1.java:10:
+  //@ ensures \result >= a && \result >= b && \result >= c && \result >= d;
+      ^
+2 verification failures

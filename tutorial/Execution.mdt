@@ -38,4 +38,4 @@ The executable returns with one of these exit values:
 
 The exit code for a verification failure can be changed to one of the other exit codes using the `--verify-exit` option.
 
-_Last modified: 2022-02-28 10:12:43_
+LAST_MODIFIED

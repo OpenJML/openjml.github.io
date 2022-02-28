@@ -1,0 +1,2 @@
+
+( openjml --esc --trace T_show1.java )  2>&1 | diff - T_show5.out

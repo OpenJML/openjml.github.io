@@ -8,7 +8,8 @@ in the form of an on-line tutorial.
 Aside from the installation instructions, you can read the _General_ pages as needed and dive right in to the section on Method Specifications.
 
 ```diff
-!This tutorial is a Work In Progress (2022). Expect lots of editing and new pages.
+! This tutorial is a Work In Progress (Feb 2022).
+! Expect lots of editing and new pages.
 ```
 
 The tutorial does not cover all aspects of JML and OpenJML. See also the 
@@ -39,7 +40,6 @@ example code; just add the appropriate path to the `openjml` command.
   * [Well-defined Expressions](WellDefinedExpressions)
   * [Verifying Method Calls](MethodCalls)
   * [Frame Conditions](FrameConditions)
-
   * [Using Method Calls in Specifications](MethodsInSpecifications)
   * [Arithmetic](ArithmeticModes)
   * [Null and non-null](Nullness)
@@ -69,15 +69,4 @@ example code; just add the appropriate path to the `openjml` command.
   * [Modularizing Specifications](SpecificationCases)
   
 
-_Last modified: 2022-02-28 09:53:41_
-<!--
-embedded comments
-Java annotations
-heavyweight method specs
-arithmetic modes
-invariants
-JML types
-JML expressions
-
-reasoning about lambda expressions
--->
+_Last modified: 2022-02-28 10:24:51_

@@ -1,0 +1,4 @@
+T_show2.java:2: error: class T_show1 is public, should be declared in a file named T_show1.java
+public class T_show1 {
+       ^
+1 error
