@@ -1,5 +1,5 @@
 ---
-title: JML Tutorial: Installation
+title: JML Tutorial - Installation
 ---
 
 Installation of OpenJML is simple:

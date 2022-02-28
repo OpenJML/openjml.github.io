@@ -1,5 +1,5 @@
 ---
-title: JML Tutorial: Executing openjml
+title: JML Tutorial - Executing openjml
 ---
 
 ## Options and files
