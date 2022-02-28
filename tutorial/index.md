@@ -1,4 +1,6 @@
-# Tutorial
+---
+title: JML Tutorial
+---
 
 These pages provide a quick introduction to JML (the Java Modeling Language) and 
 OpenJML (a tool that checks specifications written in JML for Java programs)

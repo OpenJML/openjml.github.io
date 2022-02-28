@@ -1,4 +1,6 @@
-# Executing openjml
+---
+title: JML Tutorial: Executing openjml
+---
 
 ## Options and files
 
@@ -8,18 +10,18 @@ and is correspondingly a classic command-line tool:
 * Files are given as absolute file paths 
 or paths relative to the current working directory
 (not relative to the location of `openjml`).
-* Options begin with a single hyphen (e.g., `-quiet`). Options that take a value either (a) have the value follow the option as the next argument or (b) 
+* Options begin with a double hyphen (e.g., `--quiet`) (single hyphens are still accepted for most options). Options that take a value either (a) have the value follow the option as the next argument or (b) 
 (for OpenJML options only) use the syntax `-option=value`.
 For some options, the value may be a comma-separated list; if the value contains
 whitespace, it must be enclosed in quotes.
 
 The details of all the options are given in the [OpenJML Reference Manual](../documentation/OpenJMLUserGuide.pdf). A few are worth mentioning here:
-* `-help`: emit help information (about all of the options)
-* `-esc`: run static checking (the default is just parse and type-checking)
-* `-rac`: run runtime-assertion-checking
-* `-progress`: emits more information during processing than the default `-normal`
+* `--help` or `-?`: emit help information (about all of the options)
+* `--esc`: run static checking (the default is just parse and type-checking)
+* `--rac`: run runtime-assertion-checking
+* `--progress`: emits more information during processing than the default `-normal`
 
-Use `-classpath` or `-cp` just as you would for `javac`.
+Use `--class-path` or `-cp` just as you would for `javac` to specify the list of folders on which to find files.
 
 ## Exit codes
 
@@ -32,5 +34,5 @@ The executable returns with one of these exit values:
 * 5 - exit because an operation was cancelled 
 * 6 - exit because of a verification failure
 
-The exit code for a verification failure can be changed to one of the other exit codes using the `-verify-exit` option.
+The exit code for a verification failure can be changed to one of the other exit codes using the `--verify-exit` option.
 
