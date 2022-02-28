@@ -19,7 +19,7 @@ It is worth restating a few points:
 * The techniques presented here are largely specific to `openjml`, at least in the details. Each tool and prover has different ways in which it has difficulties, though some general ideas and techniques may translate from one situation to another.
 * Start with simple problems, understand them well, and them move on to complex situations.
 
-For serious problems in real situations (i.e., not your course homework) or difficulty understanding how all of this deductive verification works, feel free to contact the tool developers or other experts in softawre verification. For JML and openjml, start with the issues list at [the OpenJML project](https://github.com/OpenJML/OpenJML/Issues).
+For serious problems in real situations (i.e., not your course homework) or difficulty understanding how all of this deductive verification works, feel free to contact the tool developers or other experts in softawre verification. For JML and openjml, start with the issues list at [the OpenJML project](https://github.com/OpenJML/OpenJML/issues).
 
 
 LAST_MODIFIED
