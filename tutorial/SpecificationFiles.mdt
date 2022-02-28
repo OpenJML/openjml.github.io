@@ -25,7 +25,7 @@ and a corresponding `.jml` file (with an intentional mistake) in the same folder
 ```
 %include T_jmlexample.jml
 ```
-we simply run `openjml` on the `.java` file as before:\\
+we simply run `openjml` on the `.java` file as before:
 `openjml --esc T_jmlexample.java`\\
 producing
 ```

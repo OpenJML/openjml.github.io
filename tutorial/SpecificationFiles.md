@@ -35,7 +35,7 @@ public class T_jmlexample {
   public int abs(int i);
 }
 ```
-we simply run `openjml` on the `.java` file as before:\\
+we simply run `openjml` on the `.java` file as before:
 `openjml --esc T_jmlexample.java`\\
 producing
 ```
