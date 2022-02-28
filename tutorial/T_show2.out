@@ -1,4 +1,2 @@
-T_show2.java:2: error: class T_show1 is public, should be declared in a file named T_show1.java
-public class T_show1 {
-       ^
+error: Class names, 'T_show2', are only accepted if annotation processing is explicitly requested
 1 error

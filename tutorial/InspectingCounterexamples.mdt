@@ -58,7 +58,7 @@ we are told
 %include T_show4.out
 ```
 
-## Execution traces: the `-`trace` and `--subexpressions` options
+## Execution traces: the `--trace` and `--subexpressions` options
 
 Using a `show` statement is handy but is a bit like debugging a program using print statements: you get some data, but you have to still manually review the program to see what might be going wrong, working through the code step by step. An additional openjml tool is the `--trace` option. Upon a failure, it outputs an execution trace ending at the point of the violation. So the first example above, using now `openjml --esc --trace T_show1.java`, produces
 ```

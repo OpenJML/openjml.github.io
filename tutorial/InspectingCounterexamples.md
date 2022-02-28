@@ -36,7 +36,7 @@ T_show1.java:3: verify: Associated declaration: T_show1.java:10:
 So there is an error somewhere. Now if we insert a `show` statement, we can see an example of values that produce the problem.
 ```
 // openjml --esc T_show2.java
-public class T_show1 {
+public class T_show2 {
   //@ ensures \result >= a && \result >= b && \result >= c && \result >= d;
   //@ ensures \result == a || \result == b || \result == c || \result == d;
   int max(int a, int b, int c, int d) {
@@ -51,9 +51,7 @@ public class T_show1 {
 ```
 which produces
 ```
-T_show2.java:2: error: class T_show1 is public, should be declared in a file named T_show1.java
-public class T_show1 {
-       ^
+error: Class names, 'T_show2', are only accepted if annotation processing is explicitly requested
 1 error
 ```
 The values shown are the result of a non-deterministic search; they might very well be different values on subsequent runs.
@@ -126,7 +124,7 @@ T_show4.java:9: verify: The prover cannot establish an assertion (PossiblyTooLar
 3 verification failures
 ```
 
-## Execution traces: the `-`trace` and `--subexpressions` options
+## Execution traces: the `--trace` and `--subexpressions` options
 
 Using a `show` statement is handy but is a bit like debugging a program using print statements: you get some data, but you have to still manually review the program to see what might be going wrong, working through the code step by step. An additional openjml tool is the `--trace` option. Upon a failure, it outputs an execution trace ending at the point of the violation. So the first example above, using now `openjml --esc --trace T_show1.java`, produces
 ```
@@ -229,4 +227,4 @@ Though the subexpression option above usually provides the most useful informati
 The `--counterexample` or `-ce` options do this. However, the output is quite verbose and (at present) uses internal encodings of variable names. Improving this information is a planned task, but at the moment the output is useful mainly to experts.
 
 
-_Last modified: 2022-02-28 15:11:31_
+_Last modified: 2022-02-28 15:18:06_
