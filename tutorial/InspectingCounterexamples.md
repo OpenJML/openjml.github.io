@@ -76,7 +76,7 @@ T_show2.java:3: verify: Associated declaration: T_show2.java:11:
 ```
 The values shown are the result of a non-deterministic search; they might very well be different values on subsequent runs.
 Nevertheless, it appears that the value of `maxSoFar`, which is the value returned, is the same as `c`, or perhaps the max of `a`, `b`, and `c`,
-and does not take `d` into account. some code inspection shows that there is a cut&paste error on line 9.
+and does not take `d` into account. Some code inspection shows that there is a cut&paste error on line 9.
 
 The counterexample is always in terms of concrete values --- that is how the underlying solvers work. One would much rather have a symbolic condition that represents the cases that fail, but that is beyond the current state of the art. At present, the best one can do is do some human induction based on a few examples to understand when a program or its specification fails.
 
@@ -144,7 +144,7 @@ T_show4.java:9: verify: The prover cannot establish an assertion (PossiblyTooLar
 3 verification failures
 ```
 
-## Execution traces: the `--trace` and `--subexpressions` options
+## Execution traces: the `-`trace` and `--subexpressions` options
 
 Using a `show` statement is handy but is a bit like debugging a program using print statements: you get some data, but you have to still manually review the program to see what might be going wrong, working through the code step by step. An additional openjml tool is the `--trace` option. Upon a failure, it outputs an execution trace ending at the point of the violation. So the first example above, using now `openjml --esc --trace T_show1.java`, produces
 ```
@@ -247,4 +247,4 @@ Though the subexpression option above usually provides the most useful informati
 The `--counterexample` or `-ce` options do this. However, the output is quite verbose and (at present) uses internal encodings of variable names. Improving this information is a planned task, but at the moment the output is useful mainly to experts.
 
 
-_Last modified: 2022-02-28 15:18:06_
+_Last modified: 2022-02-28 15:28:01_

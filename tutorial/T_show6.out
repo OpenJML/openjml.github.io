@@ -1,0 +1,61 @@
+T_show1.java:10: verify: The prover cannot establish an assertion (Postcondition: T_show1.java:3:) in method max
+    return maxSoFar;
+    ^
+T_show1.java:3: verify: Associated declaration: T_show1.java:10:
+  //@ ensures \result >= a && \result >= b && \result >= c && \result >= d;
+      ^
+
+TRACE of T_show1.max(int,int,int,int)
+T_show1.java:1: 	requires true; 
+			VALUE: true	 === true
+T_show1.java:6: 	int maxSoFar = a
+			VALUE: a	 === ( - 8946 )
+			VALUE: maxSoFar	 === ( - 8946 )
+T_show1.java:1: 	if (b > maxSoFar) ...
+			VALUE: b	 === ( - 8945 )
+			VALUE: maxSoFar	 === ( - 8946 )
+			VALUE: b > maxSoFar	 === true
+			VALUE: (b > maxSoFar)	 === true
+				Condition = true
+T_show1.java:7: 	maxSoFar = b
+			VALUE: b	 === ( - 8945 )
+			VALUE: maxSoFar = b	 === ( - 8945 )
+T_show1.java:1: 	if (c > maxSoFar) ...
+			VALUE: c	 === 1
+			VALUE: maxSoFar	 === ( - 8945 )
+			VALUE: c > maxSoFar	 === true
+			VALUE: (c > maxSoFar)	 === true
+				Condition = true
+T_show1.java:8: 	maxSoFar = c
+			VALUE: c	 === 1
+			VALUE: maxSoFar = c	 === 1
+T_show1.java:1: 	if (d > maxSoFar) ...
+			VALUE: d	 === 2
+			VALUE: maxSoFar	 === 1
+			VALUE: d > maxSoFar	 === true
+			VALUE: (d > maxSoFar)	 === true
+				Condition = true
+T_show1.java:9: 	maxSoFar = c
+			VALUE: c	 === 1
+			VALUE: maxSoFar = c	 === 1
+T_show1.java:10: 	return maxSoFar;
+			VALUE: maxSoFar	 === 1
+T_show1.java:3: 	ensures \result >= a && \result >= b && \result >= c && \result >= d; 
+			VALUE: \result	 === 1
+			VALUE: a	 === ( - 8946 )
+			VALUE: \result >= a	 === true
+			VALUE: \result	 === 1
+			VALUE: b	 === ( - 8945 )
+			VALUE: \result >= b	 === true
+			VALUE: \result >= a && \result >= b	 === true
+			VALUE: \result	 === 1
+			VALUE: c	 === 1
+			VALUE: \result >= c	 === true
+			VALUE: \result >= a && \result >= b && \result >= c	 === true
+			VALUE: \result	 === 1
+			VALUE: d	 === 2
+			VALUE: \result >= d	 === false
+T_show1.java:10: Invalid assertion (Postcondition)
+: T_show1.java:3: Associated location
+
+2 verification failures

@@ -26,7 +26,7 @@ which produces
 ```
 The values shown are the result of a non-deterministic search; they might very well be different values on subsequent runs.
 Nevertheless, it appears that the value of `maxSoFar`, which is the value returned, is the same as `c`, or perhaps the max of `a`, `b`, and `c`,
-and does not take `d` into account. some code inspection shows that there is a cut&paste error on line 9.
+and does not take `d` into account. Some code inspection shows that there is a cut&paste error on line 9.
 
 The counterexample is always in terms of concrete values --- that is how the underlying solvers work. One would much rather have a symbolic condition that represents the cases that fail, but that is beyond the current state of the art. At present, the best one can do is do some human induction based on a few examples to understand when a program or its specification fails.
 
@@ -58,7 +58,7 @@ we are told
 %include T_show4.out
 ```
 
-## Execution traces: the `--trace` and `--subexpressions` options
+## Execution traces: the `-`trace` and `--subexpressions` options
 
 Using a `show` statement is handy but is a bit like debugging a program using print statements: you get some data, but you have to still manually review the program to see what might be going wrong, working through the code step by step. An additional openjml tool is the `--trace` option. Upon a failure, it outputs an execution trace ending at the point of the violation. So the first example above, using now `openjml --esc --trace T_show1.java`, produces
 ```
