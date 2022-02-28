@@ -60,6 +60,7 @@ example code; just add the appropriate path to the `openjml` command.
   * [RAC and Java checks](RACJavaChecks)
 
 * Advanced topics
+  * [Specicfication (.jml) files](SpecificationFiles)
   * [Reasoning about Types](TYPE)
   * [Modularizing Specifications](SpecificationCases)
   

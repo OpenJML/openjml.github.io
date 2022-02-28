@@ -11,7 +11,7 @@ and is correspondingly a classic command-line tool:
 or paths relative to the current working directory
 (not relative to the location of `openjml`).
 * Options begin with a double hyphen (e.g., `--quiet`) (single hyphens are still accepted for most options). Options that take a value either (a) have the value follow the option as the next argument or (b) 
-(for OpenJML options only) use the syntax `-option=value`.
+(for OpenJML options, but only some Java option) use the syntax `-option=value`.
 For some options, the value may be a comma-separated list; if the value contains
 whitespace, it must be enclosed in quotes.
 
