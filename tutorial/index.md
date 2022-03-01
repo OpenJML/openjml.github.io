@@ -56,6 +56,9 @@ example code; just add the appropriate path to the `openjml` command.
 * [Managing proofs](ManagingProofs)
 
 * [Debugging Techniques](Debugging)
+  * [Inspecting Counterexamples](InspectingCounterexamples)
+  * [Splitting up proofs](SplittingProofs)
+  * [Adding Logical Information](Lemmas)
 
 * Runtime Assertion Checking
   * [Compilation and Execution](RACCompilation)
@@ -69,4 +72,4 @@ example code; just add the appropriate path to the `openjml` command.
   * [Modularizing Specifications](SpecificationCases)
   
 
-_Last modified: 2022-02-28 10:24:51_
+_Last modified: 2022-03-01 15:28:10_
