@@ -40,6 +40,7 @@ example code; just add the appropriate path to the `openjml` command.
   * [Well-defined Expressions](WellDefinedExpressions)
   * [Verifying Method Calls](MethodCalls)
   * [Frame Conditions](FrameConditions)
+  * [Specifying Constsructors](Constructors)
   * [Using Method Calls in Specifications](MethodsInSpecifications)
   * [Arithmetic](ArithmeticModes)
   * [Null and non-null](Nullness)
@@ -52,6 +53,15 @@ example code; just add the appropriate path to the `openjml` command.
   * [Inheriting Specifications](InheritingSpecifications)
   * [Abstracting Frame Conditions --- Datagroups](Datagroups)
   * [Model Methods](ModelMethods)
+
+* [Built-in mathematical types for specifcations](BuitinTypes)
+  * [\bigint](type-bigint)
+  * [\real](type-real)
+  * [\set<T>](type-set)
+  * [\seq<T>](type-seq)
+  * [\map<T>](type-map)
+  * [\range<T>](type-range)
+  * [\TYPE](type-TYPE)
   
 * [Managing proofs](ManagingProofs)
   * [Choosing what files and methods to verify](MethodSelection)
@@ -75,4 +85,4 @@ example code; just add the appropriate path to the `openjml` command.
   * [Modularizing Specifications](SpecificationCases)
   
 
-_Last modified: 2022-03-01 23:55:57_
+_Last modified: 2022-03-02 12:32:55_
