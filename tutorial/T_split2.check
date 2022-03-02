@@ -1,0 +1,2 @@
+
+( openjml --esc --split=AB,B --progress -jmltesting T_split1.java )  2>&1 | diff - T_split2.out
