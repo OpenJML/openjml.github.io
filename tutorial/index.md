@@ -55,6 +55,8 @@ example code; just add the appropriate path to the `openjml` command.
   * [Abstracting Frame Conditions --- Datagroups](Datagroups)
   * [Model Methods](ModelMethods)
 
+* [Object Invariants](Invariants)
+
 * [Built-in mathematical types for specifications](BuitinTypes)
   * [\bigint](type-bigint)
   * [\real](type-real)
@@ -94,4 +96,4 @@ example code; just add the appropriate path to the `openjml` command.
   * [Modularizing Specifications](SpecificationCases)
   
 
-_Last modified: 2022-03-02 17:14:58_
+_Last modified: 2022-03-02 17:47:18_
