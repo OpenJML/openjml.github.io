@@ -48,18 +48,20 @@ example code; just add the appropriate path to the `openjml` command.
   * [Specifying Loops](Loops)
   * [Specifying Exceptions](SpecifyingExceptions)
   * [Multiple Method Behaviors](MultipleBehaviors)
+  * [Minimizing replicated specifications --- initially, constraint, invariant clauses](InitiallyConstraint)
 
 * Inheritance
   * [Inheriting Specifications](InheritingSpecifications)
   * [Abstracting Frame Conditions --- Datagroups](Datagroups)
   * [Model Methods](ModelMethods)
 
-* [Built-in mathematical types for specifcations](BuitinTypes)
+* [Built-in mathematical types for specifications](BuitinTypes)
   * [\bigint](type-bigint)
   * [\real](type-real)
   * [\set](type-set)
   * [\seq](type-seq)
   * [\map](type-map)
+  * [\string](type-string)
   * [\range](type-range)
   * [\TYPE](type-TYPE)
   
@@ -81,8 +83,15 @@ example code; just add the appropriate path to the `openjml` command.
 * Advanced topics
   * [Specification (.jml) files](SpecificationFiles)
   * [Java @-annotations for JML](JavaAnnotations)
+  * [Reasoning about bit-wise operations](BitVectors)
+  * [Reasoning about Floating Point operations](FloatingPoint)
+  * [Reasoning about Enums](Enums)
+  * [Reasoning about Records](Records)
+  * [Reasoning about Lambda Functions](Lambdas)
+  * [Reasoning about Streams](Streams)
   * [Reasoning about Types](TYPE)
+  * [Reasoning about recursive functions and data structures](Recursion)
   * [Modularizing Specifications](SpecificationCases)
   
 
-_Last modified: 2022-03-02 12:35:55_
+_Last modified: 2022-03-02 17:14:58_

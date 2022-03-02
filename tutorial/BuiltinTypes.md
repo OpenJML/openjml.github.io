@@ -11,15 +11,16 @@ One potential disadvantage of custom-designed types is that it is an additional 
 _The current design for JML is to define a small core set of built-in mathematical, value-oriented types with a Java-like syntax._
 
 This lesson introduces those types, with details described in subsequent lessons; each type name is a link to a page describing that type. They are
-* [`\bigint`](type-bigint) --- an unbounded, mathematical integer type
-* [`\real`](type-real) --- a mathematical type of real numbers
-* [`\seq<T>`](type-seq) --- a parameterized type of finite sequences of elements of type T
+* [`\bigint`](type-bigint) --- an type of unbounded, mathematical integers
+* [`\real`](type-real) --- a type of (mathematical) real numbers
 * [`\set<T>`](type-set) --- a parameterized type of finite sets of elements of type T
-* [`\map<T,U>`](type-map) --- a parameterized type of finite maps mpping keys of type T to elements of type U
-* [\range](type-range) --- a range of \bigint values, from a lower bound up to and not including an upper bound
-* [\TYPE](type-TYPE) --- a type for reasoning about types of Java expressions
+* [`\seq<T>`](type-seq) --- a parameterized type of finite sequences of elements of type T
+* [`\map<T,U>`](type-map) --- a parameterized type of finite maps mapping keys of type T to elements of type U
+* [`\string`](type-string) --- a built-in type of immutable (value-semantics) strings (sequences of the primitive Java type `char`)
+* [\range](type-range) --- a range of \bigint values, from a lower \bigint bound up to and not including an upper \bigint bound
+* [\TYPE](type-TYPE) --- a type for reasoning about (compile-time) types of Java expressions
 
-The type parameter of the parameterized types may be either a Java reference type or a JML built-in type, but not a primitive Java type. Where equality comparisons are needed, `==` is used.
+The type parameter of the parameterized types may be either a Java reference type or a JML built-in type, but not a primitive Java type. Where equality comparisons are needed among values of Java or JML types, `==` is used.
 
 
-_Last modified: 2022-03-02 12:30:34_
+_Last modified: 2022-03-02 17:13:20_

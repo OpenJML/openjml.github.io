@@ -1,0 +1,10 @@
+T_initially2.java:16: verify: The prover cannot establish an assertion (Precondition: T_initially2.java:9:) in method T_initially2
+    this(0,0);
+        ^
+T_initially2.java:9: verify: Associated declaration: T_initially2.java:16:
+  public T_initially2(int width, int length) {
+         ^
+T_initially2.java:7: verify: Precondition conjunct is false: 0 < width < length
+  //@ requires 0 < width < length;
+                         ^
+3 verification failures

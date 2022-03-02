@@ -1,0 +1,7 @@
+T_initially1.java:8: verify: The prover cannot establish an assertion (Initially: T_initially1.java:18:) in method T_initially1
+  public T_initially1(int width, int length) {
+         ^
+T_initially1.java:18: verify: Associated declaration: T_initially1.java:8:
+  //@ public initially 0 < width < length;
+             ^
+2 verification failures
