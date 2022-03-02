@@ -10,7 +10,7 @@ This is an important question, especially since, just as in debugging programs, 
 debugging failing proofs than is spent in basking in the glow of a successful proof -- by then you are on to the next challenge. Again, as in traditional debugging of programs, debugging specifications can be difficult and time-consuming. The lessons under this topic will provide you with some techniques that help.
 
 First note that there are different kinds of problems that can lead to a failed proof:
-* The specification and implementation really are different. The proof counterexample can provide information about the difference [here](InspectingCounterexamples). It can also help to break up the verification problem [here](SplittingProofProblems).
+* The specification and implementation really are different. The proof counterexample can provide information about the difference [here](InspectingCounterexamples). It can also help to break up the verification problem [here](SplittingProofs).
 * The proof problem is too big for the prover to solve. For this situation there are techniques to split up the verification problem into sections [here](SplittingPProofProblems).
 * The prover is missing some vital information that prevents it from making the necessary proof steps. For this situation you can add lemmas or other assumptions [here](Lemmas).
 
@@ -22,4 +22,4 @@ It is worth restating a few points:
 For serious problems in real situations (i.e., not your course homework) or difficulty understanding how all of this deductive verification works, feel free to contact the tool developers or other experts in softawre verification. For JML and openjml, start with the issues list at [the OpenJML project](https://github.com/OpenJML/OpenJML/issues).
 
 
-_Last modified: 2022-03-01 15:25:23_
+_Last modified: 2022-03-01 19:06:35_
