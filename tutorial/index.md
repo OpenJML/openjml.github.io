@@ -57,10 +57,10 @@ example code; just add the appropriate path to the `openjml` command.
 * [Built-in mathematical types for specifcations](BuitinTypes)
   * [\bigint](type-bigint)
   * [\real](type-real)
-  * [\set<T>](type-set)
-  * [\seq<T>](type-seq)
-  * [\map<T>](type-map)
-  * [\range<T>](type-range)
+  * [\set](type-set)
+  * [\seq](type-seq)
+  * [\map](type-map)
+  * [\range](type-range)
   * [\TYPE](type-TYPE)
   
 * [Managing proofs](ManagingProofs)
@@ -85,4 +85,4 @@ example code; just add the appropriate path to the `openjml` command.
   * [Modularizing Specifications](SpecificationCases)
   
 
-_Last modified: 2022-03-02 12:32:55_
+_Last modified: 2022-03-02 12:35:55_
