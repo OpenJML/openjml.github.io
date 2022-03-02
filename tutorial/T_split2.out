@@ -23,7 +23,7 @@ T_split1.java:3: warning: Associated declaration
   //@ ensures i == 2;
       ^
 Result of split B is Not verified
-Composite result POSSIBLY_SAT
+Composite result Not verified with 2 splits skipped
 Completed proof of T_split1.m(int) with prover !!!! - with warnings
 Completed proving methods in T_split1
 4 warnings

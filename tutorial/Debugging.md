@@ -11,7 +11,7 @@ debugging failing proofs than is spent in basking in the glow of a successful pr
 
 First note that there are different kinds of problems that can lead to a failed proof:
 * The specification and implementation really are different. The proof counterexample can provide information about the difference [here](InspectingCounterexamples). It can also help to break up the verification problem [here](SplittingProofs).
-* The proof problem is too big for the prover to solve. For this situation there are techniques to split up the verification problem into sections [here](SplittingPProofProblems).
+* The proof problem is too big for the prover to solve. For this situation there are techniques to split up the verification problem into sections [here](SplittingProofs).
 * The prover is missing some vital information that prevents it from making the necessary proof steps. For this situation you can add lemmas or other assumptions [here](Lemmas).
 
 It is worth restating a few points:
@@ -22,4 +22,4 @@ It is worth restating a few points:
 For serious problems in real situations (i.e., not your course homework) or difficulty understanding how all of this deductive verification works, feel free to contact the tool developers or other experts in softawre verification. For JML and openjml, start with the issues list at [the OpenJML project](https://github.com/OpenJML/OpenJML/issues).
 
 
-_Last modified: 2022-03-01 19:06:35_
+_Last modified: 2022-03-01 19:07:38_
