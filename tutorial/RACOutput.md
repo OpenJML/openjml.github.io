@@ -1,4 +1,6 @@
-# RAC Verification error messages
+---
+title: JML Tutorial - RAC Verification error messages
+---
 
 The default behavior of a RAC-compiled program when detecting an assertion error is to print an error message and continue.
 That behavior can be altered at execution time. There are various modes of operation, controlled by Java properties.
@@ -155,3 +157,4 @@ END
 As the text of error messages is compiled into the class file, the control of error messages is a *compile-time*, not a runtime, option.
 
 
+_Last modified: 2022-03-01 20:47:32_

@@ -1,4 +1,6 @@
-# JML Expressions
+---
+title: JML Tutorial - JML Expressions
+---
 
 The earlier lessons on pre- and post-conditions, assert and assume
 stastements all showed examples of *expressions* used in JML clauses.
@@ -60,3 +62,4 @@ cannot conflict with Java identifiers.
 
 Of course, these JML operators and functions (and all other JML syntax) can only be used within JML annotations, not in Java.
 
+_Last modified: 2022-03-01 20:36:08_

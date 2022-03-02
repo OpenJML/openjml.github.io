@@ -1,5 +1,5 @@
 ---
-title: Time and Error Limits
+title: JML Tutorial - Time and Error Limits
 ---
 
 This page describes how to limit the time spent on proof attempts.
@@ -27,3 +27,6 @@ but it is a reasonable working style to set it to 1.
 
 Note that there will be no proof attempts for any methods in a file if there
 are parsing or type-checking errors in the source or specification files.
+
+
+LAST_MODIFIED

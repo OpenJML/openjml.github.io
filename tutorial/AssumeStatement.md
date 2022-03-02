@@ -1,4 +1,6 @@
-# Assume statements (`assume` clauses)
+---
+title: JML Tutorial - Assume statements (`assume` clauses)
+---
 
 Like an `assert` stastement, a JML  `assume` statement may be used in the
 body of a method. The effect of an `assume` statement is to instruct
@@ -82,3 +84,4 @@ a specification and proof of a method implementation, but they should be
 replaced with `assert` statements or removed altogether before a verification
 is considered sound.
 
+_Last modified: 2022-03-01 20:38:37_

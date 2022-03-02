@@ -1,4 +1,6 @@
-# Postconditions (`ensures` clauses)
+---
+title: JML Tutorial - Postconditions (`ensures` clauses)
+---
 
 A method's specification states what the method does,
 and not how it is done. The effect of a method is
@@ -79,3 +81,5 @@ r. `\result` may only be used in `ensures` clauses of method specifications for
 ```
 %include T_ensures3.java
 ```
+
+LAST_MODIFIED

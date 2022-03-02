@@ -1,4 +1,6 @@
-# Specifying Loops
+---
+title: JML Tutorial - Specifying Loops
+---
 
 In the current state of deductive verification technology it is essential that all loops have loop specifications.
 
@@ -276,3 +278,5 @@ T_LoopNegativeError.java:8: verify: The prover cannot establish an assertion (Lo
         ^
 1 verification failure
 ```
+
+_Last modified: 2022-03-01 20:40:49_

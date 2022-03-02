@@ -1,5 +1,5 @@
 ---
-title: Splitting up proofs
+title: JML Tutorial - Splitting up proofs
 ---
 
 By default, OpenJML attempts to verify each method on its own and converts the entire method into one verification condition that contains all of the implicit and explicit assertions needs to verify that a method's specification and implementation agree. Treating each assertion individually or even in groups would require duplicating effort within the solver. Solvers are highly engineered for large problems and for speed.
@@ -67,6 +67,7 @@ which produces
 First a few details:
 * We use the `--progress` option so we can see what is happening (always use that option with splits, at least until they are all succdessful)
 * The `--split` option ... TODO
+* In th scae of a loop, the split statement is put between the loop specification and the loop itself.
 
 Now note that four splits are produced. First there is a split at the if-statement, `A` for the _then_ branch, `B` for the _else_ branch. Then, within the _then_
 branch, there is a switch statement with three cases, which will be labeled `A`, `B`, and `C`. So we have four splits with designators, `AA`, `AB`, `AC`, `B`.
@@ -82,3 +83,52 @@ We can rerun this for just two of the splits by using the option `--split=AB,B`,
 ```
 
 ## Block specifications
+
+A final way to reduce the size of verification conditions is to use _block specifications_. This is a technique in which specifications, similar to method specifications, are written for a portion of a method body. Schematically,
+```
+{
+    pre-stuff
+    //@ requires P
+    //@ ensures Q
+    {
+       block
+    }
+    post-stuff
+}
+```
+Here the specification summarizes the effect of the statement (usually a block) that immediately follows. This enables OpenJML to break the proof into two pieces: first one in which the specification is verified against the statement:
+```
+{
+    ... symbolically execute pre-stuff
+    prove that P holds
+    ... symbolically execute block
+    prove that Q holds
+}
+```
+And then second we can use the specification to summarize the block and go on to prove any assertions in 'post-stuff':
+```
+{
+    ... symbolically execute pre-stuff
+    prove that P holds
+    assume that Q holds
+    ... symbolically execute post-stuff
+}
+```
+
+As you can see from the sketches above, the precondition is not really neeeded; it is just like an assert. The important parts are an `assignable` clause saying what is modified in the block and `ensures` and `signals` clauses that say what the effect of the block is. Other method specification clauses may appear in more complex scenarios -- see the OpenJML Users' Guide for more detail.
+
+The statement specification here can be the specification of
+* the next single statement
+* most commonly, the next single statement which is a block
+* or a sequence of statements (in the same scope) bounded by the `//@ begin;` and `//@ end;` JML statements.
+
+The last case is used when the desired sequence of statements is not contained with in a block, is more than one statement, and one cannot modify the code by putting in a pair of braces, or such a pair of braces would change the scope of declarations.
+
+The two pieces of the proof are an obvious case for splitting the proof. In fact that is the default behavior, becuase the main purpose of a statement specificaiton, along with adding some documentation and clarity, is to be able to divide up the proof. However, if you are writing the software and it seems a statement specification is needed, you should probably consider breaking up the method into multiple methods; if you are verifying legacy code that cannot be modified, then a statement specification can be very handy. It is also helpful as a means of separating out a portion of the method body that is very difficult to prove.
+
+Here is a worked example.
+
+TBD
+
+
+LAST_MODIFIED

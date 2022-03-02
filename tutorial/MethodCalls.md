@@ -1,4 +1,6 @@
-# Method Calls
+---
+title: JML Tutorial - Method Calls
+---
 
 We have seen how to verify methods that have pre- and postconditions to desribe
 the behavior of method bodys that contain if statements and assignments.
@@ -205,3 +207,5 @@ produces just
 ```
 The exit code 6 indicates that verification errors were found (but no parsing
 or type-checking or command-line or system errors).
+
+_Last modified: 2022-03-01 20:48:18_

@@ -1,5 +1,5 @@
 ---
-title: Multiple Method Behaviors
+title: JML Tutorial - Multiple Method Behaviors
 ---
 
 ## Multiple behaviors
@@ -69,3 +69,5 @@ A behavior that is neither of these is a simple `behavior`, which is the default
 One other point: any one of the behavior keywords needs a visibility keyword; almost always, as in the example above, the visibility is the same as the method. The absence of a visibility modifier means `package` visibility, just as the absence of a visibility modifier on the method declaration.
 
 
+
+LAST_MODIFIED

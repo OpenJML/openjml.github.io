@@ -1,4 +1,7 @@
-# RAC and Java Checks
+---
+title: JML Tutorial - RAC and Java Checks
+---
+
 
 OpenJML checks for some program states that Java also checks for. When doing runtime-assertion-checking, those checks can happen twice.
 So OpenJML will omit the RAC check if it is immediately followed by an identical Java check.
@@ -22,3 +25,6 @@ produces
 
 In most cases of such Java checks (e.g. null dereference, index out of bounds), Java will terminate with an exception, as ther is no way
 to proceed after such an error (unless the program itself catches and handles the exception).
+
+
+LAST_MODIFIED

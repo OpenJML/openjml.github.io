@@ -54,6 +54,8 @@ example code; just add the appropriate path to the `openjml` command.
   * [Model Methods](ModelMethods)
   
 * [Managing proofs](ManagingProofs)
+  * [Choosing what files and methods to verify](MethodSelection)
+  * [Limiting time](TimeAndErrorLimits)
 
 * [Debugging Techniques](Debugging)
   * [Inspecting Counterexamples](InspectingCounterexamples)
@@ -68,8 +70,9 @@ example code; just add the appropriate path to the `openjml` command.
 
 * Advanced topics
   * [Specification (.jml) files](SpecificationFiles)
+  * [Java @-annotations for JML](JavaAnnotations)
   * [Reasoning about Types](TYPE)
   * [Modularizing Specifications](SpecificationCases)
   
 
-_Last modified: 2022-03-01 15:28:10_
+_Last modified: 2022-03-01 23:55:57_

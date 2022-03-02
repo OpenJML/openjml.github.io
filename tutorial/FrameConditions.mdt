@@ -1,4 +1,6 @@
-# Frame Conditions
+---
+title: JML Tutorial - Frame Conditions
+---
 
 The [previous lesson](MethodCalls) described the verification process when 
 there are multiple methods that call each other. But that lesson left out
@@ -112,3 +114,5 @@ tutorial lessons so far have just one specification case; an advanced lesson
 presents [multiple specification cases](SpecificationCases).)
 
 
+
+LAST_MODIFIED

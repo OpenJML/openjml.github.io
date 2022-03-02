@@ -2,6 +2,13 @@
 T=temp_include
 F=temp_file
 
+for f in *.mdt ; do
+  grep -e '^LAST_MODIFIED$' $f > /dev/null || echo $f has no  LAST_MODIFIED
+  grep -e "^title: JML Tutorial - " $f > /dev/null || echo $f has incorrect title line
+  if [ `grep -e '^---$' $f | wc -l` != "2" ] ; then echo "$f does not have two --- lines" ; fi
+  egrep -e 'TBD|TODO' $f  > /dev/null &&  echo "$f has TBD or TODO markings" 
+done
+
 for f in *.mdt; do
   cat $f > $T
   while grep -q '%include' $T; do

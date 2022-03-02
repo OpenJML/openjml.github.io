@@ -1,4 +1,6 @@
-# Well-Defined Expressions
+---
+title: JML Tutorial - Well-Defined Expressions
+---
 
 Much confusion over error messages can be avoided by understanding that all JML expressions must be *well-defined*. Informally, one can think of a well-defined expression as one that, if it were a Java expression, would not throw an exception and would have an unambiguous meaning. JML requires that each expression in a JML context must be well-defined; the OpenJML tool will complain if it cannot prove that an expression is well-defined.
 
@@ -111,3 +113,6 @@ T_WellDefined4.java:5: verify: The prover cannot establish an assertion (Possibl
      ^
 1 verification failure
 ```
+
+
+_Last modified: 2022-03-01 20:52:02_

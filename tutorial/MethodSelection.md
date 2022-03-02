@@ -1,3 +1,6 @@
+---
+title: JML Tutorial - Method Selection
+---
 
 One way to be more efficient is to limit your attention to onefile or even one method at a time.
 This page describes how to expand or contract the set of methods being verified.
@@ -27,4 +30,7 @@ a prepended fully-qualified class name or an appended aragument signature, as in
 `--method="mypackage.MyClass.myMethod"` or `--method="myMethod(int,java.lang.String)"`. Note that
 when the expanded name includes characters interpreted by the shell, such as periods and
 parentheses, quotes around the method name are needed.
-* Matching patterns -- TBD
+*  Matching patterns -- TBD
+
+
+_Last modified: 2022-03-01 20:54:09_

@@ -1,4 +1,6 @@
-# Preconditions (requires clauses)
+---
+title: JML Tutorial - Preconditions (requires clauses)
+---
 
 Sometimes a method may only be called in certain combinations of program state and actual
 arguments. Such restrictions are called *preconditions* and
@@ -61,3 +63,5 @@ T_requires3.java:4: verify: The prover cannot establish an assertion (UndefinedN
 Ensures clauses may be mixed in order with the requires clauses, but good,
 and clearer, style suggests putting all requires clauses first and then
 all ensures clauses.
+
+_Last modified: 2022-03-01 20:41:53_

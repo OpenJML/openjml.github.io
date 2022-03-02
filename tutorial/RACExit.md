@@ -1,4 +1,6 @@
-# RAC Exit Code
+---
+title: JML Tutorial - RAC Exit Code
+---
 
 A RAC-compiled program behaves just like the normally compiled program, except for the runtime assertion checks and, likely, taking longer
 to execute. In particular, the program produces the same exit code as it would without RAC, even if there are RAC error messages.
@@ -33,3 +35,6 @@ If you run the program with arguments that do not produce an assertion error, th
 
 `openjml-java -Dorg.jmlspecs.openjml.racexitcode=42 -cp . T_RacExit Z ; echo $?`
 
+
+
+_Last modified: 2022-03-01 20:45:59_

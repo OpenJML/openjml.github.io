@@ -1,3 +1,6 @@
+---
+title: JML Tutorial - Specifying Exceptions
+---
 
 JML can specify exception execution paths just as well as normal execution paths.
 A normal execution has associated postconditions --- `ensures` clauses. The logic is --- if the method exits normally, then the postcondition must be true.
@@ -137,3 +140,6 @@ public class T_Exception3 {
 }
 ```
 which now verifies again.
+
+
+_Last modified: 2022-03-01 20:53:01_

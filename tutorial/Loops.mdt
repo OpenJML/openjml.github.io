@@ -1,4 +1,6 @@
-# Specifying Loops
+---
+title: JML Tutorial - Specifying Loops
+---
 
 In the current state of deductive verification technology it is essential that all loops have loop specifications.
 
@@ -143,3 +145,5 @@ which produces
 ```
 %include T_LoopNegativeError.out
 ```
+
+LAST_MODIFIED

@@ -1,3 +1,7 @@
+---
+title: JML Tutorial - Managing Proofs
+---
+
 
 By default, OpenJML will attempt to verify every method in every file listed on the command-line. 
 That is a lot of proof attempts and will likely take a while; a complete run is appropriate for 
@@ -8,3 +12,5 @@ This section describes some techniques for managing proofs. These are specific t
 * [Choosing what files and methods to verify](MethodSelection)
 
 * [Limiting time](TimeAndErrorLimits)
+
+LAST_MODIFIED

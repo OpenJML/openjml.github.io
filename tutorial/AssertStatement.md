@@ -1,5 +1,6 @@
-# Assert statements (`assert` clauses)
-
+---
+title: JML Tutorial - Assert statements (`assert` clauses)
+---
 A JML *assert* statement states a condition that is expected to hold at a point
 within the body of a method. Such statements are not part of a method's interface 
 specification, but they can help (either staticly with ESC or at runtime with RAC)  debug the execution of a method
@@ -99,3 +100,5 @@ T_assert3.java:12: verify: The prover cannot establish an assertion (Assert) in 
 1 verification failure
 ```
 
+
+_Last modified: 2022-03-01 20:38:05_

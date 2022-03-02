@@ -1,4 +1,6 @@
-# Visibility modifiers and specifications
+---
+title: JML Tutorial - Visibility modifiers and specifications
+---
 
 Java distinguishes four categories of visibility of declarations: public, protected, package, and private.
 For example, within a class, all names, even private ones, declared in that class are visible.
@@ -83,3 +85,5 @@ the goal of the private `_value` field is not so much implementation hiding but 
 access to the data field, that is, not allowinig clients to modify `_value` directly.
 So for simple cases like this the `spec_public` modifier is perfectly fine; in fact, it is
 syntactic sugar for the solution in terms of a model field.
+
+_Last modified: 2022-03-01 20:50:18_

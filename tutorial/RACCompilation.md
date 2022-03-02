@@ -1,5 +1,6 @@
-
-# Runtime Assertion Checking (RAC): Compilation and Execution
+---
+title: JML Tutorial - Runtime Assertion Checking (RAC): Compilation and Execution
+---
 
 A JML-annotated Java program can be compiled and executed like any Java program, but with the JML assertions checked at runtime.
 The JML assertions are only checked for the particular values of inputs, variables, etc. that occur during that particular run
@@ -61,3 +62,5 @@ T_Rac1.java:5: verify: JML assertion is false
     //@ assert args.length == 1;
         ^
 ``` 
+
+_Last modified: 2022-03-01 20:45:11_

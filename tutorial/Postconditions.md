@@ -1,4 +1,6 @@
-# Postconditions (`ensures` clauses)
+---
+title: JML Tutorial - Postconditions (`ensures` clauses)
+---
 
 A method's specification states what the method does,
 and not how it is done. The effect of a method is
@@ -148,3 +150,5 @@ public class T_ensures3 {
   }
 }
 ```
+
+_Last modified: 2022-03-01 20:41:24_

@@ -83,3 +83,6 @@ Specification files are very similar to the corresponding source file.
 
 OpenJML matches up the Java declarations (that is those declaration not inside a JML annotation comment) with the corresponding Java declaration by comparing names and types. Any mismatch will cause an error.
 Then all the ghost and model declarations (those inside a JML annotation comment) are considered; they may not duplicate any Java declarations or each other (or an error results).
+
+
+_Last modified: 2022-03-01 20:52:24_

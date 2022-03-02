@@ -1,4 +1,6 @@
-# Arithmetic Modes
+---
+title: JML Tutorial - Arithmetic Modes
+---
 
 If you have tried verifying some programs of your own that involve arithmetic,
 will will likely have encountered arithmetic overflow errors. This lesson
@@ -91,3 +93,6 @@ In this example, both the code and specs are computed with java math, so they ag
 ```
 
 <hr>
+
+
+LAST_MODIFIED
