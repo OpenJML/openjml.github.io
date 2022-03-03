@@ -81,6 +81,7 @@ example code; just add the appropriate path to the `openjml` command.
   * [Inspecting Counterexamples](InspectingCounterexamples)
   * [Splitting up proofs](SplittingProofs)
   * [Adding Logical Information](Lemmas)
+  * [Checking Feasibility](Feasibility)
 
 * Runtime Assertion Checking
   * [Compilation and Execution](RACCompilation)

@@ -81,6 +81,7 @@ example code; just add the appropriate path to the `openjml` command.
   * [Inspecting Counterexamples](InspectingCounterexamples)
   * [Splitting up proofs](SplittingProofs)
   * [Adding Logical Information](Lemmas)
+  * [Checking Feasibility](Feasibility)
 
 * Runtime Assertion Checking
   * [Compilation and Execution](RACCompilation)
@@ -102,4 +103,4 @@ example code; just add the appropriate path to the `openjml` command.
   * [Reasoning about recursive functions and data structures](Recursion) 
   * [Reasoning about termination](Termination) 
 
-_Last modified: 2022-03-02 23:11:47_
+_Last modified: 2022-03-02 23:43:24_
