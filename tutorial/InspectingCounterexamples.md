@@ -144,6 +144,40 @@ T_show4.java:9: verify: The prover cannot establish an assertion (PossiblyTooLar
 3 verification failures
 ```
 
+## \lbl expression
+
+The show statement lets you display values of variables or of computations. But sometimes one needs to see the value of a subexpression in situ,
+without recomputing it as one of the shown values.  For this purpose the `\lbl` expression can be used, within specifications.
+For example, suppose you have a postcondition `ensures a+b < c+d;` which is failing. You can label some subexpressions as follows:
+`ensures (\lbl AB a+b) < (\lbl CD c+d);`.  The lbl expression just passes on its value (like a parenthesized expression), but records the value to report in 
+a counterexample. For example, we could try this on the example from the last subsection:
+```
+// openjml --esc T_show2a.java
+public class T_show2a {
+  //@ ensures (\lbl A \result >= a) & (\lbl B \result >= b) & (\lbl C \result >= c) & (\lbl D \result >= d);
+  //@ ensures \result == a || \result == b || \result == c || \result == d;
+  int max(int a, int b, int c, int d) {
+    int maxSoFar = a;
+    if (b > maxSoFar) maxSoFar = b;
+    if (c > maxSoFar) maxSoFar = c;
+    if (d > maxSoFar) maxSoFar = b;
+    return maxSoFar;
+  }
+}
+```
+producing
+```
+```
+That information tells us that the problem has to do with inputs `c` and `d`. Note that the example changed from using short-circuiting `&&` to non-short-circuiting `&` and operators. Otherwise if the `\result >= a` conjunct is false, that value is reported, but the rest of the precondition is not evaluated.
+Though `\lbl` can be used in any specification expression, it is most useful in method specifications where a `show` statement cannot be placed.
+
+
+## ghost declarations
+
+JML allows placing _ghost declarations_ as statements in the body of a method. These are declarations of variables that may only be used in specification statements, but otherwise function like Java local declarations. They can be used as part of the modeling and specificaiton of a method, but they are also useful for debugging. Fox example, one might want to capture a value at one point to compare it to something else later on.
+
+TODO - example
+
 ## Execution traces: the `-`trace` and `--subexpressions` options
 
 Using a `show` statement is handy but is a bit like debugging a program using print statements: you get some data, but you have to still manually review the program to see what might be going wrong, working through the code step by step. An additional openjml tool is the `--trace` option. Upon a failure, it outputs an execution trace ending at the point of the violation. So the first example above, using now `openjml --esc --trace T_show1.java`, produces
@@ -247,4 +281,4 @@ Though the subexpression option above usually provides the most useful informati
 The `--counterexample` or `-ce` options do this. However, the output is quite verbose and (at present) uses internal encodings of variable names. Improving this information is a planned task, but at the moment the output is useful mainly to experts.
 
 
-_Last modified: 2022-03-02 20:15:13_
+_Last modified: 2022-03-03 12:36:04_
