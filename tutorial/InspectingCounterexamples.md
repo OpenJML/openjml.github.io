@@ -85,7 +85,7 @@ A few comments about the `show` statement are in order:
 * The values are reported as of that position in the program. If we had moved the `show` statement in the above example to an earlier line, the value
 of `maxSoFar` would be different.
 * You can include expressions in the list of items to show, not just variable names. 
-* However, the expressions are evaluated as specification expressions, in other words using mathematical integers (`math_mode`, cf. [the discussion on Arithmetic](Arithmetic)) and so might have a different value than the same
+* However, the expressions are evaluated as specification expressions, in other words using mathematical integers (`math_mode`, cf. [the discussion on Arithmetic](ArithmeticModes)) and so might have a different value than the same
 expression in Java code.
 * The `show` statement must be along the execution path that leads to the violation. For example, if the violation is in the then branch of an if-statment but the show statement is in the else branch, the show statement will have no effect.
 * Evaluation of the program stops when a violation is found. So if the `show` statement is after the line with the violation, it will not result in any output.
@@ -247,4 +247,4 @@ Though the subexpression option above usually provides the most useful informati
 The `--counterexample` or `-ce` options do this. However, the output is quite verbose and (at present) uses internal encodings of variable names. Improving this information is a planned task, but at the moment the output is useful mainly to experts.
 
 
-_Last modified: 2022-02-28 15:28:01_
+_Last modified: 2022-03-02 20:15:13_

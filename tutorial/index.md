@@ -58,7 +58,7 @@ example code; just add the appropriate path to the `openjml` command.
 
 * [Object Invariants](Invariants)
 
-* [Built-in mathematical types for specifications](BuitinTypes)
+* [Built-in mathematical types for specifications](BuiltinTypes)
   * [\bigint](type-bigint)
   * [\real](type-real)
   * [\set](type-set)
@@ -95,4 +95,4 @@ example code; just add the appropriate path to the `openjml` command.
   * [Reasoning about Types](TYPE)
   * [Reasoning about recursive functions and data structures](Recursion)  
 
-_Last modified: 2022-03-02 19:58:48_
+_Last modified: 2022-03-02 20:10:59_
