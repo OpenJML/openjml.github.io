@@ -8,12 +8,12 @@ in the form of an on-line tutorial.
 
 You should 
 * read the brief [What is Deductive Verification](Introduction) page to clearly understand the overall concept of deductive verification
-* follow the installation/executino/syntax instructions just enough to get you going
+* follow the installation/execution/syntax instructions just enough to get you going
 * start with the Simple Method Specification seequence, but
 * branch out into other topics as you are interested
 
 ```diff
-! This tutorial is a Work In Progress (Feb 2022).
+! This tutorial is a Work In Progress (March 2022).
 ! Expect lots of editing and new pages.
 ```
 
@@ -102,4 +102,4 @@ example code; just add the appropriate path to the `openjml` command.
   * [Reasoning about recursive functions and data structures](Recursion) 
   * [Reasoning about termination](Termination) 
 
-_Last modified: 2022-03-02 22:58:44_
+_Last modified: 2022-03-02 23:11:47_

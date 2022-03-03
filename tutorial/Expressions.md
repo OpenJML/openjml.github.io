@@ -1,4 +1,4 @@
-open COnstru	---
+---
 title: JML Tutorial - JML Expressions
 ---
 
@@ -132,4 +132,4 @@ The implementation of this expression in JML tools is in progress. Don't count o
 
 TODO - what about \let
 
-_Last modified: 2022-03-02 22:47:25_
+_Last modified: 2022-03-02 23:13:03_
