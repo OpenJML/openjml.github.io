@@ -15,6 +15,7 @@ We have introduced a few kinds of method specification clauses so far. In fact t
   * `ensures`
   * `signals`
   * `signals_only`
+  * `diverges`
   * `duration`
   * `working_space`
 * Termination
@@ -66,4 +67,4 @@ is successfully verified.
 
 TODO
 
-_Last modified: 2022-03-02 19:54:09_
+_Last modified: 2022-03-02 22:50:33_

@@ -60,11 +60,11 @@ public class T_constructors2 {
 ``` 
 
 (More on pure methods [here](TBD).)
-This specification is also readily verified, though it needs the precondition to be sure that we don't overflow the `count` field -- more on arithmetic overflows [here](Arithmetic).
+This specification is also readily verified, though it needs the precondition to be sure that we don't overflow the `count` field -- more on arithmetic overflows [here](ArithmeticModes).
 
 The implementation of these constructors is so simple, and common, that one might think that inferring the specification from the implementation should be easy. Indeed such specification inference is a not-yet-implemented goal that would reduce some of the specification-writing burden.
 
 TODO- say more about the whole initialization process and initializer specs.
 
 
-_Last modified: 2022-03-02 00:25:33_
+_Last modified: 2022-03-02 21:07:27_

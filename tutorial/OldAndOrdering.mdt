@@ -15,6 +15,7 @@ We have introduced a few kinds of method specification clauses so far. In fact t
   * `ensures`
   * `signals`
   * `signals_only`
+  * `diverges`
   * `duration`
   * `working_space`
 * Termination

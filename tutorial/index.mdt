@@ -5,7 +5,12 @@ title: JML Tutorial
 These pages provide a quick introduction to JML (the Java Modeling Language) and 
 OpenJML (a tool that checks specifications written in JML for Java programs)
 in the form of an on-line tutorial.
-Aside from the installation instructions, you can read the _General_ pages as needed and dive right in to the section on Method Specifications.
+
+You should 
+* read the brief [What is Deductive Verification](Introduction) page to clearly understand the overall concept of deductive verification
+* follow the installation/executino/syntax instructions just enough to get you going
+* start with the Simple Method Specification seequence, but
+* branch out into other topics as you are interested
 
 ```diff
 ! This tutorial is a Work In Progress (Feb 2022).
@@ -16,7 +21,7 @@ The tutorial does not cover all aspects of JML and OpenJML. See also the
 [JML Reference Manual](../documentation/JML_Reference_Manual.pdf)
 and the [OpenJML Reference Manual](../documentation/OpenJMLUserGuide.pdf).
 
-**Tutorial Material** All of the examples in this tutorial are part of the installation
+**Tutorial Material** All of the examples in this tutorial are part of the OpenJML installation
 zip file, in the top-level `tutorial` folder. For example, the `T_ensures1`
 example is present as the `T_ensures1.java` file. From within the tutorial
 folder, you can run the example using `../openjml -esc T_ensures1.java`.
@@ -26,7 +31,7 @@ The command-line to run the example is shown in the first line of the
 example code; just add the appropriate path to the `openjml` command.
 
 
-* General
+* [What is Deductive Verification](Introduction)
   * [Installation](Installation)
   * [Execution](Execution)
   * [Syntax](Syntax)
@@ -93,6 +98,8 @@ example code; just add the appropriate path to the `openjml` command.
   * [Reasoning about Lambda Functions](Lambdas)
   * [Reasoning about Streams](Streams)
   * [Reasoning about Types](TYPE)
-  * [Reasoning about recursive functions and data structures](Recursion)  
+  * [Reasoning about locks](Locks)
+  * [Reasoning about recursive functions and data structures](Recursion) 
+  * [Reasoning about termination](Termination) 
 
 LAST_MODIFIED
