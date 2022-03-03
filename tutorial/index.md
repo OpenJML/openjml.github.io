@@ -47,6 +47,7 @@ example code; just add the appropriate path to the `openjml` command.
   * [Visibility](Visibility)
   * [Specifying Loops](Loops)
   * [Specifying Exceptions](SpecifyingExceptions)
+  * [Method Specifications: old clauses and clause ordering](OldAndOrdering)
   * [Multiple Method Behaviors](MultipleBehaviors)
   * [Minimizing replicated specifications --- initially, constraint, invariant clauses](InitiallyConstraint)
 
@@ -92,8 +93,6 @@ example code; just add the appropriate path to the `openjml` command.
   * [Reasoning about Lambda Functions](Lambdas)
   * [Reasoning about Streams](Streams)
   * [Reasoning about Types](TYPE)
-  * [Reasoning about recursive functions and data structures](Recursion)
-  * [Modularizing Specifications](SpecificationCases)
-  
+  * [Reasoning about recursive functions and data structures](Recursion)  
 
-_Last modified: 2022-03-02 18:03:18_
+_Last modified: 2022-03-02 19:46:24_

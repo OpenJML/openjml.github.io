@@ -1,0 +1,4 @@
+T_order1.java:5: verify: The prover cannot establish an assertion (UndefinedNullDeReference) in method m
+  //@ requires a.length > 10;
+                ^
+1 verification failure

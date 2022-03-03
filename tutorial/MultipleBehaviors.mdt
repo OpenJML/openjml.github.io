@@ -20,7 +20,7 @@ Furthermore, by writing the goal of the method in two different ways, an exchang
 There are a few points to note:
 * There is no order to the behaviors; they can be written in any order that is understandable.
 * Every behavior applies on its own and must hold by itself --- there is no if-then-else  among them. If a behavior's preconditions hold,
-then its postconditios must hold, independent of what any other behavior says.
+then its postconditions must hold, independent of what any other behavior says.
 
 In our example, if `a`, `b`, and `c` are all equal, then the precondiition (`requires` clause) of each of the three behaviors is true.
 So the postconditions of each of the behaviors must also be true.  Fortunately they all agree.
@@ -47,9 +47,9 @@ The method could go on to do something useful, but for this example, it just ret
 There are then two behaviors. 
 * In the normal case the arguments satisfy the checks and the method just returns normally;
 that is the first behavior --- the ensures postcondition is `true` (which could be omitted entirely), which just states that
-the method is allowed (but not required) to return normally; the signals postcondition is flase, which states that the under
+the method is allowed (but not required) to return normally; the signals postcondition is false, which states that under
 these preconditions, the method is _not_ allowed to throw an exception.
-* The second behavior is the exceptional case. Here one or the other of the argument validation checks fails. In this case, the postcondition is `ensures false`, whcih means that the method is _not_ allowed to return normally; the default. omitted `signals true` clause says that an exception is allowed; the `signals_only` clause says that if there is an exception it must be an `IllegalArgumentException` (the only one listed).
+* The second behavior is the exceptional case. Here one or the other of the argument validation checks fails. In this case, the postcondition is `ensures false`, whcih means that the method is _not_ allowed to return normally; the default, omitted, `signals true` clause says that an exception is allowed; the `signals_only` clause says that if there is an exception it must be an `IllegalArgumentException` (the only one listed).
 
 We could even separate out two kinds of exceptions:
 ```
@@ -68,6 +68,44 @@ A behavior that is neither of these is a simple `behavior`, which is the default
 
 One other point: any one of the behavior keywords needs a visibility keyword; almost always, as in the example above, the visibility is the same as the method. The absence of a visibility modifier means `package` visibility, just as the absence of a visibility modifier on the method declaration.
 
+## Summary of specification cases
+
+To summarize, a method may have multiple specification cases. 
+* They are separated/connected by the `also` keyword. 
+* Each specification case consists of an optional heading followed by a series of method specification clauses
+* There are four styles of headings. Here `V` is a visibility modifier: one of `public`, `protected, `private`, or absent, meaning package visibility
+  * The most general: `V behavior`
+  * Normal exit only: `V normal_behavior`
+  * Exit by exception only: `V exceptional_behavior`
+  * The most common: no heading, which means `V behavior` with the visibility `V` being the same as the method's visibilty
+
+
+## Nested clause groups
+
+We will just mention an advanced topic here: nested clauses groups within a method specification. For details see the JML Reference Manual.
+Here is an example:
+```
+  requires P1;
+  ensures Q1;
+  {|
+     requires P2;
+     ensures Q2;
+  also
+     requires P3;
+     ensures Q3;
+  \}
+```
+which is a less repetitious representation of the equivalent
+```
+  requires P1;
+  requires P2;
+  ensures Q1;
+  ensures Q2;
+also
+  requires P1;
+  requires P3;
+  ensures Q1;
+  ensures Q3;
 
 
 LAST_MODIFIED
