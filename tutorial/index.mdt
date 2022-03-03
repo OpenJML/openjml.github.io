@@ -40,7 +40,7 @@ example code; just add the appropriate path to the `openjml` command.
   * [Well-defined Expressions](WellDefinedExpressions)
   * [Verifying Method Calls](MethodCalls)
   * [Frame Conditions](FrameConditions)
-  * [Specifying Constsructors](Constructors)
+  * [Specifying Constructors](Constructors)
   * [Using Method Calls in Specifications](MethodsInSpecifications)
   * [Arithmetic](ArithmeticModes)
   * [Null and non-null](Nullness)

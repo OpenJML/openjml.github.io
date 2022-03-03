@@ -40,7 +40,7 @@ example code; just add the appropriate path to the `openjml` command.
   * [Well-defined Expressions](WellDefinedExpressions)
   * [Verifying Method Calls](MethodCalls)
   * [Frame Conditions](FrameConditions)
-  * [Specifying Constsructors](Constructors)
+  * [Specifying Constructors](Constructors)
   * [Using Method Calls in Specifications](MethodsInSpecifications)
   * [Arithmetic](ArithmeticModes)
   * [Null and non-null](Nullness)
@@ -95,4 +95,4 @@ example code; just add the appropriate path to the `openjml` command.
   * [Reasoning about Types](TYPE)
   * [Reasoning about recursive functions and data structures](Recursion)  
 
-_Last modified: 2022-03-02 19:46:24_
+_Last modified: 2022-03-02 19:58:48_

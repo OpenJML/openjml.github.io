@@ -22,7 +22,7 @@ We have introduced a few kinds of method specification clauses so far. In fact t
 
 TODO -- add links to the above; check for completeness
 
-Some of these have been already discussed and others are discussed in later lessons. The `old` clause is preasented below. Those clauses discussed in this tutorial are clickable hyperlinks in the above list.
+Some of these have been already discussed; others are discussed in later lessons; and others are omitted from the tutorial because they are too advanced or too ill-defined -- see the JML Reference Manual for details on those. The `old` clause is presented below. Those clauses discussed in this tutorial are clickable hyperlinks in the above list.
 
 ## Ordering of clauses
 
@@ -66,4 +66,4 @@ is successfully verified.
 
 TODO
 
-_Last modified: 2022-03-02 19:46:16_
+_Last modified: 2022-03-02 19:54:09_
