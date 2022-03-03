@@ -6,7 +6,8 @@ jobs:
   markdown-link-check:
     runs-on: ubuntu-latest
     steps:
-    - pwd
+    - name: pwd
+      run: pwd
     - uses: untitaker/hyperlink@0.1.21
       with:
         args: ../ --sources tutorial/
