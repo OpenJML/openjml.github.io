@@ -10,5 +10,8 @@ jobs:
       run: pwd
     - uses: untitaker/hyperlink@0.1.21
       with:
-        args: ../ --sources tutorial/
+        args: ./ --sources tutorial/
+    - uses: untitaker/hyperlink@0.1.21
+      with:
+        args: public/ --sources tutorial/
 
