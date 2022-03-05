@@ -53,7 +53,14 @@ gives an error:
 T_arithmetic1.java:5: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method increment: overflow in int sum
     return i+1;
             ^
-1 verification failure
+T_arithmetic1.java:5: verify: The prover cannot establish an assertion (Postcondition: T_arithmetic1.java:3:) in method increment
+    return i+1;
+    ^
+T_arithmetic1.java:3: verify: Associated declaration: T_arithmetic1.java:5:
+  //@ ensures \result == i+1;
+      ^
+3 verification failures
+
 ```
 To avoid this, a precondition is needed that guards against overflow:
 ```
@@ -74,7 +81,7 @@ Similarly
 public class T_arithmetic3 {
   //@ ensures \result >= 0;
   public int abs(int i) {
-    return i>= 0 ? i : -i;
+    return i >= 0 ? i : -i;
   }
 }
 ```
@@ -83,7 +90,14 @@ produces
 T_arithmetic3.java:5: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method abs: (int negation)
     return i>= 0 ? i : -i;
                        ^
-1 verification failure
+T_arithmetic3.java:5: verify: The prover cannot establish an assertion (Postcondition: T_arithmetic3.java:3:) in method abs
+    return i>= 0 ? i : -i;
+    ^
+T_arithmetic3.java:3: verify: Associated declaration: T_arithmetic3.java:5:
+  //@ ensures \result >= 0;
+      ^
+3 verification failures
+
 ```
 while
 ```

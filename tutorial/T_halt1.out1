@@ -1,0 +1,14 @@
+T_halt1.java:9: verify: The prover cannot establish an assertion (Assert) in method m
+      //@ assert i < -10;
+          ^
+T_halt1.java:7: verify: The prover cannot establish an assertion (Assert) in method m
+      //@ assert i < 10;
+          ^
+T_halt1.java:11: verify: The prover cannot establish an assertion (Postcondition: T_halt1.java:4:) in method m
+    return i;
+    ^
+T_halt1.java:4: verify: Associated declaration: T_halt1.java:11:
+  //@ ensures \result == 0;
+      ^
+4 verification failures
+

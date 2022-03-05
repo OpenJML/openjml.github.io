@@ -1,4 +1,11 @@
 T_arithmetic1.java:5: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method increment: overflow in int sum
     return i+1;
             ^
-1 verification failure
+T_arithmetic1.java:5: verify: The prover cannot establish an assertion (Postcondition: T_arithmetic1.java:3:) in method increment
+    return i+1;
+    ^
+T_arithmetic1.java:3: verify: Associated declaration: T_arithmetic1.java:5:
+  //@ ensures \result == i+1;
+      ^
+3 verification failures
+

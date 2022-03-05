@@ -1,4 +1,4 @@
-/// openjml --esc $@
+// openjml --esc $@
 public class T_initially1 {
 
   public int width;
