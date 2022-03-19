@@ -1,0 +1,10 @@
+T_PureMethod1.java:38: warning: A non-pure method is being called where it is not permitted: T_PureMethod1.Counter.atMax()
+    //@ assert !c.isAnythingCounted() && !c.atMax();
+                                                 ^
+T_PureMethod1.java:40: warning: A non-pure method is being called where it is not permitted: T_PureMethod1.Counter.atMax()
+    //@ assert c.isAnythingCounted() && !c.atMax();
+                                                ^
+T_PureMethod1.java:42: warning: A non-pure method is being called where it is not permitted: T_PureMethod1.Counter.atMax()
+    //@ assert c.isAnythingCounted() && c.atMax();
+                                               ^
+3 warnings
