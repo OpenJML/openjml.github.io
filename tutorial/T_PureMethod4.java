@@ -1,20 +1,14 @@
 // openjml --esc $@
-public class T_PureMethod4 {
-  //@ spec_public
-  int[] a = new int[10];
+public class T_PureMethod {
 
-  //@ requires 0 <= i & i < a.length;
-  //@ ensures \result == a[i];
+  //@ requires i > Integer.MIN_VALUE;
+  //@ ensures \result >= 0;
   //@ pure
-  public int elementAt(int i) {
-    return a[i];
+  public static int abs(int i) {
+    return i >= 0 ? i : -i;
   }
 
-  public void test1() {
-    //@ assert elementAt(0) == 0;
-  }
-
-  public void test2() {
-    //@ assert elementAt(-1) == 0;
+  public void test(int k) {
+    //@ assert k > 0 ==> abs(k) == k;
   }
 }

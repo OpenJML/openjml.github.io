@@ -43,6 +43,28 @@ If you add a `pure` modifier to `count`, then OpenJML produces
 %include T_PureMethod3.out
 ```
 
+It is also vitally important to remember that when a method is used in a
+specification, it is the _specification_ of the method that is used to 
+determine its behavior, not its implementation.
+
+This example
+```
+%include T_PureMethod4.java
+```
+produces this output:
+```
+%include T_PureMethod4.out
+```
+This `abs` function verifies successfully; however, the assertion that uses it
+iin `test` does not. That is because all that the method `test` knows about the result of
+`abs` is that it is greater than zero. In order to verify `test`, the 
+postcondition of `abs` must be strengthened to say that if `i>0` then the
+result is the same as the input. 
+
+Methods do not always need to have precise functional specs. However, the
+specification does need to be strong enough to verify whatever uses the
+clients of the method need.
+
 ## Well-defined method calls
 
 [The lesson on well-defined expressions](TBD) described how expressions in

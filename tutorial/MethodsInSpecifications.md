@@ -98,6 +98,44 @@ T_PureMethod3.java:20: error: Pure methods may not assign to any fields: count i
 1 error
 ```
 
+It is also vitally important to remember that when a method is used in a
+specification, it is the _specification_ of the method that is used to 
+determine its behavior, not its implementation.
+
+This example
+```
+// openjml --esc T_PureMethod4.java
+public class T_PureMethod {
+
+  //@ requires i > Integer.MIN_VALUE;
+  //@ ensures \result >= 0;
+  //@ pure
+  public static int abs(int i) {
+    return i >= 0 ? i : -i;
+  }
+
+  public void test(int k) {
+    //@ assert k > 0 ==> abs(k) == k;
+  }
+}
+```
+produces this output:
+```
+T_PureMethod.java:12: verify: The prover cannot establish an assertion (Assert) in method test
+    //@ assert k > 0 ==> abs(k) == k;
+        ^
+1 verification failure
+```
+This `abs` function verifies successfully; however, the assertion that uses it
+iin `test` does not. That is because all that the method `test` knows about the result of
+`abs` is that it is greater than zero. In order to verify `test`, the 
+postcondition of `abs` must be strengthened to say that if `i>0` then the
+result is the same as the input. 
+
+Methods do not always need to have precise functional specs. However, the
+specification does need to be strong enough to verify whatever uses the
+clients of the method need.
+
 ## Well-defined method calls
 
 [The lesson on well-defined expressions](TBD) described how expressions in
@@ -109,50 +147,26 @@ The next example shows the kind of error message that OpenJML produces when
 a mthod's precondition is not fulfilled:
 ```
 // openjml --esc T_PureMethod4.java
-public class T_PureMethod4 {
-  //@ spec_public
-  int[] a = new int[10];
+public class T_PureMethod {
 
-  //@ requires 0 <= i & i < a.length;
-  //@ ensures \result == a[i];
+  //@ requires i > Integer.MIN_VALUE;
+  //@ ensures \result >= 0;
   //@ pure
-  public int elementAt(int i) {
-    return a[i];
+  public static int abs(int i) {
+    return i >= 0 ? i : -i;
   }
 
-  public void test1() {
-    //@ assert elementAt(0) == 0;
-  }
-
-  public void test2() {
-    //@ assert elementAt(-1) == 0;
+  public void test(int k) {
+    //@ assert k > 0 ==> abs(k) == k;
   }
 }
 ```
 produces
 ```
-T_PureMethod4.java:14: verify: The prover cannot establish an assertion (Assert) in method test1
-    //@ assert elementAt(0) == 0;
+T_PureMethod.java:12: verify: The prover cannot establish an assertion (Assert) in method test
+    //@ assert k > 0 ==> abs(k) == k;
         ^
-T_PureMethod4.java:14: verify: The prover cannot establish an assertion (UndefinedCalledMethodPrecondition: T_PureMethod4.java:9:) in method test1
-    //@ assert elementAt(0) == 0;
-                        ^
-T_PureMethod4.java:9: verify: Associated declaration: T_PureMethod4.java:14:
-  public int elementAt(int i) {
-             ^
-T_PureMethod4.java:6: verify: Precondition conjunct is false: i < a.length
-  //@ requires 0 <= i & i < a.length;
-                          ^
-T_PureMethod4.java:18: verify: The prover cannot establish an assertion (UndefinedCalledMethodPrecondition: T_PureMethod4.java:9:) in method test2
-    //@ assert elementAt(-1) == 0;
-                        ^
-T_PureMethod4.java:9: verify: Associated declaration: T_PureMethod4.java:18:
-  public int elementAt(int i) {
-             ^
-T_PureMethod4.java:6: verify: Precondition conjunct is false: 0 <= i
-  //@ requires 0 <= i & i < a.length;
-                 ^
-7 verification failures
+1 verification failure
 ```
 The relevant error messages include the term 'Undefined' to indicate that this
 instance of an out of range index is part of a specification instead of in
@@ -175,4 +189,4 @@ specifying an _immutable_ class, one whose objects may not be changed after
 being created. Java's `String` and `Integer` are two examples of immutable classes.
 
 
-_Last modified: 2022-03-19 19:23:22_
+_Last modified: 2022-03-19 19:37:06_
