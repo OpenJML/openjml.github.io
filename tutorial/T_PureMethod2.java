@@ -1,5 +1,6 @@
-// openjml --esc $@
-public class T_PureMethod1 {
+// openjml --esc $@ 
+// Intentionally not in visible web-page, just checked
+public class T_PureMethod2 {
 
   public static class Counter {
     //@ spec_public
@@ -28,6 +29,7 @@ public class T_PureMethod1 {
     }
 
     //@ ensures \result == !(count < maxCount);
+    //@ pure
     public boolean atMax() {
        return count >= maxCount;
     }

@@ -1,0 +1,2 @@
+
+openjml --esc T_PureMethod2.java || ( echo T_PureMethod2 FAILED; exit 1 )

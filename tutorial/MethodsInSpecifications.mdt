@@ -9,7 +9,7 @@ expressions and operators. It is also convenient, and allowed, to call
 methods in specifications --- but there are restrictions.
 
 Expressions in specifications must not have any effect on the Java program.
-Think of a program with specification sconverted to run-time checks. We
+Think of a program with specifications converted to run-time checks. We
 can't have the checks modifiying the program that is being checked.
 Similarly we can't allow static checking to have any effect on the Java program.
 
@@ -30,7 +30,7 @@ The call of `c.isAnythingCounted` is allowed in the specification because
 it is declared `pure` in its specification. However
 `c.atMax()` is not allowed because it is not declared `pure`.
 If you add that modifier to the declaration of `atMax` then this example will
-verify.
+verify (cf. example `T_PureMethod2.java`).
 
 Notice that these `pure` methods have no `assigns` clause. Pure methods are
 not allowed to write to any fields, so if there were an `assigns` clause

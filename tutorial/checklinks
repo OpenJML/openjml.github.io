@@ -1,0 +1,19 @@
+#! /usr/bin/env bash
+
+for f in `grep '](' *.md | sed -e 's/.*](//' -e 's/).*//'` ; do
+  if [[ $f == http* ]] ; then
+     stat=$(curl -o /dev/null --silent --head -L --write-out '%{http_code}' $f )
+     if [ $stat -ne 200 ] ; then echo Not found $stat $f ; fi
+  elif [[ $f == *.pdf ]] ; then
+     if [ ! -e $f ] ; then echo Not found $f ; fi
+  elif [[ $f == *.png ]] ; then
+     if [ ! -e $f ] ; then echo Not found $f ; fi
+  elif [[ $f == *#* ]] ; then
+     echo Not checking intra-page link $f
+  elif [ ! -e $f.md ] ; then echo No file for $f ; fi
+done
+
+for f in `ls *.mdt *.md` ; do
+  b=${f%.*}
+  grep -q $b *.mdt || echo No link $f
+done

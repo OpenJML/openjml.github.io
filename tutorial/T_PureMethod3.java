@@ -1,4 +1,4 @@
-// openjml --esc --progress $@
+// openjml --esc $@
 public class T_PureMethod3 {
 
   public static class Counter {
