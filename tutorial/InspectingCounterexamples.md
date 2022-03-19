@@ -167,6 +167,25 @@ public class T_show2a {
 ```
 producing
 ```
+T_show2a.java:3: verify: Label A has value true
+  //@ ensures (\lbl A \result >= a) & (\lbl B \result >= b) & (\lbl C \result >= c) & (\lbl D \result >= d);
+                    ^
+T_show2a.java:3: verify: Label B has value true
+  //@ ensures (\lbl A \result >= a) & (\lbl B \result >= b) & (\lbl C \result >= c) & (\lbl D \result >= d);
+                                            ^
+T_show2a.java:3: verify: Label C has value false
+  //@ ensures (\lbl A \result >= a) & (\lbl B \result >= b) & (\lbl C \result >= c) & (\lbl D \result >= d);
+                                                                    ^
+T_show2a.java:3: verify: Label D has value false
+  //@ ensures (\lbl A \result >= a) & (\lbl B \result >= b) & (\lbl C \result >= c) & (\lbl D \result >= d);
+                                                                                            ^
+T_show2a.java:10: verify: The prover cannot establish an assertion (Postcondition: T_show2a.java:3:) in method max
+    return maxSoFar;
+    ^
+T_show2a.java:3: verify: Associated declaration: T_show2a.java:10:
+  //@ ensures (\lbl A \result >= a) & (\lbl B \result >= b) & (\lbl C \result >= c) & (\lbl D \result >= d);
+      ^
+6 verification failures
 ```
 That information tells us that the problem has to do with inputs `c` and `d`. Note that the example changed from using short-circuiting `&&` to non-short-circuiting `&` and operators. Otherwise if the `\result >= a` conjunct is false, that value is reported, but the rest of the precondition is not evaluated.
 Though `\lbl` can be used in any specification expression, it is most useful in method specifications where a `show` statement cannot be placed.

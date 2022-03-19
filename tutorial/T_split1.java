@@ -1,4 +1,4 @@
-// openjml --esc --split= --progress $@
+// openjml --esc --split= --progress --no-show-summary $@
 public class T_split1 {
   //@ ensures i == 2;
   public static int m(int i) {

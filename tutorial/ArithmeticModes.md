@@ -87,17 +87,16 @@ public class T_arithmetic3 {
 ```
 produces
 ```
-T_arithmetic3.java:5: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method abs: (int negation)
-    return i>= 0 ? i : -i;
-                       ^
+T_arithmetic3.java:5: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method abs: int negation
+    return i >= 0 ? i : -i;
+                        ^
 T_arithmetic3.java:5: verify: The prover cannot establish an assertion (Postcondition: T_arithmetic3.java:3:) in method abs
-    return i>= 0 ? i : -i;
+    return i >= 0 ? i : -i;
     ^
 T_arithmetic3.java:3: verify: Associated declaration: T_arithmetic3.java:5:
   //@ ensures \result >= 0;
       ^
 3 verification failures
-
 ```
 while
 ```

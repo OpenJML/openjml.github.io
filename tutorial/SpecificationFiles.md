@@ -39,7 +39,7 @@ we simply run `openjml` on the `.java` file as before:
 `openjml --esc T_jmlexample.java`\\
 producing
 ```
-T_jmlexample.java:4: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method abs: (int negation)
+T_jmlexample.java:4: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method abs: int negation
     return i < 0 ? -i : i;
                    ^
 1 verification failure

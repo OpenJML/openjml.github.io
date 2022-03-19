@@ -121,7 +121,7 @@ Each split of the method body has a alphabetic designator, like 'ABA', which tel
 
 Here is a bare-bones example:
 ```
-// openjml --esc --split= --progress T_split1.java
+// openjml --esc --split= --progress --no-show-summary T_split1.java
 public class T_split1 {
   //@ ensures i == 2;
   public static int m(int i) {
@@ -145,10 +145,10 @@ which produces
 ```
 Proving methods in T_split1
 Starting proof of T_split1.T_split1() with prover z3_4_3
-Method assertions are validated [1.07 secs]
-T_split1.java:2:Feasibility check #1 - end of preconditions : OK [0.07 secs]
-T_split1.java:2:Feasibility check #2 - at program exit : OK [0.08 secs]
-Completed proof of T_split1.T_split1() with prover z3_4_3 - no warnings [1.30 secs]
+Method assertions are validated
+T_split1.java:2:Feasibility check #1 - end of preconditions : OK
+T_split1.java:2:Feasibility check #2 - at program exit : OK
+Completed proof of T_split1.T_split1() with prover z3_4_3 - no warnings
 Starting proof of T_split1.m(int) with prover z3_4_3
 Proof attempt for split AA
 T_split1.m Method assertions are INVALID
@@ -166,9 +166,9 @@ T_split1.java:3: verify: Associated declaration: T_split1.java:17:
       ^
 Result of split AA is Not verified
 Proof attempt for split AB
-Method assertions are validated [1.02 secs]
-T_split1.java:4:Feasibility check #1 - end of preconditions : OK [0.02 secs]
-T_split1.java:4:Feasibility check #2 - at program exit : OK [0.02 secs]
+Method assertions are validated
+T_split1.java:4:Feasibility check #1 - end of preconditions : OK
+T_split1.java:4:Feasibility check #2 - at program exit : OK
 Result of split AB is Verified
 Proof attempt for split AC
 T_split1.m Method assertions are INVALID
@@ -190,7 +190,7 @@ T_split1.m Method assertions are INVALID
 T_split1.java:16: verify: Show statement expression p has value false
     //@ show p,i;
              ^
-T_split1.java:16: verify: Show statement expression i has value ( - 2147483610 )
+T_split1.java:16: verify: Show statement expression i has value 0
     //@ show p,i;
                ^
 T_split1.java:17: verify: The prover cannot establish an assertion (Postcondition: T_split1.java:3:) in method m
@@ -200,22 +200,9 @@ T_split1.java:3: verify: Associated declaration: T_split1.java:17:
   //@ ensures i == 2;
       ^
 Result of split B is Not verified
-Composite result POSSIBLY_SAT
-Completed proof of T_split1.m(int) with prover z3_4_3 - with warnings [4.27 secs]
-Completed proving methods in T_split1 [5.58 secs]
-Summary:
-  Valid:        1
-  Invalid:      1
-  Infeasible:   0
-  Timeout:      0
-  Error:        0
-  Skipped:      0
- TOTAL METHODS: 2
- Classes:       0 proved of 1
- Model Classes: 0
- Model methods: 0 proved of 0
- DURATION:          5.6 secs
-
+Composite result Not verified
+Completed proof of T_split1.m(int) with prover z3_4_3 - with warnings
+Completed proving methods in T_split1
 12 verification failures
 ```
 First a few details:

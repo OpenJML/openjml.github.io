@@ -38,7 +38,7 @@ be proved that the program terminates.
 The following code is a simple example of a two-method verification.
 
 ```
-// openjml -esc -progress T_CallerCallee.java
+// openjml -esc -progress --no-show-summary T_CallerCallee.java
 public class T_CallerCallee {
 
   public void caller1() {
@@ -75,17 +75,17 @@ the `-progress` option, so we receive quite a bit more output.
 ```
 Proving methods in T_CallerCallee
 Starting proof of T_CallerCallee.T_CallerCallee() with prover z3_4_3
-Method assertions are validated [TTTT secs]
-T_CallerCallee.java:2:Feasibility check #1 - end of preconditions : OK [TTTT secs]
-T_CallerCallee.java:2:Feasibility check #2 - at program exit : OK [TTTT secs]
-Completed proof of T_CallerCallee.T_CallerCallee() with prover z3_4_3 - no warnings [TTTT secs]
+Method assertions are validated
+T_CallerCallee.java:2:Feasibility check #1 - end of preconditions : OK
+T_CallerCallee.java:2:Feasibility check #2 - at program exit : OK
+Completed proof of T_CallerCallee.T_CallerCallee() with prover z3_4_3 - no warnings
 Starting proof of T_CallerCallee.caller1() with prover z3_4_3
-Method assertions are validated [TTTT secs]
-T_CallerCallee.java:4:Feasibility check #1 - end of preconditions : OK [TTTT secs]
-T_CallerCallee.java:6:Feasibility check #2 - before explicit assert statement : OK [TTTT secs]
-T_CallerCallee.java:8:Feasibility check #3 - before explicit assert statement : OK [TTTT secs]
-T_CallerCallee.java:4:Feasibility check #4 - at program exit : OK [TTTT secs]
-Completed proof of T_CallerCallee.caller1() with prover z3_4_3 - no warnings [TTTT secs]
+Method assertions are validated
+T_CallerCallee.java:4:Feasibility check #1 - end of preconditions : OK
+T_CallerCallee.java:6:Feasibility check #2 - before explicit assert statement : OK
+T_CallerCallee.java:8:Feasibility check #3 - before explicit assert statement : OK
+T_CallerCallee.java:4:Feasibility check #4 - at program exit : OK
+Completed proof of T_CallerCallee.caller1() with prover z3_4_3 - no warnings
 Starting proof of T_CallerCallee.caller2() with prover z3_4_3
 T_CallerCallee.caller2 Method assertions are INVALID
 T_CallerCallee.java:12: verify: The prover cannot establish an assertion (Precondition: T_CallerCallee.java:26:) in method caller2
@@ -97,7 +97,7 @@ T_CallerCallee.java:26: verify: Associated declaration: T_CallerCallee.java:12:
 T_CallerCallee.java:24: verify: Precondition conjunct is false: y >= 0
   //@ requires x > y && y >= 0;
                           ^
-Completed proof of T_CallerCallee.caller2() with prover z3_4_3 - with warnings [TTTT secs]
+Completed proof of T_CallerCallee.caller2() with prover z3_4_3 - with warnings
 Starting proof of T_CallerCallee.caller3() with prover z3_4_3
 T_CallerCallee.caller3 Method assertions are INVALID
 T_CallerCallee.java:16: verify: The prover cannot establish an assertion (Precondition: T_CallerCallee.java:26:) in method caller3
@@ -109,32 +109,19 @@ T_CallerCallee.java:26: verify: Associated declaration: T_CallerCallee.java:16:
 T_CallerCallee.java:24: verify: Precondition conjunct is false: x > y
   //@ requires x > y && y >= 0;
                  ^
-Completed proof of T_CallerCallee.caller3() with prover z3_4_3 - with warnings [TTTT secs]
+Completed proof of T_CallerCallee.caller3() with prover z3_4_3 - with warnings
 Starting proof of T_CallerCallee.caller4() with prover z3_4_3
 T_CallerCallee.caller4 Method assertions are INVALID
 T_CallerCallee.java:21: verify: The prover cannot establish an assertion (Assert) in method caller4
      //@ assert b == true;
          ^
-Completed proof of T_CallerCallee.caller4() with prover z3_4_3 - with warnings [TTTT secs]
+Completed proof of T_CallerCallee.caller4() with prover z3_4_3 - with warnings
 Starting proof of T_CallerCallee.lessThanDouble(int,int) with prover z3_4_3
-Method assertions are validated [TTTT secs]
-T_CallerCallee.java:26:Feasibility check #1 - end of preconditions : OK [TTTT secs]
-T_CallerCallee.java:26:Feasibility check #2 - at program exit : OK [TTTT secs]
-Completed proof of T_CallerCallee.lessThanDouble(int,int) with prover z3_4_3 - no warnings [TTTT secs]
-Completed proving methods in T_CallerCallee [TTTT secs]
-Summary:
-  Valid:        3
-  Invalid:      3
-  Infeasible:   0
-  Timeout:      0
-  Error:        0
-  Skipped:      0
- TOTAL METHODS: 6
- Classes:       0 proved of 1
- Model Classes: 0
- Model methods: 0 proved of 0
- DURATION:          TTTT secs
-
+Method assertions are validated
+T_CallerCallee.java:26:Feasibility check #1 - end of preconditions : OK
+T_CallerCallee.java:26:Feasibility check #2 - at program exit : OK
+Completed proof of T_CallerCallee.lessThanDouble(int,int) with prover z3_4_3 - no warnings
+Completed proving methods in T_CallerCallee
 7 verification failures
 ```
 

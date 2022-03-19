@@ -1,4 +1,4 @@
-// openjml -esc -progress T_CallerCallee.java
+// openjml -esc -progress --no-show-summary T_CallerCallee.java
 public class T_CallerCallee {
 
   public void caller1() {
