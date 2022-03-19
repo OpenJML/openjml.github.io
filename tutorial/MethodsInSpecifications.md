@@ -98,6 +98,71 @@ T_PureMethod3.java:20: error: Pure methods may not assign to any fields: count i
 1 error
 ```
 
+## Well-defined method calls
+
+[The lesson on well-defined expressions](TBD) described how expressions in
+specifications must be well-defined. For a method call, that means two things:
+(a) the pre-conditions of the method must be fulfilled and (b) the method may
+not throw any exceptions.
+
+The next example shows the kind of error message that OpenJML produces when 
+a mthod's precondition is not fulfilled:
+```
+// openjml --esc T_PureMethod4.java
+public class T_PureMethod4 {
+  //@ spec_public
+  int[] a = new int[10];
+
+  //@ requires 0 <= i & i < a.length;
+  //@ ensures \result == a[i];
+  //@ pure
+  public int elementAt(int i) {
+    return a[i];
+  }
+
+  public void test1() {
+    //@ assert elementAt(0) == 0;
+  }
+
+  public void test2() {
+    //@ assert elementAt(-1) == 0;
+  }
+}
+```
+produces
+```
+T_PureMethod4.java:14: verify: The prover cannot establish an assertion (Assert) in method test1
+    //@ assert elementAt(0) == 0;
+        ^
+T_PureMethod4.java:14: verify: The prover cannot establish an assertion (UndefinedCalledMethodPrecondition: T_PureMethod4.java:9:) in method test1
+    //@ assert elementAt(0) == 0;
+                        ^
+T_PureMethod4.java:9: verify: Associated declaration: T_PureMethod4.java:14:
+  public int elementAt(int i) {
+             ^
+T_PureMethod4.java:6: verify: Precondition conjunct is false: i < a.length
+  //@ requires 0 <= i & i < a.length;
+                          ^
+T_PureMethod4.java:18: verify: The prover cannot establish an assertion (UndefinedCalledMethodPrecondition: T_PureMethod4.java:9:) in method test2
+    //@ assert elementAt(-1) == 0;
+                        ^
+T_PureMethod4.java:9: verify: Associated declaration: T_PureMethod4.java:18:
+  public int elementAt(int i) {
+             ^
+T_PureMethod4.java:6: verify: Precondition conjunct is false: 0 <= i
+  //@ requires 0 <= i & i < a.length;
+                 ^
+7 verification failures
+```
+The relevant error messages include the term 'Undefined' to indicate that this
+instance of an out of range index is part of a specification instead of in
+Java code. Note that the `elementAt` method here verifies; it is the use of
+it that is at fault.
+
+## Exceptions
+
+TBD
+
 ## Pure constructors
 You might have noticed that the constructor for `Counter` in the example
 above is also marked `pure`. Constructors create new objects or arrays, so they are not allowed to be used in specifications. Nevertheless, it is helpful to 
@@ -110,4 +175,4 @@ specifying an _immutable_ class, one whose objects may not be changed after
 being created. Java's `String` and `Integer` are two examples of immutable classes.
 
 
-_Last modified: 2022-03-19 16:44:54_
+_Last modified: 2022-03-19 18:53:20_

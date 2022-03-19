@@ -43,6 +43,31 @@ If you add a `pure` modifier to `count`, then OpenJML produces
 %include T_PureMethod3.out
 ```
 
+## Well-defined method calls
+
+[The lesson on well-defined expressions](TBD) described how expressions in
+specifications must be well-defined. For a method call, that means two things:
+(a) the pre-conditions of the method must be fulfilled and (b) the method may
+not throw any exceptions.
+
+The next example shows the kind of error message that OpenJML produces when 
+a mthod's precondition is not fulfilled:
+```
+%include T_PureMethod4.java
+```
+produces
+```
+%include T_PureMethod4.out
+```
+The relevant error messages include the term 'Undefined' to indicate that this
+instance of an out of range index is part of a specification instead of in
+Java code. Note that the `elementAt` method here verifies; it is the use of
+it that is at fault.
+
+## Exceptions
+
+TBD
+
 ## Pure constructors
 You might have noticed that the constructor for `Counter` in the example
 above is also marked `pure`. Constructors create new objects or arrays, so they are not allowed to be used in specifications. Nevertheless, it is helpful to 
