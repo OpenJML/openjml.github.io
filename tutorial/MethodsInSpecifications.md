@@ -1,5 +1,5 @@
 ---
-title: JML Tutorial - Calling methods in specifications
+title: JML Tutorial - Calling methods in specifications (pure methods)
 ---
 
 ## Pure methods
@@ -175,4 +175,4 @@ specifying an _immutable_ class, one whose objects may not be changed after
 being created. Java's `String` and `Integer` are two examples of immutable classes.
 
 
-_Last modified: 2022-03-19 18:53:20_
+_Last modified: 2022-03-19 19:23:22_

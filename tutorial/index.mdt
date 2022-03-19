@@ -46,7 +46,7 @@ example code; just add the appropriate path to the `openjml` command.
   * [Verifying Method Calls](MethodCalls)
   * [Frame Conditions](FrameConditions)
   * [Specifying Constructors](Constructors)
-  * [Using Method Calls in Specifications](MethodsInSpecifications)
+  * [Using (pure) Method Calls in Specifications](MethodsInSpecifications)
   * [Arithmetic](ArithmeticModes)
   * [Null and non-null](Nullness)
   * [Visibility](Visibility)

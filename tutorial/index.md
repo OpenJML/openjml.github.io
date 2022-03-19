@@ -46,7 +46,7 @@ example code; just add the appropriate path to the `openjml` command.
   * [Verifying Method Calls](MethodCalls)
   * [Frame Conditions](FrameConditions)
   * [Specifying Constructors](Constructors)
-  * [Using Method Calls in Specifications](MethodsInSpecifications)
+  * [Using (pure) Method Calls in Specifications](MethodsInSpecifications)
   * [Arithmetic](ArithmeticModes)
   * [Null and non-null](Nullness)
   * [Visibility](Visibility)
@@ -104,4 +104,4 @@ example code; just add the appropriate path to the `openjml` command.
   * [Reasoning about non-deterministic functions and volatile variables](Nondeterminism)
   * [Reasoning about termination](Termination) 
 
-_Last modified: 2022-03-03 12:36:59_
+_Last modified: 2022-03-19 19:22:53_
