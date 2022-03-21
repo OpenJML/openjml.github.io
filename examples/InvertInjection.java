@@ -29,6 +29,4 @@ public class InvertInjection {
       b[a[k]] = k;
     }
   }
-
 }
-
