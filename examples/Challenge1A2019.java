@@ -1,4 +1,7 @@
 // This is Challenge 1A from the 2019 VerifyThis competition
+
+// FIXME _ not fully speced and verified
+
 public class Challenge1A2019 {
     
     //@ public normal_behavior
