@@ -113,7 +113,6 @@ public class Clock {
            (my_hours == the_other_clock.my_hours &&
             my_minutes == the_other_clock.my_minutes &&
             my_seconds > the_other_clock.my_seconds);
-    //return difference(the_other_clock) > 0;
   }
   
   /**
@@ -176,19 +175,11 @@ public class Clock {
   
   //@ ensures \old(seconds) + 1 < SECS_IN_MIN ==> seconds == \old(seconds) + 1;
   //@ ensures \old(seconds) + 1 == SECS_IN_MIN ==> seconds == 0;
-  /*@ ensures \old(minutes) + 1 < MINS_IN_HOUR && seconds == 0 ==> 
-              minutes == \old(minutes) + 1;
-   */
-  /*@ ensures \old(minutes) + 1 == MINS_IN_HOUR && seconds == 0 ==>
-              minutes == 0;
-   */
+  //@ ensures \old(minutes) + 1 < MINS_IN_HOUR && seconds == 0 ==> minutes == \old(minutes) + 1;
+  //@ ensures \old(minutes) + 1 == MINS_IN_HOUR && seconds == 0 ==> minutes == 0;
   //@ ensures 0 < seconds ==> minutes == \old(minutes);
-  /*@ ensures \old(hours) + 1 < HOURS_IN_DAY && minutes == 0 && seconds == 0 ==>
-              hours == \old(hours) + 1;
-   */
-  /*@ ensures \old(hours) + 1 == HOURS_IN_DAY && minutes == 0 && seconds == 0 ==>
-              hours == 0;
-   */
+  //@ ensures \old(hours) + 1 < HOURS_IN_DAY && minutes == 0 && seconds == 0 ==> hours == \old(hours) + 1;
+  //@ ensures \old(hours) + 1 == HOURS_IN_DAY && minutes == 0 && seconds == 0 ==> hours == 0;
   //@ ensures 0 < minutes ==> hours == \old(hours);
   /**
    * Ticks the clock forward by one second. If we have reached the
