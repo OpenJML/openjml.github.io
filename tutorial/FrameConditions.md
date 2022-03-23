@@ -84,14 +84,14 @@ public class T_frame3 {
   public int counter2;
 
   //@ requires counter1 < Integer.MAX_VALUE;
-  //@ writes counter1;
+  //@ asigns counter1;
   //@ ensures counter1 == 1 + \old(counter1);
   public void increment1() {
     counter1 += 1;
   }
 
   //@ requires counter2 < Integer.MAX_VALUE;
-  //@ writes counter2;
+  //@ asigns counter2;
   //@ ensures counter2 == 1 + \old(counter2);
   public void increment2() {
     counter2 += 1;
@@ -119,7 +119,7 @@ program state outside of the method.
 just like for the `requires` and `ensures` clauses. The formal arguments \
 themselves cannot be changed by a method, but if they are references to objects,
 their fields might be written to by a method. So a method `m(MyType q)`
-might have a frame condition `writes q.f;` if `f` is a field of `MyType`
+might have a frame condition `assigns q.f;` if `f` is a field of `MyType`
 that is written to in the body of `m`.
 * If there are no effects of a method, you can specify a frame condition `assigns \nothing;`
 * `q.*` for an expression `q` means all fields of q
@@ -127,10 +127,10 @@ that is written to in the body of `m`.
 * `a[*]` for array expression `a` means all elements of that array
 * `a[i..j]` for expressions `a`, `i`, and `j` means the stated range of array elements, from `i` to `j` inclusive.
 
-If there is no frame condition at all, then a default is used, namely `writes \everything;`--- which means exactly that: after a call of this method, any memory location in the state might have been written to and might be changed. It is very difficult to prove anything about a program that includes a call to a method with such a frame condition. Thus  
+If there is no frame condition at all, then a default is used, namely `assigns \everything;`--- which means exactly that: after a call of this method, any memory location in the state might have been written to and might be changed. It is very difficult to prove anything about a program that includes a call to a method with such a frame condition. Thus  
 *you must include a frame condition for any method that is called within a program*
 
-A shorthand way to say that a method `writes \nothing;` is to designate it `pure`, as in
+A shorthand way to say that a method `assigns \nothing;` is to designate it `pure`, as in
 ```
 //@ requires ...
 //@ ensures ...
@@ -147,24 +147,24 @@ by itself lists the memory locations that may be written to by the method.
 As each frame condition clause must be valid on its own, the effect of multiple clauses is the same as one clause with the intersection of the sets of locations given by the separate clauses.
 For example,
 ```
-writes i,j;
-writes i,k;
+assigns i,j;
+assigns i,k;
 ```
 is the same as
 ```
-writes i;
+assigns i;
 ```
 and
 ```
-writes i;
-writes j;
+assigns i;
+assigns j;
 ```
 is the same as
 ```
-writes \nothing;
+assigns \nothing;
 ```
 Admittedly,  it would be much more convenient and perhaps intuitive if the
-result of mutiple writes clauses was the *union* of their contents, but that is
+result of mutiple assigns clauses was the *union* of their contents, but that is
 not the case, for historical reasons. The advice is then to
 *have only one frame condition clause per specification (case)*, even if that
 means the clause has a long list. (All the method specifications in the
@@ -173,4 +173,4 @@ presents [multiple specification cases](SpecificationCases).)
 
 
 
-_Last modified: 2022-03-01 20:54:44_
+_Last modified: 2022-03-23 16:15:34_

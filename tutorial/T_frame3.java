@@ -5,14 +5,14 @@ public class T_frame3 {
   public int counter2;
 
   //@ requires counter1 < Integer.MAX_VALUE;
-  //@ writes counter1;
+  //@ asigns counter1;
   //@ ensures counter1 == 1 + \old(counter1);
   public void increment1() {
     counter1 += 1;
   }
 
   //@ requires counter2 < Integer.MAX_VALUE;
-  //@ writes counter2;
+  //@ asigns counter2;
   //@ ensures counter2 == 1 + \old(counter2);
   public void increment2() {
     counter2 += 1;
