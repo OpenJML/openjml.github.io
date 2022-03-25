@@ -4,9 +4,9 @@ title: JML Tutorial
 
 LAST_MODIFIED
 
-<i>Last Modified: <script type="text/javascript"> document.write(document.lastModified)</i>
+<i>Last Modified: <script type="text/javascript"> document.write(document.lastModified)</script></i>
 
-<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString()))</i>
+<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
 
 These pages provide a quick introduction to JML (the Java Modeling Language) and 
 OpenJML (a tool that checks specifications written in JML for Java programs)
