@@ -2,6 +2,10 @@
 title: JML Tutorial
 ---
 
+_Last modified: 2022-03-25 09:32:00_
+
+Last Modified on <script type="text/javascript"> document.write(document.lastModified)
+
 These pages provide a quick introduction to JML (the Java Modeling Language) and 
 OpenJML (a tool that checks specifications written in JML for Java programs)
 in the form of an on-line tutorial.
@@ -46,7 +50,7 @@ example code; just add the appropriate path to the `openjml` command.
   * [Verifying Method Calls](MethodCalls)
   * [Frame Conditions](FrameConditions)
   * [Specifying Constructors](Constructors)
-  * [Using (pure) Method Calls in Specifications](MethodsInSpecifications)
+  * [Using Method Calls in Specifications](MethodsInSpecifications)
   * [Arithmetic](ArithmeticModes)
   * [Null and non-null](Nullness)
   * [Visibility](Visibility)
@@ -104,4 +108,3 @@ example code; just add the appropriate path to the `openjml` command.
   * [Reasoning about non-deterministic functions and volatile variables](Nondeterminism)
   * [Reasoning about termination](Termination) 
 
-_Last modified: 2022-03-19 19:22:53_
