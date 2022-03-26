@@ -173,7 +173,6 @@ depends on, which in this case is the `owner` and `next` fields.
 
 ```
 // openjml --esc List.java
-
 /** This file contains a worked (specified and verified) example of a singly-linked list using JML and OpenJML. 
  * It is intended to illustrate techniques that can be used for other simple recursive data structures. 
  * This example uses model fields.
@@ -186,7 +185,6 @@ depends on, which in this case is the `owner` and `next` fields.
  * @author davidcok
  *
  */
-
 // Specified with model fields
 public class List<W> extends Link<W> {
     
