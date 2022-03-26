@@ -4,4 +4,4 @@ title: JML Tutorial - the built-in \string type
 
 TODO
 
-_Last modified: 2022-03-02 14:34:58_
+<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>

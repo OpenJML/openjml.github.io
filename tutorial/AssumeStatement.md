@@ -84,4 +84,4 @@ a specification and proof of a method implementation, but they should be
 replaced with `assert` statements or removed altogether before a verification
 is considered sound.
 
-_Last modified: 2022-03-01 20:38:37_
+<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>

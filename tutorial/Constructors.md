@@ -67,4 +67,4 @@ The implementation of these constructors is so simple, and common, that one migh
 TODO- say more about the whole initialization process and initializer specs.
 
 
-_Last modified: 2022-03-02 21:07:27_
+<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>

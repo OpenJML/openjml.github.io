@@ -7,4 +7,4 @@ title: JML Tutorial - Invariants
 
 TODO
 
-_Last modified: 2022-03-02 17:54:56_
+<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>

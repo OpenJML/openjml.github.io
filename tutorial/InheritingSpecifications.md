@@ -4,4 +4,4 @@ title: JML Tutorial -  Inheriting Specifications
 
 TODO
 
-_Last modified: 2022-03-19 14:39:18_
+<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>

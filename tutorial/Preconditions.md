@@ -64,4 +64,4 @@ Ensures clauses may be mixed in order with the requires clauses, but good,
 and clearer, style suggests putting all requires clauses first and then
 all ensures clauses.
 
-_Last modified: 2022-03-01 20:41:53_
+<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>

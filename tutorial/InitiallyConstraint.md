@@ -78,4 +78,4 @@ TODO - just a brief introduction to invariants here. More discussion on a page o
 
 
 
-_Last modified: 2022-03-02 17:41:36_
+<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>

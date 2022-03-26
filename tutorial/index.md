@@ -2,7 +2,7 @@
 title: JML Tutorial
 ---
 
-_Last modified: 2022-03-25 10:02:18_
+<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
 
 <i>Last Modified: <script type="text/javascript"> document.write(document.lastModified)</script></i>
 

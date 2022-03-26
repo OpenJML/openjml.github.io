@@ -132,4 +132,4 @@ The implementation of this expression in JML tools is in progress. Don't count o
 
 TODO - what about \let
 
-_Last modified: 2022-03-02 23:13:03_
+<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>

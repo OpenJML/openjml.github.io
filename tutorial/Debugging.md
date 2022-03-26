@@ -22,4 +22,4 @@ It is worth restating a few points:
 For serious problems in real situations (i.e., not your course homework) or difficulty understanding how all of this deductive verification works, feel free to contact the tool developers or other experts in softawre verification. For JML and openjml, start with the issues list at [the OpenJML project](https://github.com/OpenJML/OpenJML/issues).
 
 
-_Last modified: 2022-03-01 19:07:38_
+<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>

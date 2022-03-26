@@ -4,4 +4,4 @@ title: JML Tutorial - Reasoning about Records
 
 TODO
 
-_Last modified: 2022-03-02 16:59:41_
+<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>

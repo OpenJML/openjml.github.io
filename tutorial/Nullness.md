@@ -4,4 +4,4 @@ title: JML Tutorial - Nullable and non-null values and types
 
 TODO
 
-_Last modified: 2022-03-19 13:24:55_
+<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>

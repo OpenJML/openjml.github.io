@@ -86,4 +86,4 @@ access to the data field, that is, not allowinig clients to modify `_value` dire
 So for simple cases like this the `spec_public` modifier is perfectly fine; in fact, it is
 syntactic sugar for the solution in terms of a model field.
 
-_Last modified: 2022-03-01 20:50:18_
+<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>

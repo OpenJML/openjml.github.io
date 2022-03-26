@@ -195,4 +195,4 @@ produces just
 The exit code 6 indicates that verification errors were found (but no parsing
 or type-checking or command-line or system errors).
 
-_Last modified: 2022-03-01 20:48:18_
+<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>

@@ -157,4 +157,4 @@ END
 As the text of error messages is compiled into the class file, the control of error messages is a *compile-time*, not a runtime, option.
 
 
-_Last modified: 2022-03-01 20:47:32_
+<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>

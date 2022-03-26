@@ -25,7 +25,8 @@ for f in *.mdt; do
     rm begin rest $F
   done
   modtime=$(date -r $f "+%Y-%m-%d %H:%M:%S")
-  sed -i -e "s/LAST_MODIFIED/_Last modified: ${modtime}_/" $T
+  ##sed -i -e "s/LAST_MODIFIED/_Last modified: ${modtime}_/" $T
+  sed -i -e 's#LAST_MODIFIED#<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>#' $T
 
   mdfile=`echo $f | sed -e s/mdt/md/`
   if diff -q $T $mdfile > /dev/null; then

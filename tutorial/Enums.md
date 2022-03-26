@@ -4,4 +4,4 @@ title: JML Tutorial - Reasoning about Enums
 
 TODO
 
-_Last modified: 2022-03-02 16:59:10_
+<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>

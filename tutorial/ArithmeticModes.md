@@ -147,4 +147,4 @@ public class T_arithmetic5 {
 <hr>
 
 
-_Last modified: 2022-03-02 18:38:53_
+<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>

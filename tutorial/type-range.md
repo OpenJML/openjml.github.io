@@ -4,5 +4,5 @@ title: JML Tutorial - JML's built-in \range type
 
 TODO
 
-_Last modified: 2022-03-02 12:29:11_
+<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
 

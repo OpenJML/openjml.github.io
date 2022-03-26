@@ -300,4 +300,4 @@ Here is a worked example.
 TBD
 
 
-_Last modified: 2022-03-01 20:51:32_
+<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>

@@ -173,4 +173,4 @@ presents [multiple specification cases](SpecificationCases).)
 
 
 
-_Last modified: 2022-03-23 16:15:34_
+<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>

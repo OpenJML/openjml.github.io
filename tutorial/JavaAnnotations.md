@@ -33,4 +33,4 @@ Because of the above limitations and the fact that the Java source code is being
 To complete this story, Java annotations were explored for other aspects of JML as well: `@Requires` for preconditions, `@Ensures` for postconditions, and so on.
 These were even less convenient, because Java annotations can hold only compile-time constants, such as fixed strings. Tools would need to extract the JML strings from the annotations to parse and use them. Though this is not so different than extracting JML text from comments, it offered no advantage and made for much messier syntax. Consequently, no tools (beyond the first exploratory implementation) implemented Java annotations for JML other than for modifiers as presented above.
 
-_Last modified: 2022-03-01 23:54:56_
+<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>

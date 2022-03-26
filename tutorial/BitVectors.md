@@ -4,4 +4,4 @@ title: JML Tutorial - Reasoning about bit-wise operations
 
 TODO
 
-_Last modified: 2022-03-02 17:06:27_
+<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>

@@ -85,4 +85,4 @@ OpenJML matches up the Java declarations (that is those declaration not inside a
 Then all the ghost and model declarations (those inside a JML annotation comment) are considered; they may not duplicate any Java declarations or each other (or an error results).
 
 
-_Last modified: 2022-03-01 20:52:24_
+<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>

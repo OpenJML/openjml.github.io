@@ -300,4 +300,4 @@ Though the subexpression option above usually provides the most useful informati
 The `--counterexample` or `-ce` options do this. However, the output is quite verbose and (at present) uses internal encodings of variable names. Improving this information is a planned task, but at the moment the output is useful mainly to experts.
 
 
-_Last modified: 2022-03-03 12:36:04_
+<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
