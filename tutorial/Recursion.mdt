@@ -171,6 +171,6 @@ depends on, which in this case is the `owner` and `next` fields.
 
 ## Example code
 
-```
+```java
 %include List.java
 ```

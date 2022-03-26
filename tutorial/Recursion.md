@@ -171,7 +171,7 @@ depends on, which in this case is the `owner` and `next` fields.
 
 ## Example code
 
-```
+```java
 // openjml --esc List.java
 /** This file contains a worked (specified and verified) example of a singly-linked list using JML and OpenJML. 
  * It is intended to illustrate techniques that can be used for other simple recursive data structures. 
@@ -452,4 +452,5 @@ class Test {
         assert in.values.tail(1) == other.values.tail(1);
     }
     @*/
-}```
+}
+```
