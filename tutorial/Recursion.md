@@ -35,7 +35,7 @@ which gives a typical recursive definition of the size of the list.
     //@ model public \bigint size; 
     //@ public represents size = ((next == null) ? 0 : 1 + next.size);
 ```
-Note that the type of `size` is the JML type `\\bigint`, so we don't ahve to worry about overflowing some upper bound on the size.
+Note that the type of `size` is the JML type `\bigint`, so we don't have to worry about overflowing some upper bound on the size.
 * The abstract representation of the value of the list is the model field `values`, which is a JML `seq<W>`; it is a sequence
 of all the values in the list:
 ```
@@ -171,7 +171,7 @@ depends on, which in this case is the `owner` and `next` fields.
 
 ## Example code
 
-```java
+```java {.line-numbers}
 // openjml --esc List.java
 /** This file contains a worked (specified and verified) example of a singly-linked list using JML and OpenJML. 
  * It is intended to illustrate techniques that can be used for other simple recursive data structures. 

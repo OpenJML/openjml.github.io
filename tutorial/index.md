@@ -1,11 +1,6 @@
 ---
 title: JML Tutorial
 ---
-
-<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
-
-<i>Last Modified: <script type="text/javascript"> document.write(document.lastModified)</script></i>
-
 <i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
 
 These pages provide a quick introduction to JML (the Java Modeling Language) and 
