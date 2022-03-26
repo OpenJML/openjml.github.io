@@ -68,11 +68,9 @@ might modify any of the concrete fields that are in the `size` datagroup, namely
 ```
     //@ spec_public
     private W value; //@ in values;
-
     //@ nullable spec_public
     protected List.Value<V> next; //@ in size, values, links; 
     //@ maps next.values \into values; maps next.size \into size; maps next.links \into links;
-
 ```
 * But in this example, the model fields contain a recursive collection of concrete fields. The specification first declares that `next` is `in` `size`.
 But then also, using the `maps` clause it declares the `next.size` is also in `size` (that is, in `this.size`). The effect is  that `n.size` for node `n`,
