@@ -1,7 +1,7 @@
 ---
 title: JML Tutorial - Reasoning about recursive functions and data structures
 ---
-LAST_MODIFIED
+<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
 
 This lesson illustrates modeling and reasoning about a recursive data structure with a commented example.
 
@@ -171,12 +171,6 @@ depends on, which in this case is the `owner` and `next` fields.
 
 ## Example code
 
-```java 
-%include List.java
-```
-
-
-Inclusion experiment
-```
+```java
 {% include_relative List.java %}
 ```
