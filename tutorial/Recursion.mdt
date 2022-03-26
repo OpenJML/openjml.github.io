@@ -171,6 +171,12 @@ depends on, which in this case is the `owner` and `next` fields.
 
 ## Example code
 
-```java {.line-numbers}
+```java 
 %include List.java
+```
+
+
+Inclusion experiment
+```
+{% include_relative List.java %}
 ```
