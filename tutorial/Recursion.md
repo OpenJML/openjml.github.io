@@ -63,7 +63,7 @@ For example, the model field `size` contains all the `next` fields in the list, 
 The `size` datagroup does not contain any of the `value` fields because the values in the sequence do not affect the size, just the number of nodes.
 Then a method that changes the size of the list, such as `push`, specifies that it _assigns_ to `size`, which is interpreted to mean that it
 might modify any of the concrete fields that are in the `size` datagroup, namely the `next` fields, which indeed it does. If `size` is omitted from
-`push`es frame condition or `next` is omitted from `the `size` datagroup, then the verifier will complain that the assignment to `next` in `push` is not allowed.
+`push`s frame condition or `next` is omitted from the `size` datagroup, then the verifier will complain that the assignment to `next` in `push` is not allowed.
 * A field is declared to be _in_ a datagroup by the `in` clause that is associated with the declaration of that concrete field:
 ```
     //@ spec_public
@@ -72,18 +72,17 @@ might modify any of the concrete fields that are in the `size` datagroup, namely
     protected List.Value<V> next; //@ in size, values, links; 
     //@ maps next.values \into values; maps next.size \into size; maps next.links \into links;
 ```
-* But in this example, the model fields contain a recursive collection of concrete fields. The specification first declares that `next` is `in` `size`.
-But then also, using the `maps` clause it declares the `next.size` is also in `size` (that is, in `this.size`). The effect is  that `n.size` for node `n`,
+But in this example, the model fields contain a recursive collection of concrete fields. The specification first declares that `next` is `in` `size`.
+But then also, using the `maps` clause it declares that `next.size` is also in `size` (that is, in `this.size`). The effect is  that `n.size` for node `n`,
 as a datagroup, contains all the `next` fields after `n` in the linked list. Thus `size` for the anchor contains all the `next` nodes in the list.
-* Accordingly then, if we specify that `this.size` might be assigned in a method, assignments to the `next` fields of any of the nodes after `this` are permitted.
-And indeed it is just ithis set of fields on which the (abstract) value of `size` depends.
-* The other model fields, `values` and `links` (and `ownerFields, which we will get to later), have similar definitions as datagroups.
+Accordingly then, if we specify that `this.size` might be assigned in a method, assignments to the `next` fields of any of the nodes after `this` are permitted.
+And indeed it is just this set of fields on which the (abstract) value of `size` depends.
+The other model fields, `values` and `links` (and `ownerFields`, which we will get to later), have similar definitions as datagroups.
 
 **Specifications of each method**
 
-A point should be made at the outset. You will see quite a number of `assert` statements in the bodies of methods. There are two reasons for these.
-The first is just illustrative: showing what kinds of deductions can be made at each point in the program body. The second is that 
-some (not all) of these asserts
+A point should be made at the outset. You will see quite a number of `assert` statements in the bodies of methods. 
+Some of these asserts are just illustrative ---showing what kinds of deductions can be made at each point in the program body; but others
 serve as lemmas: the system proves each one, and that deduction helps its proof of later assertions or postconditions.
 It is part of ongoing work to reduce the number of situations in which such assert-statements-as-lemmas are needed. They are more commonly needed
 for recursive model field and methods, so some help in appropriate unrolling is likely needed.
@@ -103,7 +102,7 @@ are allowed to be mentioned in public specifications. Any client using `push` an
 specification of `push`.
 
 * **pop**: Removes the first value from the list, by removing the first node. The specification of `pop` is analogous to that of `push`. One difference is that `pop`
-has a precondition stating that you are not allowed to pop anything from the list if the list is empty.
+has a precondition stating that the `pop` operation is only permitted on non-empty `List`s.
 
 * **remove**. Removes the nth item from the list. This method is declared in `Link` rather than in `List` because it is a recursive method and must be 
 declared for `Value` as well as `List`. Rather than repeating an identical implementation and specification, the declaration was placed in the parent class.
@@ -124,11 +123,11 @@ not establish any invariants.
 
 **Invariants**
 
-The specification also includes a number of _invariants_, properties that are supposed to be always (or nearly always) true of their data structures.
+The specification also includes a number of _invariants_, properties that may be assumed to be true of their data structures.
 For example, one states that the size of the `values` abstract sequence is always (outside of method bodies) the same as the size of the list. As each
 method is proved on its own terms, without knowing what operations have already occurred on the data structure, that proof needs to have a known starting 
 point. The method preconditions and the class invariants are useful for stating those properties. Each (non-helper) method can assume them to be true in its
-pre-state and then must establish that they are still, or once again, true in the post-state.
+pre-state and then must establish that they are still, or once again, true in the post-state (and they must be established before any calls to other methods).
 
 **Tests**
 
@@ -137,7 +136,8 @@ the specification is used by clients that call the method in question. For that 
 so that when used by a client to accomplish some purpose, that use can be verified to behave as expected.
 
 Consequently, test cases that use the method, together with assertions that state what should be provable as a result, are good unit tests of a specification.
-In this example the `Test` class contains a number of example tests. The first one proves that a call of `empty` does indeed produce a zero-length `List`.
+In this example the `Test` class contains a number of example tests. Repeat: these are static tests, meant to be verified, not
+dynamic test meant for execution. The first test proves that a call of `empty` does indeed produce a zero-length `List`.
 `testPushValue` checks that a value pushed is the one retrieved by `value(0)`
 The next ones show other algebraic properties: that a `push` and then a `pop` or `remove(0)` yield the original abstract value for the list.
 
@@ -146,7 +146,7 @@ The next ones show other algebraic properties: that a `push` and then a `pop` or
 An important, and sometimes difficult to prove, property of linked, heap-based data structures is whether changes to one structure, such as our linked list, cause changes to another structurem, such as another linked list. Consider tests NI1 and NI2, and imagine a case in which two different List objects each point to the same 
 sequence of links and thus have ths ame abstract `values` value. A `push` or a `pop` on one of these lists only affects the anchor element and so the other list
 is unaffected, though they still share portions of the same sequence of links. But in test NI3, we are removing a node that is further down the list. Removing
-a node in one list definitely affects the other list as well.  Indeed test NI3 cannot be proved without the `owner` structure we will describe shortly.
+a node in one list definitely affects the other list as well.  Indeed test NI3 cannot be proved without the `owner` field and invariant that we will describe shortly.
 
 An even simpler case is test NI4, which asks whether two different lists must have different first nodes. 
 
@@ -155,7 +155,7 @@ One way to reason about such problems is separation logic, which is not currentl
 
 We declare in each `Link` node an `owner` field. The owner is the `List` anchor node that points to the list. If a node points to its owner, it cannot be part
 of two lists. The trick is to specify and prove that the `owner` field reflects our intent.  Note that the `owner` field is a `ghost` field; that is, it is not
-part of the implementation. It could as well be, but this gives an opportunity to demonstrate ghost fields.
+part of the implementation; it is only needed to prove various desired properties.. 
 Along with this ghost field we declare a recursive method that states the following property for each node: I (that is the current node) and each node after me
 have the same owner. If this is true for the anchor node as well, and the anchor node has the property that it is its own owner, then all the nodes in that
 anchor's list have that anchor as their owner and cannot be part of another list. The property is encapsulated in the model method `allMine`.
@@ -166,7 +166,9 @@ field. It does this in a `set` statement, which in JML is the means to assign va
 
 This invariant is the cause of a minor complexity in the specification. The `Link` constructor is a helper constructor so that it does not
 have to ensure that this invariant is valid. One could imagine passing into this constructor an appropriate owner value so that a Link can be created with
-`owner` already set (and thereby be able to satisfy the invariant). But `owner` is a ghost concept and not part of the implementation; this little proposal would require passing a ghost value in a Java constructor, which we cannot do.
+`owner` already set (and thereby be able to satisfy the invariant). But `owner` is a ghost concept and not part of the implementation; this little proposal would require passing a ghost value in a Java constructor, which JML cannot do.
+
+For more on owner fields, see [Barnett et al., _Spec# and the Boogie methodology_](http://tinyurl.com/m2a8j).
 
 **Datagroups again, and reads clauses**
 
