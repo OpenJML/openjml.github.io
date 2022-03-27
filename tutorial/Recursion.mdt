@@ -81,6 +81,13 @@ And indeed it is just ithis set of fields on which the (abstract) value of `size
 
 **Specifications of each method**
 
+A point should be made at the outset. You will see quite a number of `assert` statements in the bodies of methods. There are two reasons for these.
+The first is just illustrative: showing what kinds of deductions can be made at each point in the program body. The second is that 
+some (not all) of these asserts
+serve as lemmas: the system proves each one, and that deduction helps its proof of later assertions or postconditions.
+It is part of ongoing work to reduce the number of situations in which such assert-statements-as-lemmas are needed. They are more commonly needed
+for recursive model field and methods, so some help in appropriate unrolling is likely needed.
+
 * **List constructor**: This constructor is private becuse it is just used as an aid to the `empty` method. It has a straightforwad specification
 that states that its fields are set correctly. Because it only assigns to its own fields, it is `pure`. Because it neither relies on nor ensures
 the class's invariants it is declared `helper`.
@@ -162,7 +169,8 @@ have to ensure that this invariant is valid. One could imagine passing into this
 `owner` already set (and thereby be able to satisfy the invariant). But `owner` is a ghost concept and not part of the implementation; this little proposal would require passing a ghost value in a Java constructor, which we cannot do.
 
 **Datagroups again, and reads clauses**
-Along with the `owner` field, we defined a model field `ownerFields`. Model fields like `values serve as both an abstract value and a datagroup.
+
+Along with the `owner` field, we defined a model field `ownerFields`. Model fields like `values` serve as both an abstract value and a datagroup.
 As `owner` is a `ghost` field, it is not also a datagroup. So we define `ownerFields` as its datagroup, with built-in type `JMLDatagroup`. It is defined
 recursively just like the other datagroups.
 
