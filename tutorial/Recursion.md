@@ -139,7 +139,7 @@ so that when used by a client to accomplish some purpose, that use can be verifi
 Consequently, test cases that use the method, together with assertions that state what should be provable as a result, are good unit tests of a specification.
 In this example the `Test` class contains a number of example tests. The first one proves that a call of `empty` does indeed produce a zero-length `List`.
 `testPushValue` checks that a value pushed is the one retrieved by `value(0)`
-The next ones show other algebraic properties: that a `push` and then a `pop` ior `remove(0)` yield the original abstract value for the list.
+The next ones show other algebraic properties: that a `push` and then a `pop` or `remove(0)` yield the original abstract value for the list.
 
 **Tests: Non-interference**
 
