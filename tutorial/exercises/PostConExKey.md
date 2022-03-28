@@ -104,6 +104,6 @@ public int area(int w, int h) {
 The goal of this exercise is to test the student's ability to find all the pre/postconditions needed when writing a function. The student is tasked with writing a simple function that takes in the width and height of a rectangle and returns the area. It requires that the student have some understanding of mathematics to know that Area can never be negative nor zero. Therefore, the student needs to ensure that the preconditions reflect this. Additionally, it tests that students take into account potential inputs that might cause an over flow error since we are multiply two integers and returning an integer. The bigger test comes with the postconditions. If the student can determine that Area cannot be negative nor zero than what does this ensure of the function? It ensures that the result is always greater than 0, and that the result will always be greater than or equal to the width and height of the rectangle. It is also important that students realize that ensuring these postconditions will prevent any errors that might occur if this code is used in another program and a client tries to input values that are not valid.
 
 ## **Resources:**
-+ [Precondition Exercises](PreConEx.md)
++ [Postcondition Exercises](PostConEx.md)
 + [Question 1 Java](PostconditionExample1.java)
 + [Question 2 Java](PostconditionExample2.java)
