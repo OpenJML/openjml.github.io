@@ -17,3 +17,7 @@ title: JML Tutorial -- Exercises
 ### [Preconditions](PreConEx.md)
 + [Key](PreConExKey.md)
 + [Question 1 Java](PreconditionExample1.java), [Question 2 Java](PreconditionExample2.java)
+
+### [Assert Statements](AssertEx.md)
++ [Key](AssertExKey.md)
++ [Question 1 Java](AssertExample1.java), [Question 2 Java](AssertExample2.java)
