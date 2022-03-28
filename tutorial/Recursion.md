@@ -8,17 +8,17 @@ This lesson illustrates modeling and reasoning about a recursive data structure 
 ## Singly-linked list example
 
 The example ([List.java](List.java)) is a standard singly-linked list and is included inline [at the end of this lesson](#example-code) (as well as in the 
-collection of tutorial examples). The implementation consists of an anchor class `List<W>` that contains
-a linked sequence of `Value<W>` node, each with a field of type `W` containing the value. 
+collection of tutorial examples). The implementation consists of an anchor class `List<T>` that contains
+a linked sequence of `Node<T>` node, each with a field of type `W` containing the value. 
 The links from the anchor to the head of the list and from node to node in the list are through
-`next` fields, typed as `Value<W>`. Both `List` and `Value` derive from a parent class `Link` that declares
+`next` fields, typed as `Node<T>`. Both `List` and `Node` derive from a parent class `Link` that declares
 the common `next` field and other common functionality. The anchor is not part of the abstract list; it serves as the 
 singly-linked list object even when the list is empty.
 
 This example contains a few typical methods: create an empty list, push a new value on the head of the list, pop the first
 value off the list, and remove the n'th value in the list.
 
-The abstract value of the `List` is modeled as a JML sequence, `seq<W>`, which is a sequence of all of the `W` values in
+The abstract value of the `List` is modeled as a JML sequence, `seq<T>`, which is a sequence of all of the `W` values in
 the list. 
 
 There are many points to note about the specification of this data structure; we will walk through them in detail.
@@ -26,7 +26,7 @@ There are many points to note about the specification of this data structure; we
 **Model fields**
 
 We represent the private implementation as a few model fields. In this example we model the size and the sequence of values in the list.
-For the latter, we use the built-in JML value type `seq<W>`.
+For the latter, we use the built-in JML value type `seq<T>`.
 
 * Let's start with the size of the list. It is represented by the model field `size` (in `Link`), meaning the number of nodes
 in the linked list after the current node. The model field is connected to the implementation by a `represents` clause, 
@@ -36,14 +36,14 @@ which gives a typical recursive definition of the size of the list.
     //@ public represents size = ((next == null) ? 0 : 1 + next.size);
 ```
 Note that the type of `size` is the JML type `\bigint`, so we don't have to worry about overflowing some upper bound on the size.
-* The abstract representation of the value of the list is the model field `values`, which is a JML `seq<W>`; it is a sequence
+* The abstract representation of the value of the list is the model field `values`, which is a JML `seq<T>`; it is a sequence
 of all the values in the list:
 ```
-    //@ model public seq<V> values; // sequence of values after the current Link, not including the current Link
-    //@ public represents values = next == null ? seq.<V>empty() : next.values.prepend(next.value);
+    //@ model public seq<T> values; // sequence of values after the current Link, not including the current Link
+    //@ public represents values = next == null ? seq.<T>empty() : next.values.prepend(next.value);
 ```
 * That values model field is connected to the implementation by its JML `represents` clause (also in `Link`). This is a recursive definition
-that defines the value of `values` for a given `Value` node as the concatenation of the `value` of the _next_ node and the `values`
+that defines the value of `values` for a given `Node` node as the concatenation of the `value` of the _next_ node and the `values`
 sequence of that _next_ node (which represents the rest of the list after the _next_ node). Moving all the way back to the 
 anchor, the `values` field of the anchor is the sequence of value fields beginning with its `next` node, which is the abstract value of the
 list. The reason for the `values ` field representing the sequence of value fields after the current node is that then the same definition
@@ -67,9 +67,9 @@ might modify any of the concrete fields that are in the `size` datagroup, namely
 * A field is declared to be _in_ a datagroup by the `in` clause that is associated with the declaration of that concrete field:
 ```
     //@ spec_public
-    private W value; //@ in values;
+    private T value; //@ in values;
     //@ nullable spec_public
-    protected List.Value<V> next; //@ in size, values, links; 
+    protected List.Node<T> next; //@ in size, values, links; 
     //@ maps next.values \into values; maps next.size \into size; maps next.links \into links;
 ```
 But in this example, the model fields contain a recursive collection of concrete fields. The specification first declares that `next` is `in` `size`.
@@ -105,12 +105,12 @@ specification of `push`.
 has a precondition stating that the `pop` operation is only permitted on non-empty `List`s.
 
 * **remove**. Removes the nth item from the list. This method is declared in `Link` rather than in `List` because it is a recursive method and must be 
-declared for `Value` as well as `List`. Rather than repeating an identical implementation and specification, the declaration was placed in the parent class.
+declared for `Node` as well as `List`. Rather than repeating an identical implementation and specification, the declaration was placed in the parent class.
 The implementation simply recurses through the list, counting down until it reaches the node before the node it is supposed to remove. It then removes that node
 and does not propagate further into the list. Thus each recursive call has the effect of reducing the length of the list after the current node by 1,
 which is what the specification states. The effect of the method on `values` and `links` is more complicated to express (and to prove) and is not included here.
 
-* **Value.Value**: This constructor is also straightforward, except for its precondition. The precondition ... (REVIEW THIS)
+* **Node.Node**: This constructor is straightforward. It just sets the field values and specifies that it does so.
 
 * **Link.Link**: This constructor is also straightforward. As it is intended only to be used by its child classes (and not by clients), it is declared 
 `protected` (though an inheritable version of `private` would be better). There are two important aspects of its specification. First, the specification says
