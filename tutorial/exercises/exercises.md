@@ -1,7 +1,7 @@
 ---
 title: JML Tutorial -- Exercises
 ---
-Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script>
+<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
 
 ```diff
 ! These exercises are a Work In Progress (March-May 2022).
