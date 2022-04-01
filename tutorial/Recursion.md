@@ -4,6 +4,19 @@ title: JML Tutorial - Reasoning about recursive functions and data structures
 <i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
 
 This lesson illustrates modeling and reasoning about a recursive data structure with a commented example.
+The example shows a singly-linked list. Two other examples are available:
+* A [doubly-linked list](Recursion-DLL)
+* A [singly-linked list modeled with model methods instead of model fields](Recursion-MM)
+
+The particular points to note in the the examples are these:
+* How model fields are recursively defined
+* How datagroups are recursively defined
+* How functions are recursively defined
+* How assertions are used in the body of a method to guide the solver in unrolling recursive defintions and then rolling them back up again, to prove the desired end goal.
+
+```diff
+These examples are under development. The proofs time out in some cases. They also are being edited to make them simpler. There may even be some errors masked by timeouts.
+```
 
 ## Singly-linked list example
 
