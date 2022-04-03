@@ -3,7 +3,7 @@ title: JML Tutorial - Checking Feasibility
 ---
 <i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
 
-Deductive verification typically asks the question: are there any legal inputs that would render an implicit or explicit assertion false?  A second question is: are there any legal inputs that cause execution to reach a given point in the program? That is, is the execution path to  that point in the program _feasible_?
+Deductive verification typically asks the question: are there any legal inputs that would render an implicit or explicit assertion false?  A second question is: are there any legal inputs that cause execution to reach a given point in the program? That is, is the execution path to that point in the program _feasible_?
 
 The question of feasibility can be important for several reasons.
 * If there is indeed some infeasible execution path, then any assertions on that path will not be checked. Then a verification attempt can be successful (no verification errors reported), when in fact that success is because _there was nothing to check_ (because that or maybe all execution paths are infeasible). Thus after a successful verification attempt it can be prudent to check feasibility.
@@ -22,7 +22,7 @@ produces
 ```
 Verification without checking feasibility reports no errors. However, when feasibility is checked, a problem is reported with the call of `mm()`. 
 ```
-{% include_relative %}
+{% include_relative T_Feasibility4.out  %}
 ```
 The problem here is that the specs of `mm()` say that the method is `pure`, meaning that it changes nothing, but the ensures clause says that `k` is incremented. 
 This contradiction results in stopping any verification after the method call. The feasibility check indeed finds this problem.
