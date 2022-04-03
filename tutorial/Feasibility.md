@@ -10,13 +10,24 @@ The question of feasibility can be important for several reasons.
 * If there are contradictory assumptions (e.g., assume statements or preconditions or invariants) then any point after those assumptions will not be feasible.
 For example
 ```
-{% include_relative T_Feasiobility1.java %}
+{% include_relative T_Feasibility1.java %}
 ```
 produces
 ```
 {% include_relative T_Feasibility1.out %}
 ```
-* Some branches of the code may be _dead_. TBD - example
+* When method A calls method B, the verification of method A relies on correct specifications for method B. Consider this example:
+```
+{% include_relative T_Feasibility4.java %}
+```
+Verification without checking feasibility reports no errors. However, when feasibility is checked, a problem is reported with the call of `mm()`. 
+```
+{% include_relative %}
+```
+The problem here is that the specs of `mm()` say that the method is `pure`, meaning that it changes nothing, but the ensures clause says that `k` is incremented. 
+This contradiction results in stopping any verification after the method call. The feasibility check indeed finds this problem.
+This example points out the necessity of verifying all methods used in a program before the program can be considered verified. This is particularly relvant to library methods. These may well have specifications, but a typical client of the library will be forced to trust these specifications and will not have the source code to even attempt a verification of the library cmethods the client uses.
+* Some branches of the code may be _dead_, that is, are never executed. In fact sometimes one may wish to prove that a branch, such as an error reporting or recovery branch, will not be executed. Feasibility checking can assist in detection of dead code.
 
 All the various places that OpenJML implements feasibility checking are enumerated below. But first, some caveats are in order.
 * Feasibility checking can be time-consuming and especially so if the path in question is _not_ feasible. Accordingly, feasibility checking is off by default.
