@@ -9,6 +9,7 @@ The question of feasibility can be important for several reasons.
 * If there is indeed some infeasible execution path, then any assertions on that path will not be checked. Then a verification attempt can be successful (no verification errors reported), when in fact that success is because _there was nothing to check_ (because that or maybe all execution paths are infeasible). Thus after a successful verification attempt it can be prudent to check feasibility.
 * If there are contradictory assumptions (e.g., assume statements or preconditions or invariants) then any point after those assumptions will not be feasible.
 For example
+
 ```java
 {% include_relative T_Feasibility1.java %}
 ```
