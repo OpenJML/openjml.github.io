@@ -8,4 +8,3 @@ public class T_Feasibility1 {
     return i;
   }
 }
-

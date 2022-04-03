@@ -11,4 +11,3 @@ abstract public class T_Feasibility4 extends A {
 	mm();
     }
 }
-
