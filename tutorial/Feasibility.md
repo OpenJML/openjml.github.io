@@ -46,7 +46,7 @@ The command stated at the top of the example checks whether it is possible to re
 {% include_relative T_Feasibility3.java %}
 ```
 produces
-```
+```jml
 {% include_relative T_Feasibility3.out %}
 ```
 which shows that that the verifier thinks that `i` and `j` can be different (the specific values of `i` and `j` may be different from run to run).
@@ -68,7 +68,7 @@ Here are the possible places that can be checked:
 * **if** -- are both branches of the if condition feasible
 * **switch** -- are all branches of a switch statement feasible
 * **catch** -- at the beginning of each catch block
-* **finally -- at the beginning of each finally block
+* **finally** -- at the beginning of each finally block
 * **spec** --  at the end of every statement spec block
 * **call** -- after any call
 * **halt** -- at each halt statement
