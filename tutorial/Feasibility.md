@@ -18,6 +18,7 @@ produces
 {% include_relative T_Feasibility1.out %}
 ```
 * When method A calls method B, the verification of method A relies on correct specifications for method B. Consider this example:
+
 ```java
 {% include_relative T_Feasibility4.java %}
 ```
@@ -36,6 +37,7 @@ All the various places that OpenJML implements feasibility checking are enumerat
 has assumptions `i<= 0` and `i >= 0`, it will still be feasible for `x == 0`, but that may not be the programmer's intent.
 * If method A calls method B and method B is underspecified, then an execution path may be considered to be feasible, when in reality it is  not.
 Remember that when checking method A, only the specifications of B are considered. Look at this example:
+
 ```
 {% include_relative T_Feasibility2.java %}
 ```
