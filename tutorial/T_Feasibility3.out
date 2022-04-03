@@ -1,0 +1,10 @@
+T_Feasibility3.java:7: verify: Show statement expression i has value 1
+    //@ show i, j;
+             ^
+T_Feasibility3.java:7: verify: Show statement expression j has value 2
+    //@ show i, j;
+                ^
+T_Feasibility3.java:10: verify: The prover cannot establish an assertion (Unreachable) in method m
+      //@ unreachable
+          ^
+3 verification failures

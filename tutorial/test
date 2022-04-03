@@ -4,15 +4,16 @@ J=../../OpenJML/OpenJDKModule
 X=0 
 files=`ls *.java`
 for f in $files ; do
-    o=`echo $f | sed -e 's/java/out/'`;
-    c=`cat $f | head -1 | sed -e 'sx//[ ]*xx' | sed -e s/\\$@/$f/ | sed -e "sxopenjmlx$J/openjmlxg"` 
+  o=`echo $f | sed -e 's/java/out/'`;
+  c=`cat $f | head -1 | sed -e 'sx//[ ]*xx' | sed -e s/\\$@/$f/ | sed -e "sxopenjmlx$J/openjmlxg" | grep -v '##'`
+  if [ "$c" != "" ]; then 
     echo EXEC "$c"
     bash -c "$c" > logt  2>&1
     e=$?
     grep -v "Note:" logt > log
     if [ -e $o ]; then 
 	if [ $e -eq "0" ]; then 
-	    X=1; echo $f "has out file but exit code of 0" 
+	    if [ "$f" != "T_PureMethod1.java" ]; then X=1; echo $f "has out file but exit code of 0"; fi; ## Special case of all warnings so 0 exit code
 	fi 
 	cat log | sed -e 's/[0-9][0-9.]* secs/TTTT secs/' | sed -e 's/DURATION:[ ]*TTTT/DURATION:          TTTT/' | tee $o.actual | cmp -s - $o ; z=$? ;
 	if [ $z -ne "0" ]; then 
@@ -36,6 +37,9 @@ for f in $files ; do
     elif [ $e -ne "0" ]; then 
 	X=1; echo "OK example has unexpected exit code: " $f $e 
     fi ; 
+  else
+    echo "Skipping non-deterministic test " $f ;
+  fi ;
 done 
 for f in *.check ; do echo $f; source $f || X=1; done 
 rm -rf logt log

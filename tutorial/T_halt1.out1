@@ -11,4 +11,3 @@ T_halt1.java:4: verify: Associated declaration: T_halt1.java:11:
   //@ ensures \result == 0;
       ^
 4 verification failures
-

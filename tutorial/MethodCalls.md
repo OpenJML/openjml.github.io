@@ -76,15 +76,9 @@ the `-progress` option, so we receive quite a bit more output.
 Proving methods in T_CallerCallee
 Starting proof of T_CallerCallee.T_CallerCallee() with prover z3_4_3
 Method assertions are validated
-T_CallerCallee.java:2:Feasibility check #1 - end of preconditions : OK
-T_CallerCallee.java:2:Feasibility check #2 - at program exit : OK
 Completed proof of T_CallerCallee.T_CallerCallee() with prover z3_4_3 - no warnings
 Starting proof of T_CallerCallee.caller1() with prover z3_4_3
 Method assertions are validated
-T_CallerCallee.java:4:Feasibility check #1 - end of preconditions : OK
-T_CallerCallee.java:6:Feasibility check #2 - before explicit assert statement : OK
-T_CallerCallee.java:8:Feasibility check #3 - before explicit assert statement : OK
-T_CallerCallee.java:4:Feasibility check #4 - at program exit : OK
 Completed proof of T_CallerCallee.caller1() with prover z3_4_3 - no warnings
 Starting proof of T_CallerCallee.caller2() with prover z3_4_3
 T_CallerCallee.caller2 Method assertions are INVALID
@@ -118,8 +112,6 @@ T_CallerCallee.java:21: verify: The prover cannot establish an assertion (Assert
 Completed proof of T_CallerCallee.caller4() with prover z3_4_3 - with warnings
 Starting proof of T_CallerCallee.lessThanDouble(int,int) with prover z3_4_3
 Method assertions are validated
-T_CallerCallee.java:26:Feasibility check #1 - end of preconditions : OK
-T_CallerCallee.java:26:Feasibility check #2 - at program exit : OK
 Completed proof of T_CallerCallee.lessThanDouble(int,int) with prover z3_4_3 - no warnings
 Completed proving methods in T_CallerCallee
 7 verification failures

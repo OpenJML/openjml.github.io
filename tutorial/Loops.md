@@ -194,7 +194,7 @@ the loop index is one less than the array length. Indeed, in that case, when the
 first loop invariant will not hold. Interestingly, there is also a loop initialization error. Why? Because if `a.length` is 0, then the initial value of `i` does not satisfy the first 
 loop invariant.
 ```
-// openjml -esc --solver-seed=42 T_LoopBodyError.java
+// ## openjml -esc --solver-seed=42 T_LoopBodyError.java
 public class T_LoopBodyError {
 
   public void setToRamp(int[] a) {

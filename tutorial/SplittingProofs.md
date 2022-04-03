@@ -146,8 +146,6 @@ which produces
 Proving methods in T_split1
 Starting proof of T_split1.T_split1() with prover z3_4_3
 Method assertions are validated
-T_split1.java:2:Feasibility check #1 - end of preconditions : OK
-T_split1.java:2:Feasibility check #2 - at program exit : OK
 Completed proof of T_split1.T_split1() with prover z3_4_3 - no warnings
 Starting proof of T_split1.m(int) with prover z3_4_3
 Proof attempt for split AA
@@ -167,8 +165,6 @@ T_split1.java:3: verify: Associated declaration: T_split1.java:17:
 Result of split AA is Not verified
 Proof attempt for split AB
 Method assertions are validated
-T_split1.java:4:Feasibility check #1 - end of preconditions : OK
-T_split1.java:4:Feasibility check #2 - at program exit : OK
 Result of split AB is Verified
 Proof attempt for split AC
 T_split1.m Method assertions are INVALID

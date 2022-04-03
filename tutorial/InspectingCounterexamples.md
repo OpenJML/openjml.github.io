@@ -35,7 +35,7 @@ T_show1.java:3: verify: Associated declaration: T_show1.java:10:
 ```
 So there is an error somewhere. Now if we insert a `show` statement, we can see an example of values that produce the problem.
 ```
-// openjml --esc T_show2.java
+// ## openjml --esc T_show2.java
 public class T_show2 {
   //@ ensures \result >= a && \result >= b && \result >= c && \result >= d;
   //@ ensures \result == a || \result == b || \result == c || \result == d;

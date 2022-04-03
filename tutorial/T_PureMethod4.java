@@ -1,5 +1,5 @@
 // openjml --esc $@
-public class T_PureMethod {
+public class T_PureMethod4 {
 
   //@ requires i > Integer.MIN_VALUE;
   //@ ensures \result >= 0;

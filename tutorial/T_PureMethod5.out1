@@ -1,0 +1,22 @@
+T_PureMethod5.java:14: verify: The prover cannot establish an assertion (UndefinedCalledMethodPrecondition: T_PureMethod5.java:9:) in method test1
+    //@ assert elementAt(0) == 0;
+                        ^
+T_PureMethod5.java:9: verify: Associated declaration: T_PureMethod5.java:14:
+  public int elementAt(int i) {
+             ^
+T_PureMethod5.java:6: verify: Precondition conjunct is false: i < a.length
+  //@ requires 0 <= i & i < a.length;
+                          ^
+T_PureMethod5.java:14: verify: The prover cannot establish an assertion (Assert) in method test1
+    //@ assert elementAt(0) == 0;
+        ^
+T_PureMethod5.java:18: verify: The prover cannot establish an assertion (UndefinedCalledMethodPrecondition: T_PureMethod5.java:9:) in method test2
+    //@ assert elementAt(-1) == 0;
+                        ^
+T_PureMethod5.java:9: verify: Associated declaration: T_PureMethod5.java:18:
+  public int elementAt(int i) {
+             ^
+T_PureMethod5.java:6: verify: Precondition conjunct is false: 0 <= i
+  //@ requires 0 <= i & i < a.length;
+                 ^
+7 verification failures

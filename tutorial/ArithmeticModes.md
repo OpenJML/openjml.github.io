@@ -60,7 +60,6 @@ T_arithmetic1.java:3: verify: Associated declaration: T_arithmetic1.java:5:
   //@ ensures \result == i+1;
       ^
 3 verification failures
-
 ```
 To avoid this, a precondition is needed that guards against overflow:
 ```

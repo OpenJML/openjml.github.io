@@ -105,7 +105,7 @@ determine its behavior, not its implementation.
 This example
 ```
 // openjml --esc T_PureMethod4.java
-public class T_PureMethod {
+public class T_PureMethod4 {
 
   //@ requires i > Integer.MIN_VALUE;
   //@ ensures \result >= 0;
@@ -121,7 +121,7 @@ public class T_PureMethod {
 ```
 produces this output:
 ```
-T_PureMethod.java:12: verify: The prover cannot establish an assertion (Assert) in method test
+T_PureMethod4.java:12: verify: The prover cannot establish an assertion (Assert) in method test
     //@ assert k > 0 ==> abs(k) == k;
         ^
 1 verification failure
@@ -147,7 +147,7 @@ The next example shows the kind of error message that OpenJML produces when
 a mthod's precondition is not fulfilled:
 ```
 // openjml --esc T_PureMethod4.java
-public class T_PureMethod {
+public class T_PureMethod4 {
 
   //@ requires i > Integer.MIN_VALUE;
   //@ ensures \result >= 0;
@@ -163,7 +163,7 @@ public class T_PureMethod {
 ```
 produces
 ```
-T_PureMethod.java:12: verify: The prover cannot establish an assertion (Assert) in method test
+T_PureMethod4.java:12: verify: The prover cannot establish an assertion (Assert) in method test
     //@ assert k > 0 ==> abs(k) == k;
         ^
 1 verification failure
