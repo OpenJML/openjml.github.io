@@ -9,7 +9,7 @@ The question of feasibility can be important for several reasons.
 * If there is indeed some infeasible execution path, then any assertions on that path will not be checked. Then a verification attempt can be successful (no verification errors reported), when in fact that success is because _there was nothing to check_ (because that or maybe all execution paths are infeasible). Thus after a successful verification attempt it can be prudent to check feasibility.
 * If there are contradictory assumptions (e.g., assume statements or preconditions or invariants) then any point after those assumptions will not be feasible.
 For example
-```
+```java
 {% include_relative T_Feasibility1.java %}
 ```
 produces
@@ -17,7 +17,7 @@ produces
 {% include_relative T_Feasibility1.out %}
 ```
 * When method A calls method B, the verification of method A relies on correct specifications for method B. Consider this example:
-```
+```java
 {% include_relative T_Feasibility4.java %}
 ```
 Verification without checking feasibility reports no errors. However, when feasibility is checked, a problem is reported with the call of `mm()`. 
