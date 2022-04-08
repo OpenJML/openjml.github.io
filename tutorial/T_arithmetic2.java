@@ -1,4 +1,4 @@
-// openjml -esc T_arithmetic2.java
+// openjml --esc T_arithmetic2.java
 public class T_arithmetic2 {
   //@ requires i < Integer.MAX_VALUE;
   //@ ensures \result == i+1;

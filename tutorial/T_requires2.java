@@ -1,4 +1,4 @@
-// openjml -esc -nullableByDefault T_requires2.java
+// openjml --esc --nullable-by-default T_requires2.java
 public class T_requires2 {
 
   //@ requires a != null;

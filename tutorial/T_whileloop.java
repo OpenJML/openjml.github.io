@@ -1,4 +1,4 @@
-// openjml -esc T_whileloop.java
+// openjml --esc T_whileloop.java
 public class T_whileloop {
 
   //@ requires a.length % 2 == 0;

@@ -1,4 +1,4 @@
-// openjml -esc T_foreach.java
+// openjml --esc T_foreach.java
 public class T_foreach {
 
   //@ ensures \result == (\forall int i; 0 <= i < a.length; a[i] > 0);

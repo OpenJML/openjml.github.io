@@ -1,4 +1,4 @@
-// openjml -esc T_assert1.java
+// openjml --esc T_assert1.java
 
 public class T_assert1 {
 

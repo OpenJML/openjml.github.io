@@ -1,4 +1,4 @@
-// openjml -esc T_arithmetic4.java
+// openjml --esc T_arithmetic4.java
 public class T_arithmetic4 {
   //@ requires i !=Integer.MIN_VALUE;
   //@ ensures \result >= 0;

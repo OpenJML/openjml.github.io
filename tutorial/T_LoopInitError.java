@@ -1,4 +1,4 @@
-// openjml -esc T_LoopInitError.java
+// openjml --esc T_LoopInitError.java
 public class T_LoopInitError {
 
   public void setToRamp(int[] a) {

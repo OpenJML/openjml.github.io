@@ -1,4 +1,4 @@
-// openjml -esc T_dowhile.java
+// openjml --esc T_dowhile.java
 public class T_dowhile {
 
   //@ requires 20 < a.length;

@@ -1,4 +1,4 @@
-// openjml -esc T_assume1.java
+// openjml --esc T_assume1.java
 public class T_assume1 {
   //@ ensures a[\result] == 0;
   public int findZeroElement(int[] a) {

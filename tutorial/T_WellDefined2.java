@@ -1,4 +1,4 @@
-// openjml -esc T_WellDefined2.java
+// openjml --esc T_WellDefined2.java
 public class T_WellDefined2 {
   int f;
   public void example(/*@ non_null */ T_WellDefined2 o) {

@@ -1,4 +1,4 @@
-// openjml -esc T_forloop.java
+// openjml --esc T_forloop.java
 public class T_forloop {
 
   public void setToRamp(int[] a) {

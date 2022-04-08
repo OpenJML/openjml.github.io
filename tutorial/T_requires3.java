@@ -1,4 +1,4 @@
-// openjml -esc -nullableByDefault T_requires3.java
+// openjml --esc --nullable-by-default T_requires3.java
 public class T_requires3 {
 
   //@ requires 0 <= index < a.length;
