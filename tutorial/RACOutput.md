@@ -7,7 +7,7 @@ That behavior can be altered at execution time. There are various modes of opera
 Those modes are illustrated with our example program:
 
 ```
-// openjml -rac T_RacOutput.java
+// openjml --rac T_RacOutput.java
 public class T_RacOutput {
 
   public static void main(String... args) {

@@ -21,7 +21,7 @@ There are four aspects of a loop that typically need to be specified:
 
 Here is a typical, simple loop with specifications:
 ```
-// openjml -esc T_forloop.java
+// openjml --esc T_forloop.java
 public class T_forloop {
 
   public void setToRamp(int[] a) {
@@ -80,7 +80,7 @@ body executions so far. In the for loop above, it would have the same value as `
 
 Here is a typical for-each loop:
 ```
-// openjml -esc T_foreach.java
+// openjml --esc T_foreach.java
 public class T_foreach {
 
   //@ ensures \result == (\forall int i; 0 <= i < a.length; a[i] > 0);
@@ -106,7 +106,7 @@ Note also the use of `\count` as a stand-in for a loop counter and the use of `\
 
 A while loop generally follows the same pattern as a traditional for loop. Here we give another example that does not have an explicit loop index.
 ```
-// openjml -esc T_whileloop.java
+// openjml --esc T_whileloop.java
 public class T_whileloop {
 
   //@ requires a.length % 2 == 0;
@@ -130,7 +130,7 @@ public class T_whileloop {
 
 Do-while loops can be tricky to specify because they do not follow the same update-at-the-start of a loop pattern. Here is a simple example.
 ```
-// openjml -esc T_dowhile.java
+// openjml --esc T_dowhile.java
 public class T_dowhile {
 
   //@ requires 20 < a.length;
@@ -165,7 +165,7 @@ The examples above all verify, so here are some examples showing the kinds of ve
 
 In this example, the initial value of `i` does not satisfy the first loop invariant:
 ```
-// openjml -esc T_LoopInitError.java
+// openjml --esc T_LoopInitError.java
 public class T_LoopInitError {
 
   public void setToRamp(int[] a) {
@@ -194,7 +194,7 @@ the loop index is one less than the array length. Indeed, in that case, when the
 first loop invariant will not hold. Interestingly, there is also a loop initialization error. Why? Because if `a.length` is 0, then the initial value of `i` does not satisfy the first 
 loop invariant.
 ```
-// ## openjml -esc --solver-seed=42 T_LoopBodyError.java
+// ## openjml --esc --solver-seed=42 T_LoopBodyError.java
 public class T_LoopBodyError {
 
   public void setToRamp(int[] a) {
@@ -231,7 +231,7 @@ T_LoopBodyError.java:5: verify: The prover cannot establish an assertion (LoopIn
 ### Loop decreases error
 If the `decreases` expression does not decrease, one receives the error shown in this example:
 ```
-// openjml -esc T_LoopDecreasesError.java
+// openjml --esc T_LoopDecreasesError.java
 public class T_LoopDecreasesError {
 
   public void setToRamp(int[] a) {
@@ -256,7 +256,7 @@ T_LoopDecreasesError.java:8: verify: The prover cannot establish an assertion (L
 ### Negative termination value
 If the termination expression can be negative at the start of a loop, one gets this behavior:
 ```
-// openjml -esc T_LoopNegativeError.java
+// openjml --esc T_LoopNegativeError.java
 public class T_LoopNegativeError {
 
   public void setToRamp(int[] a) {

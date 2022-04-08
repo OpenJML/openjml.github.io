@@ -38,7 +38,7 @@ be proved that the program terminates.
 The following code is a simple example of a two-method verification.
 
 ```
-// openjml -esc -progress --no-show-summary T_CallerCallee.java
+// openjml --esc --progress --no-show-summary T_CallerCallee.java
 public class T_CallerCallee {
 
   public void caller1() {

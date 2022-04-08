@@ -14,7 +14,7 @@ proven and the `assume` statement can be removed.
 
 For example, consider the following code:
 ```
-// openjml -esc T_assume1.java
+// openjml --esc T_assume1.java
 public class T_assume1 {
   //@ ensures a[\result] == 0;
   public int findZeroElement(int[] a) {
@@ -43,7 +43,7 @@ invalid and the postcondition cannot actually be proved.
 
 The situation can even be worse. Consider the following drastic, if trivial, case.
 ```
-// openjml -esc T_assume2.java
+// openjml --esc T_assume2.java
 public class T_assume2 {
   //@ requires i > 0;
   public void example(int i) {

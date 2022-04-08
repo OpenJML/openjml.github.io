@@ -9,7 +9,7 @@ are written with a *requires* clause.
 For example, a method to compute an integer square root requires its
 input to be non-negative:
 ```
-// openjml -esc T_requires1.java
+// openjml --esc T_requires1.java
 public class T_requires1 {
 
   //@ requires i >= 0;
@@ -24,7 +24,7 @@ or that an index is in range for an array (`0 <= i < a.length`).
 
 A method's specifications may include more than one requires clause. For example,
 ```
-// openjml -esc -nullableByDefault T_requires2.java
+// openjml --esc --nullable-by-default T_requires2.java
 public class T_requires2 {
 
   //@ requires a != null;
@@ -41,7 +41,7 @@ the second clause is undefined if `a` is null. Thus we also need the
 condition stated in the first clause, and it must be stated before the
 second clause. Reversing the order will result in an error:
 ```
-// openjml -esc -nullableByDefault T_requires3.java
+// openjml --esc --nullable-by-default T_requires3.java
 public class T_requires3 {
 
   //@ requires 0 <= index < a.length;

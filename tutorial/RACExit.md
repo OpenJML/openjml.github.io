@@ -9,7 +9,7 @@ This behavior is not always what is desired.
 The exit code of a RAC-compiled program can be changed by setting a Java property, `org.jmlspecs.openjml.racexitcode`, while the
 program is executing. For example, the program
 ```
-// openjml -rac T_RacExit.java
+// openjml --rac T_RacExit.java
 public class T_RacExit {
 
   public static void main(String... args) {

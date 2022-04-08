@@ -15,7 +15,7 @@ options.
 
 For example,
 ```
-// openjml -rac T_Rac1.java
+// openjml --rac T_Rac1.java
 public class T_Rac1 {
 
   public static void main(String... args) {

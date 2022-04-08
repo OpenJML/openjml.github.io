@@ -10,7 +10,7 @@ _ensures_ clause.
 Consider this example of a method that computes the maximum of four int values.
 
 ```
-// openjml -esc T_ensures1.java
+// openjml --esc T_ensures1.java
 public class T_ensures1 {
   //@ ensures \result == a | \result == b | \result == c | \result == d;
   //@ ensures \result >= a & \result >= b & \result >= c & \result >= d;
@@ -48,7 +48,7 @@ The body of the function computes this result. Note that the specification
 states the properties of the result but does not state how it is computed.
 In fact, the same specification could be used with a different implementation:
 ```
-// openjml -esc T_ensures1a.java
+// openjml --esc T_ensures1a.java
 public class T_ensures1a {
   //@ ensures \result == a | \result == b | \result == c | \result == d;
   //@ ensures \result >= a & \result >= b & \result >= c & \result >= d;
@@ -74,7 +74,7 @@ second example also verifies.
 Now consider a third example:
 
 ```
-// openjml -esc T_ensures2.java
+// openjml --esc T_ensures2.java
 public class T_ensures2 {
   //@ ensures \result == a | \result == b | \result == c | \result == d;
   //@ ensures \result >= a & \result >= b & \result >= c & \result >= d;
@@ -141,7 +141,7 @@ r. `\result` may only be used in `ensures` clauses of method specifications for
  methods that return values (and not for constructors). Here is a simple example
 :
 ```
-// openjml -esc T_ensures3.java
+// openjml --esc T_ensures3.java
 public class T_ensures3 {
   //@ requires a.length > 0;
   //@ ensures \result == a[0];

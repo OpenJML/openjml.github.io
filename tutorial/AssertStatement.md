@@ -11,7 +11,7 @@ keyword followed by a predicate and terminated with a semicolon, as in
 the following example.
 
 ```
-// openjml -esc T_assert1.java
+// openjml --esc T_assert1.java
 
 public class T_assert1 {
 
@@ -30,7 +30,7 @@ public class T_assert1 {
 The above example verifies with OpenJML, but the following variation does not:
 
 ```
-// openjml -esc T_assert2.java
+// openjml --esc T_assert2.java
 
 public class T_assert2 {
 
@@ -75,7 +75,7 @@ cannot prove the designated predicate true. So this example, like the
 example above,
 
 ```
-// openjml -esc T_assert3.java
+// openjml --esc T_assert3.java
 
 public class T_assert3 {
 

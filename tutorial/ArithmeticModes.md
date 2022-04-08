@@ -40,7 +40,7 @@ described below.
 
 First an example. The simple code
 ```
-// openjml -esc T_arithmetic1.java
+// openjml --esc T_arithmetic1.java
 public class T_arithmetic1 {
   //@ ensures \result == i+1;
   public int increment(int i) {
@@ -63,7 +63,7 @@ T_arithmetic1.java:3: verify: Associated declaration: T_arithmetic1.java:5:
 ```
 To avoid this, a precondition is needed that guards against overflow:
 ```
-// openjml -esc T_arithmetic2.java
+// openjml --esc T_arithmetic2.java
 public class T_arithmetic2 {
   //@ requires i < Integer.MAX_VALUE;
   //@ ensures \result == i+1;
@@ -76,7 +76,7 @@ verifies without error.
 
 Similarly
 ```
-// openjml -esc T_arithmetic3.java
+// openjml --esc T_arithmetic3.java
 public class T_arithmetic3 {
   //@ ensures \result >= 0;
   public int abs(int i) {
@@ -99,7 +99,7 @@ T_arithmetic3.java:3: verify: Associated declaration: T_arithmetic3.java:5:
 ```
 while
 ```
-// openjml -esc T_arithmetic4.java
+// openjml --esc T_arithmetic4.java
 public class T_arithmetic4 {
   //@ requires i !=Integer.MIN_VALUE;
   //@ ensures \result >= 0;
@@ -133,7 +133,7 @@ For example, to turn off overflow warnings in the Java code one can set the glob
 `code_java_math`, `spec_java_math`, `code_safe_math`, `spec_safe_math` and `spec_bigint_math` (`code-bigint-math` is not an operational mode at present).
 In this example, both the code and specs are computed with java math, so they agree, even when there is an overflow.
 ```
-// openjml -esc T_arithmetic5.java
+// openjml --esc T_arithmetic5.java
 public class T_arithmetic5 {
   //@ ensures \result == \java_math(i+1);
   //@ code_java_math

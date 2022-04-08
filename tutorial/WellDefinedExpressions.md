@@ -7,7 +7,7 @@ Much confusion over error messages can be avoided by understanding that all JML 
 For example, `a[i]` is not well-defined if `i` is not in the range of the indices of `a`. So this example
 
 ```
-// openjml -esc T_WellDefined1.java
+// openjml --esc T_WellDefined1.java
 public class T_WellDefined1 {
 
   public void example(int[] a, int i) {
@@ -70,7 +70,7 @@ The requirement that JML expressions be well-defined leads to writing guarded ex
 
 So, since in this example, `o` is designated as non-null (which it would be by default--- see the lesson on [nullness](Nullness)), no definedness errors are issued:
 ```
-// openjml -esc T_WellDefined2.java
+// openjml --esc T_WellDefined2.java
 public class T_WellDefined2 {
   int f;
   public void example(/*@ non_null */ T_WellDefined2 o) {
@@ -80,7 +80,7 @@ public class T_WellDefined2 {
 ```
 But if `o` might be null, as in the following example,
 ```
-// openjml -esc T_WellDefined3.java
+// openjml --esc T_WellDefined3.java
 public class T_WellDefined3 {
   int f;
   public void example(/*@ nullable */ T_WellDefined3 o) {
@@ -98,7 +98,7 @@ T_WellDefined3.java:5: verify: The prover cannot establish an assertion (Undefin
 
 Finally well-definedness is a requirement for JML expressions, not Java expressions. But similar Java expressions would just throw exceptions, so OpenJML gives slightly different verification messages:
 ```
-// openjml -esc T_WellDefined4.java
+// openjml --esc T_WellDefined4.java
 public class T_WellDefined4 {
   int f;
   public void example(/*@ nullable */ T_WellDefined4 o) {
