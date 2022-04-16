@@ -5,7 +5,7 @@ public class T_PolyTest2 {
     if (poly instanceof Square sq) {
       int i = sq.sides();
       //@ assert i > 0; // OK -- property of all T_Polygon instances
-      //@ assert i == 4; // NO -- who knows what kind of polygon it is
+      //@ assert i == 4; // OK -- this T_Polygon is a Square
     }
   }
 }
