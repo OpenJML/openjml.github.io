@@ -44,7 +44,7 @@ First an example. The simple code
 ```
 gives an error:
 ```
-{% include_relative T_arithmetic1.out
+{% include_relative T_arithmetic1.out %}
 ```
 To avoid this, a precondition is needed that guards against overflow:
 ```
@@ -58,7 +58,7 @@ Similarly
 ```
 produces
 ```
-{% include_relative T_arithmetic3.out
+{% include_relative T_arithmetic3.out %}
 ```
 while
 ```
