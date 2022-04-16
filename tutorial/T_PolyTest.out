@@ -1,0 +1,4 @@
+T_PolyTest.java:7: verify: The prover cannot establish an assertion (Assert) in method test
+    //@ assert i == 4; // NO -- who knows what kind of polygon it is
+        ^
+1 verification failure
