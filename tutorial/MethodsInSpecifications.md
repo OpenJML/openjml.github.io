@@ -1,6 +1,7 @@
 ---
 title: JML Tutorial - Calling methods in specifications (pure methods)
 ---
+<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
 
 ## Pure methods
 
@@ -19,63 +20,11 @@ a method used in specifications be marked with the modifier `pure`.
 
 Here is an example:
 ```
-// openjml --esc T_PureMethod1.java
-public class T_PureMethod1 {
-
-  public static class Counter {
-    //@ spec_public
-    private int count;
-
-    //@ spec_public
-    final private int maxCount;
-
-    //@ requires max >= 0;
-    //@ ensures count == 0 && maxCount == max;
-    //@ pure
-    public Counter(int max) {
-      count = 0;
-      maxCount = max;
-    }
-
-    //@ requires count < maxCount;
-    //@ assigns count;
-    //@ ensures count == \old(count+1);
-    public void count() { ++count; }
-
-    //@ ensures \result == (count > 0);
-    //@ pure
-    public boolean isAnythingCounted() {
-       return count > 0;
-    }
-
-    //@ ensures \result == !(count < maxCount);
-    public boolean atMax() {
-       return count >= maxCount;
-    }
-  }
-
-  public void test() {
-    Counter c = new Counter(2);
-    //@ assert !c.isAnythingCounted() && !c.atMax();
-    c.count();
-    //@ assert c.isAnythingCounted() && !c.atMax();
-    c.count();
-    //@ assert c.isAnythingCounted() && c.atMax();
-  }
-}
+{% include_relative T_PureMethod1.java *}
 ```
 Running OpenJML produces
 ```
-T_PureMethod1.java:38: warning: A non-pure method is being called where it is not permitted: T_PureMethod1.Counter.atMax()
-    //@ assert !c.isAnythingCounted() && !c.atMax();
-                                                 ^
-T_PureMethod1.java:40: warning: A non-pure method is being called where it is not permitted: T_PureMethod1.Counter.atMax()
-    //@ assert c.isAnythingCounted() && !c.atMax();
-                                                ^
-T_PureMethod1.java:42: warning: A non-pure method is being called where it is not permitted: T_PureMethod1.Counter.atMax()
-    //@ assert c.isAnythingCounted() && c.atMax();
-                                               ^
-3 warnings
+{% include_relative T_PureMethod1.out *}
 ```
 
 The call of `c.isAnythingCounted` is allowed in the specification because
@@ -92,10 +41,7 @@ the default `assigns` clause is precisely that `assigns \nothing;`.
 
 If you add a `pure` modifier to `count`, then OpenJML produces
 ```
-T_PureMethod3.java:20: error: Pure methods may not assign to any fields: count in T_PureMethod3.Counter.count()
-    //@ assigns count;
-                ^
-1 error
+{% include_relative T_PureMethod3.out *}
 ```
 
 It is also vitally important to remember that when a method is used in a
@@ -104,27 +50,11 @@ determine its behavior, not its implementation.
 
 This example
 ```
-// openjml --esc T_PureMethod4.java
-public class T_PureMethod4 {
-
-  //@ requires i > Integer.MIN_VALUE;
-  //@ ensures \result >= 0;
-  //@ pure
-  public static int abs(int i) {
-    return i >= 0 ? i : -i;
-  }
-
-  public void test(int k) {
-    //@ assert k > 0 ==> abs(k) == k;
-  }
-}
+{% include_relative T_PureMethod4.java *}
 ```
 produces this output:
 ```
-T_PureMethod4.java:12: verify: The prover cannot establish an assertion (Assert) in method test
-    //@ assert k > 0 ==> abs(k) == k;
-        ^
-1 verification failure
+{% include_relative T_PureMethod4.out *}
 ```
 This `abs` function verifies successfully; however, the assertion that uses it
 iin `test` does not. That is because all that the method `test` knows about the result of
@@ -146,36 +76,28 @@ not throw any exceptions.
 The next example shows the kind of error message that OpenJML produces when 
 a mthod's precondition is not fulfilled:
 ```
-// openjml --esc T_PureMethod4.java
-public class T_PureMethod4 {
-
-  //@ requires i > Integer.MIN_VALUE;
-  //@ ensures \result >= 0;
-  //@ pure
-  public static int abs(int i) {
-    return i >= 0 ? i : -i;
-  }
-
-  public void test(int k) {
-    //@ assert k > 0 ==> abs(k) == k;
-  }
-}
+{% include_relative T_PureMethod4.java *}
 ```
 produces
 ```
-T_PureMethod4.java:12: verify: The prover cannot establish an assertion (Assert) in method test
-    //@ assert k > 0 ==> abs(k) == k;
-        ^
-1 verification failure
+{% include_relative T_PureMethod4.out *}
 ```
 The relevant error messages include the term 'Undefined' to indicate that this
 instance of an out of range index is part of a specification instead of in
 Java code. Note that the `elementAt` method here verifies; it is the use of
 it that is at fault.
 
-## Exceptions
+## Termination and Exceptions
 
-TBD
+Methods marked `pure` so they can be used in specifications must satisfy two additional properties.
+First they must be terminating. The specification `diverges false;` states this property for a method,
+but as it is the default, it does not need to be written. See [the advanced lesson on termination](Termination)
+for more on this topic.
+
+The other property is that when a method is used in a specification it is assumed not to throw any
+exceptions. It is best if the method has only `normal_behavior` specification cases,
+but if it has any `exceptional_behavior` cases, they will be ignored for use in specifications.
+(cf. [Multiple Behaviors](MultipleBehaviors))
 
 ## Pure constructors
 You might have noticed that the constructor for `Counter` in the example
@@ -188,5 +110,3 @@ methods of the class are themselves `pure`. This is a useful part of
 specifying an _immutable_ class, one whose objects may not be changed after
 being created. Java's `String` and `Integer` are two examples of immutable classes.
 
-
-<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>

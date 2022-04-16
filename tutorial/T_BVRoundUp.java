@@ -2,8 +2,7 @@
 public class T_BVRoundUp {
 
   //@ requires n <= 0x7ffffff0;
-  //@ ensures n <= \result;
-  //@ ensures \result <= n+15;
+  //@ ensures n <= \result <= n+15;
   //@ ensures (\result%16) == 0;
   //@ pure
   //@ code_java_math
@@ -11,4 +10,3 @@ public class T_BVRoundUp {
     return n + ((-n) & 0x0f);
   }
 }
-
