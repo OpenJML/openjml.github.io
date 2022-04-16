@@ -7,4 +7,3 @@ public class T_BVMult {
     //@ assert -16000 < i < 16000 ==> square < Integer.MAX_VALUE; 
   }
 }
-   
