@@ -1,0 +1,4 @@
+T_NullnessDefault2.java:6: verify: The prover cannot establish an assertion (PossiblyNullDeReference) in method test
+    int h = s.hashCode();
+             ^
+1 verification failure
