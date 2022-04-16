@@ -25,7 +25,7 @@ choice using the command-line option `--esc-bv=true` to use bit-vectors and `--e
 
 The following example verifies successfully, but takes 8-10 times longer (on my machine using Z3 4.3.1) using bitvectors vs not.
 ```
-(% include_relative T_BVMult.java %)
+{% include_relative T_BVMult.java %}
 ```
 
 The important point for writing specifications is that in situations where using bit-vectors is
@@ -41,5 +41,5 @@ using a non-obvious bit-twiddling trick to do so. The specification expresses th
 outcome more clearly and uses only numeric operations. The successful verification shows that
 the bit-twiddling trick correctly implements the desired result.
 ```
-(% include_relative T_BVRoundUp.java %)
+{% include_relative T_BVRoundUp.java %}
 ```
