@@ -53,7 +53,7 @@ which produces the following result
 ```
 {% include_relative T_constraint.out %}
 ```
-Here `m1` increments `count, so it satsifies the constraint. `m2` does not so it causes a verification error. `m3` is OK, even though it does not
+Here `m1` increments `count`, so it satisfies the constraint. `m2` does not so it causes a verification error. `m3` is OK, even though it does not
 increment `count` because the non-static constraint does not apply to the static method `m3`.
 
 
