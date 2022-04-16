@@ -30,52 +30,41 @@ That is, it assumes the first constructor's postcondition and assumes the first 
 
 If we insert a precondition to fix the verification of the first constructor, we now have
 ```
-// openjml --esc T_initially2.java
-public class T_initially2 {
-
-  public int width;
-  public int length;
-
-  //@ requires 0 < width < length;
-  //@ ensures this.width == width && this.length == length;
-  public T_initially2(int width, int length) {
-    this.width = width;
-    this.length = length;
-  }
-
-  //@ ensures this.width == 0 && this.length == 0;
-  public T_initially2() {
-    this(0,0);
-  }
-
-  //@ public initially 0 < width < length;
-
-}
+{% include_relative T_initially2.java %}
 ```
 which yeilds
 ```
-T_initially2.java:16: verify: The prover cannot establish an assertion (Precondition: T_initially2.java:9:) in method T_initially2
-    this(0,0);
-        ^
-T_initially2.java:9: verify: Associated declaration: T_initially2.java:16:
-  public T_initially2(int width, int length) {
-         ^
-T_initially2.java:7: verify: Precondition conjunct is false: 0 < width < length
-  //@ requires 0 < width < length;
-                         ^
-3 verification failures
+{% include_relative T_initially2.out %}
 ```
 Now the first constructor passes verification, but the second one does not. The reason is obvious: the size we have given for a default rectangle (0 by 0) doe s not satisfy our desired initially postcondition. We'll have a to pick a different size -- 1x2 perhaps.
 
 ## Constraint clauses
 
-TODO
+Constraint clauses are postcondition clauses that apply to every non-constructor method. A non-static constraint clause applies only to non-static
+methods. The typical use of a constraint clause is to state some relationship between the pre-state and post-state of the method. 
+For example, a class may have a `count` field that counts how many times some method of the class has been called.
+Because it is a postcondition, a constraint clause may use the `\old` construct to refer to the pre-state of the method.
+
+We could then write the following:
+```
+{% include_relative T_constraint.java %}
+```
+which produces the following result
+```
+{% include_relative T_constraint.out %}
+```
+Here `m1` increments `count, so it satsifies the constraint. `m2` does not so it causes a verification error. `m3` is OK, even though it does not
+increment `count` because the non-static constraint does not apply to the static method `m3`.
 
 
 ## Invariants
 
-TODO - just a brief introduction to invariants here. More discussion on a page of its own.
+Invariants also are predicates that apply to every method, but they are more extensive and complex than constraints. An invariant is typically used to
+express a property that must be true for a data structure to bve valid or self-consistent. For example, a class may have a `count` that must always be non-negative, or two arrays that must be the same length, or an array that must be sorted. Invariants are used to express properties like these.
 
+Since these are validity properties, 
+* a method may assume that the invariants are true in its pre-state
+* and must ensure that the invariants are still true (or true again) in its post-state
 
+Further detail on invariants is given in a [dedicated lesson on the topic](Invariants).
 
-<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>

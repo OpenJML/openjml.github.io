@@ -1,0 +1,7 @@
+T_constraint.java:17: verify: The prover cannot establish an assertion (Constraint: T_constraint.java:7:) in method m2
+  public void m2() {
+              ^
+T_constraint.java:7: verify: Associated declaration: T_constraint.java:17:
+  //@ public constraint count == \old(count) + 1;
+             ^
+2 verification failures
