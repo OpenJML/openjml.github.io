@@ -20,11 +20,11 @@ a method used in specifications be marked with the modifier `pure`.
 
 Here is an example:
 ```
-{% include_relative T_PureMethod1.java *}
+{% include_relative T_PureMethod1.java %}
 ```
 Running OpenJML produces
 ```
-{% include_relative T_PureMethod1.out *}
+{% include_relative T_PureMethod1.out %}
 ```
 
 The call of `c.isAnythingCounted` is allowed in the specification because
@@ -41,7 +41,7 @@ the default `assigns` clause is precisely that `assigns \nothing;`.
 
 If you add a `pure` modifier to `count`, then OpenJML produces
 ```
-{% include_relative T_PureMethod3.out *}
+{% include_relative T_PureMethod3.out %}
 ```
 
 It is also vitally important to remember that when a method is used in a
@@ -50,11 +50,11 @@ determine its behavior, not its implementation.
 
 This example
 ```
-{% include_relative T_PureMethod4.java *}
+{% include_relative T_PureMethod4.java %}
 ```
 produces this output:
 ```
-{% include_relative T_PureMethod4.out *}
+{% include_relative T_PureMethod4.out %}
 ```
 This `abs` function verifies successfully; however, the assertion that uses it
 iin `test` does not. That is because all that the method `test` knows about the result of
@@ -76,11 +76,11 @@ not throw any exceptions.
 The next example shows the kind of error message that OpenJML produces when 
 a mthod's precondition is not fulfilled:
 ```
-{% include_relative T_PureMethod4.java *}
+{% include_relative T_PureMethod4.java %}
 ```
 produces
 ```
-{% include_relative T_PureMethod4.out *}
+{% include_relative T_PureMethod4.out %}
 ```
 The relevant error messages include the term 'Undefined' to indicate that this
 instance of an out of range index is part of a specification instead of in
