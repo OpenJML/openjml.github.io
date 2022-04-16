@@ -10,7 +10,7 @@ by inheriting their specifications.
 
 Here is a simple example:
 ```
-{% include T_Polygon.java %}
+{% include_relative T_Polygon.java %}
 ```
 
 In this example `T_Polygon` is an interface with a method that returns a property of a polygon. Even though the method is abstract, we can state some 
@@ -27,11 +27,11 @@ However their interfaces will be checked when verifying any derived class.
 When the methods of `T_Polygon` are called in some client class, the client class knows the properties based on the (static) type of the reference it has.
 For example,
 ```
-{% include T_PolyTest.java %}
+{% include_relative T_PolyTest.java %}
 ```
 produces
 ```
-{% include T_PolyTest.out %}
+{% include_relative T_PolyTest.out %}
 ```
 
 In `test()`, only the properties of a `T_Polygon` are known; after all, any kind of `T_Polygon` instance might have been passed in.
@@ -40,5 +40,5 @@ But in test2(), we know it is a `Square`, so the assertions pass now.
 We can also check the type of the input `T_Polygon`. If we know it is a `Square` then we can prove the more specific properties.
 This version verifies fine:
 ```
-{% include T_PolyTest2.java %}
+{% include_relative T_PolyTest2.java %}
 ```
