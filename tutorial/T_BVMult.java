@@ -1,5 +1,5 @@
-// openjml --esc --esc-bv=true T_MultBV.java
-public class T_MultBV {
+// openjml --esc --esc-bv=true T_BVMult.java
+public class T_BVMult {
 
   //@ code_java_math
   public void test(long i) {
