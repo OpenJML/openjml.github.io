@@ -40,73 +40,29 @@ described below.
 
 First an example. The simple code
 ```
-// openjml --esc T_arithmetic1.java
-public class T_arithmetic1 {
-  //@ ensures \result == i+1;
-  public int increment(int i) {
-    return i+1;
-  }
-}
+{% include_relative T_arithmetic1.java %}
 ```
 gives an error:
 ```
-T_arithmetic1.java:5: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method increment: overflow in int sum
-    return i+1;
-            ^
-T_arithmetic1.java:5: verify: The prover cannot establish an assertion (Postcondition: T_arithmetic1.java:3:) in method increment
-    return i+1;
-    ^
-T_arithmetic1.java:3: verify: Associated declaration: T_arithmetic1.java:5:
-  //@ ensures \result == i+1;
-      ^
-3 verification failures
+{% include_relative T_arithmetic1.out
 ```
 To avoid this, a precondition is needed that guards against overflow:
 ```
-// openjml --esc T_arithmetic2.java
-public class T_arithmetic2 {
-  //@ requires i < Integer.MAX_VALUE;
-  //@ ensures \result == i+1;
-  public int increment(int i) {
-    return i+1;
-  }
-}
+{% include_relative T_arithmetic2.java %}
 ```
 verifies without error.
 
 Similarly
 ```
-// openjml --esc T_arithmetic3.java
-public class T_arithmetic3 {
-  //@ ensures \result >= 0;
-  public int abs(int i) {
-    return i >= 0 ? i : -i;
-  }
-}
+{% include_relative T_arithmetic3.java %}
 ```
 produces
 ```
-T_arithmetic3.java:5: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method abs: int negation
-    return i >= 0 ? i : -i;
-                        ^
-T_arithmetic3.java:5: verify: The prover cannot establish an assertion (Postcondition: T_arithmetic3.java:3:) in method abs
-    return i >= 0 ? i : -i;
-    ^
-T_arithmetic3.java:3: verify: Associated declaration: T_arithmetic3.java:5:
-  //@ ensures \result >= 0;
-      ^
-3 verification failures
+{% include_relative T_arithmetic3.out
 ```
 while
 ```
-// openjml --esc T_arithmetic4.java
-public class T_arithmetic4 {
-  //@ requires i !=Integer.MIN_VALUE;
-  //@ ensures \result >= 0;
-  public int abs(int i) {
-    return i>= 0 ? i : -i;
-  }
-}
+{% include_relative T_arithmetic4.java %}
 ```
 verifies without error.
 
@@ -133,17 +89,7 @@ For example, to turn off overflow warnings in the Java code one can set the glob
 `code_java_math`, `spec_java_math`, `code_safe_math`, `spec_safe_math` and `spec_bigint_math` (`code-bigint-math` is not an operational mode at present).
 In this example, both the code and specs are computed with java math, so they agree, even when there is an overflow.
 ```
-// openjml --esc T_arithmetic5.java
-public class T_arithmetic5 {
-  //@ ensures \result == \java_math(i+1);
-  //@ code_java_math
-  public int m(int i) { 
-    return i+1;
-  }
-}
+{% include_relative T_arithmetic5.java %}
 ```
 
 <hr>
-
-
-<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
