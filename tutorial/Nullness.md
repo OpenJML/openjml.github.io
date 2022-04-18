@@ -31,7 +31,7 @@ Here is an example. The code
 {% include_relative T_Nullness1.java %}
 ```
 produces no errors for `has` because `s` is by default non-null, nor for `make`, because the return value of `make` is allowed to be null. But it 
-does issue verification errors for the both statements in `test` because both `ss` and the result of `make` may be null and the argument of `has`
+does issue verification errors for both statements in `test` because both `ss` and the result of `make` may be null and the argument of `has`
 is not allowed to be null.
 
 ## Non_null and nullable as type annotations
@@ -62,7 +62,7 @@ and the `@Nullable` goes with the array.
 
 ## Nullness defaults for arrays
 ```diff
-Caveat: the nullness default for array elements is still under discussion
+! Caveat: the nullness default for array elements is still under discussion
 ```
 
 While non-null is the overall default, that causes a problem for arrays. The standard way to create and initialize an array is this:
@@ -77,7 +77,7 @@ TODO - more needs to be said here
 
 ## Changing the default
 
-As stated above, JML appolies a default non_null modifier where no non_null or nullable indication is otherwise given.
+As stated above, JML applies a default `non_null` modifier where no `non_null` or `nullable` indication is otherwise given.
 This default can be changed. The modifiers `non_null_by_default` or `nullable_by_default`, or their equivalents `@NonNullByDefault` and `@NullableByDefault`, can be applied to
 * a method, in which case the given default is applicable to all types named in the method and its specification
 * a class, in which case the altered default applies to all types named in the class, recursively (fields and methods and nested classes)

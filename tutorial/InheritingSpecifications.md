@@ -3,8 +3,8 @@ title: JML Tutorial -  Inheriting Specifications
 ---
 
 In classic object-oriented design, a base class, perhaps abstract, can be used without knowing what kind of derived class it dynamically is.
-One can talk about a Shape's permiter or area without needing to know what kind of Shape it is.
-When we write sepcifications for the base class we define its behavior and then any derived class is expected to adhere to that behavior.
+One can talk about a Shape's permimeter or area without needing to know what kind of Shape it is.
+When we write specifications for the base class we define its behavior and then any derived class is expected to adhere to that behavior.
 This property is called *behavioral inheritance*. JML enforces it by insisting that derived classes inherit the behavior of base classes,
 by inheriting their specifications.
 
@@ -35,7 +35,7 @@ produces
 ```
 
 In `test()`, only the properties of a `T_Polygon` are known; after all, any kind of `T_Polygon` instance might have been passed in.
-But in test2(), we know it is a `Square`, so the assertions pass now.
+But in `test2()`, we know it is a `Square`, so the assertions pass now.
 
 We can also check the type of the input `T_Polygon`. If we know it is a `Square` then we can prove the more specific properties.
 This version verifies fine:
@@ -44,6 +44,6 @@ This version verifies fine:
 ```
 
 This simple example is intended only to show specification inheritance. The next two lessons
-on specification with [model fields](ModelFields) and [model methods(ModelMethods), show more complex examples that specify abstract classes.
+on specification with [model fields](ModelFields) and [model methods](ModelMethods), show more complex examples that specify abstract classes.
 
 TODO - talk about situations where behavioral inheritance is difficult, e.g. validity of invarints

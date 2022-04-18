@@ -53,14 +53,14 @@ which produces the following result
 ```
 {% include_relative T_constraint.out %}
 ```
-Here `m1` increments `count`, so it satisfies the constraint. `m2` does not so it causes a verification error. `m3` is OK, even though it does not
+Here `m1` increments `count`, so it satisfies the constraint. `m2` does not increment `count`, so it causes a verification error for the constraint. `m3` is OK, even though it does not
 increment `count` because the non-static constraint does not apply to the static method `m3`.
 
 
 ## Invariants
 
 Invariants also are predicates that apply to every method, but they are more extensive and complex than constraints. An invariant is typically used to
-express a property that must be true for a data structure to bve valid or self-consistent. For example, a class may have a `count` that must always be non-negative, or two arrays that must be the same length, or an array that must be sorted. Invariants are used to express properties like these.
+express a property that must be true for a data structure to be valid or self-consistent. For example, a class may have a `count` that must always be non-negative, or two arrays that must be the same length, or an array that must be sorted. Invariants are used to express properties like these.
 
 Since these are validity properties, 
 * a method may assume that the invariants are true in its pre-state
