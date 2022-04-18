@@ -37,7 +37,7 @@ Consider the difference between `size()` and `sizeH()` in the code listing above
 `size()` is a conventional non-helper getter method. It assumes the invariant holds and returns the value of `size`. A client routine, such as `test1()`, can prove that 
 `mybox.size() >= 0` after creating a `MyBox` object. 
 
-`sizeH()` on the other hand is declared `helper`. It does not assume that `size` is non-negative. That does not matter here, but it would, for example if `doit()` were declared helper; in that case `doit()` would need a precondition that required `size >= 0'. `sizeH()` verifies OK, but when one uses it, one cannot be assured that the value of `mybox.sizeH()` is non-negative. Method `test2()` proves OK because, although `sizeH()` does not establish the invariant,
+`sizeH()` on the other hand is declared `helper`. It does not assume that `size` is non-negative. That does not matter here, but it would, for example if `doit()` were declared helper; in that case `doit()` would need a precondition that required `size >= 0`. `sizeH()` verifies OK, but when one uses it, one cannot be assured that the value of `mybox.sizeH()` is non-negative. Method `test2()` proves OK because, although `sizeH()` does not establish the invariant,
 it is `pure` so it does not change `size`, and consequently it is provable that the invariant still holds on exit from `test2()`. In `test3()` on the other hand, the program state has been changed by helper method `changeSizeH` to something that may not satisfy the invariant. It is OK to call `sizeH` because it
 is helper and does not require the invariant. But then we don't know that the value of `sizeH()` satisfies the invariant either.
 
