@@ -20,7 +20,7 @@ If you want to see both the RAC check and the Java check, compile using the `--r
 `openjml -rac --rac-java-checks T_RacJavaCheck.java && openjml-java -cp . T_RacJavaCheck`
 produces
 ```
-{% includei_relative T_RacJavaCheck1.out %}
+{% include_relative T_RacJavaCheck1.out %}
 ```
 
 In most cases of such Java checks (e.g. null dereference, index out of bounds), Java will terminate with an exception, as ther is no way
