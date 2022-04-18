@@ -1,5 +1,5 @@
 ---
-title: JML Tutorial - Method Specifications:old clauses and clause ordering
+title: JML Tutorial - Method Specifications: old clauses and clause ordering
 ---
 
 We have introduced a few kinds of method specification clauses so far. In fact there are many more, though most are not widely used:
@@ -66,5 +66,3 @@ is successfully verified.
 
 
 TODO
-
-<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>

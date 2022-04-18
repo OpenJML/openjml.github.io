@@ -8,7 +8,7 @@ an important consideration: how to specify side-effects of methods.
 
 Consider this example:
 ```
-// openjml --esc --check-feasibility=none T_frame1.java
+// openjml --esc T_frame1.java
 public class T_frame1 {
 
   public int counter1;
@@ -77,7 +77,7 @@ is not allowed to *assign* to a memory location (even with the same value) unles
 
 So now our example looks like this:
 ```
-// openjml --esc --check-feasibility=none T_frame3.java
+// openjml --esc T_frame3.java
 public class T_frame3 {
 
   public int counter1;

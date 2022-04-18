@@ -1,0 +1,16 @@
+MyBox.java:18: verify: The prover cannot establish an assertion (InvariantExit: MyBox.java:6:) in method shrink
+  public void shrink() {
+              ^
+MyBox.java:6: verify: Associated declaration: MyBox.java:18:
+  //@ public invariant size >= 0;
+             ^
+MyBox.java:50: verify: The prover cannot establish an assertion (Assert) in method test3
+    //@ assert b.sizeH() >= 0; // FAILS -- sizeH does not necessarily establish the invariant
+        ^
+MyBox.java:55: verify: The prover cannot establish an assertion (InvariantLeaveCaller: MyBox.java:6:) in method test4: (Caller: MyBox.test4(MyBox), Callee: MyBox.size())
+    //@ assert b.size() >= 0; // FAILS -- invariants not necessarily true, so size() is not allowed to be called
+                     ^
+MyBox.java:6: verify: Associated declaration: MyBox.java:55:
+  //@ public invariant size >= 0;
+             ^
+5 verification failures

@@ -1,4 +1,4 @@
-// openjml --esc T_constaint.java
+// openjml --esc T_constraint.java
 //@ code_java_math spec_java_math
 public class T_constraint {
 

@@ -24,7 +24,7 @@ Here is the previous example, altered to use methods --- in this case the Java m
 * Reads clauses are needed. They are discussed after the code listing.
 * If the methods are used within invariants, they typically need to be declared `helper` and that they do not throw exceptions (`public normal_behavior`).
 * An abstract method used in modeling typically has no postcondition, or at least not one that fully dictates its value. It is used as an
-_uninterpreted function_, whose value is given by invariants and concrete implementations.
+_uninterpreted function_, whose value is given by invariants and concrete implementations and the pre- and postconditions in which it is used.
 
 ```
 {% include_relative Polygon3.java %}
