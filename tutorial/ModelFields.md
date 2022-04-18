@@ -12,7 +12,9 @@ Model fields:
 * Model fields are specification-only fields that encapsulate some property of a class (typically. but not necessarily, an abstract class or interface).
 * The model field can be used in the specification of the abstract class.
 * A model field is given an implementation by writing a `represents` clause in the derived class; this connects the model field to the concrete implementation.
-* A model field can also be used within a concrete class to represent some characteristic that is not explicitly present in the concrete class
+* A model field can also be used within a concrete class to represent some characteristic that is not explicitly present in the concrete class.
+8 A model field is typically an _instance_ field. Java only allows static fields in an interface. But in JML one can declare instance model fields
+in an interface (or class) using the modifier `instance`. As the (Java) default is `static` for field declarations, the `instance` keyword is required in this case.
 
 Datagroups:
 * A model field is also a _datagroup_; or a standalone datagroup (not associated with an abstract value) can be declared using the type `JMLDataGroup`.
@@ -67,5 +69,3 @@ another derived class, `Triangle` (with three different sides) is clearer: put a
 ```
 {% include_relative Polygon2.java %}
 ```
-
-
