@@ -42,3 +42,8 @@ This version verifies fine:
 ```
 {% include_relative T_PolyTest2.java %}
 ```
+
+This simple example is intended only to show specification inheritance. The next two lessons
+on specification with [model fields](ModelFields) and [model methods(ModelMethods), show more complex examples that specify abstract classes.
+
+TODO - talk about situations where behavioral inheritance is difficult, e.g. validity of invarints

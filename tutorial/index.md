@@ -63,8 +63,8 @@ example code; just add the appropriate path to the `openjml` command.
 
 * Inheritance
   * [Inheriting Specifications](InheritingSpecifications)
-  * [Abstracting Frame Conditions --- Datagroups](Datagroups)
-  * [Model Methods](ModelMethods)
+  * [Abstractions using Model Fields and Datagroups](ModelFields)
+  * [Abstractions using Model Methods](ModelMethods)
 
 * [Object Invariants](Invariants)
 
