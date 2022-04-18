@@ -8,21 +8,21 @@ and also the complexities of what "always" means.
 ## Simple invariants
 
 The basic idea of an invariant is this: an invariant describes a property that always holds of an object. Every method can assume the invariants hold and
-must preserve the invariants. Constructors create objects that satisfy invariants. In this way, invariants are like pre- and postconditions for every
+must preserve the invariants. Constructors create objects that satisfy invariants. In this sense, invariants are like pre- and postconditions common to every
 method and constructor.
-* Invariants can be declared `static`, in which case they apply also to static methods. Static invariants apply to all methods; non-static invariants only ap[ply to non-static methods.
+* Invariants can be declared `static`, in which case they apply also to static methods. Static invariants apply to all methods; non-static invariants only apply to non-static methods.
 * Most typically invariants are declared `public`.  See the discussion below about visibility.
 
-Here is a typical simple exmaple:
+Here is a typical simple example:
 ```
 {% include_relative MyBox.java %}
 ```
 
-This example shows part of a simple class that has a `size` property. The specification reocrds that this size is always to be a non-negative integer.
+This example shows part of a simple class that has a `size` property. The specification records that this size is always to be a non-negative integer.
 So the constructor makes sure that `size` is non-negative when a `MyBox` is created. In `doit()`, `size` is used to create an array. The call of 
 `doit`() can assume that the invariants of `this` hold at the beginning of the call; consequently it does not need to check that `size` is non-negative before using its value as the length of the new array.
 
-On the other hand, `shrink() is intended to make the `MyBox` smaller by reducing its size by 10. It dutifully specifies that it `assigns size;`.
+On the other hand, `shrink()` is intended to make the `MyBox` smaller by reducing its size by 10. It dutifully specifies that it `assigns size;`.
 However, a verification attempt reports the following:
 ```
 {% include_relative MyBox.out %}

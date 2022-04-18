@@ -9,11 +9,11 @@ abstraction of frame conditions.
 ## Using model fields
 
 Model fields:
-* Model fields are specification-only fields that encapsulate some property of a class (typically. but not necessarily, an abstract class or interface).
+* Model fields are specification-only fields that encapsulate some property of a class (typically, but not necessarily, an abstract class or interface).
 * The model field can be used in the specification of the abstract class.
 * A model field is given an implementation by writing a `represents` clause in the derived class; this connects the model field to the concrete implementation.
 * A model field can also be used within a concrete class to represent some characteristic that is not explicitly present in the concrete class.
-8 A model field is typically an _instance_ field. Java only allows static fields in an interface. But in JML one can declare instance model fields
+* A model field is typically an _instance_ field. Java only allows static fields in an interface. But in JML one can declare instance model fields
 in an interface (or class) using the modifier `instance`. As the (Java) default is `static` for field declarations, the `instance` keyword is required in this case.
 
 Datagroups:
@@ -30,9 +30,9 @@ Here is a working example that verifies, with commentary below.
 * `Polygon`is an (abstract) interface with a concrete implementation `Square`
 * `Polygon` declares two properties, as model fields: `sides` (the number of sides) and `longestSide` (the length of the longest side of the polygon)
 * There is an invariant limiting the length of the sides and another one saying that all polygons have at least 3 sides.
-* There are two simple methods that return the values of `sides` and `longestSide`. These are pure (do not change anything)
+* There are two simple methods that return the values of `sides` and `longestSide`. These are pure (do not change anything).
 * The method `twice` doubles the size of the polygon. 
-  * It has a precondition so that the resulting polygon still satisfies the invariant
+  * It has a precondition so that the resulting polygon still satisfies the invariant.
   * It has an `assigns` clause saying what is modified. 
   * It has a postcondition saying what happens to the memory locations that are modified.
 
@@ -41,7 +41,7 @@ Here is a working example that verifies, with commentary below.
 * The constructor for `Square` initializes `side`; it needs a precondition in order to satisfy the invariant for `Polygon`, which applies to `Square` by inheritance.
 * The clause `represents sides = 4` gives a value to the `sides` model field in `Polygon`
 * The clause `represents longestSide = side` gives a value to the `longestSide` model field 
-* And the `side` field is declared to be in `longestSide` so that. When `twice` (abstractly) assigns to the model field `longestField`, then all the fields
+* And the `side` field is declared to be in `longestSide` . When `twice` (abstractly) assigns to the model field `longestField`, then all the fields
 that are _in_ `longestField` are considered assigned to.
 * Then all the methods that `Square` inherits from `Polygon` are implemented as expected, but they can inherit all their specifications from `Polygon`. 
 No additional specifications are needed. Look at `sides()` as an example: the specification says it returns the value of `sides`, which is given a value
@@ -49,8 +49,8 @@ by the represents clause, so the implementation of `Square.sides()` satisfies th
 
 `Test` just checks that the specifications given for `Polygon` work to verify some simple uses of the interface and its specifications.
 * Note that the implementation and verification of `Test.test()` only use `Polygon` and its specifications.
-* The `assert` in `test2` fails because a polygon (as implemented) can have a variety of numbers of sides
-* But the `assert` in `test3` succeeds, because a `Square` knows how many sides it has
+* The `assert` in `test2` fails because a polygon (as implemented) can have a variety of numbers of sides.
+* But the `assert` in `test3` succeeds, because a `Square` knows how many sides it has.
 * In `test4()` we do a type test to see if the input `polygon` is a `Square`, and if so, we know how many sides it has.
 
 The output when verifying the example above (though you may want to add the `--progress` option) is this:
