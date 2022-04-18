@@ -4,7 +4,7 @@ title: JML Tutorial - JML's \bigint built-in integer type
 
 `\bigint` is the type of unbounded, mathematical integers. Most typically when writing specifications, users think in terms in mathematical integers and
 the limitations of fixed bit-widths are an afterthought. Mathematical integers are also easier for solvers to reason about, so using them is natural 
-in writing specifications. They are similar to Java's `BigInteger`, except that no actual computation is beig done, only logical reasoning.
+in writing specifications. They are similar to Java's `BigInteger`, except that no actual computation is being done, only logical reasoning.
 
 Since `\bigint` is a JML built-in type, it may only be used within specifications. But that includes using it as the type of ghost fields, ghost variables 
 and the

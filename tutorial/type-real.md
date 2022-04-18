@@ -10,7 +10,7 @@ and the
 parameters and result types of model methods.
 
 The `\real` built-in type is intuitive and natural to use, but for the sake of clarity, its operations are listed here. `j` and `k` are two values of
-type `\real` and `i` a value of a Java numeric type.
+type `\real`.
 * `j == k` and `j != k` mean equality and inequality
 * `- j` is mathematical real negation`
 * `j + k` is mathematical real addition
@@ -22,7 +22,7 @@ type `\real` and `i` a value of a Java numeric type.
 * casts are allowed to and from other numeric types, such as `(\bigint)j`, which truncates towards zero.
 
 ```diff
-Caveat: Though real numbers are supported in OpenJML, the connection between real numbers and floating point numbers is incomplete and in some cases (such as handling NaN and infinite fp numbers) wrong
+! Caveat: Though real numbers are supported in OpenJML, the connection between real numbers and floating point numbers is incomplete and in some cases (such as handling NaN and infinite fp numbers) wrong
 ```
 
 TODO - examples?

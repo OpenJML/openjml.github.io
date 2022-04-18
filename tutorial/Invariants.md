@@ -48,7 +48,7 @@ The cost of not having to have the invariants true on entrance to a method is th
 
 ## Visibility of invariants
 
-* Invariants have a visibility (public, private, etc.). Almost always, `public` is the appropriate modifier to use. Invariants with visibility other than public are only used where they can be "seen", just like the modifiers when used for methods.
+* Invariants have a visibility (public, private, etc.). Almost always, `public` is the appropriate modifier to use. Invariants with visibility other than public only apply where they can be "seen", just like the modifiers when used for methods.
 * Invariants cannot use fields or methods with a visibility more constrained than their own. Conseqeuently, as in this case, a private field will need a `spec_public` declaration. See [the lesson on Visibility](Visibility) for more on this topic.
 
 ## Invariants when calling methods
@@ -63,6 +63,7 @@ To further complicate matters, JML expects that all invariants of all objects ho
 The reason for this rule is shown in this code snippet.
 ```
 public class SomeClass {
+  //@ public invariant ...
 
   public void m(SomeOtherClass o) {
     // some code that temporarily invalidates the invariant of SomeClass
@@ -73,10 +74,10 @@ public class SomeClass {
 ```
 The verification attempt of `SomeClass.m` invalidates and then restores the invariant of `SomeClass`. However, `o.dosomething` is called when the invariant
 of `this` is invalid. `o.dosomething` might actually call a method of `SomeClass` on its argument, which method would then be called in a state in which
-its invariants do not hold. Not knowing what `o.dosomething` does, JML insists on the general rule that all invariants have to hold at call points.
+its invariants do not hold. Not knowing what `o.dosomething` does, JML insists on the general rule that all invariants have to hold at every call point.
 But this is a nuisance in the implementation of `m`, particularly if `o.dosomething` is a simple library routine like `Math.abs`.
 
 ```diff
-Because of this, the rules about invariants holding are a topic of research and discussion. OpenJML is experimenting with more relaxed rules that are still sound.
+! Because of this, the rules about invariants holding are a topic of research and discussion. OpenJML is experimenting with more relaxed rules that are still sound.
 ```
     
