@@ -5,7 +5,7 @@ title: JML Tutorial - Nullable and non-null values and types
 Whether references to objects are null or not is a highly important property in Java programs and just about every other programming language,
 to the point that some languages are including non-nullness as a property of the type of a variable.
 
-JML also allows you to specify whether or not something is allowed to be null. In fact, JML makes the default that a non-primitive type is never null.
+JML also allows you to specify whether or not something is allowed to be null. In fact, JML makes it the default that a value of reference type is never null.
 Furthermore, Java has introduced *type annotations* (since Java 8), which are annotations on types rather than on declarations.
 The switch to type annotations for nullness changes the syntax of JML in ways that might be surprising or at least unfamiliar to long-time JML users.
 
@@ -19,11 +19,11 @@ At the simplest level, declarations of a variable may include the modifiers `non
 These declarations mean that wherever `s` is used, it must be taken into account that `s` might be null.
 On the other hand, `ss` is specified to never be null. Accordingly, when `ss` is initialized or the target of an assignment, the value it is given must be provably not null. But thereafter the values can be assumed to be non-null. If there is no modifier, the default is non-null.
 
-Instead of these modifiers, one can use the Java annotations `@NonNull` or `@Nullable` (if one imports that package `org.jmlspecs.annotation`).
+Instead of these modifiers, one can use the Java annotations `@NonNull` or `@Nullable` (if one imports the package `org.jmlspecs.annotation`).
 
 The above modifiers are applicable to local declarations, field declarations, formal parameter declarations, and method return type declarations.
 ```diff
-Caveat: the default for local declarations is still under discussion. OpenJML uses the same default as for types in other places.
+! Caveat: the default for local declarations is still under discussion. OpenJML uses the same default as for types in other places.
 ```
 
 Here is an example. The code
