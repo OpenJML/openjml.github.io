@@ -12,12 +12,19 @@ a JML method if there is no Java method that accomplishes what is needed. A JML 
 * it includes the `model` modifier
 * it need not have an implementation (and generally does not, except if compilation for runtime-assertion-checking is desired).
 
+For example, if the example below did not declare `sides()` as a Java method, one could include in `Polygon3` this declaration, along with any specifications:
+```
+//@ model public int sides();
+```
+
+## using model methods
+
 Here is the previous example, altered to use methods --- in this case the Java methods already part of the `Polygon` interface. There are a few key points to note:
 * The datagroup is still needed. When using model methods, one typically will declare standalone datagroups to use in frame conditions.
 * Reads clauses are needed. They are discussed after the code listing.
 * If the methods are used within invariants, they typically need to be declared `helper` and that they do not throw exceptions (`public normal_behavior`).
-* The abstract methods used in modeling typically have no postcondition, or at least not one that fully dictates their value. They are used as
-_uninterpreted functions-, whose values is given by invariants and concrete implementations.
+* An abstract method used in modeling typically has no postcondition, or at least not one that fully dictates its value. It is used as an
+_uninterpreted function_, whose value is given by invariants and concrete implementations.
 
 ```
 {% include_relative Polygon3.java %}
@@ -34,3 +41,9 @@ _reads_ or _depends on_. The content of the reads clause may be a model field.
 
 Note that `twice()` assigns to `allSides` and `longestSide()` reads `allSides`. So the value of `longestSide()` might well change (though not necessarily).
 But `sides()` reads the model field `numSides`, which is not assigned by `twice()`, so its value does not change.
+
+## helper methods
+
+A _helper_ method is one that does not assume that the object's invariants hold (cf. [the lesson on invariants](Invariants)), nor does it 
+ensure that they hold after returning. Methods used in invariant clauses need to be `helper` methods because otherwise there would be 
+unending recursive calls to check if the invariants are all true. The disadvantage of being a helper method is that sometimes additional pre- or postconditions are needed to assume or assert properties that are otherwise part of the object's invariants.
