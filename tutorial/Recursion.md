@@ -15,7 +15,7 @@ The particular points to note in the the examples are these:
 * How assertions are used in the body of a method to guide the solver in unrolling recursive defintions and then rolling them back up again, to prove the desired end goal.
 
 ```diff
-These examples are under development. The proofs time out in some cases. They also are being edited to make them simpler. There may even be some errors masked by timeouts.
+! These examples are under development. The proofs time out in some cases. They also are being edited to make them simpler. There may even be some errors masked by timeouts.
 ```
 
 ## Singly-linked list example
