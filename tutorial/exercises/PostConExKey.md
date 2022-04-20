@@ -31,7 +31,6 @@ Since the number being passed in is a whole number, we know that the returned re
 We can see here that the program fails to verify because we are not specifying the range of `num`. To fix this problem, we simply need to include how big `num` can be.
 ```Java
 //@ requires num > 0;
-//@ requires num < Integer.MAX_VALUE;
 //@ requires num < Integer.MAX_VALUE/2;
 //@ ensures \result > num;
 public int multiplyByTwo(int num) {
@@ -53,7 +52,6 @@ Let's think about the formula P implies Q. When we say the "strongest" postcondi
 First let's start with what we know. We are told that `num` must be positive, therefore, `num > 0` - since zero is neither positive nor negative. Secondly, the code has been updated to `num / 2` from `num * 2`. If `num * 2` ensured a value greater than num, then what is `num / 2` ensuring? Well, we know that whenever we divide a whole positive number by anything, the value gets smaller and smaller. Therefore, the code above ensures that the result will be less than the number passed in when `num` is greater than 0. So we can write:
 ```Java
 //@ requires num > 0;
-//@ requires num < Integer.MAX_VALUE;
 //@ requires num < Integer.MAX_VALUE*2;
 //@ ensures \result < num;
 public int multiplyByTwo(int num) {
