@@ -25,7 +25,7 @@ title: JML Tutorial -- Exercises
 + [Key](AssertExKey.md)
 + [Question 1 Java](AssertExample1.java), [Question 2 Java](AssertExample2.java)
 
-### [Assume Statements](AssumetEx.md)
+### [Assume Statements](AssumeEx.md)
 + [Problem Statements](AssumeEx.md)
 + [Key](AssumeExKey.md)
 + [Question 1 Java](AssumeExample1.java), [Question 2 Java](AssumeExample2.java)

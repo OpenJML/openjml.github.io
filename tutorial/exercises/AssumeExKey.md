@@ -3,34 +3,31 @@ title: JML Tutorial - Exercises - Assume Statements
 ---
 # Assume Statements Exercises Key:
 ## **Question 1**
-**Write a function that takes in an integer array a and returns an array that is the reversal of a. Determine the specifications needed to verify the function.**
+**Given the function below, determine the specifications needed to verify the function, as well as including the assume statements where indicated.**
+```Java
+public int[] reverseArray(int[] a) {
+	int len = a.length;
+	int[] b = new int[len];
 
+	for (int i = 0; i < a.length; i++) {
+		//first assume 
+		//second assume
+		b[len - 1] = a[i];
+		len--;			
+	}
+	//@ assert b.length == a.length;
+	return b;
+}
+```
 **Asnwer and Explanation:**
-We are tasked with creating a function that returns an array that is the reversal of an array passed in. First, we know that one of our preconditions is that the array passed in is not null. Additionally, since the function is simply reversing the array and retuning it, we know that the result should be of the same length as the array passed in. So we can write the following function:
+The function above stores the length of array `a` and creates a new integer array `b`. Then a for-loop runs for `i < a.length`, and within the for-loop `b[len - 1] = a[i]`. This will set the last index of `b` to the first element in `a`. After the value of `b` is set at `len-1`, `len` is decremented by 1. This will cause a lot of warnings if we do not specify that both `i` and `(len-1)` are in the valid range of zero to `a.length`. So we need to include this as an assumption anytime we have a loop and need to ensure that we are not going out of bounds. Note that there are better ways of handling loops which we will see in the "[Specifying Loops](https://www.openjml.org/tutorial/Loops)" tutorial, but for now we will handle loops using the `assume` clause. 
 ```java
-//@ requires a != null;
 //@ ensures \result.length == a.length;
 public int[] reverseArray(int[] a) {
 	int len = a.length;
 	int[] b = new int[len];
 
 	for (int i = 0; i < a.length; i++) {
-		b[len - 1] = a[i];
-		len--;			
-	}
-	
-	return b;
-}
-```
-The function above stores the length of array `a` and creates a new integer array `b`. We then create a for-loop that runs for `i < a.length`, and within the for-loop we set `b[len - 1] = a[i]`. This will set the last index of `b` to the first element in `a`. After we set the value of `b` at `len-1`, we decrement `len` by 1. This will cause a lot of warnings if we do not specify that both `i` and `(len-1)` are in the valid range of zero to `a.length`. So we need to include this as an assumption anytime we have a loop and need to ensure that we are not going out of bounds. Note that there are better ways of handling loops which we will see in the "[Specifying Loops](https://www.openjml.org/tutorial/Loops)" tutorial, but for now we will handle loops using the `assume` clause. After the for-loop we can also assert that the length of `b` is the same as the length of `a`. We can then write the following:
-```java
-//@ requires a != null;
-//@ ensures \result.length == a.length;
-public int[] reverseArray(int[] a) {
-	int len = a.length;
-	int[] b = new int[len];
-
-  for (int i = 0; i < a.length; i++) {
 		//@ assume 0 <= i < a.length;
 		//@ assume 0 <= len-1 < a.length;
 		b[len - 1] = a[i];
@@ -53,7 +50,9 @@ public int sortFindMax(int[] a) {
 	int max;
 
 	for (int i = 0; i < a.length-1; i++) {
-		for (int j = 0; j < a.length; j++) {
+		for (int j = i+1; j < a.length; j++) {
+			//first assume
+			//second assume
 			if (a[i] > a[j]) {
 				int temp = a[i];
 				a[i] = a[j];
@@ -61,15 +60,17 @@ public int sortFindMax(int[] a) {
 			}
 		}
 	}
-		
+	//third assume 
+	//fourth assume
 	max = a[a.length-1];
+	//fifth assume
 	return max;
 }
 ```
 **Asnwer and Explanation:**
-Given the code above we are tasked with utilizing the `assume` clause to find where in the code the error is, since the function is not finding the correct max value in the array. First, let's break down what the function is doing. The function is first sorting the array using a selection sort, and then sets `max = a[a.length-1]` - since, if the array is properly sorted in ascending order the max value should be in the last position of the array. Notice the pre and post conditions of the function. The function requires that `a != null`, typical when using arrays. However, there are two ensures clauses that use a `\forall` and `\exists` clause, we haven't seen how to use these yet as they will come up later in the "[JML Expressions](https://www.openjml.org/tutorial/Expressions)" tutorial. Essentially, the first ensures statement checks for the range of 0 to `a.length` the array should be sorted after the function call. The second ensures statement checks that there exists a max value in the array for the range 0 to `a.length`.
+Given the code above we are tasked with utilizing the `assume` clause to find where in the code the error is - since the function is not finding the correct max value in the array. First, let's break down what the function is doing. The function is first sorting the array using a selection sort, and then sets `max = a[a.length-1]` - since, if the array is properly sorted in ascending order the max value should be in the last position of the array. Notice the pre and post conditions of the function. The function requires that `a != null`, typical when using arrays. However, there are two ensures clauses that use a `\forall` and `\exists` clause, we haven't seen how to use these yet as they will come up later in the "[JML Expressions](https://www.openjml.org/tutorial/Expressions)" tutorial. Essentially, the first ensures statement checks for the range of 0 to `a.length` the array should be sorted after the function call. The second ensures statement checks that there exists a max value in the array for the range 0 to `a.length`.
 
-Now that we understand the code and the pre and postconditions let's start debugging. First, let's include our `assume` statements for the for-loops, since we need to specify that our indices don't go out of bounds when we iterate through.
+Now that we understand the code and the pre and postconditions let's start debugging. First, let's include our `assume` statements for the for-loops, since we need to specify that our indices don't go out of bounds when we iterate through. We will place these where is says "first assume" and "second assume" 
 ```java
 //@ requires a != null;
 //@ ensures (\forall int k; 0 < k < a.length; a[k-1] <= a[k]);
@@ -88,12 +89,14 @@ public int sortFindMax(int[] a) {
 			}
 		}
 	}
-	//@ assume 0 <= a.length-1 < a.length;	
+	//third assume	
+	//@ assume 0 <= a.length-1 < a.length;
 	max = a[a.length-1];
+	//fifth assume
 	return max;
 }
 ```
-The current code when ran with OpenJML will warn us that the second ensures statement cannot be verified. So we cane use the assume clause to check different parts of our code to narrow down where the error might be. First, let's check the selection sort by using the following `assume` statement below. By using the an `assume` statement here we are telling OpenJML to assume that our sort works as intended.
+The current code when ran with OpenJML will warn us that the second ensures statement cannot be verified. So we can use the assume clause to check different parts of our code to narrow down where the error might be. First, let's check the selection sort by using the following assume statement below. We will place this assume statement where it says “third assume.” By placing the assume statement here we are telling OpenJML to assume that our sort works as intended.
 ```java
 //@ requires a != null;
 //@ ensures (\forall int k; 0 < k < a.length; a[k-1] <= a[k]);
@@ -113,13 +116,13 @@ public int sortFindMax(int[] a) {
 		}
 	}
 	//@ assume (\forall int i; 0 < i < a.length; a[i-1] <= a[i]);
-	
 	//@ assume 0 <= a.length-1 < a.length;
 	max = a[a.length-1];
+	//firth assume
 	return max;
 }
 ```
-When we run this we still get an error that the second ensures statement cannot be verified. So let's check that our `max` is being set to the correct value by using another `assume` statement.
+When we run this we still get an error that the second ensures statement cannot be verified. So let's check that our `max` is being set to the correct value by using another `assume` statement placed at “fifth assume.”
 ```java
 //@ requires a != null;
 //@ ensures (\forall int k; 0 < k < a.length; a[k-1] <= a[k]);

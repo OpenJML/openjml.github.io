@@ -3,8 +3,22 @@ title: JML Tutorial - Exercises - Assume Statements
 ---
 # Assume Statements Exercises:
 ## **Question 1**
-**Write a function that takes in an integer array a and returns an array that is the reversal of a. Determine the specifications needed to verify the function.**
+**Given the function below, determine the specifications needed to verify the function, as well as including the assume statements where indicated.**
+```Java
+public int[] reverseArray(int[] a) {
+	int len = a.length;
+	int[] b = new int[len];
 
+	for (int i = 0; i < a.length; i++) {
+		//first assume 
+		//second assume
+		b[len - 1] = a[i];
+		len--;			
+	}
+	//@ assert b.length == a.length;
+	return b;
+}
+```
 ## **Question 2**
 **The following code has an error with finding the max value in an array. Determine how assume can be used to find where in the code the error occurs.**
 ```Java
@@ -15,7 +29,9 @@ public int sortFindMax(int[] a) {
 	int max;
 
 	for (int i = 0; i < a.length-1; i++) {
-		for (int j = 0; j < a.length; j++) {
+		for (int j = i+1; j < a.length; j++) {
+			//first assume
+			//second assume
 			if (a[i] > a[j]) {
 				int temp = a[i];
 				a[i] = a[j];
@@ -23,8 +39,10 @@ public int sortFindMax(int[] a) {
 			}
 		}
 	}
-		
+	//third assume 
+	//fourth assume
 	max = a[a.length-1];
+	//fifth assume
 	return max;
 }
 ```
