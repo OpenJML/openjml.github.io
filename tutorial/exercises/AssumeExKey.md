@@ -1,8 +1,6 @@
 ---
-title: JML Tutorial - Exercises - ...
+title: JML Tutorial - Exercises - Assume Statements
 ---
-<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
-
 # Assume Statements Exercises Key:
 ## **Question 1**
 **Write a function that takes in an integer array a and returns an array that is the reversal of a. Determine the specifications needed to verify the function.**
