@@ -3,9 +3,9 @@ title: JML Tutorial - Exercises - Postcondition
 ---
 # Postcondition Exercises:
 ## **Question 1**
-**(a) Suppose that the function below had its specifications changed for num, where num is updated so that it only has to be greater than -1. Determine why this would cause an error, and how you could fix the remaining specifications to verify the function. Note that num cannot be greater than 100 for this problem.**
+**(a) Suppose that the function below had its specifications changed for num, where num is updated so that it only has to be greater than -1. Determine why this would cause an error, and how you could fix the remaining specifications to verify the function.**
 ```Java
-//@ requires num > 0;
+//@ requires 0 < num < 100;
 //@ ensures \result > num;
  public int multiplyByTwo(int num) {
 	return num*2;
@@ -20,13 +20,15 @@ title: JML Tutorial - Exercises - Postcondition
 }
 ```
 **On the subject of "strongest" specifications:**
-Let's think about the formula P implies Q. When we say the "strongest" postcondition, we want to find the state that P is stronger so that Q is true. We might say that the function above implies "true," but this would be the weakest postcondition - as it is not that specific. So we want to be as specific as possible when writing specifications. This allows for fewer implementations.  
+First let’s discuss what a strong predicate is. For the formula P implies Q, in this situation P is the strong preciate and Q is the weaker one. So when we say “strongest predicate” we are talking about the predicate that implies the other. For example, let’s think about the predicate that x > 1 implies x > 0, in this case the first predicate implies that x will always be greater than 5 which is greater than 0 - therefore it is true. 
+
+Therefore, when asking for the “strongest” specifications we want a strong precondition that implies the postcondition. One way to determine the stronger predicates is to find the specific inputs and outputs we want.. This allows for fewer implementations.  
+
+To read more about the subject check out the [following](https://www.cs.scranton.edu/~mccloske/courses/se504/predicate_strength.pdf)
 
 ## **Question 2**
-**Given a rectangle of width w and height h, write a function that finds the area of the rectangle and returns it. Determine the specifications needed to verify the function. The function header is given below.**
+**Given a rectangle of width w and height h, write a function that finds the area of the rectangle and returns it. Determine the strongest specifications needed to verify the function. The function header is given below.**
 ```Java 
-public int area(int w, int h){
-
-}
+public int area(int w, int h);
 ```
 ## **[Key](PostConExKey.md)**

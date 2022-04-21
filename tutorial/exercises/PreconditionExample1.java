@@ -2,14 +2,15 @@
 public class PreconditionExample1 {
 	
 	//@ requires !Double.isNaN(bankAccount);
-	//@ requires bankAccount > 0.0;
+	//@ requires balance > 0.0;
 	//@ requires !Double.isNaN(price);
 	//@ requires price >= 0;
-	//@ requires (price*n) <= bankAccount;
+	//@ requires balance >= price * n;
+	//@ ensures Double.abs(\result - \old(balance-(price*n))) < 0.001;
 	//@ ensures \result >= 0.0;
-	public double bankUpdate(double bankAccount, double price, int n) {
-		bankAccount = bankAccount - (price*n);
-		return bankAccount;
+	public double balanceUpdate(double balance, double price, int n) {
+		balance = balance - (price*n);
+		return balance;
 	}
 
 }
