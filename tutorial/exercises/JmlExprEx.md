@@ -34,15 +34,7 @@ public boolean modusPonens(boolean p, boolean q);
 ```
 **On the subject of Modus Ponens:**
 Modus Ponens is a rule of inference, which states that if p is true, and p implies q, then q is true. Take a look at the truth table below. 
-|   p    |   q    | p -> q |
-
-|  true  |  true  |  true  |
-
-|  true  |  false |  false |
-
-|  false |  true  |  true  |
-
-|  false |  false |  true  |
+![Modus Ponens Truth Table](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.quora.com%2FIs-Modus-Ponens-invalid&psig=AOvVaw27iAOGt0mZ8Pgp9V_YfYvr&ust=1651362963140000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCNCBhMy8uvcCFQAAAAAdAAAAABAD)
 
 **Learning Objectives:**
 + Gain more experience using JML operators
