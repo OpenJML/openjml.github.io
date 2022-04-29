@@ -19,6 +19,10 @@ public int[] reverseArray(int[] a) {
 	return b;
 }
 ```
+**Learning Objective:** 
++ Understand how `assume` can be used for loops
++ Understand there are better ways of dealing with loops 
+
 ## **Question 2**
 **The following code has an error with finding the max value in an array. Determine how assume can be used to find where in the code the error occurs.**
 ```Java
@@ -46,5 +50,10 @@ public int sortFindMax(int[] a) {
 	return max;
 }
 ```
-## **[Key](AssumeExKey.md)**
+**Learning Objective:** 
++ Understand how `assume` can be used for debugging 
++ Understand the relationship between `assume` and `assert`
++ Understand the differences between `assume` and `assert`
+
+## **[Answer Key](AssumeExKey.md)**
 

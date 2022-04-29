@@ -1,5 +1,5 @@
 ---
-title: JML Tutorial - Exercises - Postcondition
+title: JML Tutorial - Exercises - Postconditions
 ---
 # Postcondition Exercises:
 ## **Question 1**
@@ -26,9 +26,18 @@ Therefore, when asking for the “strongest” specifications we want a strong p
 
 To read more about the subject check out the [following](https://www.cs.scranton.edu/~mccloske/courses/se504/predicate_strength.pdf)
 
+**Learning Objectives:** 
++ Introduction to “strongest” specification 
++ Understand overflow errors
++ Understand relationship between pre and post conditions 
+
 ## **Question 2**
 **Given a rectangle of width w and height h, write a function that finds the area of the rectangle and returns it. Determine the strongest specifications needed to verify the function. The function header is given below.**
 ```Java 
 public int area(int w, int h);
 ```
-## **[Key](PostConExKey.md)**
+**Learning Objectives:** 
++ Gain more experience writhing pre and postconditions 
++ Understand the importance of postconditions and how they can be used to get the correct output for a program
+
+## **[Answer Key](PostConExKey.md)**

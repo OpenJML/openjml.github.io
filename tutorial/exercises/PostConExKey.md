@@ -1,5 +1,5 @@
 ---
-title: JML Tutorial - Exercises - ...
+title: JML Tutorial - Exercises - Postconditions
 ---
 # Postcondition Exercises Key:
 ## **Question 1**
@@ -30,13 +30,13 @@ Since the number being passed in is a whole number, we know that the returned re
 We can see here that the program fails to verify because we are not specifying the range of `num`. To fix this problem, we simply need to include how big `num` can be.
 ```Java
 //@ requires num > 0;
-//@ requires num < Integer.MAX_VALUE/2;
+//@ requires num <= Integer.MAX_VALUE/2;
 //@ ensures \result > num;
 public int multiplyByTwo(int num) {
 	return num*2;
 }
 ```
-By including the second requirement that `num < Integer.MAX_VALUE` and `num < Integer.MAX_VALUE/2`, we can now ensure that the result will always be greater than the original number passed in.
+By including the second requirement that `num <= Integer.MAX_VALUE` and `num <= Integer.MAX_VALUE/2`, we can now ensure that the result will always be greater than the original number passed in.
 
 **(c) Suppose the code was updated to the following, and num must be a positive number. Determine the specifications needed to verify the function.**
 ```Java
