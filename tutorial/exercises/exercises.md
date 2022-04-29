@@ -34,3 +34,9 @@ title: JML Tutorial -- Exercises
 + [Problem Statements](JmlExprEx.md)
 + [Answer Key](JmlExprExKey.md)
 + [Question 1 Java](JMLExprExample1.java), [Question 2 Java](JMLExprExample2.java)
+
+### [Well-Defined Expressions](WellDefinedEx.md)
++ [Problem Statements](WellDefinedEx.md)
++ [Answer Key](WellDefinedExKey.md)
++ [Question 1 Java](WellDefinedExample1.java)
+
