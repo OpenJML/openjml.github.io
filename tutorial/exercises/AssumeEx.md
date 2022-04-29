@@ -19,7 +19,7 @@ public int[] reverseArray(int[] a) {
 	return b;
 }
 ```
-**Learning Objective:** 
+**Learning Objectives:** 
 + Understand how `assume` can be used for loops
 + Understand there are better ways of dealing with loops 
 
@@ -50,7 +50,7 @@ public int sortFindMax(int[] a) {
 	return max;
 }
 ```
-**Learning Objective:** 
+**Learning Objectives:** 
 + Understand how `assume` can be used for debugging 
 + Understand the relationship between `assume` and `assert`
 + Understand the differences between `assume` and `assert`

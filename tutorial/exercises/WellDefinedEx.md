@@ -18,4 +18,9 @@ public int search(int[] a, int key) {
 	return -1;
 }
 ```
-## **[Key](WellDefinedExKey.md)**
+**Learning Objectives:**
++ Be able to identify where the issue in the current specifications lie 
++ Understand how to write well-defined statements
++ Understand the importance of placement of JML specifications 
+
+## **[Answer Key](WellDefinedExKey.md)**

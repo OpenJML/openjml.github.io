@@ -20,7 +20,7 @@ public void max(int a, int b, int c) {
 	//third assert
 }
 ```
-**Learning Objective:** 
+**Learning Objectives:** 
 + Understand how `assert` can be used
 + Understand the relationship between `assert` statements and postconditions 
 
@@ -45,7 +45,7 @@ public boolean primeChecker(int num) {
 	return isPrime;
 }
 ```
-**Learning Objective:** 
+**Learning Objectives:** 
 + Gain more experience writing `assert` statements
 
 ## **[Answer Key](AssertExKey.md)**

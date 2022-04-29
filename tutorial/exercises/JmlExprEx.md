@@ -23,6 +23,10 @@ public boolean primeChecker(int num) {
 	return flag;
 }
 ```
+**Learning Objectives:**
++ Understand quantified expressions and be able to write them
++ Understand JML operators and be able to utilize them
+ 
 ## **Question 2**
 **Write a function that simulates the truth table for the Discrete Mathematical inference rule of Modus Ponens, use the function header given below to construct your function. Determine the specifications needed to verify your function.**
 ```Java
@@ -31,10 +35,18 @@ public boolean modusPonens(boolean p, boolean q);
 **On the subject of Modus Ponens:**
 Modus Ponens is a rule of inference, which states that if p is true, and p implies q, then q is true. Take a look at the truth table below. 
 |   p    |   q    | p -> q |
-|--------|--------|--------|
+
 |  true  |  true  |  true  |
+
 |  true  |  false |  false |
+
 |  false |  true  |  true  |
+
 |  false |  false |  true  |
 
-## **[Key](JmlExprExKey.md)**
+**Learning Objectives:**
++ Gain more experience using JML operators
++ Understand how the same JML statements can be used for different versions of the same code
++ Recall "strongest" specifications
+
+## **[Answer Key](JmlExprExKey.md)**
