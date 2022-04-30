@@ -40,3 +40,15 @@ title: JML Tutorial -- Exercises
 + [Answer Key](WellDefinedExKey.md)
 + [Question 1 Java](WellDefinedExample1.java)
 
+### [Verifying Method Calls](VerifyingMethodCallsEx.md)
++ [Problem Statements](VerifyingMethodCallsEx.md)
++ [Answer Key](VerifyingMethodCallsKey.md)
++ [Question 1 Java](MethodCallsExample1.java), [Question 2 Java](MethodCallsExample2.java)
+
+### [Frame Conditions](FrameCondEx.md)
++ [Problem Statements](FrameCondEx.md)
++ [Answer Key](FrameCondKey.md)
++ [Question 1 Java](FrameCondExample1.java), [Question 2 Java](FrameCondExample2.java)
+
+
+
