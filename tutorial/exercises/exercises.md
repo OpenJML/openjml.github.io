@@ -49,6 +49,3 @@ title: JML Tutorial -- Exercises
 + [Problem Statements](FrameCondEx.md)
 + [Answer Key](FrameCondKey.md)
 + [Question 1 Java](FrameCondExample1.java), [Question 2 Java](FrameCondExample2.java)
-
-
-
