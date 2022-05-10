@@ -42,10 +42,15 @@ title: JML Tutorial -- Exercises
 
 ### [Verifying Method Calls](VerifyingMethodCallsEx.md)
 + [Problem Statements](VerifyingMethodCallsEx.md)
-+ [Answer Key](VerifyingMethodCallsKey.md)
++ [Answer Key](VerifyingMethodCallsExKey.md)
 + [Question 1 Java](MethodCallsExample1.java), [Question 2 Java](MethodCallsExample2.java)
 
 ### [Frame Conditions](FrameCondEx.md)
 + [Problem Statements](FrameCondEx.md)
-+ [Answer Key](FrameCondKey.md)
++ [Answer Key](FrameCondExKey.md)
 + [Question 1 Java](FrameCondExample1.java), [Question 2 Java](FrameCondExample2.java)
+
+### [Specifying Constructors](SpecifyingConstructorsEx.md)
++ [Problem Statements](SpecifyingConstructorsEx.md)
++ [Answer Key](SpecifyingConstructorsKey.md)
++ [Question 1 Java](Student.java), [Question 2 Java](Book.java)
