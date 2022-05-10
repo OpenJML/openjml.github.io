@@ -54,3 +54,38 @@ title: JML Tutorial -- Exercises
 + [Problem Statements](SpecifyingConstructorsEx.md)
 + [Answer Key](SpecifyingConstructorsKey.md)
 + [Question 1 Java](Student.java), [Question 2 Java](Book.java)
+
+### [Using Method Calls in Specifications](CallingMethodsEx.md)
++ [Problem Statements](CallingMethodsEx.md)
++ [Answer Key](CallingMethodsExKey.md)
++ [Question 1 part (a) Java](CallingMethodsExample1.java), [Question 1 part (b) Java](CallingMethodsExample2.java)
+
+### [Arithmetic](ArithmeticEx.md)
++ [Problem Statements](ArithmeticEx.md)
++ [Answer Key](ArithmeticExKey.md)
++ [Question 1 Java](ArithmeticExample1.java), [Question 2 Java](ArithmeticExample2.java)
+
+### [Visibility](VisibilityEx.md)
++ [Problem Statements](VisibilityEx.md)
++ [Answer Key](VisibilityExKey.md)
++ [Question 1 Java](VisibilityExample1.java)
+
+### [Specifying Loops](SpecifyingLoopsEx.md)
++ [Problem Statements](SpecifyingLoopsEx.md)
++ [Answer Key](SpecifyingLoopsExKey.md)
++ [Question 1 part (a) Java](SpecifyingLoopsExample11.java), [Question 1 part (b) Java](SpecifyingLoopsExample1b.java)
+
+### [Specifying Exceptions](SpecifyingExceptionsEx.md)
++ [Problem Statements](SpecifyingExceptionsEx.md)
++ [Answer Key](SpecifyingExceptionsExKey.md)
++ [Question 1 Java](SpecifyingExceptionsExample1.java), [Question 2 Java](SpecifyingExceptionsExample2.java)
+
+### [Method Specifications](MethodSpecificationsEx.md)
++ [Problem Statements](MethodSpecificationsEx.md)
++ [Answer Key](MethodSpecificationsExKey.md)
++ [Question 1 Java](Pet.java)
+
+### [Multiple Method Behaviors](MultMethodBehaviorEx.md)
++ [Problem Statements](MultMethodBehaviorEx.md)
++ [Answer Key](MultMethodBehaviorExKey.md)
++ [Question 1 Java](MethodBehaviorsExample1.java)
