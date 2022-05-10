@@ -114,4 +114,4 @@ The goal of this exercise is to see if the student understands how they need to 
 ## **Resources:**
 + [Arithmetic Exercises](ArithmeticEx.md)
 + [Question 1 Java](ArithmeticExample1.java)
-+ [Question 2 Java](ArithemticExample2.java)
++ [Question 2 Java](ArithmeticExample2.java)

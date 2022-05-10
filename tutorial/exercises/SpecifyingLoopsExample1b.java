@@ -1,6 +1,6 @@
 public class SpecifyingLoopsExample1 {
-//@ ensures \result.length() == str1.length();
-    //@ ensures (\forall int j; 
+	//@ ensures \result.length() == str1.length();
+    	//@ ensures (\forall int j; 
 	//@			0 <= j <= str1.length()-1; 
 	//@			\result.charAt(j) == str1.charAt(str1.length()-j-1));
 	//@ pure
