@@ -52,7 +52,7 @@ title: JML Tutorial -- Exercises
 
 ### [Specifying Constructors](SpecifyingConstructorsEx.md)
 + [Problem Statements](SpecifyingConstructorsEx.md)
-+ [Answer Key](SpecifyingConstructorsKey.md)
++ [Answer Key](SpecifyingConstructorsExKey.md)
 + [Question 1 Java](Student.java), [Question 2 Java](Book.java)
 
 ### [Using Method Calls in Specifications](CallingMethodsEx.md)
@@ -73,7 +73,7 @@ title: JML Tutorial -- Exercises
 ### [Specifying Loops](SpecifyingLoopsEx.md)
 + [Problem Statements](SpecifyingLoopsEx.md)
 + [Answer Key](SpecifyingLoopsExKey.md)
-+ [Question 1 part (a) Java](SpecifyingLoopsExample11.java), [Question 1 part (b) Java](SpecifyingLoopsExample1b.java)
++ [Question 1 part (a) Java](SpecifyingLoopsExample11a.java), [Question 1 part (b) Java](SpecifyingLoopsExample1b.java)
 
 ### [Specifying Exceptions](SpecifyingExceptionsEx.md)
 + [Problem Statements](SpecifyingExceptionsEx.md)
