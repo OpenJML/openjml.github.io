@@ -2,7 +2,7 @@
 title: JML Tutorial - Exercises - Method Specifications
 ---
 # Method Specifications Exercises Key:
-##**[Method Specifications Tutorial](https://www.openjml.org/tutorial/OldAndOrdering)**
+## [Method Specifications Tutorial](https://www.openjml.org/tutorial/OldAndOrdering)
 
 ## **Question 1**
 **Given the program below, correct the order of the specifications for easier readability.**

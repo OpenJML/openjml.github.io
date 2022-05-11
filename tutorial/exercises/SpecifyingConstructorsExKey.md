@@ -2,7 +2,7 @@
 title: JML Tutorial - Exercises - Specifying Constructors 
 ---
 # Specifying Constructors Exercises Key:
-##**[Specifying Constructors Tutorial](https://www.openjml.org/tutorial/Constructors)**
+## [Specifying Constructors Tutorial](https://www.openjml.org/tutorial/Constructors)
 
 ## **Question 1**
 **(a) Determine the specifications needed to verify the program below.**

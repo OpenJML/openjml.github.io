@@ -2,7 +2,7 @@
 title: JML Tutorial - Exercises - Frame Condtions 
 ---
 # Frame Condtions Exercises:
-## **[Frame Conditions Tutorial](https://www.openjml.org/tutorial/FrameConditions)**
+## [Frame Conditions Tutorial](https://www.openjml.org/tutorial/FrameConditions)
 
 ## **Question 1**
 **The program below checks if two integer arrays are the same size and if they are it adds them. However, the code is unable to be verified; determine what specifications are needed to verify the program.**

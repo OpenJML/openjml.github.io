@@ -2,7 +2,7 @@
 title: JML Tutorial - Exercises - Multiple Method Behavior
 ---
 # Multiple Method Behavior Exercises:
-## **[Multiple Method Behavior Tutorial](https://www.openjml.org/tutorial/MultipleBehaviors)**
+## [Multiple Method Behavior Tutorial](https://www.openjml.org/tutorial/MultipleBehaviors)
 
 ## **Question 1**
 **Given the function below, determine the strongest specifications needed to verify the function below.**
