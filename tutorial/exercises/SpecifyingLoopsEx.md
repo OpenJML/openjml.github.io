@@ -2,6 +2,8 @@
 title: JML Tutorial - Exercises - Specifying Loops
 ---
 # Specifying Loops Exercises:
+##**[Specifying Loops Tutorial](https://www.openjml.org/tutorial/Loops)**
+
 ## **Question 1**
 **(a) Determine the strongest specifications needed to verify the function.**
 ```Java
@@ -36,4 +38,4 @@ public String reverseWord(String str1) {
 + Gain more experience with past tutorial content  
 
 ## **[Answer Key](SpecifyingLoopsExKey.md)**
-
+## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**

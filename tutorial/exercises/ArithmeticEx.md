@@ -2,6 +2,8 @@
 title: JML Tutorial - Exercises - Arithmetic
 ---
 # Arithmetic Exercises:
+##**[Arithmetic Tutorial](https://www.openjml.org/tutorial/ArithmeticModes)**
+
 ## **Question 1**
 **Given the function below determine the strongest preconditions needed to verify the function.**
 ```Java
@@ -43,3 +45,4 @@ public int updatePlayerHealth(int dmg) {
 + Understand how to write specifications that reflect the requirements and outputs wanted  
 
 ## **[Answer Key](ArithmeticExKey.md)**
+## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**

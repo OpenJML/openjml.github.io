@@ -2,6 +2,8 @@
 title: JML Tutorial - Exercises - Visibility
 ---
 # Visibility Exercises:
+##**[Visibility Tutorial](https://www.openjml.org/tutorial/Visibility)**
+
 ## **Question 1**
 **The program given below is unable to be verified; determine where in the specifications it is failing, and fix it.**
 ```Java
@@ -39,4 +41,4 @@ public class VisibilityExample1 {
 + Gain more experience with using the `assigns` clause
 
 ## **[Answer Key](VisibilityExKey.md)**
-
+## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**

@@ -2,6 +2,8 @@
 title: JML Tutorial - Exercises - Arithmetic
 ---
 # Arithmetic Exercises Key:
+##**[Arithmetic Tutorial](https://www.openjml.org/tutorial/ArithmeticModes)**
+
 ## **Question 1**
 **Given the function below determine the strongest preconditions needed to verify the function.**
 ```Java
@@ -115,3 +117,4 @@ The goal of this exercise is to see if the student understands how they need to 
 + [Arithmetic Exercises](ArithmeticEx.md)
 + [Question 1 Java](ArithmeticExample1.java)
 + [Question 2 Java](ArithmeticExample2.java)
++ [All exercises](https://www.openjml.org/tutorial/exercises/exercises)

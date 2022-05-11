@@ -2,6 +2,8 @@
 title: JML Tutorial - Exercises - Method Specifications
 ---
 # Method Specifications Exercises:
+##**[Method Specifications Tutorial](https://www.openjml.org/tutorial/OldAndOrdering)**
+
 ## **Question 1**
 **Given the program below, correct the order of the specifications for easier readability.**
 ```Java
@@ -48,3 +50,4 @@ public class Pet {
 + Understand that the order of preconditions do matter
 
 ## **[Answer Key](MethodSpecificationsExKey.md)**
+## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**

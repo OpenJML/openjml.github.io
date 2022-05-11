@@ -2,6 +2,8 @@
 title: JML Tutorial - Exercises - Speciyfing Exceptions
 ---
 # Speciyfing Exceptions Exercises:
+##**[Specifying Exceptions Tutorial](https://www.openjml.org/tutorial/SpecifyingExceptions)**
+
 ## **Question 1**
 **Given the function below, what additional specifications are needed to verify the function?**
 ```Java
@@ -40,3 +42,4 @@ public int elementAtIndex(int[] arr, int index) {
 + Introduction to the `also` clause
 
 ## **[Answer Key](SpecifyingExceptionsExKey.md)**
+## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**

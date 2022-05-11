@@ -2,6 +2,8 @@
 title: JML Tutorial - Exercises - Assert Statements
 ---
 # Assert Statements Exercises Key:
+##**[Assert Statements Tutorial](https://www.openjml.org/tutorial/AssertStatement)**
+
 ## **Question 1**
 **Given the code below determine the any specifications needed to verify the function, as well as the assert statements where indicated**
 ```Java
@@ -114,3 +116,4 @@ The goal of this exercise is to see if the student can identify what assertions 
 + [Assert Statements Exercises](AssertEx.md)
 + [Question 1 Java](AssertExample1.java)
 + [Question 2 Java](AssertExample2.java)
++ [All exercises](https://www.openjml.org/tutorial/exercises/exercises)

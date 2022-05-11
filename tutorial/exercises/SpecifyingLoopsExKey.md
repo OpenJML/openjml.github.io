@@ -2,6 +2,8 @@
 title: JML Tutorial - Exercises - Specifying Loops
 ---
 # Specifying Loops Exercises Key:
+##**[Specifying Loops Tutorial](https://www.openjml.org/tutorial/Loops)**
+
 ## **Question 1**
 **(a) Determine the strongest specifications needed to verify the function.**
 ```Java
@@ -134,3 +136,4 @@ The goal of this exercise is to give the student more experience with writing sp
 + [Specifying Loops Exercises](SpecifyingLoopsEx.md)
 + [Question 1 part (a) Java](SpecifyingLoopsExample1a.java)
 + [Question 1 part (b) Java](SpecifyingLoopsExample1b.java)
++ [All exercises](https://www.openjml.org/tutorial/exercises/exercises)

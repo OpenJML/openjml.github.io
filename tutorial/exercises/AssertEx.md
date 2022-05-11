@@ -2,6 +2,8 @@
 title: JML Tutorial - Exercises - Assert Statements
 ---
 # Assert Statements Exercises:
+##**[Assert Statements Tutorial](https://www.openjml.org/tutorial/AssertStatement)**
+
 ## **Question 1**
 **Given the code below determine the any specifications needed to verify the function, as well as the assert statements where indicated.**
 ```Java
@@ -49,3 +51,4 @@ public boolean primeChecker(int num) {
 + Gain more experience writing `assert` statements
 
 ## **[Answer Key](AssertExKey.md)**
+## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**

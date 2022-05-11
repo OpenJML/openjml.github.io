@@ -2,6 +2,8 @@
 title: JML Tutorial - Exercises - Preconditions
 ---
 # Precondition Exercises Key:
+##**[Preconditions Tutorial](https://www.openjml.org/tutorial/Preconditions)**
+
 ## **Question 1**
 **The function below will update a user's bank account after making a purchase of a certain number of items. We want to make sure that the user's bank account is never below $0.00. What specifications can we implement to ensure that the user's bank account is never negative?**
 ```Java
@@ -188,3 +190,4 @@ The goal of this exercise is to test if the user understands how requirements mi
 + [Precondition Exercises](PreConEx.md)
 + [Question 1 Java](PreconditionExample1.java)
 + [Question 2 Java](PreconditionExample2.java)
++ [All exercises](https://www.openjml.org/tutorial/exercises/exercises)

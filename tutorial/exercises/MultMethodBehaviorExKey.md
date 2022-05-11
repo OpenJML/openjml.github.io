@@ -2,6 +2,8 @@
 title: JML Tutorial - Exercises - Multiple Method Behavior
 ---
 # Multiple Method Behavior Exercises:
+##**[Multiple Method Behavior Tutorial](https://www.openjml.org/tutorial/MultipleBehaviors)**
+
 ## **Question 1**
 **Given the function below, determine the strongest specifications needed to verify the function below.**
 ```Java
@@ -47,3 +49,4 @@ The goal of this exercise is to task the student identifying all the specificati
 ## **Resources:**
 + [Multiple Method Behavior Exercises](MultMethodBehaviorEx.md)
 + [Question 1 Java](MethodBehaviorsExample1.java)
++ [All exercises](https://www.openjml.org/tutorial/exercises/exercises)

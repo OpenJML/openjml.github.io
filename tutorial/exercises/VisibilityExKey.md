@@ -2,6 +2,8 @@
 title: JML Tutorial - Exercises - Visibility
 ---
 # Visibility Exercises Key:
+##**[Visibility Tutorial](https://www.openjml.org/tutorial/Visibility)**
+
 ## **Question 1**
 **The program given below is unable to be verified; determine where in the specifications it is failing, and fix it.**
 ```Java
@@ -72,4 +74,4 @@ The goal of this exercise is to test if the student understands when to specify 
 ## **Resources:**
 + [Visibility Exercises](VisibilityEx.md)
 + [Question 1 Java](VisibilityExample1.java)
-
++ [All exercises](https://www.openjml.org/tutorial/exercises/exercises)

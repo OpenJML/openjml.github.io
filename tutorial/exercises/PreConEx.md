@@ -2,6 +2,8 @@
 title: JML Tutorial - Exercises - Preconditions
 ---
 # Precondition Exercises:
+##**[Preconditions Tutorial](https://www.openjml.org/tutorial/Preconditions)**
+
 ## **Question 1**
 **The function below will update a user's bank account after making a purchase of a certain number of items. We want to make sure that the user's bank account is never below $0.00. What specifications can we implement to ensure that the user's bank account is never negative?**
 ```Java
@@ -27,3 +29,4 @@ NaN stands for “not a number” and occurs when a floating point operation has
 + Understand the usefulness of using preconditions to check inputs to the code 
 
 ## **[Answer Key](PreConExKey.md)**
+## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**

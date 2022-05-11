@@ -2,6 +2,8 @@
 title: JML Tutorial - Exercises - Specifying Constructors 
 ---
 # Specifying Constructors Exercises Key:
+##**[Specifying Constructors Tutorial](https://www.openjml.org/tutorial/Constructors)**
+
 ## **Question 1**
 **(a) Determine the specifications needed to verify the program below.**
 ```Java
@@ -261,3 +263,4 @@ The goal of this exercise is to show the student more exercises that uses the `p
 + [Specifying Constructors Exercises](SpecifyingConstructorsEx.md)
 + [Question 1 Java](Student.java)
 + [Question 2 Java](Book.java)
++ [All exercises](https://www.openjml.org/tutorial/exercises/exercises)

@@ -2,6 +2,8 @@
 title: JML Tutorial - Exercises - Well-defined Expressions
 ---
 # Well-defined Expressions Exercises Key:
+##**[Well-defined Expressions Tutorial](https://www.openjml.org/tutorial/WellDefinedExpressions)**
+
 ## **Question 1**
 **The function given below is unable to be verified; determine where in the specifications it is failing, and fix it. Explain why the current specifications are not well-defined.**
 ```Java
@@ -43,4 +45,5 @@ The goal of this exercise is to see if the student understands why the current J
 ## **Resources:**
 + [Well-defined Expressions Exercises](WellDefinedEx.md)
 + [Question 1 Java](WellDefinedExample1.java)
++ [All exercises](https://www.openjml.org/tutorial/exercises/exercises)
 

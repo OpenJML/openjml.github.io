@@ -2,6 +2,8 @@
 title: JML Tutorial - Exercises - JML Expressions
 ---
 # JML Expressions Exercises Key:
+##**[JML Expressions Tutorial](https://www.openjml.org/tutorial/Expressions)**
+
 ## **Question 1**
 **Take a look at the following function that checks if the number passed is prime. We've seen this code before, but now that you've read about JML Expressions, what can now be ensured about the function?**
 ```Java
@@ -126,3 +128,4 @@ The goal of this exercise is to further check if the student understands how JML
 + [JML Expressions Exercises](JmlExprEx.md)
 + [Question 1 Java](JMLExprExample1.java)
 + [Question 2 Java](JMLExprExample2.java)
++ [All exercises](https://www.openjml.org/tutorial/exercises/exercises)

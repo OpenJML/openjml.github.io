@@ -2,6 +2,8 @@
 title: JML Tutorial - Exercises - Specifying Constructors 
 ---
 # Specifying Constructors Exercises:
+##**[Specifying Constructors Tutorial](https://www.openjml.org/tutorial/Constructors)**
+
 ## **Question 1**
 **(a) Determine the specifications needed to verify the program below.**
 **(b) Explain why the program can assert s1.id < s2.id in the createStudents() function.**
@@ -95,4 +97,4 @@ public class Book {
 + Gain more experience writing the specifications for constructors 
 
 ## **[Answer Key](SpecifyingConstructorsExKey.md)**
-
+## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**

@@ -2,6 +2,8 @@
 title: JML Tutorial - Exercises - Assume Statements
 ---
 # Assume Statements Exercises Key:
+##**[Assume Statements Tutorial](https://www.openjml.org/tutorial/AssumeStatement)**
+
 ## **Question 1**
 **Given the function below, determine the specifications needed to verify the function, as well as including the assume statements where indicated.**
 ```Java
@@ -183,4 +185,4 @@ The goal of this exercise is to check if the student understands how the `assume
 + [Assume Statements Exercises](AssumeEx.md)
 + [Question 1 Java](AssumeExample1.java)
 + [Question 2 Java](AssumeExample2.java)
-
++ [All exercises](https://www.openjml.org/tutorial/exercises/exercises)

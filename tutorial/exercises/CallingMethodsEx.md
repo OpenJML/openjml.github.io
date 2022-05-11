@@ -2,6 +2,8 @@
 title: JML Tutorial - Exercises - Using Method Calls in Specifications 
 ---
 # Using Method Calls in Specifications Exercises:
+##**[Using Method Calls in Specifications Tutorial](https://www.openjml.org/tutorial/MethodsInSpecifications)**
+
 ## **Question 1**
 **(a) The program given below is unable to be verified; determine where in the specifications it is failing, and explain why it's failing.**
 **(b) Edit the code so that the original specifications verify the program.**
@@ -57,3 +59,4 @@ public class CallingMethodsExample2 {
 + Gain more experience with working with `assaigns` and `pure` 
 
 ## **[Answer Key](CallingMethodsExKey.md)**
+## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**

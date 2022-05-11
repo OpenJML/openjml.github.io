@@ -2,6 +2,8 @@
 title: JML Tutorial - Exercises - Verifying Method Calls
 ---
 # Verifying Method Calls Exercises:
+##**[Verifying Method Calls Tutorial](https://www.openjml.org/tutorial/MethodCalls)**
+
 ## **Question 1**
 **Write two functions that perform the following: an function that adds two integer arrays and a function that returns true if the arrays to be added are of the same size. Use the following function headers to help you. Determine the specifications needed to verify your functions.**
 ```Java
@@ -39,3 +41,4 @@ public int area(int w, int h) {
 + Gain more experience with the process of verifying method calls
 
 ## **[Answer Key](VerifyingMethodCallsExKey.md)**
+## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**

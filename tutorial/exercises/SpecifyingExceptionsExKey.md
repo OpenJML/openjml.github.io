@@ -2,6 +2,8 @@
 title: JML Tutorial - Exercises - Speciyfing Exceptions
 ---
 # Speciyfing Exceptions Exercises Key:
+##**[Specifying Exceptions Tutorial](https://www.openjml.org/tutorial/SpecifyingExceptions)**
+
 ## **Question 1**
 **Given the function below, what additional specifications are needed to verify the function?**
 ```Java
@@ -114,4 +116,4 @@ The goal of this exercise is to see if the student understands how signals can b
 + [Specifying Exceptions Exercises](SpecifyingExceptionsEx.md)
 + [Question 1 Java](SpecifyingExceptionsExample1.java)
 + [Question 2 Java](SpecifyingExceptionsExample2.java)
-
++ [All exercises](https://www.openjml.org/tutorial/exercises/exercises)

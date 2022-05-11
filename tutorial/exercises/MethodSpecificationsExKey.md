@@ -2,6 +2,8 @@
 title: JML Tutorial - Exercises - Method Specifications
 ---
 # Method Specifications Exercises Key:
+##**[Method Specifications Tutorial](https://www.openjml.org/tutorial/OldAndOrdering)**
+
 ## **Question 1**
 **Given the program below, correct the order of the specifications for easier readability.**
 ```Java
@@ -90,3 +92,4 @@ The goal of this exercise is to simply check that the student understands that w
 ## **Resources:**
 + [Method Specifications Exercises](MethodSpecificationsEx.md)
 + [Question 1 Java](Pet.java)
++ [All exercises](https://www.openjml.org/tutorial/exercises/exercises)

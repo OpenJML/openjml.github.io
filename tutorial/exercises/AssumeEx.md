@@ -2,6 +2,8 @@
 title: JML Tutorial - Exercises - Assume Statements
 ---
 # Assume Statements Exercises:
+##**[Assume Statements Tutorial](https://www.openjml.org/tutorial/AssumeStatement)**
+
 ## **Question 1**
 **Given the function below, determine the specifications needed to verify the function, as well as including the assume statements where indicated.**
 ```Java
@@ -56,4 +58,5 @@ public int sortFindMax(int[] a) {
 + Understand the differences between `assume` and `assert`
 
 ## **[Answer Key](AssumeExKey.md)**
+## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**
 
