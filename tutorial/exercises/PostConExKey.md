@@ -2,6 +2,8 @@
 title: JML Tutorial - Exercises - Postconditions
 ---
 # Postcondition Exercises Key:
+##[Postconditions Tutorial](https://www.openjml.org/tutorial/Postconditions)
+
 ## **Question 1**
 **(a) Suppose that the function below had its specifications changed for num, where num is updated so that it only has to be greater than -1. Determine why this would cause an error, and how you could fix the remaining specifications to verify the function.**
 ```Java
@@ -94,3 +96,4 @@ The goal of this exercise is to teach students how to find all the pre/postcondi
 + [Postcondition Exercises](PostConEx.md)
 + [Question 1 Java](PostconditionExample1.java)
 + [Question 2 Java](PostconditionExample2.java)
++ [All exercises](https://www.openjml.org/tutorial/exercises/exercises)**
