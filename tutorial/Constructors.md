@@ -66,5 +66,6 @@ The implementation of these constructors is so simple, and common, that one migh
 
 TODO- say more about the whole initialization process and initializer specs.
 
+## **[Specifying Constructors Problem Set](https://www.openjml.org/tutorial/exercises/SpecifyingConstructorsEx.html)**
 
 <i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>

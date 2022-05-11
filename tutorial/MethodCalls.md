@@ -187,4 +187,6 @@ produces just
 The exit code 6 indicates that verification errors were found (but no parsing
 or type-checking or command-line or system errors).
 
+## **[Veriyfing Method Calls Problem Set](https://www.openjml.org/tutorial/exercises/VerifyingMethodCallsEx.html)**
+
 <i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>

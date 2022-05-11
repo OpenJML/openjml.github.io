@@ -171,6 +171,6 @@ means the clause has a long list. (All the method specifications in the
 tutorial lessons so far have just one specification case; an advanced lesson
 presents [multiple specification cases](SpecificationCases).)
 
-
+## **[Frame Consitions Problem Set](https://www.openjml.org/tutorial/exercises/FrameCondEx.html)**
 
 <i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>

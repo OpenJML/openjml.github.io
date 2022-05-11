@@ -110,3 +110,4 @@ methods of the class are themselves `pure`. This is a useful part of
 specifying an _immutable_ class, one whose objects may not be changed after
 being created. Java's `String` and `Integer` are two examples of immutable classes.
 
+## **[Using Method Calls in Specifications Problem Set](https://www.openjml.org/tutorial/exercises/CallingMethodsEx.html)**
