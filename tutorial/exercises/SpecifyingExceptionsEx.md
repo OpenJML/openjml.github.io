@@ -1,7 +1,7 @@
 ---
 title: JML Tutorial - Exercises - Speciyfing Exceptions
 ---
-# Speciyfing Exceptions Exercises:
+# Specifying Exceptions Exercises:
 ## [Specifying Exceptions Tutorial](https://www.openjml.org/tutorial/SpecifyingExceptions)
 
 ## **Question 1**
