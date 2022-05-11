@@ -2,7 +2,7 @@
 title: JML Tutorial - Exercises - JML Expressions
 ---
 # JML Expressions Exercises:
-##**[JML Expressions Tutorial](https://www.openjml.org/tutorial/Expressions)**
+## **[JML Expressions Tutorial](https://www.openjml.org/tutorial/Expressions)**
 
 ## **Question 1**
 **Take a look at the following function that checks if the number passed is prime. We've seen this code before, but now that you've read about JML Expressions, what can now be ensured about the function?**

@@ -2,7 +2,7 @@
 title: JML Tutorial - Exercises - Specifying Loops
 ---
 # Specifying Loops Exercises:
-##**[Specifying Loops Tutorial](https://www.openjml.org/tutorial/Loops)**
+## **[Specifying Loops Tutorial](https://www.openjml.org/tutorial/Loops)**
 
 ## **Question 1**
 **(a) Determine the strongest specifications needed to verify the function.**

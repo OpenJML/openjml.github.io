@@ -2,7 +2,7 @@
 title: JML Tutorial - Exercises - Arithmetic
 ---
 # Arithmetic Exercises:
-##**[Arithmetic Tutorial](https://www.openjml.org/tutorial/ArithmeticModes)**
+## **[Arithmetic Tutorial](https://www.openjml.org/tutorial/ArithmeticModes)**
 
 ## **Question 1**
 **Given the function below determine the strongest preconditions needed to verify the function.**

@@ -2,7 +2,7 @@
 title: JML Tutorial - Exercises - Speciyfing Exceptions
 ---
 # Speciyfing Exceptions Exercises:
-##**[Specifying Exceptions Tutorial](https://www.openjml.org/tutorial/SpecifyingExceptions)**
+## **[Specifying Exceptions Tutorial](https://www.openjml.org/tutorial/SpecifyingExceptions)**
 
 ## **Question 1**
 **Given the function below, what additional specifications are needed to verify the function?**

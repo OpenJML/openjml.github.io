@@ -2,7 +2,7 @@
 title: JML Tutorial - Exercises - Postconditions
 ---
 # Postcondition Exercises:
-##**[Postconditions Tutorial](https://www.openjml.org/tutorial/Postconditions)**
+## **[Postconditions Tutorial](https://www.openjml.org/tutorial/Postconditions)**
 
 ## **Question 1**
 **(a) Suppose that the function below had its specifications changed for num, where num is updated so that it only has to be greater than -1. Determine why this would cause an error, and how you could fix the remaining specifications to verify the function.**
