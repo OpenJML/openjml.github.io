@@ -11,7 +11,7 @@ A simple class with a few data fields might have constructors that look like thi
 
 The first constructor simply initializes the fields from the constructor's argument list. The specification for the constructor first requires that the 
 input values are non-negative and then simply says that aftger the constructor is finished, the newly constructed object's data fields equal the input
-values. The heading `normal_behavior` says that the constructor does not throw any exceptions; it is discussed further [here](TBD).
+values. The heading `normal_behavior` says that the constructor does not throw any exceptions; it is discussed further [here](MultipleBehaviors).
 There is also the modifier `pure`; more on that below.
 
 The second constructor is similar to the first. The specification is perhaps less obvious because of the constructor call (the `this` call) of the first
@@ -25,7 +25,7 @@ fields of the new object itself. If something else were assigned, say a static f
 {% include_relative T_constructors2.java %}
 ``` 
 
-(More on pure methods [here](TBD).)
+(More on pure methods [here](MethodsInSpecifications).)
 This specification is also readily verified, though it needs the precondition to be sure that we don't overflow the `count` field -- more on arithmetic overflows [here](ArithmeticModes).
 
 The implementation of these constructors is so simple, and common, that one might think that inferring the specification from the implementation should be easy. Indeed such specification inference is a not-yet-implemented goal that would reduce some of the specification-writing burden.

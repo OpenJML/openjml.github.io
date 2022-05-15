@@ -5,7 +5,7 @@ F=temp_file
 ./checklinks
 
 for f in *.md ; do
-  grep -e "^title: JML Tutorial - " $f > /dev/null || echo $f has incorrect title line
+  grep -e "^title: JML Tutorial - " $f > /dev/null || if [ $f != "index.md" ]; then echo $f has incorrect title line ; fi
   if [ `grep -e '^---$' $f | wc -l` != "2" ] ; then echo "$f does not have two --- lines" ; fi
   egrep -e 'TBD|TODO' $f  > /dev/null &&  echo "$f has TBD or TODO markings" 
 done

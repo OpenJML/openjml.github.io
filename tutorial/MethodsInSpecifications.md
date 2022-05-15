@@ -68,7 +68,7 @@ clients of the method need.
 
 ## Well-defined method calls
 
-[The lesson on well-defined expressions](TBD) described how expressions in
+[The lesson on well-defined expressions](WellDefinedExpressions) described how expressions in
 specifications must be well-defined. For a method call, that means two things:
 (a) the pre-conditions of the method must be fulfilled and (b) the method may
 not throw any exceptions.

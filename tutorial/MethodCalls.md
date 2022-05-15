@@ -51,7 +51,7 @@ the `-progress` option, so we receive quite a bit more output.
 Looking at this piece by piece:
 * The method `lessThanDouble` requires positive inputs with the first argument
 larger than the second. It returns true if the first argument is less than double the second. The method proves without a problem. For now, ignore the 
-feasibility checks. [A later lesson](FeasibilityChecks) will explain those.
+feasibility checks. [A later lesson](Feasibility) will explain those.
 If you want you can turn off those checks for now with the option `-checkFeasibility=none`.
 The output about `lessThanDouble` is near the end of the listing.
 * The default constructor `T_CallerCallee()` also verifies without problem.

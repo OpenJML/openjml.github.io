@@ -79,7 +79,7 @@ A shorthand way to say that a method `assigns \nothing;` is to designate it `pur
 //@ pure
 public void m() { ... }
 ```
-though there are a few other details to purity --- see the [lesson on pure](Pure).
+though there are a few other details to purity --- see the [lesson on pure](MethodsInSpecifications).
 
 There are two other points to know about frame conditions. First, where a frame condition clause includes expressions, such as the indices of array expressions, those expressions are evaluated in the pre-state, not the post-state.
 
@@ -111,7 +111,7 @@ not the case, for historical reasons. The advice is then to
 *have only one frame condition clause per specification (case)*, even if that
 means the clause has a long list. (All the method specifications in the
 tutorial lessons so far have just one specification case; an advanced lesson
-presents [multiple specification cases](SpecificationCases).)
+presents [multiple specification cases](MultipleBehaviors).)
 
 
 ## **[Frame Conditions Problem Set](https://www.openjml.org/tutorial/exercises/FrameCondEx.html)**
