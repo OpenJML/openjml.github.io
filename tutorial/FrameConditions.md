@@ -114,5 +114,5 @@ tutorial lessons so far have just one specification case; an advanced lesson
 presents [multiple specification cases](SpecificationCases).)
 
 
-## **[Frame Consitions Problem Set](https://www.openjml.org/tutorial/exercises/FrameCondEx.html)**
+## **[Frame Conditions Problem Set](https://www.openjml.org/tutorial/exercises/FrameCondEx.html)**
 

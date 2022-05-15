@@ -146,4 +146,4 @@ which produces
 {% include_relative  T_LoopNegativeError.out %}
 ```
 
-## **[Speciyfing Loops Problem Set](https://www.openjml.org/tutorial/exercises/SpecifyingLoopsEx.html)**
+## **[Specifying Loops Problem Set](https://www.openjml.org/tutorial/exercises/SpecifyingLoopsEx.html)**
