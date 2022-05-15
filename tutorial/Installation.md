@@ -17,4 +17,4 @@ You can check that the installation is working by running `openjml -version`.
 Instructions on running `openjml` and executing the tutorial examples are
 [here](Execution).
 
-<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
+

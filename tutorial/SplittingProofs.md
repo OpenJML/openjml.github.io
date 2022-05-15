@@ -19,88 +19,25 @@ as intuitive.
 
 Here is a simple example with some obvious seeded errors:
 ```
-// openjml --esc T_halt1.java
-public class T_halt1 {
-
-  //@ ensures \result == 0;
-  public int m(int i) {
-    if (i >= 0) {
-      //@ assert i < 10;
-    } else {
-      //@ assert i < -10;
-    }
-    return i;
-  }
-}
-  
+{% include_relative T_halt1.java %}
 ```
 produces
 ```
-T_halt1.java:9: verify: The prover cannot establish an assertion (Assert) in method m
-      //@ assert i < -10;
-          ^
-T_halt1.java:11: verify: The prover cannot establish an assertion (Postcondition: T_halt1.java:4:) in method m
-    return i;
-    ^
-T_halt1.java:4: verify: Associated declaration: T_halt1.java:11:
-  //@ ensures \result == 0;
-      ^
-T_halt1.java:7: verify: The prover cannot establish an assertion (Assert) in method m
-      //@ assert i < 10;
-          ^
-4 verification failures
+{% include_relative T_halt1.out %}
 ```
 (The failures are reported in a non-deterministic order.)
 Adding two halt statements before the assertions omits both assertions and the postconditions from analysis:
 ```
-// openjml --esc T_halt2.java
-public class T_halt2 {
-
-  //@ ensures \result == 0;
-  public int m(int i) {
-    if (i >= 0) {
-      //@ halt;
-      //@ assert i < 10;
-    } else {
-      //@ halt;
-      //@ assert i < -10;
-    }
-    return i;
-  }
-}
-  
+{% include_relative T_halt2.java %}
 ```
 has no errors.
 Removing one halt statement and leaving the other will trigger one of the assertions and the postcondition.
 ```
-// openjml --esc T_halt3.java
-public class T_halt3 {
-
-  //@ ensures \result == 0;
-  public int m(int i) {
-    if (i >= 0) {
-      //@ assert i < 10;
-    } else {
-      //@ halt;
-      //@ assert i < -10;
-    }
-    return i;
-  }
-}
-  
+{% include_relative T_halt3.java %}
 ```
 produces
 ```
-T_halt3.java:7: verify: The prover cannot establish an assertion (Assert) in method m
-      //@ assert i < 10;
-          ^
-T_halt3.java:12: verify: The prover cannot establish an assertion (Postcondition: T_halt3.java:4:) in method m
-    return i;
-    ^
-T_halt3.java:4: verify: Associated declaration: T_halt3.java:12:
-  //@ ensures \result == 0;
-      ^
-3 verification failures
+{% include_relative T_halt3.out %}
 ```
 
 ## The split statement and --split option
@@ -121,85 +58,11 @@ Each split of the method body has a alphabetic designator, like 'ABA', which tel
 
 Here is a bare-bones example:
 ```
-// openjml --esc --split= --progress --no-show-summary T_split1.java
-public class T_split1 {
-  //@ ensures i == 2;
-  public static int m(int i) {
-    boolean p = i > 0;
-    //@ split;
-    if (p) {
-      //@ split;
-      switch (i) {
-        case 1: break;
-        case 2: break;
-        default: break;
-      }
-    } else {
-    }
-    //@ show p,i;
-    return i;
-  }
-}
+{% include_relative T_split1.java %}
 ```
 which produces
 ```
-Proving methods in T_split1
-Starting proof of T_split1.T_split1() with prover z3_4_3
-Method assertions are validated
-Completed proof of T_split1.T_split1() with prover z3_4_3 - no warnings
-Starting proof of T_split1.m(int) with prover z3_4_3
-Proof attempt for split AA
-T_split1.m Method assertions are INVALID
-T_split1.java:16: verify: Show statement expression p has value true
-    //@ show p,i;
-             ^
-T_split1.java:16: verify: Show statement expression i has value 1
-    //@ show p,i;
-               ^
-T_split1.java:17: verify: The prover cannot establish an assertion (Postcondition: T_split1.java:3:) in method m
-    return i;
-    ^
-T_split1.java:3: verify: Associated declaration: T_split1.java:17:
-  //@ ensures i == 2;
-      ^
-Result of split AA is Not verified
-Proof attempt for split AB
-Method assertions are validated
-Result of split AB is Verified
-Proof attempt for split AC
-T_split1.m Method assertions are INVALID
-T_split1.java:16: verify: Show statement expression p has value true
-    //@ show p,i;
-             ^
-T_split1.java:16: verify: Show statement expression i has value 3
-    //@ show p,i;
-               ^
-T_split1.java:17: verify: The prover cannot establish an assertion (Postcondition: T_split1.java:3:) in method m
-    return i;
-    ^
-T_split1.java:3: verify: Associated declaration: T_split1.java:17:
-  //@ ensures i == 2;
-      ^
-Result of split AC is Not verified
-Proof attempt for split B
-T_split1.m Method assertions are INVALID
-T_split1.java:16: verify: Show statement expression p has value false
-    //@ show p,i;
-             ^
-T_split1.java:16: verify: Show statement expression i has value 0
-    //@ show p,i;
-               ^
-T_split1.java:17: verify: The prover cannot establish an assertion (Postcondition: T_split1.java:3:) in method m
-    return i;
-    ^
-T_split1.java:3: verify: Associated declaration: T_split1.java:17:
-  //@ ensures i == 2;
-      ^
-Result of split B is Not verified
-Composite result Not verified
-Completed proof of T_split1.m(int) with prover z3_4_3 - with warnings
-Completed proving methods in T_split1
-12 verification failures
+{% include_relative T_split1.out %}
 ```
 First a few details:
 * We use the `--progress` option so we can see what is happening (always use that option with splits, at least until they are all succdessful)
@@ -216,35 +79,7 @@ OpenJML attempts verification for each of these in turn.
 
 We can rerun this for just two of the splits by using the option `--split=AB,B`, giving
 ```
-Proving methods in T_split1
-Starting proof of T_split1.T_split1() with prover !!!!
-Skipping proof attempt for split 
-No matching splits
-Completed proof of T_split1.T_split1() with prover !!!! - ERROR
-Starting proof of T_split1.m(int) with prover !!!!
-Skipping proof attempt for split AA
-Proof attempt for split AB
-Feasibility check - end of preconditions : OK
-Result of split AB is Verified
-Skipping proof attempt for split AC
-Proof attempt for split B
-T_split1.java:16: warning: Show statement expression p has value false
-    //@ show p,i;
-             ^
-T_split1.java:16: warning: Show statement expression i has value ( - 2147483610 )
-    //@ show p,i;
-               ^
-T_split1.java:17: warning: The prover cannot establish an assertion (Postcondition) in method m
-    return i;
-    ^
-T_split1.java:3: warning: Associated declaration
-  //@ ensures i == 2;
-      ^
-Result of split B is Not verified
-Composite result Not verified with 2 splits skipped
-Completed proof of T_split1.m(int) with prover !!!! - with warnings
-Completed proving methods in T_split1
-4 warnings
+{% include_relative T_split2.out %}
 ```
 
 ## Block specifications
@@ -296,4 +131,4 @@ Here is a worked example.
 TBD
 
 
-<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
+

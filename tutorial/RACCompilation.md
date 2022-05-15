@@ -15,13 +15,7 @@ options.
 
 For example,
 ```
-// openjml --rac T_Rac1.java
-public class T_Rac1 {
-
-  public static void main(String... args) {
-    //@ assert args.length == 1;
-  }
-}
+{% include_relative T_Rac1.java %}
 ```
 compiles with `openjml -rac T_Rac1.java` to produce a `T_Rac1.class` file.
 
@@ -40,9 +34,7 @@ runtime libraries needed for RAC. So to run the program compiled above one just 
 
 producing
 ```
-T_Rac1.java:5: verify: JML assertion is false
-    //@ assert args.length == 1;
-        ^
+{% include_relative T_Rac2.out %}
 ```
 
 If you run it with one command-line argument, then the assertion in the program is true and does not produce any error messages:
@@ -58,9 +50,7 @@ above as
 
 producing
 ```
-T_Rac1.java:5: verify: JML assertion is false
-    //@ assert args.length == 1;
-        ^
+{% include_relative T_Rac3.out %}
 ``` 
 
-<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
+

@@ -10,69 +10,19 @@ The first bit of evidence to consider is the name of the assertion failure. For 
 
 A failed proof means that the prover found some set of input values that caused a violation of some assertion. So an easy first step is to ask for the values of relevant program variables. Consider this example:
 ```
-// openjml --esc T_show1.java
-public class T_show1 {
-  //@ ensures \result >= a && \result >= b && \result >= c && \result >= d;
-  //@ ensures \result == a || \result == b || \result == c || \result == d;
-  int max(int a, int b, int c, int d) {
-    int maxSoFar = a;
-    if (b > maxSoFar) maxSoFar = b;
-    if (c > maxSoFar) maxSoFar = c;
-    if (d > maxSoFar) maxSoFar = c;
-    return maxSoFar;
-  }
-}
+{% include_relative T_show1.java %}
 ```
 which produces
 ```
-T_show1.java:10: verify: The prover cannot establish an assertion (Postcondition: T_show1.java:3:) in method max
-    return maxSoFar;
-    ^
-T_show1.java:3: verify: Associated declaration: T_show1.java:10:
-  //@ ensures \result >= a && \result >= b && \result >= c && \result >= d;
-      ^
-2 verification failures
+{% include_relative T_show1.out %}
 ```
 So there is an error somewhere. Now if we insert a `show` statement, we can see an example of values that produce the problem.
 ```
-// ## openjml --esc T_show2.java
-public class T_show2 {
-  //@ ensures \result >= a && \result >= b && \result >= c && \result >= d;
-  //@ ensures \result == a || \result == b || \result == c || \result == d;
-  int max(int a, int b, int c, int d) {
-    int maxSoFar = a;
-    if (b > maxSoFar) maxSoFar = b;
-    if (c > maxSoFar) maxSoFar = c;
-    if (d > maxSoFar) maxSoFar = b;
-    //@ show a, b, c, d, maxSoFar;
-    return maxSoFar;
-  }
-}
+{% include_relative T_show2.java %}
 ```
 which produces
 ```
-T_show2.java:10: verify: Show statement expression a has value ( - 2147480361 )
-    //@ show a, b, c, d, maxSoFar;
-             ^
-T_show2.java:10: verify: Show statement expression b has value ( - 2147480362 )
-    //@ show a, b, c, d, maxSoFar;
-                ^
-T_show2.java:10: verify: Show statement expression c has value ( - 2147477363 )
-    //@ show a, b, c, d, maxSoFar;
-                   ^
-T_show2.java:10: verify: Show statement expression d has value ( - 2147477362 )
-    //@ show a, b, c, d, maxSoFar;
-                      ^
-T_show2.java:10: verify: Show statement expression maxSoFar has value ( - 2147480362 )
-    //@ show a, b, c, d, maxSoFar;
-                         ^
-T_show2.java:11: verify: The prover cannot establish an assertion (Postcondition: T_show2.java:3:) in method max
-    return maxSoFar;
-    ^
-T_show2.java:3: verify: Associated declaration: T_show2.java:11:
-  //@ ensures \result >= a && \result >= b && \result >= c && \result >= d;
-      ^
-7 verification failures
+{% include_relative T_show2.out %}
 ```
 The values shown are the result of a non-deterministic search; they might very well be different values on subsequent runs.
 Nevertheless, it appears that the value of `maxSoFar`, which is the value returned, is the same as `c`, or perhaps the max of `a`, `b`, and `c`,
@@ -92,56 +42,20 @@ expression in Java code.
 
 To illustrate the last bullet point above, consider
 ```
-// openjml --esc T_show3.java
-public class T_show3 {
-  //@ public invariant data.length >= 10;
-  //@ spec_public
-  private int[] data = new int[10];
-  //@ requires i >= 0;
-  public int data(int i) {
-    int r = data[i];
-    //@ show i, r;
-    return r;
-  }
-}
-
+{% include_relative T_show3.java %}
 ```
 which yields
 ```
-T_show3.java:8: verify: The prover cannot establish an assertion (PossiblyTooLargeIndex) in method data
-    int r = data[i];
-                ^
-1 verification failure
+{% include_relative T_show3.out %}
 ```
 There is no output from the `show` statement because it is after the violation.
 Instead if we put the `show` statement first, as in
 ```
-// openjml --esc T_show4.java
-public class T_show4 {
-  //@ public invariant data.length >= 10;
-  //@ spec_public
-  private int[] data = new int[10];
-  //@ requires i >= 0;
-  public int data(int i) {
-    //@ show i, data.length;
-    int r = data[i];
-    return r;
-  }
-}
-
+{% include_relative T_show4.java %}
 ```
 we are told
 ```
-T_show4.java:8: verify: Show statement expression i has value 1807
-    //@ show i, data.length;
-             ^
-T_show4.java:8: verify: Show statement expression data.length has value 1806
-    //@ show i, data.length;
-                ^
-T_show4.java:9: verify: The prover cannot establish an assertion (PossiblyTooLargeIndex) in method data
-    int r = data[i];
-                ^
-3 verification failures
+{% include_relative T_show4.out %}
 ```
 
 ## \lbl expression
@@ -152,40 +66,11 @@ For example, suppose you have a postcondition `ensures a+b < c+d;` which is fail
 `ensures (\lbl AB a+b) < (\lbl CD c+d);`.  The lbl expression just passes on its value (like a parenthesized expression), but records the value to report in 
 a counterexample. For example, we could try this on the example from the last subsection:
 ```
-// openjml --esc T_show2a.java
-public class T_show2a {
-  //@ ensures (\lbl A \result >= a) & (\lbl B \result >= b) & (\lbl C \result >= c) & (\lbl D \result >= d);
-  //@ ensures \result == a || \result == b || \result == c || \result == d;
-  int max(int a, int b, int c, int d) {
-    int maxSoFar = a;
-    if (b > maxSoFar) maxSoFar = b;
-    if (c > maxSoFar) maxSoFar = c;
-    if (d > maxSoFar) maxSoFar = b;
-    return maxSoFar;
-  }
-}
+{% include_relative T_show2a.java %}
 ```
 producing
 ```
-T_show2a.java:3: verify: Label A has value true
-  //@ ensures (\lbl A \result >= a) & (\lbl B \result >= b) & (\lbl C \result >= c) & (\lbl D \result >= d);
-                    ^
-T_show2a.java:3: verify: Label B has value true
-  //@ ensures (\lbl A \result >= a) & (\lbl B \result >= b) & (\lbl C \result >= c) & (\lbl D \result >= d);
-                                            ^
-T_show2a.java:3: verify: Label C has value false
-  //@ ensures (\lbl A \result >= a) & (\lbl B \result >= b) & (\lbl C \result >= c) & (\lbl D \result >= d);
-                                                                    ^
-T_show2a.java:3: verify: Label D has value false
-  //@ ensures (\lbl A \result >= a) & (\lbl B \result >= b) & (\lbl C \result >= c) & (\lbl D \result >= d);
-                                                                                            ^
-T_show2a.java:10: verify: The prover cannot establish an assertion (Postcondition: T_show2a.java:3:) in method max
-    return maxSoFar;
-    ^
-T_show2a.java:3: verify: Associated declaration: T_show2a.java:10:
-  //@ ensures (\lbl A \result >= a) & (\lbl B \result >= b) & (\lbl C \result >= c) & (\lbl D \result >= d);
-      ^
-6 verification failures
+{% include_relative T_show2a.out %}
 ```
 That information tells us that the problem has to do with inputs `c` and `d`. Note that the example changed from using short-circuiting `&&` to non-short-circuiting `&` and operators. Otherwise if the `\result >= a` conjunct is false, that value is reported, but the rest of the precondition is not evaluated.
 Though `\lbl` can be used in any specification expression, it is most useful in method specifications where a `show` statement cannot be placed.
@@ -201,96 +86,12 @@ TODO - example
 
 Using a `show` statement is handy but is a bit like debugging a program using print statements: you get some data, but you have to still manually review the program to see what might be going wrong, working through the code step by step. An additional openjml tool is the `--trace` option. Upon a failure, it outputs an execution trace ending at the point of the violation. So the first example above, using now `openjml --esc --trace T_show1.java`, produces
 ```
-T_show1.java:10: verify: The prover cannot establish an assertion (Postcondition: T_show1.java:3:) in method max
-    return maxSoFar;
-    ^
-T_show1.java:3: verify: Associated declaration: T_show1.java:10:
-  //@ ensures \result >= a && \result >= b && \result >= c && \result >= d;
-      ^
-
-TRACE of T_show1.max(int,int,int,int)
-T_show1.java:1: 	requires true; 
-T_show1.java:6: 	int maxSoFar = a
-T_show1.java:7: 	if (b > maxSoFar) ...
-				Condition = true
-T_show1.java:7: 	maxSoFar = b
-T_show1.java:8: 	if (c > maxSoFar) ...
-				Condition = true
-T_show1.java:8: 	maxSoFar = c
-T_show1.java:9: 	if (d > maxSoFar) ...
-				Condition = true
-T_show1.java:9: 	maxSoFar = c
-T_show1.java:10: 	return maxSoFar;
-T_show1.java:3: 	ensures \result >= a && \result >= b && \result >= c && \result >= d; 
-T_show1.java:10: Invalid assertion (Postcondition)
-: T_show1.java:3: Associated location
-
-2 verification failures
+{% include_relative T_show5.out %}
 ```
 This tells you the execution route to the violation. But more useful is the `--subexpressions` option, which will give additional information.
 Using `openjml --esc --subexpressions T_show1.java` we get
 ```
-T_show1.java:10: verify: The prover cannot establish an assertion (Postcondition: T_show1.java:3:) in method max
-    return maxSoFar;
-    ^
-T_show1.java:3: verify: Associated declaration: T_show1.java:10:
-  //@ ensures \result >= a && \result >= b && \result >= c && \result >= d;
-      ^
-
-TRACE of T_show1.max(int,int,int,int)
-T_show1.java:1: 	requires true; 
-			VALUE: true	 === true
-T_show1.java:6: 	int maxSoFar = a
-			VALUE: a	 === ( - 8946 )
-			VALUE: maxSoFar	 === ( - 8946 )
-T_show1.java:7: 	if (b > maxSoFar) ...
-			VALUE: b	 === ( - 8945 )
-			VALUE: maxSoFar	 === ( - 8946 )
-			VALUE: b > maxSoFar	 === true
-			VALUE: (b > maxSoFar)	 === true
-				Condition = true
-T_show1.java:7: 	maxSoFar = b
-			VALUE: b	 === ( - 8945 )
-			VALUE: maxSoFar = b	 === ( - 8945 )
-T_show1.java:8: 	if (c > maxSoFar) ...
-			VALUE: c	 === 1
-			VALUE: maxSoFar	 === ( - 8945 )
-			VALUE: c > maxSoFar	 === true
-			VALUE: (c > maxSoFar)	 === true
-				Condition = true
-T_show1.java:8: 	maxSoFar = c
-			VALUE: c	 === 1
-			VALUE: maxSoFar = c	 === 1
-T_show1.java:9: 	if (d > maxSoFar) ...
-			VALUE: d	 === 2
-			VALUE: maxSoFar	 === 1
-			VALUE: d > maxSoFar	 === true
-			VALUE: (d > maxSoFar)	 === true
-				Condition = true
-T_show1.java:9: 	maxSoFar = c
-			VALUE: c	 === 1
-			VALUE: maxSoFar = c	 === 1
-T_show1.java:10: 	return maxSoFar;
-			VALUE: maxSoFar	 === 1
-T_show1.java:3: 	ensures \result >= a && \result >= b && \result >= c && \result >= d; 
-			VALUE: \result	 === 1
-			VALUE: a	 === ( - 8946 )
-			VALUE: \result >= a	 === true
-			VALUE: \result	 === 1
-			VALUE: b	 === ( - 8945 )
-			VALUE: \result >= b	 === true
-			VALUE: \result >= a && \result >= b	 === true
-			VALUE: \result	 === 1
-			VALUE: c	 === 1
-			VALUE: \result >= c	 === true
-			VALUE: \result >= a && \result >= b && \result >= c	 === true
-			VALUE: \result	 === 1
-			VALUE: d	 === 2
-			VALUE: \result >= d	 === false
-T_show1.java:10: Invalid assertion (Postcondition)
-: T_show1.java:3: Associated location
-
-2 verification failures
+{% include_relative T_show6.out %}
 ```
 It still takes some manual inspection, but the trace of subexpression values is better than having to do that tracing oneself from the input values provided by `show`.
 
@@ -300,4 +101,3 @@ Though the subexpression option above usually provides the most useful informati
 The `--counterexample` or `-ce` options do this. However, the output is quite verbose and (at present) uses internal encodings of variable names. Improving this information is a planned task, but at the moment the output is useful mainly to experts.
 
 
-<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>

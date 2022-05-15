@@ -7,18 +7,7 @@ That behavior can be altered at execution time. There are various modes of opera
 Those modes are illustrated with our example program:
 
 ```
-// openjml --rac T_RacOutput.java
-public class T_RacOutput {
-
-  public static void main(String... args) {
-    checkArgs(args.length);
-    System.out.println("END");
-  }
-
-  public static void checkArgs(int len) {
-    //@ assert len == 1;
-  }
-}
+{% include_relative T_RacOutput.java %}
 ```
 compiled with
 
@@ -33,10 +22,7 @@ The default mode is to simply issue an error message (to `System.out`) and conti
 produces
 
 ```
-T_RacOutput.java:10: verify: JML assertion is false
-    //@ assert len == 1;
-        ^
-END
+{% include_relative T_RacOutput1.out %}
 ```
 
 ## Show call stack and continue
@@ -48,14 +34,7 @@ An alternate mode shows the call stack leading to the violated assertion:
 produces the output
 
 ```
-org.jmlspecs.runtime.JmlAssertionError: T_RacOutput.java:10: verify: JML assertion is false
-    //@ assert len == 1;
-        ^
-	at java.base/org.jmlspecs.runtime.Utils.createException(Utils.java:130)
-	at java.base/org.jmlspecs.runtime.Utils.assertionFailureL(Utils.java:86)
-	at T_RacOutput.checkArgs(T_RacOutput.java:1)
-	at T_RacOutput.main(T_RacOutput.java:5)
-END
+{% include_relative T_RacOutput2.out %}
 ```
 
 The program continues executing after issuing this expanded error messaage.
@@ -69,13 +48,7 @@ A third alternative is to simply throw an exception upon encountering the first 
 produces the output
 
 ```
-Exception in thread "main" org.jmlspecs.runtime.JmlAssertionError: T_RacOutput.java:10: verify: JML assertion is false
-    //@ assert len == 1;
-        ^
-	at java.base/org.jmlspecs.runtime.Utils.createException(Utils.java:130)
-	at java.base/org.jmlspecs.runtime.Utils.assertionFailureL(Utils.java:84)
-	at T_RacOutput.checkArgs(T_RacOutput.java:1)
-	at T_RacOutput.main(T_RacOutput.java:5)
+{% include_relative T_RacOutput3.out %}
 ```
 
 The exception thrown is a `org.jmlspecs.runtime.JmlAssertionError`, which, unless it is caught and handled within the program itself, causes an immediate exit. 
@@ -90,12 +63,7 @@ A fourth alternative is to terminate using a Java assert statement.
 
 produces the output
 ```
-Exception in thread "main" java.lang.AssertionError: T_RacOutput.java:10: verify: JML assertion is false
-    //@ assert len == 1;
-        ^
-	at java.base/org.jmlspecs.runtime.Utils.assertionFailureL(Utils.java:89)
-	at T_RacOutput.checkArgs(T_RacOutput.java:1)
-	at T_RacOutput.main(T_RacOutput.java:5)
+{% include_relative T_RacOutput6.out %}
 ```
 This is still a choice made at runtime. Upon encountering a false assertion, the program will terminate immediately with a Java `java.lang.AssertionError`.
 Remember that assertions in Java are disabled at runtime by default. So executing the compiled program with `openjml-java` requires the 
@@ -114,11 +82,7 @@ Using our running example,
 produces
 
 ```
-Exception in thread "main" java.lang.AssertionError: T_RacOutput.java:10: verify: JML assertion is false
-    //@ assert len == 1;
-        ^
-	at T_RacOutput.checkArgs(T_RacOutput.java:10)
-	at T_RacOutput.main(T_RacOutput.java:5)
+{% include_relative T_RacOutput5.out %}
 ```
 
 Now a Java `java.lang.AssertionError` is thrown and the program terminates immediately.
@@ -136,25 +100,20 @@ three options: source, line, or none. The default is "source" and produces messa
 
 With `-showRacSource=source":
 ```
-T_RacOutput.java:10: verify: JML assertion is false
-    //@ assert len == 1;
-        ^
-END
+{% include_relative T_RacOutput1.out %}
 ```
 
 With `-showRacSource=line":
 ```
-T_RacOutput.java:10: verify: JML assertion is false
-END
+{% include_relative T_RacOutput4.out %}
 ```
 
 With `-showRacSource=none":
 ```
-verify: JML assertion is false
-END
+{% include_relative T_RacOutput4a.out %}
 ```
 
 As the text of error messages is compiled into the class file, the control of error messages is a *compile-time*, not a runtime, option.
 
 
-<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
+

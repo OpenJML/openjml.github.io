@@ -23,4 +23,4 @@ This lesson introduces those types, with details described in subsequent lessons
 The type parameter of the parameterized types may be either a Java reference type or a JML built-in type, but not a primitive Java type. Where equality comparisons are needed among values of Java or JML types, `==` is used.
 
 
-<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
+

@@ -33,4 +33,4 @@ parentheses, quotes around the method name are needed.
 *  Matching patterns -- TBD
 
 
-<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
+

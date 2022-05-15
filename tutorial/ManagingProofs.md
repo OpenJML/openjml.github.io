@@ -13,4 +13,4 @@ This section describes some techniques for managing proofs. These are specific t
 
 * [Limiting time](TimeAndErrorLimits)
 
-<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
+

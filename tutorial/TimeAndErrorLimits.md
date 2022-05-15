@@ -29,4 +29,4 @@ Note that there will be no proof attempts for any methods in a file if there
 are parsing or type-checking errors in the source or specification files.
 
 
-<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
+

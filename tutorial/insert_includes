@@ -4,37 +4,9 @@ F=temp_file
 
 ./checklinks
 
-for f in *.mdt ; do
-  grep -e '^LAST_MODIFIED$' $f > /dev/null || echo $f has no  LAST_MODIFIED
+for f in *.md ; do
   grep -e "^title: JML Tutorial - " $f > /dev/null || echo $f has incorrect title line
   if [ `grep -e '^---$' $f | wc -l` != "2" ] ; then echo "$f does not have two --- lines" ; fi
   egrep -e 'TBD|TODO' $f  > /dev/null &&  echo "$f has TBD or TODO markings" 
 done
 
-for f in *.mdt; do
-  cat $f > $T
-  while grep -q '%include' $T; do
-    line=`grep -n '%include' $T | head -1 | sed -e 's/:.*//'`
-    file=`grep '%include' $T | head -1 | sed -e 's/%include *//'`
-    cat $file | sed -e "s^\\\$\@^$file^" > $F
-    linem=$(expr $line - 1)
-    linep=$(expr $line + 1)
-    head -$linem $T > begin
-    tail +$linep $T > rest
-    cat begin $F rest > $T
-    rm begin rest $F
-  done
-  modtime=$(date -r $f "+%Y-%m-%d %H:%M:%S")
-  ##sed -i -e "s/LAST_MODIFIED/_Last modified: ${modtime}_/" $T
-  sed -i -e 's#LAST_MODIFIED#<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>#' $T
-
-  mdfile=`echo $f | sed -e s/mdt/md/`
-  if diff -q $T $mdfile > /dev/null; then
-    ##echo $mdfile unchanged
-    rm $T
-  else
-    mv $T $mdfile
-    echo $mdfile updated
-  fi
-
-done

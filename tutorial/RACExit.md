@@ -9,14 +9,7 @@ This behavior is not always what is desired.
 The exit code of a RAC-compiled program can be changed by setting a Java property, `org.jmlspecs.openjml.racexitcode`, while the
 program is executing. For example, the program
 ```
-// openjml --rac T_RacExit.java
-public class T_RacExit {
-
-  public static void main(String... args) {
-    //@ assert args.length == 1;
-    System.exit(10);
-  }
-}
+{% include_relative T_RacExit.java %}
 ```
 will produce the exit code `10`, as programmed, when compiled and run with either Java or OpenJML:
 
@@ -37,4 +30,4 @@ If you run the program with arguments that do not produce an assertion error, th
 
 
 
-<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
+

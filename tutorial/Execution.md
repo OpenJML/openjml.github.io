@@ -38,4 +38,4 @@ The executable returns with one of these exit values:
 
 The exit code for a verification failure can be changed to one of the other exit codes using the `--verify-exit` option.
 
-<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
+

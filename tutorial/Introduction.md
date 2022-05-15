@@ -19,4 +19,4 @@ We hope to add exercises for the motivated tutorial reader.
 
 Have fun!
 
-<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
+

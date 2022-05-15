@@ -19,30 +19,17 @@ Not all specifications can be separated into the `.jml` file. All of the class a
 
 Here is a simple example of a `.java` file and a corresponding `.jml` file. With a .java file like this:
 ```
-// openjml --esc T_jmlexample.java
-public class T_jmlexample {
-  public int abs(int i) {
-    return i < 0 ? -i : i;
-  }
-}
+{% include_relative T_jmlexample.java %}
 ```
 and a corresponding `.jml` file (with an intentional mistake) in the same folder:
 ```
-// openjml --esc T_jmlexample.jml
-public class T_jmlexample {
-  //@ requires i != Integer.MAX_VALUE; // ERROR - should be MIN_VALUE
-  //@ ensures i > 0 ? i : -i;
-  public int abs(int i);
-}
+{% include_relative T_jmlexample.jml %}
 ```
 we simply run `openjml` on the `.java` file as before:
 `openjml --esc T_jmlexample.java`\\
 producing
 ```
-T_jmlexample.java:4: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method abs: int negation
-    return i < 0 ? -i : i;
-                   ^
-1 verification failure
+{% include_relative T_jmlexample.out %}
 ```
 to see that `openjml` does indeed see the specifications and identify the verification failure.
 
@@ -85,4 +72,4 @@ OpenJML matches up the Java declarations (that is those declaration not inside a
 Then all the ghost and model declarations (those inside a JML annotation comment) are considered; they may not duplicate any Java declarations or each other (or an error results).
 
 
-<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
+
