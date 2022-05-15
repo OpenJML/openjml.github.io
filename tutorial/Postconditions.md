@@ -10,7 +10,7 @@ _ensures_ clause.
 Consider this example of a method that computes the maximum of four int values.
 
 ```
-%include T_ensures1.java
+{% include_relative T_ensures1.java %}
 ```
 
 
@@ -25,7 +25,7 @@ The body of the function computes this result. Note that the specification
 states the properties of the result but does not state how it is computed.
 In fact, the same specification could be used with a different implementation:
 ```
-%include T_ensures1a.java
+{% include_relative T_ensures1a.java %}
 ```
 
 Now how can we check that the implementation actually implements the specification? That is the (or one) purpose of the OpenJML tool.
@@ -41,13 +41,13 @@ second example also verifies.
 Now consider a third example:
 
 ```
-%include T_ensures2.java
+{% include_relative T_ensures2.java %}
 ```
 
 
 Running `openjml -esc tutorial/T_ensures2.java` produces this output (and a non-zero exit code):
 ```
-%include T_ensures2.out
+{% include_relative T_ensures2.out %}
 ```
 
 The error message tells us that the specification and implementation are
@@ -79,7 +79,7 @@ r. `\result` may only be used in `ensures` clauses of method specifications for
  methods that return values (and not for constructors). Here is a simple example
 :
 ```
-%include T_ensures3.java
+{% include_relative T_ensures3.java %}
 ```
 
-LAST_MODIFIED
+## **[Postconditions Problem Set](https://www.openjml.org/tutorial/exercises/PostConEx.html)**

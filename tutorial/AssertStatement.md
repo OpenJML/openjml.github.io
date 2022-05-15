@@ -11,19 +11,19 @@ keyword followed by a predicate and terminated with a semicolon, as in
 the following example.
 
 ```
-%include T_assert1.java
+{% include_relative T_assert1.java %}
 ```
 
 The above example verifies with OpenJML, but the following variation does not:
 
 ```
-%include T_assert2.java
+{% include_relative T_assert2.java %}
 ```
 
 produces
 
 ```
-%include T_assert2.out
+{% include_relative T_assert2.out %}
 ```
 
 because if `i` is 0, then `neg` is 0 and the assert fails.
@@ -46,14 +46,13 @@ cannot prove the designated predicate true. So this example, like the
 example above,
 
 ```
-%include T_assert3.java
+{% include_relative T_assert3.java %}
 ```
 
 produces similar output:
 
 ```
-%include T_assert3.out
+{% include_relative T_assert3.out %}
 ```
 
-
-LAST_MODIFIED
+## **[Assert Statements Problem Set](https://www.openjml.org/tutorial/exercises/AssertEx.html)**

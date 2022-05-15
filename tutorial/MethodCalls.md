@@ -38,14 +38,14 @@ be proved that the program terminates.
 The following code is a simple example of a two-method verification.
 
 ```
-%include T_CallerCallee.java
+{% include_relative T_CallerCallee.java %}
 ```
 
 The output on verifying is given next. Note that the openjml command includes
 the `-progress` option, so we receive quite a bit more output.
 
 ```
-%include T_CallerCallee.out
+{% include_relative T_CallerCallee.out %}
 ```
 
 Looking at this piece by piece:
@@ -82,7 +82,7 @@ openjml --esc T_CallerCallee.java
 ```
 produces
 ```
-%include T_CallerCallee2.out
+{% include_relative T_CallerCallee2.out %}
 ```
 which just shows any error messages.
 
@@ -97,4 +97,5 @@ produces just
 The exit code 6 indicates that verification errors were found (but no parsing
 or type-checking or command-line or system errors).
 
-LAST_MODIFIED
+## **[Veriyfing Method Calls Problem Set](https://www.openjml.org/tutorial/exercises/VerifyingMethodCallsEx.html)**
+

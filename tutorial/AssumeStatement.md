@@ -14,7 +14,7 @@ proven and the `assume` statement can be removed.
 
 For example, consider the following code:
 ```
-%include T_assume1.java
+{% include_relative  T_assume1.java %}
 ```
 
 Here we have stated a postcondition we want in the ensures clause and a sketch
@@ -31,13 +31,13 @@ invalid and the postcondition cannot actually be proved.
 
 The situation can even be worse. Consider the following drastic, if trivial, case.
 ```
-%include T_assume2.java
+{% include_relative  T_assume2.java %}
 ```
 Here we have an `assert` statement that is explicitly false. So the verifier
 will always report that the assertion is not provable and will produce 
 this output:
 ```
-%include T_assume2.out
+{% include_relative  T_assume2.out %}
 ```
 
 But now we add an erroneous `assume` statement, one that contradicts the
@@ -45,7 +45,7 @@ precondition. Remember that the precondition is assumed at the start of a
 method implementation and that the `assume` statement
 is also silently assumed at its location in the body.
 ```
-%include T_assume3.java
+{% include_relative  T_assume3.java %}
 ```
 Now OpenJML issues no verification errors. The effect is just like 
 the situation in logic where once a contradiction is assumed, anything,
@@ -56,4 +56,5 @@ a specification and proof of a method implementation, but they should be
 replaced with `assert` statements or removed altogether before a verification
 is considered sound.
 
-LAST_MODIFIED
+## **[Assume Statements Problem Set](https://www.openjml.org/tutorial/exercises/AssumeEx.html)**
+

@@ -12,7 +12,7 @@ The meaning of this clause is --- if the method terminates with an exception der
 
 So we could write this trivial example:
 ```
-%include T_Exception1.java
+{% include_relative T_Exception1.java %}
 ```
 which verifies successfully. Note that the specification includes a second kind of clause, the `signals_only` clause.
 This clause specifies the kinds of exceptions that may be thrown from the method. 
@@ -21,19 +21,19 @@ in order to make it explicitly clear what exceptions might be thrown.
 
 If we omit any exceptions, by saying `signals_only \nothing`, a verification failure results.
 ```
-%include T_Exception1a.java
+{% include_relative T_Exception1a.java %}
 ```
 ```
-%include T_Exception1a.out
+{% include_relative T_Exception1a.out %}
 ```
 
 The `signals_only` specification comes explicitly into play when the program wants to throw an exception. Consider
 ```
-%include T_Exception1b.java
+{% include_relative T_Exception1b.java %}
 ```
 It produces the output
 ```
-%include T_Exception1b.out
+{% include_relative T_Exception1b.out %}
 ```
 Here the method explictly throws an exception, but as that exception is not specified to be thrown, OpenJML complains.
 
@@ -44,17 +44,16 @@ Then the `signals` clause means --- if an exception is thrown then `false` --- w
 
 Here is an example:
 ```
-%include T_Exception2.java
+{% include_relative T_Exception2.java %}
 ```
 But trying to verify this example produces a verification failure:
 ```
-%include T_Exception2.out
+{% include_relative T_Exception2.out %}
 ```
 as it should. We can guard against an exception by requiring that the method always be called with a non-null argument:
 ```
-%include T_Exception3.java
+{% include_relative T_Exception3.java %}
 ```
 which now verifies again.
 
-
-LAST_MODIFIED
+## **[Specifying Exceptions Problem Set](https://www.openjml.org/tutorial/exercises/SpecifyingExceptionsEx.html)**

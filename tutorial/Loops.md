@@ -21,7 +21,7 @@ There are four aspects of a loop that typically need to be specified:
 
 Here is a typical, simple loop with specifications:
 ```
-%include T_forloop.java
+{% include_relative T_forloop.java %}
 ```
 
 The loop has a loop index `i` that counts up from 0, exiting the loop when it reaches the length of the input array. 
@@ -67,7 +67,7 @@ body executions so far. In the for loop above, it would have the same value as `
 
 Here is a typical for-each loop:
 ```
-%include T_foreach.java
+{% include_relative  T_foreach.java %}
 ```
 Note that the (second) loop invariant states that so far (up to array index `\count`) all array elements are positive. That is because at the beginning of any loop iteration,
 all elements seen have been positive. As soon as a non-positive element is seen, the loop exists prematurely, but the verifier can follow this control flow to prove that 
@@ -79,14 +79,14 @@ Note also the use of `\count` as a stand-in for a loop counter and the use of `\
 
 A while loop generally follows the same pattern as a traditional for loop. Here we give another example that does not have an explicit loop index.
 ```
-%include T_whileloop.java
+{% include_relative  T_whileloop.java %}
 ```
 
 ## Do-while loops
 
 Do-while loops can be tricky to specify because they do not follow the same update-at-the-start of a loop pattern. Here is a simple example.
 ```
-%include T_dowhile.java
+{% include_relative  T_dowhile.java %}
 ```
 Here the order of assumptions is this:
 * assume the loop invariants
@@ -106,11 +106,11 @@ The examples above all verify, so here are some examples showing the kinds of ve
 
 In this example, the initial value of `i` does not satisfy the first loop invariant:
 ```
-%include T_LoopInitError.java
+{% include_relative  T_LoopInitError.java %}
 ```
 producing this output:
 ```
-%include T_LoopInitError.out
+{% include_relative  T_LoopInitError.out %}
 ```
 
 ### Loop body error
@@ -119,31 +119,31 @@ the loop index is one less than the array length. Indeed, in that case, when the
 first loop invariant will not hold. Interestingly, there is also a loop initialization error. Why? Because if `a.length` is 0, then the initial value of `i` does not satisfy the first 
 loop invariant.
 ```
-%include T_LoopBodyError.java
+{% include_relative  T_LoopBodyError.java %}
 ```
 produces
 ```
-%include T_LoopBodyError.out
+{% include_relative  T_LoopBodyError.out %}
 ```
 (The order of error messages and the specific values returned by show are non-deterministic.)
 
 ### Loop decreases error
 If the `decreases` expression does not decrease, one receives the error shown in this example:
 ```
-%include T_LoopDecreasesError.java
+{% include_relative  T_LoopDecreasesError.java %}
 ```
 with the output
 ```
-%include T_LoopDecreasesError.out
+{% include_relative  T_LoopDecreasesError.out %}
 ```
 ### Negative termination value
 If the termination expression can be negative at the start of a loop, one gets this behavior:
 ```
-%include T_LoopNegativeError.java
+{% include_relative  T_LoopNegativeError.java %}
 ```
 which produces
 ```
-%include T_LoopNegativeError.out
+{% include_relative  T_LoopNegativeError.out %}
 ```
 
-LAST_MODIFIED
+## **[Speciyfing Loops Problem Set](https://www.openjml.org/tutorial/exercises/SpecifyingLoopsEx.html)**

@@ -6,7 +6,7 @@ Constructors are a special kind of method and also need to be specified. The syn
 
 A simple class with a few data fields might have constructors that look like this:
 ```
-%include T_constructors1.java
+{% include_relative T_constructors1.java %}
 ```
 
 The first constructor simply initializes the fields from the constructor's argument list. The specification for the constructor first requires that the 
@@ -22,7 +22,7 @@ Both of these specifications are readily verified.
 For a constructor, `pure` means that nothing is assigned (for a constructor it is really initialized) other than the
 fields of the new object itself. If something else were assigned, say a static field that was keeping a count of new objects, then the costructor could not be pure and would have an assignable clause:
 ```
-%include T_constructors2.java
+{% include_relative T_constructors2.java %}
 ``` 
 
 (More on pure methods [here](TBD).)
@@ -32,5 +32,5 @@ The implementation of these constructors is so simple, and common, that one migh
 
 TODO- say more about the whole initialization process and initializer specs.
 
+## **[Specifying Constructors Problem Set](https://www.openjml.org/tutorial/exercises/SpecifyingConstructorsEx.html)**
 
-LAST_MODIFIED

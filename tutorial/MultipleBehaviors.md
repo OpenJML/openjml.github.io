@@ -12,7 +12,7 @@ Each behavior is a simple sequence of clauses, with its own preconditions, postc
 The specification can consist of multiple behaviors, connected by the keyword `also`.
 For example,
 ```
-%include T_MultipleBehaviors1.java
+{% include_relative T_MultipleBehaviors1.java %}
 ```
 The specification here is a bit more verbose than the code, but it separates out the cases a bit more readably than the code does.
 Furthermore, by writing the goal of the method in two different ways, an exchange of 'a' for 'b' or '<' for '>' is readily caught by OpenJML.
@@ -27,11 +27,11 @@ So the postconditions of each of the behaviors must also be true.  Fortunately t
 
 As an experiment, this example introduces a mistake in one behavior:
 ```
-%include T_MultipleBehaviors2.java
+{% include_relative T_MultipleBehaviors2.java %}
 ```
 which yields this result
 ```
-%include T_MultipleBehaviors2.out
+{% include_relative T_MultipleBehaviors2.out %}
 ```
 The verification failure message points to the postcondition on line 4, which narrows our debugging to the relationship between
 that behavior and the code. A little inspection shows a typo at the end of the precondition on line 3.
@@ -40,7 +40,7 @@ that behavior and the code. A little inspection shows a typo at the end of the p
 
 A very common use of multiple behaviors is to separate normal execution from exceptions. For example,
 ```
-%include T_MultipleBehaviors3.java
+{% include_relative T_MultipleBehaviors3.java %}
 ```
 The code in this example does some parameter validation checks. If the checks fail an exception is thrown.
 The method could go on to do something useful, but for this example, it just returns.
@@ -53,7 +53,7 @@ these preconditions, the method is _not_ allowed to throw an exception.
 
 We could even separate out two kinds of exceptions:
 ```
-%include T_MultipleBehaviors4.java
+{% include_relative T_MultipleBehaviors4.java %}
 ```
 Now the `signals_only` clause allows the kinds of exceptions, although the specification does not say when each one is thrown. We could go to one more level of specification detail to stipulate that the each exception is thrown just when the appropriate argument validation check fails. Try it as an exercise. There is a question though: what if both checks fail? Should the specification state which exception is thrown in preference to the other? If it does it is constraining the implementation, perhaps overly so.
 
@@ -61,7 +61,7 @@ Now the `signals_only` clause allows the kinds of exceptions, although the speci
 
 The normal and exceptional behaviors illustrated in the previous section are very common, so much so that they have specialized syntax: `normal_behavior` and `exceptional_behavior`. We can rewrite the previous example as 
 ```
-%include T_MultipleBehaviors5.java
+{% include_relative T_MultipleBehaviors5.java %}
 ```
 The `normal_behavior` heading implies that no exception is allowed (`signals false`); the `exceptional_behavior` heading says that normal terminatino is not allowed.
 A behavior that is neither of these is a simple `behavior`, which is the default when there is no heading.
@@ -106,6 +106,6 @@ also
   requires P3;
   ensures Q1;
   ensures Q3;
+```
 
-
-LAST_MODIFIED
+## **[Multiple Method Behavior Problem Set](https://www.openjml.org/tutorial/exercises/MultMethodBehaviorEx.html)**

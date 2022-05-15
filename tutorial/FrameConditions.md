@@ -8,11 +8,11 @@ an important consideration: how to specify side-effects of methods.
 
 Consider this example:
 ```
-%include T_frame1.java
+{% include_relative T_frame1.java %}
 ```
 which produces
 ```
-%include T_frame1.out
+{% include_relative T_frame1.out %}
 ```
 Note first a new bit of syntax: the `\old` designator. The `increment` methods make a change in state: the value of `counter1` or `counter2` is different after
 the method than before and we need a way to refer to their values before and after. The `\old` syntax means to determine the value of the enclosed expression
@@ -49,7 +49,7 @@ is not allowed to *assign* to a memory location (even with the same value) unles
 
 So now our example looks like this:
 ```
-%include T_frame3.java
+{% include_relative T_frame3.java %}
 ```
 which successfully verifies.
 
@@ -114,5 +114,5 @@ tutorial lessons so far have just one specification case; an advanced lesson
 presents [multiple specification cases](SpecificationCases).)
 
 
+## **[Frame Consitions Problem Set](https://www.openjml.org/tutorial/exercises/FrameCondEx.html)**
 
-LAST_MODIFIED

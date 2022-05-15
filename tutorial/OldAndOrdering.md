@@ -32,7 +32,7 @@ However, a specification is much more readable if the clauses generally follow t
 
 There is some meaning to the ordering within the precondition group and witbhin the postcondition group: earlier clauses can set conditions that are needed for later clause to be well-defined. For example,
 ```
-%include T_order1.java
+{% include_relative T_order1.java %}
 ```
 yields
 ```
@@ -40,7 +40,7 @@ T_order1.old
 ```
 The first requires clause might not be well-defined because `a` might be null. If we reverse the order of the clauses, then JML is content:
 ```
-%include T_order2.java
+{% include_relative T_order2.java %}
 ```
 is successfully verified.
 
@@ -50,3 +50,6 @@ is successfully verified.
 
 
 TODO
+
+## **[Method Specifications Problem Set](https://www.openjml.org/tutorial/exercises/MethodSpecificationsEx.html)**
+

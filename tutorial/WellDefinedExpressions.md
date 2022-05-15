@@ -7,13 +7,13 @@ Much confusion over error messages can be avoided by understanding that all JML 
 For example, `a[i]` is not well-defined if `i` is not in the range of the indices of `a`. So this example
 
 ```
-%include T_WellDefined1.java
+{% include_relative T_WellDefined1.java %}
 ```
 
 produces this result
 
 ```
-%include T_WellDefined1.out
+{% include_relative T_WellDefined1.out %}
 ```
 
 The output here deserves some explanation:
@@ -55,25 +55,25 @@ The requirement that JML expressions be well-defined leads to writing guarded ex
 
 So, since in this example, `o` is designated as non-null (which it would be by default--- see the lesson on [nullness](Nullness)), no definedness errors are issued:
 ```
-%include T_WellDefined2.java
+{% include_relative T_WellDefined2.java %}
 ```
 But if `o` might be null, as in the following example,
 ```
-%include T_WellDefined3.java
+{% include_relative T_WellDefined3.java %}
 ```
 then the following messages happen:
 ```
-%include T_WellDefined3.out
+{% include_relative T_WellDefined3.out %}
 ```
 
 Finally well-definedness is a requirement for JML expressions, not Java expressions. But similar Java expressions would just throw exceptions, so OpenJML gives slightly different verification messages:
 ```
-%include T_WellDefined4.java
+{% include_relative T_WellDefined4.java %}
 ```
 gives
 ```
-%include T_WellDefined4.out
+{% include_relative T_WellDefined4.out %}
 ```
 
+## **[Well-defined Expressions](https://www.openjml.org/tutorial/exercises/WellDefinedEx.html)**
 
-LAST_MODIFIED
