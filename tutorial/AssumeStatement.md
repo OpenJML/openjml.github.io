@@ -14,19 +14,7 @@ proven and the `assume` statement can be removed.
 
 For example, consider the following code:
 ```
-// openjml --esc T_assume1.java
-public class T_assume1 {
-  //@ ensures a[\result] == 0;
-  public int findZeroElement(int[] a) {
-    int i = 0;
-    for (; i < a.length; i++) {
-      //@ assume 0 <= i < a.length;
-      if (a[i] == 0) break;
-    }
-    //@ assume 0 <= i < a.length && a[i] == 0;
-    return i;
-  }
-}
+%include T_assume1.java
 ```
 
 Here we have stated a postcondition we want in the ensures clause and a sketch
@@ -43,22 +31,13 @@ invalid and the postcondition cannot actually be proved.
 
 The situation can even be worse. Consider the following drastic, if trivial, case.
 ```
-// openjml --esc T_assume2.java
-public class T_assume2 {
-  //@ requires i > 0;
-  public void example(int i) {
-    //@ assert false; // Blatant verification failure
-  }
-}
+%include T_assume2.java
 ```
 Here we have an `assert` statement that is explicitly false. So the verifier
 will always report that the assertion is not provable and will produce 
 this output:
 ```
-T_assume2.java:5: verify: The prover cannot establish an assertion (Assert) in method example
-    //@ assert false; // Blatant verification failure
-        ^
-1 verification failure
+%include T_assume2.out
 ```
 
 But now we add an erroneous `assume` statement, one that contradicts the
@@ -66,14 +45,7 @@ precondition. Remember that the precondition is assumed at the start of a
 method implementation and that the `assume` statement
 is also silently assumed at its location in the body.
 ```
-// openjml --esc --check-feasibility=none T_assume3.java
-public class T_assume3 {
-  //@ requires i > 0;
-  public void example(int i) {
-    //@ assume i < 0;
-    //@ assert false; // No error because the precondition and assume statement contradict!
-  }
-}
+%include T_assume3.java
 ```
 Now OpenJML issues no verification errors. The effect is just like 
 the situation in logic where once a contradiction is assumed, anything,
@@ -84,6 +56,4 @@ a specification and proof of a method implementation, but they should be
 replaced with `assert` statements or removed altogether before a verification
 is considered sound.
 
-## **[Assume Statements Problem Set](https://www.openjml.org/tutorial/exercises/AssumeEx.html)**
-
-<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
+LAST_MODIFIED

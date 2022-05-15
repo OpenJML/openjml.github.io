@@ -132,6 +132,4 @@ The implementation of this expression in JML tools is in progress. Don't count o
 
 TODO - what about \let
 
-## **[JML Expressions Problem Set](https://www.openjml.org/tutorial/exercises/JmlExprEx.html)**
-
-<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
+LAST_MODIFIED

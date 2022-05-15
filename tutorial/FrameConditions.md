@@ -8,39 +8,11 @@ an important consideration: how to specify side-effects of methods.
 
 Consider this example:
 ```
-// openjml --esc T_frame1.java
-public class T_frame1 {
-
-  public int counter1;
-  public int counter2;
-
-  //@ requires counter1 < Integer.MAX_VALUE;
-  //@ ensures counter1 == 1 + \old(counter1);
-  public void increment1() {
-    counter1 += 1;
-  }
-
-  //@ requires counter2 < Integer.MAX_VALUE;
-  //@ ensures counter2 == 1 + \old(counter2);
-  public void increment2() {
-    counter2 += 1;
-  }
-  
-  public void test() {
-    //@ assume counter1 == 0 && counter2 == 0;
-    increment1();
-    //@ assert counter1 == 1;
-    //@ assert counter2 == 0;
-  }
-}
-  
+%include T_frame1.java
 ```
 which produces
 ```
-T_frame1.java:23: verify: The prover cannot establish an assertion (Assert) in method test
-    //@ assert counter2 == 0;
-        ^
-1 verification failure
+%include T_frame1.out
 ```
 Note first a new bit of syntax: the `\old` designator. The `increment` methods make a change in state: the value of `counter1` or `counter2` is different after
 the method than before and we need a way to refer to their values before and after. The `\old` syntax means to determine the value of the enclosed expression
@@ -77,37 +49,7 @@ is not allowed to *assign* to a memory location (even with the same value) unles
 
 So now our example looks like this:
 ```
-// openjml --esc T_frame3.java
-public class T_frame3 {
-
-  public int counter1;
-  public int counter2;
-
-  //@ requires counter1 < Integer.MAX_VALUE;
-  //@ assigns counter1;
-  //@ ensures counter1 == 1 + \old(counter1);
-  public void increment1() {
-    counter1 += 1;
-  }
-
-  //@ requires counter2 < Integer.MAX_VALUE;
-  //@ assigns counter2;
-  //@ ensures counter2 == 1 + \old(counter2);
-  public void increment2() {
-    counter2 += 1;
-  }
-  
-  public void test() {
-    //@ assume counter1 == 0 && counter2 == 0;
-    increment1();
-    //@ assert counter1 == 1;
-    //@ assert counter2 == 0;
-    increment2();
-    //@ assert counter1 == 1;
-    //@ assert counter2 == 1;
-  }
-}
-  
+%include T_frame3.java
 ```
 which successfully verifies.
 
@@ -171,6 +113,6 @@ means the clause has a long list. (All the method specifications in the
 tutorial lessons so far have just one specification case; an advanced lesson
 presents [multiple specification cases](SpecificationCases).)
 
-## **[Frame Consitions Problem Set](https://www.openjml.org/tutorial/exercises/FrameCondEx.html)**
 
-<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
+
+LAST_MODIFIED

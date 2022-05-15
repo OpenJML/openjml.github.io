@@ -38,83 +38,14 @@ be proved that the program terminates.
 The following code is a simple example of a two-method verification.
 
 ```
-// openjml --esc --progress --no-show-summary T_CallerCallee.java
-public class T_CallerCallee {
-
-  public void caller1() {
-     boolean b1 = lessThanDouble(5,4);
-     //@ assert b1 == true;
-     boolean b2 = lessThanDouble(9,4);
-     //@ assert b2 == false;
-  }
-
-  public void caller2() {
-     boolean b1 = lessThanDouble(-1, -2);
-  }
-
-  public void caller3() {
-     boolean b2 = lessThanDouble(2, 2);
-  }
-
-  public void caller4() {
-     boolean b = lessThanDouble(4,2);
-     //@ assert b == true;
-  }
-
-  //@ requires x > y && y >= 0;
-  //@ ensures \result == (x < y + y);
-  public boolean lessThanDouble(int x, int y) {
-    return x-y < y;
-  }
-} 
+%include T_CallerCallee.java
 ```
 
 The output on verifying is given next. Note that the openjml command includes
 the `-progress` option, so we receive quite a bit more output.
 
 ```
-Proving methods in T_CallerCallee
-Starting proof of T_CallerCallee.T_CallerCallee() with prover z3_4_3
-Method assertions are validated
-Completed proof of T_CallerCallee.T_CallerCallee() with prover z3_4_3 - no warnings
-Starting proof of T_CallerCallee.caller1() with prover z3_4_3
-Method assertions are validated
-Completed proof of T_CallerCallee.caller1() with prover z3_4_3 - no warnings
-Starting proof of T_CallerCallee.caller2() with prover z3_4_3
-T_CallerCallee.caller2 Method assertions are INVALID
-T_CallerCallee.java:12: verify: The prover cannot establish an assertion (Precondition: T_CallerCallee.java:26:) in method caller2
-     boolean b1 = lessThanDouble(-1, -2);
-                                ^
-T_CallerCallee.java:26: verify: Associated declaration: T_CallerCallee.java:12:
-  public boolean lessThanDouble(int x, int y) {
-                 ^
-T_CallerCallee.java:24: verify: Precondition conjunct is false: y >= 0
-  //@ requires x > y && y >= 0;
-                          ^
-Completed proof of T_CallerCallee.caller2() with prover z3_4_3 - with warnings
-Starting proof of T_CallerCallee.caller3() with prover z3_4_3
-T_CallerCallee.caller3 Method assertions are INVALID
-T_CallerCallee.java:16: verify: The prover cannot establish an assertion (Precondition: T_CallerCallee.java:26:) in method caller3
-     boolean b2 = lessThanDouble(2, 2);
-                                ^
-T_CallerCallee.java:26: verify: Associated declaration: T_CallerCallee.java:16:
-  public boolean lessThanDouble(int x, int y) {
-                 ^
-T_CallerCallee.java:24: verify: Precondition conjunct is false: x > y
-  //@ requires x > y && y >= 0;
-                 ^
-Completed proof of T_CallerCallee.caller3() with prover z3_4_3 - with warnings
-Starting proof of T_CallerCallee.caller4() with prover z3_4_3
-T_CallerCallee.caller4 Method assertions are INVALID
-T_CallerCallee.java:21: verify: The prover cannot establish an assertion (Assert) in method caller4
-     //@ assert b == true;
-         ^
-Completed proof of T_CallerCallee.caller4() with prover z3_4_3 - with warnings
-Starting proof of T_CallerCallee.lessThanDouble(int,int) with prover z3_4_3
-Method assertions are validated
-Completed proof of T_CallerCallee.lessThanDouble(int,int) with prover z3_4_3 - no warnings
-Completed proving methods in T_CallerCallee
-7 verification failures
+%include T_CallerCallee.out
 ```
 
 Looking at this piece by piece:
@@ -151,28 +82,7 @@ openjml --esc T_CallerCallee.java
 ```
 produces
 ```
-T_CallerCallee.java:12: verify: The prover cannot establish an assertion (Precondition: T_CallerCallee.java:26:) in method caller2
-     boolean b1 = lessThanDouble(-1, -2);
-                                ^
-T_CallerCallee.java:26: verify: Associated declaration: T_CallerCallee.java:12:
-  public boolean lessThanDouble(int x, int y) {
-                 ^
-T_CallerCallee.java:24: verify: Precondition conjunct is false: y >= 0
-  //@ requires x > y && y >= 0;
-                          ^
-T_CallerCallee.java:16: verify: The prover cannot establish an assertion (Precondition: T_CallerCallee.java:26:) in method caller3
-     boolean b2 = lessThanDouble(2, 2);
-                                ^
-T_CallerCallee.java:26: verify: Associated declaration: T_CallerCallee.java:16:
-  public boolean lessThanDouble(int x, int y) {
-                 ^
-T_CallerCallee.java:24: verify: Precondition conjunct is false: x > y
-  //@ requires x > y && y >= 0;
-                 ^
-T_CallerCallee.java:21: verify: The prover cannot establish an assertion (Assert) in method caller4
-     //@ assert b == true;
-         ^
-7 verification failures
+%include T_CallerCallee2.out
 ```
 which just shows any error messages.
 
@@ -187,6 +97,4 @@ produces just
 The exit code 6 indicates that verification errors were found (but no parsing
 or type-checking or command-line or system errors).
 
-## **[Veriyfing Method Calls Problem Set](https://www.openjml.org/tutorial/exercises/VerifyingMethodCallsEx.html)**
-
-<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
+LAST_MODIFIED

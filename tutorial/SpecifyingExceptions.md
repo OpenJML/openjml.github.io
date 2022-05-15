@@ -12,22 +12,7 @@ The meaning of this clause is --- if the method terminates with an exception der
 
 So we could write this trivial example:
 ```
-// openjml --esc T_Exception1.java
-//@ nullable_by_default
-public class T_Exception1 {
-
-    public static class V {
-        public int value;
-    }
-
-    //@ requires true;
-    //@ ensures \result == v.value;
-    //@ signals (NullPointerException e) v == null;
-    //@ signals_only RuntimeException;
-    public int value(V v) {
-        return v.value;
-    }
-}
+%include T_Exception1.java
 ```
 which verifies successfully. Note that the specification includes a second kind of clause, the `signals_only` clause.
 This clause specifies the kinds of exceptions that may be thrown from the method. 
@@ -36,58 +21,19 @@ in order to make it explicitly clear what exceptions might be thrown.
 
 If we omit any exceptions, by saying `signals_only \nothing`, a verification failure results.
 ```
-// openjml --esc T_Exception1a.java
-//@ nullable_by_default
-public class T_Exception1a {
-
-    public static class V {
-        public int value;
-    }
-
-    //@ requires true;
-    //@ ensures \result == v.value;
-    //@ signals (NullPointerException e) v == null;
-    public int value(V v) {
-        return v.value;
-    }
-}
+%include T_Exception1a.java
 ```
 ```
-T_Exception1a.java:13: verify: The prover cannot establish an assertion (PossiblyNullDeReference) in method value
-        return v.value;
-                ^
-1 verification failure
+%include T_Exception1a.out
 ```
 
 The `signals_only` specification comes explicitly into play when the program wants to throw an exception. Consider
 ```
-// openjml --esc T_Exception1b.java
-//@ nullable_by_default
-public class T_Exception1b {
-
-    public static class V {
-        public int value;
-    }
-
-    //@ requires true;
-    //@ ensures \result == v.value;
-    //@ signals (NullPointerException e) v == null;
-    //@ signals_only \nothing;
-    public int value(V v) {
-        if (v == null) throw new NullPointerException();
-        return v.value;
-    }
-}
+%include T_Exception1b.java
 ```
 It produces the output
 ```
-T_Exception1b.java:14: verify: The prover cannot establish an assertion (ExceptionList: T_Exception1b.java:12:) in method value
-        if (v == null) throw new NullPointerException();
-                       ^
-T_Exception1b.java:12: verify: Associated declaration: T_Exception1b.java:14:
-    //@ signals_only \nothing;
-        ^
-2 verification failures
+%include T_Exception1b.out
 ```
 Here the method explictly throws an exception, but as that exception is not specified to be thrown, OpenJML complains.
 
@@ -98,49 +44,17 @@ Then the `signals` clause means --- if an exception is thrown then `false` --- w
 
 Here is an example:
 ```
-// openjml --esc T_Exception2.java
-//@ nullable_by_default
-public class T_Exception2 {
-
-    public static class V {
-        public int value;
-    }
-
-    //@ requires true;
-    //@ ensures \result == v.value;
-    //@ signals (Exception e) false;
-    public int value(V v) {
-        return v.value;
-    }
-}
+%include T_Exception2.java
 ```
 But trying to verify this example produces a verification failure:
 ```
-T_Exception2.java:13: verify: The prover cannot establish an assertion (PossiblyNullDeReference) in method value
-        return v.value;
-                ^
-1 verification failure
+%include T_Exception2.out
 ```
 as it should. We can guard against an exception by requiring that the method always be called with a non-null argument:
 ```
-// openjml --esc T_Exception3.java
-//@ nullable_by_default
-public class T_Exception3 {
-
-    public static class V {
-        public int value;
-    }
-
-    //@ requires v != null;
-    //@ ensures \result == v.value;
-    //@ signals (Exception e) false;
-    public int value(V v) {
-        return v.value;
-    }
-}
+%include T_Exception3.java
 ```
 which now verifies again.
 
-## **[Specifying Exceptions Problem Set](https://www.openjml.org/tutorial/exercises/SpecifyingExceptionsEx.html)**
 
-<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
+LAST_MODIFIED

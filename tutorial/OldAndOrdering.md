@@ -32,15 +32,7 @@ However, a specification is much more readable if the clauses generally follow t
 
 There is some meaning to the ordering within the precondition group and witbhin the postcondition group: earlier clauses can set conditions that are needed for later clause to be well-defined. For example,
 ```
-// openjml --esc T_order1.java
-//@ nullable_by_default // for the purpose of this example
-public class T_order1 {
-
-  //@ requires a.length > 10;
-  //@ requires a != null;
-  public void m(int[] a) {}
-
-}
+%include T_order1.java
 ```
 yields
 ```
@@ -48,20 +40,13 @@ T_order1.old
 ```
 The first requires clause might not be well-defined because `a` might be null. If we reverse the order of the clauses, then JML is content:
 ```
-// openjml --esc T_order2.java
-//@ nullable_by_default // for the purpose of this example
-public class T_order2 {
-
-  //@ requires a != null;
-  //@ requires a.length > 10;
-  public void m(int[] a) {}
-
-}
+%include T_order2.java
 ```
 is successfully verified.
 
+
+
 ## old clause
 
-## **[Method Specifications Problem Set](https://www.openjml.org/tutorial/exercises/MethodSpecificationsEx.html)**
 
 TODO

@@ -11,48 +11,19 @@ keyword followed by a predicate and terminated with a semicolon, as in
 the following example.
 
 ```
-// openjml --esc T_assert1.java
-
-public class T_assert1 {
-
-  public void example(int i) {
-    int neg;
-    if (i > 0) {
-      neg = -i;
-    } else {
-      neg = i;
-    }
-    //@ assert neg <= 0;
-  }
-}
+%include T_assert1.java
 ```
 
 The above example verifies with OpenJML, but the following variation does not:
 
 ```
-// openjml --esc T_assert2.java
-
-public class T_assert2 {
-
-  public void example(int i) {
-    int neg;
-    if (i > 0) {
-      neg = -i;
-    } else {
-      neg = i;
-    }
-    //@ assert neg < 0;
-  }
-}
+%include T_assert2.java
 ```
 
 produces
 
 ```
-T_assert2.java:12: verify: The prover cannot establish an assertion (Assert) in method example
-    //@ assert neg < 0;
-        ^
-1 verification failure
+%include T_assert2.out
 ```
 
 because if `i` is 0, then `neg` is 0 and the assert fails.
@@ -75,31 +46,14 @@ cannot prove the designated predicate true. So this example, like the
 example above,
 
 ```
-// openjml --esc T_assert3.java
-
-public class T_assert3 {
-
-  public void example(int i) {
-    int neg;
-    if (i > 0) {
-      neg = -i;
-    } else {
-      neg = i;
-    }
-    assert neg < 0; // A Java assert statement (but interpreted by JML)
-  }
-}
+%include T_assert3.java
 ```
 
 produces similar output:
 
 ```
-T_assert3.java:12: verify: The prover cannot establish an assertion (Assert) in method example
-    assert neg < 0; // A Java assert statement (but interpreted by JML)
-    ^
-1 verification failure
+%include T_assert3.out
 ```
 
-## **[Assert Statements Problem Set](https://www.openjml.org/tutorial/exercises/AssertEx.html)**
 
-<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
+LAST_MODIFIED

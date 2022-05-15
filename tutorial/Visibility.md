@@ -13,40 +13,20 @@ with more restricted visibility, then those names should not appear in the speci
 
 For example, this code
 ```
-// openjml --esc T_Visibility1.java
-public class T_Visibility1 {
-    private int _value;
-
-    //@ ensures \result == _value;
-    public int value() {
-        return _value;
-    }
-}
+%include T_Visibility1.java
 ```
 violates JML's visibility rules because a client that can see the public declaration of the 
 method `value()` does not necessarily have visibility to the private declaration of `_value`.
 This error results:
 ```
-T_Visibility1.java:5: error: An identifier with private visibility may not be used in a ensures clause with public visibility
-    //@ ensures \result == _value;
-                           ^
-1 error
+%include T_Visibility1.out
 ```
 
 So how is one to specify this simple getter method? The simple solution is simply to declare that
 the private field is public _for specification purposes_.
 The `spec_public` declaration does this:
 ```
-// openjml --esc T_Visibility2.java
-public class T_Visibility2 {
-    //@ spec_public
-    private int _value;
-
-    //@ ensures \result == _value;
-    public int value() {
-        return _value;
-    }
-}
+%include T_Visibility2.java
 ```
 which now verifies without error.
 
@@ -62,20 +42,7 @@ That is one purpose of model fields, which are preented in the [next lesson](Mod
 But here we'll repeat our example using a model field.
 
 ```
-// openjml --esc T_Visibility3.java
-public class T_Visibility3 {
-    private int _value; //@ in value;
-
-
-    //@ public model int value;
-    //@ private represents value = _value;
-
-
-    //@ ensures \result == value;
-    public int value() {
-        return _value;
-    }
-}
+%include T_Visibility3.java
 ```
 The general point is this. The model field `value` _models_ the state of the class object,
 as a public abstraction. The `represents` clause, which is private, tells how the abstraction
@@ -86,6 +53,4 @@ access to the data field, that is, not allowinig clients to modify `_value` dire
 So for simple cases like this the `spec_public` modifier is perfectly fine; in fact, it is
 syntactic sugar for the solution in terms of a model field.
 
-## **[Visibility Problem Set](https://www.openjml.org/tutorial/exercises/VisibilityEx.html)**
-
-<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
+LAST_MODIFIED

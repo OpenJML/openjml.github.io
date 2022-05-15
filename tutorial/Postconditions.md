@@ -10,30 +10,7 @@ _ensures_ clause.
 Consider this example of a method that computes the maximum of four int values.
 
 ```
-// openjml --esc T_ensures1.java
-public class T_ensures1 {
-  //@ ensures \result == a | \result == b | \result == c | \result == d;
-  //@ ensures \result >= a & \result >= b & \result >= c & \result >= d;
-  public int max(int a, int b, int c, int d) {
-    if (a > b) {
-        if (c > d) {
-            if (a > c) return a;
-            else       return c;
-        } else {
-            if (a > d) return a;
-            else       return d;
-        }
-    } else {
-        if (c > d) {
-            if (b > c) return b;
-            else       return c;
-        } else {
-            if (b > d) return b;
-            else       return d;
-        }
-    }
-  }
-}
+%include T_ensures1.java
 ```
 
 
@@ -48,17 +25,7 @@ The body of the function computes this result. Note that the specification
 states the properties of the result but does not state how it is computed.
 In fact, the same specification could be used with a different implementation:
 ```
-// openjml --esc T_ensures1a.java
-public class T_ensures1a {
-  //@ ensures \result == a | \result == b | \result == c | \result == d;
-  //@ ensures \result >= a & \result >= b & \result >= c & \result >= d;
-  public int max(int a, int b, int c, int d) {
-    if (a >= b && a >= c && a >= d) return a;
-    if (b >= a && b >= c && b >= d) return b;
-    if (c >= a && c >= b && c >= d) return c;
-    return d;
-  }
-}
+%include T_ensures1a.java
 ```
 
 Now how can we check that the implementation actually implements the specification? That is the (or one) purpose of the OpenJML tool.
@@ -74,42 +41,13 @@ second example also verifies.
 Now consider a third example:
 
 ```
-// openjml --esc T_ensures2.java
-public class T_ensures2 {
-  //@ ensures \result == a | \result == b | \result == c | \result == d;
-  //@ ensures \result >= a & \result >= b & \result >= c & \result >= d;
-  public int max(int a, int b, int c, int d) {
-    if (a > b) {
-        if (c > d) {
-            if (a > c) return a;
-            else       return c;
-        } else {
-            if (a > d) return a;
-            else       return d;
-        }
-    } else {
-        if (c > d) {
-            if (b > c) return b;
-            else       return c;
-        } else {
-            if (b > c) return b;
-            else       return d;
-        }
-    }
-  }
-}
+%include T_ensures2.java
 ```
 
 
 Running `openjml -esc tutorial/T_ensures2.java` produces this output (and a non-zero exit code):
 ```
-T_ensures2.java:19: verify: The prover cannot establish an assertion (Postcondition: T_ensures2.java:4:) in method max
-            if (b > c) return b;
-                       ^
-T_ensures2.java:4: verify: Associated declaration: T_ensures2.java:19:
-  //@ ensures \result >= a & \result >= b & \result >= c & \result >= d;
-      ^
-2 verification failures
+%include T_ensures2.out
 ```
 
 The error message tells us that the specification and implementation are
@@ -141,15 +79,7 @@ r. `\result` may only be used in `ensures` clauses of method specifications for
  methods that return values (and not for constructors). Here is a simple example
 :
 ```
-// openjml --esc T_ensures3.java
-public class T_ensures3 {
-  //@ requires a.length > 0;
-  //@ ensures \result == a[0];
-  public int fist(int[] a) {
-    return a[0];
-  }
-}
+%include T_ensures3.java
 ```
-## **[Postconditions Problem Set](https://www.openjml.org/tutorial/exercises/PostConEx.html)**
 
-<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
+LAST_MODIFIED

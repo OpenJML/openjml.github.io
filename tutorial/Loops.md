@@ -21,20 +21,7 @@ There are four aspects of a loop that typically need to be specified:
 
 Here is a typical, simple loop with specifications:
 ```
-// openjml --esc T_forloop.java
-public class T_forloop {
-
-  public void setToRamp(int[] a) {
-    //@ maintaining 0 <= i <= a.length;
-    //@ maintaining \forall int k; 0 <= k < i; a[k] == k;
-    //@ loop_writes i, a[*];
-    //@ decreases a.length -i;
-    for (int i = 0; i < a.length; i++) {
-        a[i] = i;
-    }
-    //@ assert \forall int i; 0 <= i < a.length; a[i] == i;
-  }
-}
+%include T_forloop.java
 ```
 
 The loop has a loop index `i` that counts up from 0, exiting the loop when it reaches the length of the input array. 
@@ -80,21 +67,7 @@ body executions so far. In the for loop above, it would have the same value as `
 
 Here is a typical for-each loop:
 ```
-// openjml --esc T_foreach.java
-public class T_foreach {
-
-  //@ ensures \result == (\forall int i; 0 <= i < a.length; a[i] > 0);
-  public boolean allPositive(int[] a) {
-    //@ maintaining 0 <= \count <= a.length;
-    //@ maintaining \forall int k; 0 <= k < \count; a[k] > 0;
-    //@ loop_writes \nothing;
-    //@ decreases a.length - \count;
-    for (int i: a) {
-      if (i <= 0) return false;
-    }
-    return true;
-  }
-}
+%include T_foreach.java
 ```
 Note that the (second) loop invariant states that so far (up to array index `\count`) all array elements are positive. That is because at the beginning of any loop iteration,
 all elements seen have been positive. As soon as a non-positive element is seen, the loop exists prematurely, but the verifier can follow this control flow to prove that 
@@ -106,46 +79,14 @@ Note also the use of `\count` as a stand-in for a loop counter and the use of `\
 
 A while loop generally follows the same pattern as a traditional for loop. Here we give another example that does not have an explicit loop index.
 ```
-// openjml --esc T_whileloop.java
-public class T_whileloop {
-
-  //@ requires a.length % 2 == 0;
-  void alternate(boolean[] a) {
-    int k = 0;
-    //@ maintaining 0 <= \count <= a.length/2;
-    //@ maintaining k == 2*\count && \forall int j; 0 <= j < k; a[j] == (j%2 == 0);
-    //@ loop_writes k, a[*];
-    //@ decreases a.length - \count;
-    while (k < a.length) {
-      a[k+1] = false;
-      a[k] = true;
-      k += 2;
-    }
-    //@ assert \forall int i; 0 <= i < a.length; a[i] == (i%2 == 0);
-  }
-}
+%include T_whileloop.java
 ```
 
 ## Do-while loops
 
 Do-while loops can be tricky to specify because they do not follow the same update-at-the-start of a loop pattern. Here is a simple example.
 ```
-// openjml --esc T_dowhile.java
-public class T_dowhile {
-
-  //@ requires 20 < a.length;
-  public void test(int[] a) {
-    int i = 0;
-    //@ maintaining 0 <= i < 10;
-    //@ maintaining \forall int k; 0 <= k < i; a[k] == 0;
-    //@ loop_writes i, a[*];
-    //@ decreases 10-i;
-    do {
-      a[i] = 0;
-    } while (++i < 10);
-    //@ assert \forall int k; 0 <= k < 10; a[k] == 0;
-  }
-}
+%include T_dowhile.java
 ```
 Here the order of assumptions is this:
 * assume the loop invariants
@@ -165,27 +106,11 @@ The examples above all verify, so here are some examples showing the kinds of ve
 
 In this example, the initial value of `i` does not satisfy the first loop invariant:
 ```
-// openjml --esc T_LoopInitError.java
-public class T_LoopInitError {
-
-  public void setToRamp(int[] a) {
-    //@ maintaining 0 < i <= a.length;
-    //@ maintaining \forall int k; 0 <= k < i; a[k] == k;
-    //@ loop_writes i, a[*];
-    //@ decreases a.length -i;
-    for (int i = 0; i < a.length; i++) {
-        a[i] = i;
-    }
-    //@ assert \forall int i; 0 <= i < a.length; a[i] == i;
-  }
-}
+%include T_LoopInitError.java
 ```
 producing this output:
 ```
-T_LoopInitError.java:5: verify: The prover cannot establish an assertion (LoopInvariantBeforeLoop) in method setToRamp
-    //@ maintaining 0 < i <= a.length;
-        ^
-1 verification failure
+%include T_LoopInitError.out
 ```
 
 ### Loop body error
@@ -194,90 +119,31 @@ the loop index is one less than the array length. Indeed, in that case, when the
 first loop invariant will not hold. Interestingly, there is also a loop initialization error. Why? Because if `a.length` is 0, then the initial value of `i` does not satisfy the first 
 loop invariant.
 ```
-// ## openjml --esc --solver-seed=42 T_LoopBodyError.java
-public class T_LoopBodyError {
-
-  public void setToRamp(int[] a) {
-    //@ maintaining 0 <= i < a.length;
-    //@ maintaining \forall int k; 0 <= k < i; a[k] == k;
-    //@ loop_writes i, a[*];
-    //@ decreases a.length -i;
-    for (int i = 0; i < a.length; i++) {
-        a[i] = i;
-        //@ show i, a.length;
-    }
-    //@ assert \forall int i; 0 <= i < a.length; a[i] == i;
-  }
-}
+%include T_LoopBodyError.java
 ```
 produces
 ```
-T_LoopBodyError.java:5: verify: The prover cannot establish an assertion (LoopInvariantBeforeLoop) in method setToRamp
-    //@ maintaining 0 <= i < a.length;
-        ^
-T_LoopBodyError.java:11: verify: Show statement expression i has value 0
-        //@ show i, a.length;
-                 ^
-T_LoopBodyError.java:11: verify: Show statement expression a.length has value 1
-        //@ show i, a.length;
-                    ^
-T_LoopBodyError.java:5: verify: The prover cannot establish an assertion (LoopInvariant) in method setToRamp
-    //@ maintaining 0 <= i < a.length;
-        ^
-4 verification failures
+%include T_LoopBodyError.out
 ```
 (The order of error messages and the specific values returned by show are non-deterministic.)
 
 ### Loop decreases error
 If the `decreases` expression does not decrease, one receives the error shown in this example:
 ```
-// openjml --esc T_LoopDecreasesError.java
-public class T_LoopDecreasesError {
-
-  public void setToRamp(int[] a) {
-    //@ maintaining 0 <= i <= a.length;
-    //@ maintaining \forall int k; 0 <= k < i; a[k] == k;
-    //@ loop_writes i, a[*];
-    //@ decreases i;
-    for (int i = 0; i < a.length; i++) {
-        a[i] = i;
-    }
-    //@ assert \forall int i; 0 <= i < a.length; a[i] == i;
-  }
-}
+%include T_LoopDecreasesError.java
 ```
 with the output
 ```
-T_LoopDecreasesError.java:8: verify: The prover cannot establish an assertion (LoopDecreases) in method setToRamp
-    //@ decreases i;
-        ^
-1 verification failure
+%include T_LoopDecreasesError.out
 ```
 ### Negative termination value
 If the termination expression can be negative at the start of a loop, one gets this behavior:
 ```
-// openjml --esc T_LoopNegativeError.java
-public class T_LoopNegativeError {
-
-  public void setToRamp(int[] a) {
-    //@ maintaining 0 <= i <= a.length;
-    //@ maintaining \forall int k; 0 <= k < i; a[k] == k;
-    //@ loop_writes i, a[*];
-    //@ decreases -i;
-    for (int i = 0; i < a.length; i++) {
-        a[i] = i;
-    }
-    //@ assert \forall int i; 0 <= i < a.length; a[i] == i;
-  }
-}
+%include T_LoopNegativeError.java
 ```
 which produces
 ```
-T_LoopNegativeError.java:8: verify: The prover cannot establish an assertion (LoopDecreasesNonNegative) in method setToRamp
-    //@ decreases -i;
-        ^
-1 verification failure
+%include T_LoopNegativeError.out
 ```
-## **[Speciyfing Loops Problem Set](https://www.openjml.org/tutorial/exercises/SpecifyingLoopsEx.html)**
 
-<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
+LAST_MODIFIED

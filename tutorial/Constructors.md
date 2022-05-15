@@ -6,29 +6,7 @@ Constructors are a special kind of method and also need to be specified. The syn
 
 A simple class with a few data fields might have constructors that look like this:
 ```
-// openjml --esc T_constructors1.java
-public class T_constructors1 {
-
-  public int width;
-  public int height;
-
-  //@ public normal_behavior
-  //@   requires width >= 0 && height >= 0;
-  //@   ensures this.width == width;
-  //@   ensures this.height == height;
-  //@ pure
-  public T_constructors1(int width, int height) {
-    this.width = width;
-    this.height = height;
-  }
-
-  //@ public normal_behavior
-  //@   ensures this.width == 0 && this.height == 0;
-  //@ pure
-  public T_constructors1() {
-    this(0,0);
-  }
-}
+%include T_constructors1.java
 ```
 
 The first constructor simply initializes the fields from the constructor's argument list. The specification for the constructor first requires that the 
@@ -44,19 +22,7 @@ Both of these specifications are readily verified.
 For a constructor, `pure` means that nothing is assigned (for a constructor it is really initialized) other than the
 fields of the new object itself. If something else were assigned, say a static field that was keeping a count of new objects, then the costructor could not be pure and would have an assignable clause:
 ```
-// openjml --esc T_constructors2.java
-public class T_constructors2 {
-
-  public static int count = 0;
-
-  //@ public normal_behavior
-  //@  requires count < Integer.MAX_VALUE;
-  //@  assigns count;
-  //@  ensures count == \old(count) + 1;
-  public T_constructors2() {
-    count++;
-  }
-}
+%include T_constructors2.java
 ``` 
 
 (More on pure methods [here](TBD).)
@@ -66,6 +32,5 @@ The implementation of these constructors is so simple, and common, that one migh
 
 TODO- say more about the whole initialization process and initializer specs.
 
-## **[Specifying Constructors Problem Set](https://www.openjml.org/tutorial/exercises/SpecifyingConstructorsEx.html)**
 
-<i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
+LAST_MODIFIED

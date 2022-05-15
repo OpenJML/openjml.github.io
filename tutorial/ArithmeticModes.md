@@ -94,5 +94,3 @@ In this example, both the code and specs are computed with java math, so they ag
 ```
 
 ## **[Arithmetic Problem Set](https://www.openjml.org/tutorial/exercises/ArithmeticEx.html)**
-
-<hr>
