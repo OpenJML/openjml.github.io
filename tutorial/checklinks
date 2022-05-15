@@ -13,7 +13,7 @@ for f in `grep '](' *.md | sed -e 's/.*](//' -e 's/).*//'` ; do
   elif [ ! -e $f.md ] ; then echo No file for $f ; fi
 done
 
-for f in `ls *.mdt *.md` ; do
+for f in `ls *.md` ; do
   b=${f%.*}
-  grep -q $b *.mdt || echo No link $f
+  grep -q $b *.md || echo No link $f
 done
