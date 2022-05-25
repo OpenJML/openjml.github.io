@@ -12,6 +12,6 @@ public class T_Nullness1 {
 
   public static void test(/*@ nullable */ String ss) {
     boolean b = has(ss,'a');
-    b =  has(make(2), 'a');
+    b = has(make(2), 'a');
   }
 }

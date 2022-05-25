@@ -42,6 +42,11 @@ for f in $files ; do
   fi ;
 done 
 for f in *.check ; do echo $f; source $f || X=1; done 
-rm -rf logt log
+
+for f in exercises/*.java ; do 
+  echo Checking $f
+  openjml --esc $f > logx || { X=1; echo $f FAILED; }
+done
+rm -rf logt log logx
 exit $X 
 

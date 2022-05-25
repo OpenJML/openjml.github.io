@@ -11,7 +11,7 @@ public int[] addArrays(int[] a, int[] b);
 
 public boolean sameSize(int[] a, int[] b);
 ```
-**Asnwer and Explanation:**
+**Answer and Explanation:**
 We are tasked with writing a program that adds two integer arrays, we will break up this process into two functions. The `addArrays()` will take in two integer arrays `a` and `b` and will add their elements if they are the same size. The `sameSize()` will also take in the arrays `a` and `b` and check if they have the same length. Given this information we can write something like the following program:
 ```Java
 public int[] addArrays(int[] a, int[] b) {
@@ -95,7 +95,7 @@ public boolean sameSize(int[] a, int[] b) {
 	return a.length == b.length;
 }
 ```
- Now that we have included everything from past tutorials, what new specifications do we need after reading "Method Calls?" Recall how a method call is verified; at the call site assert the precondition of the called method, and then assume the callee's postconditions. In our program we only have one preconditions for the caller function `addArrays()` which we’ve already accounted for, and one postcondition for the callee function `sameSize()`. So we can write the following:
+ Now that we have included everything from past tutorials, what new specifications do we need after reading "Method Calls?" Recall how a method call is verified; at the call site the precondition of the called method is asserted, and then the callee's postconditions are assumed. In our program we only have one preconditions for the caller function `addArrays()` which we’ve already accounted for, and one postcondition for the callee function `sameSize()`. So we can write the following:
 ```Java
 //@ requires (\forall int j; 0 <= j < a.length; a[j]+b[j] <= Integer.MAX_VALUE);
 //@ ensures \result.length == a.length || \result.length == 0;
@@ -143,15 +143,15 @@ public int area(int w, int h) {
 	return A;	
 }
 ```
-**Asnwer and Explanation:**
-The program above is unable to be verified with its current specifications, let's break it down and see where the issues lie. The first function `enoughMaterial()` takes in three integer variables `materialSqFt`, `w`, and `h`. It then creates an integer `area` which is set equal to the function `area(w,h)`. If we drop down to the `area()` function we see that the code is the same as we've seen in past exercises, and simply finds the rectangular area given `w` and `h` and returns it. After `area(w,h)` is called in `enoughMaterial()`, the function checks if the `area > materialSqFt`. In the event that `area > materialSqFt` it returns false, otherwise it returns true. 
+**Answer and Explanation:**
+The program above is unable to be verified with its current specifications; let's break it down and see where the issues lie. The first function `enoughMaterial()` takes in three integer variables `materialSqFt`, `w`, and `h`. It then creates an integer `area` which is set equal to the function `area(w,h)`. If we drop down to the `area()` function we see that the code is the same as we've seen in past exercises, and simply finds the rectangular area given `w` and `h` and returns it. After `area(w,h)` is called in `enoughMaterial()`, the function checks if the `area > materialSqFt`. In the event that `area > materialSqFt` it returns false, otherwise it returns true. 
  
 First, we can see that there will be an overflow error in the function `area()` unless we include a precondition that checks that `0 <= w <= Integer.MAX_VALUE` and `0 <= b <= Integer.MAX_VALUE`. Otherwise, all our preconditions and postconditions for the two functions look good. 
 
 However, since `enoughMaterial()` calls `area()` we need to include some `assume` and `assert` statements to verify the two methods. Again we know the process for any function is 
 at the call site assert the precondition of the called method, and then assume the callee's postconditions. So what might we include in the program above?
  
-Let's start in the function `area()`; after we include that `w` and `h` need to be greater than zero, and less than or equal `Integer.MAX_VALUE`, we would need to assume this in the function. We would also want to assume that `w*h <= Integer.MAX_VALUE` so we don't get any overflow errors. After the body of the function and before the return statement, we want to include an `assert` statement that asserts our area postconditions. Now, back to the `enoughMaterial()` function, in this function we want to `assume` it's preconditions, and `assert` it's postconditions. However, before we call `area()` we want to assert `area()`'s precondtions, and then `assume` it's postconditions after the call. So we can write something like this to verify the program:
+Let's start in the function `area()`; after we include that `w` and `h` need to be greater than zero, and less than or equal `Integer.MAX_VALUE`, we would need to assume this in the function. We would also want to assume that `w*h <= Integer.MAX_VALUE` so we don't get any overflow errors. After the body of the function and before the return statement, we want to include an `assert` statement that asserts our area postconditions. Now, back to the `enoughMaterial()` function, in this function we want to `assume` its preconditions, and `assert` its postconditions. However, before we call `area()` we want to assert `area()`'s precondtions, and then `assume` its postconditions after the call. So we can write something like this to verify the program:
 ```Java
 //@ requires materialSqFt > 0;
 //@ requires 0 < w <= Integer.MAX_VALUE & 0 < h <= Integer.MAX_VALUE;
