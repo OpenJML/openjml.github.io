@@ -2,7 +2,25 @@
 T=temp_include
 F=temp_file
 
-./checklinks
+for ff in *.md ; do
+for f in `grep '](' $ff | sed -e 's/.*](//' -e 's/).*//'` ; do
+  if [[ $f == http* ]] ; then
+     stat=$(curl -o /dev/null --silent --head -L --write-out '%{http_code}' $f )
+     if [ $stat -ne 200 ] ; then echo Not found $stat $f in $ff ; fi
+  elif [[ $f == *.pdf ]] ; then
+     if [ ! -e $f ] ; then echo Not found $f in $ff; fi
+  elif [[ $f == *.png ]] ; then
+     if [ ! -e $f ] ; then echo Not found $f in $ff; fi
+  elif [[ $f == *#* ]] ; then
+     echo Not checking intra-page link $f in $ff
+  elif [ ! -e $f.md -a ! -d $f ] ; then echo No file for $f in $ff; fi
+done
+done
+
+for f in `ls *.md` ; do
+  b=${f%.*}
+  grep -q $b *.md || echo No link $f
+done
 
 for f in *.md ; do
   grep -e "^title: JML Tutorial - " $f > /dev/null || if [ $f != "index.md" ]; then echo $f has incorrect title line ; fi

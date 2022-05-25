@@ -70,7 +70,7 @@ trivially satisfies the specification, _no matter what result the implementation
 However, while no problem arises in verifying the method, it would not be
 possible to verify _uses_ of the method in some calling method (unless it
 indeed did not matter what result was returned). We will return to this 
-subject in [Calling Specified Methods](CallingSpecifiedMethods).
+subject in [Calling Specified Methods](MethodCalls).
 
 Sometimes you may wish to refer to the value returned by a method in the postcon
 dition. This value is referenced as `\result`. Like all JML keywords in expressi
