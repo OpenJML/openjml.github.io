@@ -1,0 +1,2 @@
+
+( openjml --rac T_RacOutput.java && openjml-java -cp . -Dorg.jmlspecs.openjml.rac=assertionerror T_RacOutput ) 2>&1 | grep -v unchecked | diff - T_RacOutput8.out

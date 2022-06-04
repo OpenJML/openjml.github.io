@@ -1,3 +1,4 @@
+// openjml --esc LemmaExample.java
 public class LemmaExample {
 
     //@ public normal_behavior

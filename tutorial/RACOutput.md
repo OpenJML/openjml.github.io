@@ -29,7 +29,7 @@ produces
 
 An alternate mode shows the call stack leading to the violated assertion:
 
-`openjml-java -cp . -Dorg.jmlspecs.openjml.rac=stack T_RacOutput`
+`openjml-java -cp . -Dorg.jmlspecs.openjml.rac=showstack T_RacOutput`
 
 produces the output
 
@@ -55,9 +55,21 @@ The exception thrown is a `org.jmlspecs.runtime.JmlAssertionError`, which, unles
 It is the Java runtime system that prints the exception and its stack, not OpenJML, and the printing is to `System.err`.
 The particular kind of exception thrown can be changed by advanced features of OpenJML.
 
+## Throw a Java AssertionError
+
+A fourth alternative is to throw a Java `AssertionError`:
+
+`openjml-java -cp . -Dorg.jmlspecs.openjml.rac=assertionerror T_RacOutput`
+
+produces the output
+
+```
+{% include_relative T_RacOutput8.out %}
+```
+
 ## Use a Java assert
 
-A fourth alternative is to terminate using a Java assert statement. 
+A final alternative is to terminate using a Java assert statement. 
 
 `openjml-java -cp . -esa -Dorg.jmlspecs.openjml.rac=assert T_RacOutput`
 

@@ -6,7 +6,7 @@ T_Nullness1.java:4: verify: Associated declaration: T_Nullness1.java:14:
                             ^
 T_Nullness1.java:15: verify: The prover cannot establish an assertion (NullFormal: T_Nullness1.java:4:) in method test: s in has(java.lang.String,char)
     b = has(make(2), 'a');
-                 ^
+                ^
 T_Nullness1.java:4: verify: Associated declaration: T_Nullness1.java:15:
   public static boolean has(String s, char c) {
                             ^
