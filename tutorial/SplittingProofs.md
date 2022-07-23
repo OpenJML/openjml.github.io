@@ -2,7 +2,7 @@
 title: JML Tutorial - Splitting up proofs
 ---
 
-By default, OpenJML attempts to verify each method on its own and converts the entire method into one verification condition that contains all of the implicit and explicit assertions needs to verify that a method's specification and implementation agree. Treating each assertion individually or even in groups would require duplicating effort within the solver. Solvers are highly engineered for large problems and for speed.
+By default, OpenJML attempts to verify each method on its own and converts the entire method into one verification condition that contains all of the implicit and explicit assertions needed to verify that a method's specification and implementation agree. Treating each assertion individually or even in groups would require duplicating effort within the solver. Solvers are highly engineered for large problems and for speed.
 
 Nevertheless, sometimes it is helpful to break up a method's verification condition into pieces, for understanding, for debugging, or because the method is large. This lesson describes some mechanisms for doing that.
 
@@ -44,13 +44,13 @@ produces
 
 The halt statement above makes a kind of horizontal cut in the top-to-bottom flow of a method body. In contrast, the `split` statement makes a kind of vertical division. Consider an `if` statement: the logical analysis has to consider both branches; the split statement directs the prover to consider
 each branch individually (as if there were a `halt` statement at the beginning of the other branch). The program can be split at several points, by placing a `//@ split;` statement immediately before the relevant control construct:
-* split on the two branchs of an `if`
+* split on the two branches of an `if`
 * split on the cases of a `switch` statement (but not a switch expression)
 * split on a loop condition
 * split on a block specification (see the next section)
 * split on a condition
 
-For the last option, the split statement contains a condition: `//@ split <predicate>;` and the split is done assuming the condition is true and false respectively. A method may have multiple `split` statements, which results ina multiplicative number of splits to proove.
+For the last option, the split statement contains a condition: `//@ split <predicate>;` and the split is done assuming the condition is true and false respectively. A method may have multiple `split` statements, which results in a multiplicative number of splits to prove.
 
 Like the `halt` statement, the `split` statement reduces the size of the verification condition. But unlike the `halt` statement, `split` statements may be left in the method, because, so long as each split case verifies, all execution paths will have been properly verified.
 
@@ -65,14 +65,14 @@ which produces
 {% include_relative T_split1.out %}
 ```
 First a few details:
-* We use the `--progress` option so we can see what is happening (always use that option with splits, at least until they are all succdessful)
+* We use the `--progress` option so we can see what is happening (always use that option with splits, at least until they are all successful)
 * The `--split` option ... TODO
-* In th scae of a loop, the split statement is put between the loop specification and the loop itself.
+* In the case of a loop, the split statement is put between the loop specification and the loop itself.
 
-Now note that four splits are produced. First there is a split at the if-statement, `A` for the _then_ branch, `B` for the _else_ branch. Then, within the _then_
+Now note that four splits were produced in the example above. First there is a split at the if-statement, `A` for the _then_ branch, `B` for the _else_ branch. Then, within the _then_
 branch, there is a switch statement with three cases, which will be labeled `A`, `B`, and `C`. So we have four splits with designators, `AA`, `AB`, `AC`, `B`.
 OpenJML attempts verification for each of these in turn. 
-* Case AA fails; the `show ` statement tells us that the value of `i` is `1`, as we expect.
+* Case AA fails; the `show` statement tells us that the value of `i` is `1`, as we expect.
 * Case AB succeeds, so we don't get a counterexample, but we surmise that `i` must be `2`.
 * Case AC fails again, now with an `i` that is positive but not `1` or `2`.
 * Case B fails, now with some `i` that is non-positive and `p` is false.
@@ -122,9 +122,9 @@ The statement specification here can be the specification of
 * most commonly, the next single statement which is a block
 * or a sequence of statements (in the same scope) bounded by the `//@ begin;` and `//@ end;` JML statements.
 
-The last case is used when the desired sequence of statements is not contained with in a block, is more than one statement, and one cannot modify the code by putting in a pair of braces, or such a pair of braces would change the scope of declarations.
+The last case is used when the desired sequence of statements is not contained within a block, is more than one statement, and one cannot modify the code by putting in a pair of braces, or such a pair of braces would change the scope of declarations.
 
-The two pieces of the proof are an obvious case for splitting the proof. In fact that is the default behavior, becuase the main purpose of a statement specificaiton, along with adding some documentation and clarity, is to be able to divide up the proof. However, if you are writing the software and it seems a statement specification is needed, you should probably consider breaking up the method into multiple methods; if you are verifying legacy code that cannot be modified, then a statement specification can be very handy. It is also helpful as a means of separating out a portion of the method body that is very difficult to prove.
+The two pieces of the proof are an obvious case for splitting the proof. In fact that is the default behavior, because the main purpose of a statement specification, along with adding some documentation and clarity, is to be able to divide up the proof. However, if you are writing the software and it seems a statement specification is needed, you should probably consider breaking up the method into multiple methods; if you are verifying legacy code that cannot be modified, then a statement specification can be very handy. It is also helpful as a means of separating out a portion of the method body that is very difficult to prove.
 
 Here is a worked example.
 

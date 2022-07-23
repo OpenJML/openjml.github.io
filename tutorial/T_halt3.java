@@ -1,4 +1,4 @@
-// openjml --esc $@
+// openjml --esc T_halt3.java
 public class T_halt3 {
 
   //@ ensures \result == 0;
