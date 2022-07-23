@@ -22,17 +22,15 @@ The output here deserves some explanation:
 * Now `a[i]` is well-defined only if `i` is in range for the array `a`. But one possible combination of inputs is that `i` is actually in range, in which case the expression is well-defined and OpenJML goes on to see if the assertion can be proved true. As we know nothing about the values in the array, the assertion cannot be proved true and a verification error message results.
 * The other two cases are when `i` is too large (at least as large as `a.length`) or too small (`i` is negative). In these cases the expression is not well-defined; OpenJML issues verification errors calling out this undefinedness.
 
-The rules for well-definedness of an expression build up from the leaves of the expression tree, with any compound expression requiring that each of its sub-expressions be well-defined. Note that even before OpenJML begins its work, an expression must not have any parse or type-checking errors.
+The rules for well-definedness of a JML expression build up from the leaves of the expression tree, with any compound expression requiring that each of its sub-expressions be well-defined. Note that even before OpenJML begins its work, an expression must not have any parse or type-checking errors.
 
 * Literals (`true`, `false`, `null`, numbers and literal strings) are all well-defined
 * Correctly resolved identifiers are well-defined
 * The expression `o.f` is well-defined if `o` is well-defined and `o != null` (and the expression is well-typed, that is, `f` is a field of the static type of `o`)
-* `a.length` is well-defined if `a` is well-defined
-* `a[i]` is well-defined if expressions `a` and `i` are well-defined and `0 <= i < a.length`
-* all unary and binary operator expressions (excluding `&&` and `||` and `==>`,
-but including assignment and op-assignment)
- are well-defined if the operands are well-defined and, for division (`/` and `/=`) and modulo (`%` and `%=`), the right operand is not zero
-* TODO - what about shift, arithmetic overflow
+* `a.length` is well-defined if `a` is well-defined and not null
+* `a[i]` is well-defined if expressions `a` and `i` are well-defined, `a` is not null, and `0 <= i < a.length`
+* all unary and binary operator expressions (excluding `&&` and `||` and `==>`)
+ are well-defined if (a) the operands are well-defined, (b) for division (`/`) and modulo (`%`), the right operand is not zero, (c) the result of the operation is in range of the result type (depending on the [arithmetic mode](ArithmeticModes), and (d) for bit-shift operations (`<<`, `>>`, '>>>`), the value is the right operand is non-negative and less than the number of bits in the type of the left operand
 * the short-circuiting `&&` is well-defined if the left operand is well-defined and, if the left operand is true, the right operand is well-defined
 * the short-circuiting `||` is well-defined if the left operand is well-defined and, if the left operand is false, the right operand is well-defined
 * a `==>`  expression is well-defined if the left operand is well-defined and,
@@ -43,12 +41,12 @@ if the left-operand is true, the right operand is well-defined
 * a method call expression (`o.m(..)`) or object creation expression (`o.new T(...)`)is well-defined if the receiver expression is either absent or a type name or a well-defined expression and all the arguments are well-defined
 * a switch expression is well-defined if the switch value is well-defined and the selected expression is well-defined. The switch expression is short-circuiting in the sense that any expression for cases that are not selected are not evaluated and so do not need to be well-defined.
 
-Java and JML statements are well-defined if all their component sub-statements and sub-expressions are well-defined. There is no-short-circuiting, even if the case of if, if-else, or switch statements.
+JML statements are well-defined if all their component sub-statements and sub-expressions are well-defined. There is no-short-circuiting, even if the case of if, if-else, or switch statements.
 
-As for other JML operationas
+As for other JML operations
 * singleton JML expression identifiers like `\result` are well-defined expressions (always presuming they are type-correct)
 * functional-form JML expressions are well-defined if all expression arguments are well-defined; any additional conditions will be stated when the expression is introduced
-* a [quantified expression](QuantifierExpressions) (`Q x; range; value`) is well-defined if (a) the  range expression is well-defined for all values of the local variable (for its type) and (b) the value expression is well-defined for any value of the local variable for which in range value is true
+* a [quantified expression](QuantifierExpressions) (`Q x; range; value`) is well-defined if (a) the  range expression is well-defined for all values of the local variable (for its type) and (b) the value expression is well-defined for any value of the local variable for which in range value is true (and for the `\choose` operation, the corresponding `\exists` expression is true)
 
 
 The requirement that JML expressions be well-defined leads to writing guarded expressions, such as `o != null ==> o.f == 0` as `o.f` by itself might be not well-defined. However, `o.f` by itself is well-defined, if it can be proved for the context of that expression that `o != null`.
