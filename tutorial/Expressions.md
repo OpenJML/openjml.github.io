@@ -3,8 +3,8 @@ title: JML Tutorial - JML Expressions
 ---
 
 The earlier lessons on pre- and post-conditions, assert and assume
-stastements all showed examples of *expressions* used in JML clauses.
-As expresions are a building block for nealry all other JML constructs, 
+statements all showed examples of *expressions* used in JML clauses.
+As expressions are a building block for nearly all other JML constructs, 
 we include a couple lessons at this point to introduce JML expressions.
 
 JML expressions look very much  like Java expressions.
@@ -12,7 +12,7 @@ Indeed, the JML expression syntax includes all of the Java expression
 syntax, with this exception: JML expressions are not allowed to have
 side-effects. So the `++`, `--`, and _op_`=` (e.g., `+=`) operators are
 not allowed in JML expressions. The meaning of Java operators in 
-JML is also unchanged, except for two matters:
+JML is also unchanged, except for two matters discussed in later lessons:
 * consideration of [arithmetic modes](ArithmeticModes)
 * [well-definedness](WellDefinedExpressions)
 
@@ -25,7 +25,7 @@ In static reasoning, `&` and `|` are simpler to reason about, but
 
 But JML also adds to Java some new operators and expression syntax. The new operators are these:
 
-* `==>` (implication): this binary operator takes two boolean operands, e.g., `p` and `q`; `p ==> q` is read a "p implies q" and means the same as logical implication, that is, the same as "not p or q". 
+* `==>` (implication): this binary operator takes two boolean operands, e.g., `p` and `q`; `p ==> q` is read as "p implies q" and means the same as logical implication, that is, the same as "not p or q". 
 The implication operator is short-circuiting. That is, the value and well-definedness of the right-hand-side is immaterial, unless the left-hand-side is true. In other words, `p ==> q` is precisely eqiuvalent to `!p || q`.
 The implication operator has lower 
 precedence than `&&` and `||`, so `p && q ==> r || s` means
@@ -64,7 +64,7 @@ TODO - need some examples of these operators in action
 
 ## Quantified expressions
 
-A general point about all these quantified expressions is that any numeric subexpressions are evaluated in bigint-math mode so that there is no conern about overflow in evaluating the expression. Arithmetic mode operators are not allowed within the quantified expression. The result of the expression may be cast to the result type of the expression when the computation is complete. Examples are given below.
+A general point about all these quantified expressions is that any numeric subexpressions are evaluated in [bigint-math mode](ArithmeticModes) so that there is no concern about overflow in evaluating the expression. Arithmetic mode operators are not allowed within the quantified expression. The result of the expression may be cast to the result type of the expression when the computation is complete. Examples are given below.
 
 TODO - need worked examples of these
 
@@ -75,7 +75,8 @@ The two most common expressions are universal and existential quantification. He
 * `\forall int i; 0 <= i < a.length; a[i] == 2*i`
 * `\exists int i; 0 <= i < a.length; a[i] == 0`
 
-The first states the property that each of the elements of array `a` have a value equal to twice the index of the element. The second states that for some index within the array, the value at that index equals 0. Both of these expressions have the same general form: the keyword, a variable declaration (which is local to the expression), a boolean range predicate `R`, and a boolean value predicate `V`. It is permitted to join the range and value predicates like this:
+The first states the property that _each_ (that is, _all_) of the elements of array `a` have a value equal to twice the index of the element. 
+The second states that for _some_ index within the array, the value at that index equals 0. Both of these expressions have the same general form: the keyword, a variable declaration (which is local to the expression), a boolean range predicate `R`, and a boolean value predicate `V`. It is permitted to join the range and value predicates like this:
 * `\forall ...;; R ==> V;`
 * `\exists ...;; R && V;`
 
@@ -93,25 +94,25 @@ The `\choose` predicate is quite similar to the `\exists` predicate. Whereas `\e
 If there is more than one such index, the result of the expression might be any one of them, but always the same one for a semantically identical expression.
 But the fact that the value could be any satisfying index means that any assertion that uses that index must hold no matter what the value is.
 
-If `R && V` is always false, that is there is no such index, then the expression is not well-defined. 
+If `R && V` is always false, that is there is no such index, then the expression is not [well-defined](WellDefinedExpressions). 
  
 ### max and min
 
-The `\max` and `\min` predicates have the same form except that the value term is now numeri, so that maximum and minimum are meaningful concepts. You might ask, for example, for the maximum and minimum values of an array:
+The `\max` and `\min` predicates have the same form except that the value term is now numeric, so that maximum and minimum are meaningful concepts. You might ask, for example, for the maximum and minimum values of an array:
 * `\max int i; 0 <= i < a.length; a[i]`
 * `\min int i; 0 <= i < a.length; a[i]`
 
 A first point to note is that these are each equivalent to a pair of forall and exists expressions: `x == \max ...; R; V` is equivalent to 
-`(\forall ... ; R; x >= V) && (\exists ... ; R; x == V)`. That is, the value of the `\max` expression is a number that is at least as large as all the elements being considered and is equal to at least one of them.
+`(\forall ... ; R; x <= V) && (\exists ... ; R; x == V)`. That is, the value of the `\max` expression is a number that is at least as large as all the elements being considered and is equal to at least one of them.
 
-A second point is that these expressions are not well-defined if the range is empty (range predicate is always false). 
+A second point is that these expressions are not well-defined if the range is empty (that is, the range predicate is always false). 
 
 A third point is that the type of the expression is the same as the type of the value term. However the value term itself is evaluated in bigint-math mode
 and only when the max or min has been determined is the result cast back to the final type.
 
 ### sum and product
 
-The `\sum` and `\product` quantifiers add up or multiply up all the values of the value term for which the range term is true. For example the sum or product of all the elements in an array `a` would be expressed as
+The `\sum` and `\product` quantifiers add up or multiply up all the values of the value term for which the range term is true. For example, the sum or product of all the elements in an array `a` would be expressed as
 * `\sum int i; 0 <= i < a.length; a[i]`
 * `\product int i; 0 <= i < a.length; a[i]`
 
@@ -125,7 +126,7 @@ The implementation of these two expressions in JML tools is in progress. Don't c
 
 A final quantified expression is `\num_of` which counts the number of times the boolean value term is true when the range term is also true. For example,
 `\numof int i; 0 <= i < a.length; a[i] == 0` counts the number of elements of the array that are 0. Quite obviously
-`\num_of ...; R; V` is equivalent to `\sum ... ; R && V; 1`. The type of a \num_of expression is `\bigint` and it can be cast to a desired final type; if the range is empty the value of the expression is 0.
+`\num_of ...; R; V` is equivalent to `\sum ... ; R && V; 1`. The type of a `\num_of` expression is `\bigint` and it can be cast to a desired final type; if the range is empty the value of the expression is 0.
 
 The implementation of this expression in JML tools is in progress. Don't count on it working yet.
 
