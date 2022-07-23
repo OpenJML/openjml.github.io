@@ -31,7 +31,8 @@ int k;
 //@ set i = (i+i)/i;
 ```
 
-Some functions on `\bigint`s are defined in `org.jmlspecs.math.Math` (and more will be added):
+The Java `java.lang.Math` class defines a number of functions on integer types.
+The specifications of model methods for corresponding functions on `bigints` are also included in OpenJML (and more may be added):
 ```
 {% include_relative Bigint.java %}
 ```

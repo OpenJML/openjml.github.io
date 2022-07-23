@@ -1,5 +1,4 @@
 // openjml --esc Bigint.java
-//@ model import org.jmlspecs.math.Math;
 public class Bigint {
 
   //@ ghost \bigint x;
