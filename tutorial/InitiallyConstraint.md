@@ -4,7 +4,7 @@ title: JML Tutorial - Minimizing replicated specifications (initially, constrain
 
 Sometimes it is the case that certain properties must hold at the end of every constructor or every method.
 Then the specifications for each method or constructor have to repeat the same specification clause.
-There is a dnager that (a) such a clause will be forgotten for some constructor or method and (b) if the clause needs to be modified, it will not be correctly changed in every place it appears.
+There is a danger that (a) such a clause will be forgotten for some constructor or method and (b) if the clause needs to be modified, it will not be correctly changed in every place it appears.
 
 So JML has a few features to coalesce such replicated clauses. These clauses are part of the _class_ declaration, but apply to every method or constructor as described below.
 
@@ -12,11 +12,11 @@ So JML has a few features to coalesce such replicated clauses. These clauses are
 
 An `initially` clause at the class level is equivalent to a corresponding `ensures` clause at the end of every constructor, including an unwritten default constructor. For example, suppose we are constructing rectangles and want to ensure that, at least upon construction, every such rectangle has a length larger than its width, which is larger than 0.  We might write
 ```
-T_initially1.java
+{% include_relative T_initially1.java %}
 ```
 This yields
 ```
-T_initially1.out
+{% include_relative T_initially1.out %}
 ```
 This verification failure is understandable. We did not specify a precondition that `0 < width < length`, so the stated initially clause cannot be fulfilled.
 But why is there no failure for the second constructor? The second constructor calls `this(0,0)`, using the first constructor. Because it is calling that
