@@ -50,8 +50,10 @@ is successfully verified.
 
 The `old` clause is a means to compute a value (in the pre-state) that is used elsewhere in the specification.
 It is a means to factor out common subexpressions, to compute something in the pre-state that is used in the postconditions, or to simply make the specification more readable.
-
-TODO
+Here is a simple use of it:
+```
+{% include_relative T_Old.java %}
+```
 
 ## **[Method Specifications Problem Set](https://www.openjml.org/tutorial/exercises/MethodSpecificationsEx.html)**
 
