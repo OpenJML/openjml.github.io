@@ -53,7 +53,7 @@ Java's syntax for type annotations applied to fully-qualified type names is a bi
 
 ## Type annotations and arrays
 
-Applying annotations to arrays also requires some peculiar Java syntax. The difficulty is that one must distinguish between non-null arrays and non-null array elements. Java stipulates that
+Applying annotations to arrays also requires some peculiar Java syntax. The difficulty is that one must distinguish between non-null array references and non-null array elements. Java stipulates that
 ```
 @NonNull String @Nullable [] s;
 ```

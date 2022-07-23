@@ -1,4 +1,4 @@
-// openjml --esc $@
+// openjml --esc T_Visibility1.java
 public class T_Visibility1 {
     private int _value;
 

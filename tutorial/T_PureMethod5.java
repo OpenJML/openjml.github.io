@@ -1,4 +1,4 @@
-// openjml --esc $@
+// openjml --esc T_PureMethod5.java 
 public class T_PureMethod5 {
   //@ spec_public
   int[] a = new int[10];

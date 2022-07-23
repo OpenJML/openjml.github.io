@@ -49,7 +49,7 @@ as a public abstraction. The `represents` clause, which is private, tells how th
 relates to concrete (private) fields. The specification of `value()` only uses the public
 abstraction `value`. Of course, in this case, the abstraction is quite trivial. In fact,
 the goal of the private `_value` field is not so much implementation hiding but preventing
-access to the data field, that is, not allowinig clients to modify `_value` directly.
+access to the data field, that is, not allowing clients to modify `_value` directly.
 So for simple cases like this the `spec_public` modifier is perfectly fine; in fact, it is
 syntactic sugar for the solution in terms of a model field.
 
