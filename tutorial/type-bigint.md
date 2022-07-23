@@ -13,7 +13,7 @@ parameters and result types of model methods.
 The `\bigint` built-in type is intuitive and natural to use, but for the sake of clarity, its operations are listed here. `j` and `k` are two values of
 type `\bigint` and `i` a value of a Java numeric type.
 * `j == k` and `j != k` mean equality and inequality
-* `- j` is mathematical integer negation`
+* `- j` is mathematical integer negation
 * `j + k` is mathematical integer addition
 * `j - k` is mathematical integer subtraction
 * `j * k` is mathematical integer multiplication
@@ -22,6 +22,16 @@ type `\bigint` and `i` a value of a Java numeric type.
 * `<` and `<=` and `>` and `>=` have their expected meanings with the result type being boolean
 * casts are allowed to and from other numeric types, such as `(\bigint)i` or `(int)j`. When casting from `\bigint` to a bounded type, a range check is performed, depending on the [arithmetic mode](ArithmeticModes).
 
-TODO - example?
+For example, one can write the following:
+```
+int k;
+//@ ghost \bigint i; // ghost variables are specification only
+//@ set i = Integer.MAX_VALUE;
+//@ set i = i * i; // would overflow 32-bit int
+//@ set i = (i+i)/i;
+```
 
-TODO - library of built-in functions
+Some functions on `\bigint`s are defined in `org.jmlspecs.math.Math` (and more will be added):
+```
+{% include_relative Bigint.java %}
+```

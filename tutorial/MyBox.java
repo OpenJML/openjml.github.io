@@ -47,7 +47,7 @@ public class MyBox {
   }
   public static void test3(MyBox b) {
     b.changeSizeH();
-    //@ assert b.sizeH() >= 0; // FAILS -- sizeH does not necessarily establish the invariant
+    //@ assert b.sizeH() >= 0; // FAILS -- changeSizeH does not necessarily establish the invariant
     b.size = 0;
   }
   public static void test4(MyBox b) {

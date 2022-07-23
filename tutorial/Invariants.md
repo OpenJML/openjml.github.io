@@ -18,7 +18,7 @@ Here is a typical simple example:
 {% include_relative MyBox.java %}
 ```
 
-This example shows part of a simple class that has a `size` property. The specification records that this size is always to be a non-negative integer.
+This example shows part of a simple class that has a `size` property. The specification records in its `invariant` clause that this `size` is always to be a non-negative integer.
 So the constructor makes sure that `size` is non-negative when a `MyBox` is created. In `doit()`, `size` is used to create an array. The call of 
 `doit`() can assume that the invariants of `this` hold at the beginning of the call; consequently it does not need to check that `size` is non-negative before using its value as the length of the new array.
 
