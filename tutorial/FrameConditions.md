@@ -30,7 +30,7 @@ After calling `increment1`, the value of `counter1` has increased by 1;
 the postcondition of `increment1` says just that and the first assert
 statement is readily proved. 
 
-But the second assert statement is not. Why not? `increment1()` does not change
+But the second assert statement is not verified. Why not? `increment1()` does not change
 `counter2`. The problem is that the specification of `increment1()` does not say
 that `counter2` is unchanged. One solution would be to add an additional 
 ensures clause that states that `counter2 == \old(counter2)`. This specification
@@ -63,14 +63,14 @@ themselves cannot be changed by a method, but if they are references to objects,
 their fields might be written to by a method. So a method `m(MyType q)`
 might have a frame condition `assigns q.f;` if `f` is a field of `MyType`
 that is written to in the body of `m`.
-* If there are no effects of a method, you can specify a frame condition `assigns \nothing;`
+* If a method has no external effects other than its return value, you can specify a frame condition `assigns \nothing;`
 * `q.*` for an expression `q` means all fields of q
 * `a[i]` for expression `a` and `i` means that particular array element
 * `a[*]` for array expression `a` means all elements of that array
 * `a[i..j]` for expressions `a`, `i`, and `j` means the stated range of array elements, from `i` to `j` inclusive.
 
 If there is no frame condition at all, then a default is used, namely `assigns \everything;`--- which means exactly that: after a call of this method, any memory location in the state might have been written to and might be changed. It is very difficult to prove anything about a program that includes a call to a method with such a frame condition. Thus  
-*you must include a frame condition for any method that is called within a program*
+*you must include a frame condition for any method that is called within a program*.
 
 A shorthand way to say that a method `assigns \nothing;` is to designate it `pure`, as in
 ```
@@ -86,7 +86,7 @@ There are two other points to know about frame conditions. First, where a frame 
 Second, a frame condition is a method specification clause like `requires` and `ensures`. A method specification may contain more than one such clause.
 However, note that each cluase is considered individually. That is, each clause
 by itself lists the memory locations that may be written to by the method.
-As each frame condition clause must be valid on its own, the effect of multiple clauses is the same as one clause with the intersection of the sets of locations given by the separate clauses.
+As each frame condition clause must be valid on its own, the effect of multiple clauses is the same as one clause with the _intersection_ of the sets of locations given by the separate clauses.
 For example,
 ```
 assigns i,j;
