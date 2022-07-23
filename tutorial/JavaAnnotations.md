@@ -23,10 +23,10 @@ public class T {
 ```
 
 If you do use these Java annotations then
-* you need to either include `import org.jmlspecs.annotation.*;` (or all the specific imports you use: `import org.jmlspecs.annotation.Pure;` etc.) in your Java program, or fully qualify the annotations when used: `@org.jmlspecs.annotation.Pure`; and
-* anyone who is using the source code (e.g., compiling it) will need to have a copy of the jmlruntime.jar, which contains the definitions of the Java annotations for JML.
+* you need to either include `import org.jmlspecs.annotation.*;` (or for all the specific imports you use: `import org.jmlspecs.annotation.Pure;` etc.) in your Java program, or fully qualify the annotations when used: `@org.jmlspecs.annotation.Pure`; and
+* anyone who is using the source code (e.g., compiling it) will need to have a copy of the `jmlruntime.jar`, which contains the definitions of the Java annotations for JML.
 
-The annotations themselves are not needed at runtime (i.e., for RAC) but other classes in jmlruntime.jar are.
+The annotations themselves are not needed at runtime (i.e., for RAC) but other classes in `jmlruntime.jar` are.
 
 Because of the above limitations and the fact that the Java source code is being modified, these Java annotations for JML are less popular than simply using the JML annotation comments.
 

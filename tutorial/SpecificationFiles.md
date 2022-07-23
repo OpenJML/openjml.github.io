@@ -4,7 +4,7 @@ title: JML Tutorial - Specification (.jml) files
 
 ## .jml files
 
-In the examples in this tutorial, specifications are written directly in the .java file, along with the program source code. This is convenient if the same engineers are working on both ethe code and the specifications. 
+In the examples in this tutorial, specifications are written directly in the .java file, along with the program source code. This is convenient if the same engineers are working on both the code and the specifications. 
 However, an alternative is to separate the specifications into a separate file.
 Such specification files have a `.jml` suffix and are subject to the rules described in this lesson.
 
@@ -50,13 +50,13 @@ When `openjml` reads a source or class file,
 
 Now the specspath by default is (almost) the same as the sourcepath, which by default is (almost) the same as the classpath, so it is common practice to use just one classpath for all three paths.
 
-The specspath adds to the sourcepath the specifications for system library files that are part of the OpenJML release. You can specify the specspath explictly with the `--specs-path` option; the given path ha sthe system specification files added to it by default.
+The specspath adds to the sourcepath the specifications for system library files that are part of the OpenJML release. You can specify the specspath explictly with the `--specs-path` option; the given path has the system specification files added to it by default.
 
 Remember also that these paths all contain the folders that are the root of the package path to which a class belongs. That is a class named `org.mypackage.MyClass` would have its .class or .java or .jml file in a folder `X/org/mypackage` where it is `X` that is on the appropriate path.
 
 ## Rules about .jml files
 
-Important rule: If there is a .jml file for a class, then any JML annotation comments in a .java file for that class are completely (and silently) ignored.
+Important rule: If there is a .jml file for a class, then any JML annotation comments outside a method body in a .java file for that class are completely (and silently) ignored.
 
 Specification files are very similar to the corresponding source file.
 * The package declaration is the same.
