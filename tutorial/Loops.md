@@ -13,7 +13,7 @@ A loop typically has the following steps:
 
 There are four aspects of a loop that typically need to be specified:
 1. a constraint on the expected values of the loop index (including just before exiting the loop), given by a loop invariant
-2. an inductive predicate that says what has been accomplised so far by the loop, given also by a loop invariant
+2. an inductive predicate that says what has been accomplished so far by the loop, given also by a loop invariant
 3. a loop frame condition that says which memory locations are modified by any iteration of the loop body
 4. a termination condition (with an integer type) that enables proving that the loop will terminate
 
@@ -35,7 +35,7 @@ the range must include the value the loop index will take on when it exits the l
 * The second `maintaining` clause states what has been accomplished in `i` iterations, namely that each arrray element up
 to (but not yet including) `i` is initialized to the expected value. This invariant is very typically a `forall`expression.
 * The third specification clause states which memory locations are modified by the loop body.
-* And the fourth line is a quantity that must decrease on each iteration but always be non-negative when the loop body is executed.
+* And the `decreases` specification states a quantity that must decrease on each iteration but always be non-negative when the loop body is executed.
 If those conditions are satisfied (and the verifier checks them), then we know that the loop will eventually terminate.
 
 It may help to understand what the verifier tries to prove about a loop. It proves three things:
@@ -114,7 +114,7 @@ producing this output:
 ```
 
 ### Loop body error
-In this example, a loop invariant cannot be proven after execution of the loop body. To help see why, a `show` statment (cf. TBD) is included, which shows that the problem occurs when
+In this example, a loop invariant cannot be proven after execution of the loop body. To help see why, a `show` statment (cf. [Inspecting Counterexamples](InspectingCounterexamples)) is included, which shows that the problem occurs when
 the loop index is one less than the array length. Indeed, in that case, when the loop index is incremented on the final loop iteration, its value will be the array length, and then the
 first loop invariant will not hold. Interestingly, there is also a loop initialization error. Why? Because if `a.length` is 0, then the initial value of `i` does not satisfy the first 
 loop invariant.
@@ -125,7 +125,7 @@ produces
 ```
 {% include_relative  T_LoopBodyError.out %}
 ```
-(The order of error messages and the specific values returned by show are non-deterministic.)
+(The order of error messages and the specific values returned by `show` are non-deterministic.)
 
 ### Loop decreases error
 If the `decreases` expression does not decrease, one receives the error shown in this example:
