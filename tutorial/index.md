@@ -10,7 +10,7 @@ in the form of an on-line tutorial.
 You should 
 * read the brief [What is Deductive Verification](Introduction) page to clearly understand the overall concept of deductive verification
 * follow the installation/execution/syntax instructions just enough to get you going
-* start with the Simple Method Specification seequence, but
+* start with the Simple Method Specification sequence, but
 * branch out into other topics as you are interested
 
 ```diff
@@ -20,7 +20,7 @@ You should
 
 The tutorial does not cover all aspects of JML and OpenJML. See also the 
 [JML Reference Manual](../documentation/JML_Reference_Manual.pdf)
-and the [OpenJML Reference Manual](../documentation/OpenJMLUserGuide.pdf).
+and the [OpenJML User Guide](../documentation/OpenJMLUserGuide.pdf).
 
 Many tutorial pages have links to supplementary exercises. A table of contents for all the exercises is collected [here](./exercises/exercises).
 

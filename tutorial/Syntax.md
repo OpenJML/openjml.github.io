@@ -40,7 +40,7 @@ of
 * (2) always placing white space after the @ and before the JML keyword.
 
 If you have source text from elsewhere that is not modifiable and that contains
-these problematic Java comments, you can also use the `-require-white-space`
+these problematic Java comments, you can also use the `--require-white-space`
 option so that Java comments like `//@Override` are ignored and not considered 
 erroneous JML annotations. With this option enabled, JML annotations must
 be written with white space, such as `//@ ensures...`, 
@@ -58,7 +58,7 @@ are joined together; expressions can run from one to the other.
 Comments can be conditional, as described below.
 
 JML annotations are one of these types:
-* A modifier. Modifiers are single words, such as `pure`, that are syntactically similar to Java modifiers like `public` and `static`.
+* Modifiers. Modifiers are single words, such as `pure`, that are syntactically similar to Java modifiers like `public` and `static`.
 * Clauses. A JML clause begins with a keyword, such as `ensures`, followed by
 an expression or other information, and ending with a semicolon. The semicolon
 is optional if it is just prior to the end of the JML comment.
@@ -78,10 +78,10 @@ No whitespace is permitted before the `@`; in fact, if the above syntax
 is not followed precisely, the Java comment will be silently just a Java comment and not a JML annotation.
 
 Keys are defined as follows:
-* One or more keys can be defined on the command-line using the `-keys` option;
+* One or more keys can be defined on the command-line using the `--keys` option;
 the value of the option is a comma-separated list of identifiers.
-* The `ESC` key is defined if `-esc` is the current command option
-* The `RAC` key is defined if `-rac` is the current command option
+* The `ESC` key is defined if `--esc` is the current command option
+* The `RAC` key is defined if `--rac` is the current command option
 * The `OPENJML` key is defined within the OpenJML tool
 * The `KEY` and `KeY` keys are reserved for the KeY tool
 
@@ -93,7 +93,7 @@ if
 So positive keys enable a comment and negative keys disable it, with any
 negative key overriding any positive ones.
 
-For example, a comment beginning `//-RAC@` will be used for typechecking (-check) and static checking (-esc), but ignored for runtime checking (-rac). A comment beginning `//+ESC@` will only be used when `-esc` is being applied.
+For example, a comment beginning `//-RAC@` will be used for typechecking (--check) and static checking (--esc), but ignored for runtime checking (--rac). A comment beginning `//+ESC@` will only be used when `-esc` is being applied.
 The most common use of conditional JML annotations is the first example: to turn off 
 non-executable annotations during runtime-assertion checking but leave
 them in place for static checking.

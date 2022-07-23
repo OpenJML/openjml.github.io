@@ -1,5 +1,5 @@
 ---
-title: JML Tutorial - Assume statements (`assume` clauses)
+title: JML Tutorial - Assume statements (assume clauses)
 ---
 
 Like an `assert` stastement, a JML  `assume` statement may be used in the
@@ -19,7 +19,7 @@ For example, consider the following code:
 
 Here we have stated a postcondition we want in the ensures clause and a sketch
 of an implementation to compute it. But we don't know yet how to 
-specify the behavior of loops (that is coming later!), so we add some 
+specify the behavior of loops (that is coming [later!](Loops)), so we add some 
 assumptions that we expect to be true. With those assumptions, the
 above example verifies.
 

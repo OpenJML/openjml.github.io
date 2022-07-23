@@ -1,5 +1,5 @@
 ---
-title: JML Tutorial - Assert statements (`assert` clauses)
+title: JML Tutorial - Assert statements (assert
 ---
 A JML *assert* statement states a condition that is expected to hold at a point
 within the body of a method. Such statements are not part of a method's interface 

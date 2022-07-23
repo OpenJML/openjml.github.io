@@ -37,7 +37,7 @@ A's implementation), so method B does not need to be verified using bit-vectors.
 proof is limited to method A.
 
 The following method rounds a number up to the next highest multiple of 16. The implementation
-using a non-obvious bit-twiddling trick to do so. The specification expresses the desired
+uses a non-obvious bit-twiddling trick to do so. The specification expresses the desired
 outcome more clearly and uses only numeric operations. The successful verification shows that
 the bit-twiddling trick correctly implements the desired result.
 ```

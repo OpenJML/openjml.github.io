@@ -1,5 +1,5 @@
 ---
-title: JML Tutorial - Postconditions (`ensures` clauses)
+title: JML Tutorial - Postconditions (ensures clauses)
 ---
 
 A method's specification states what the method does,
@@ -30,12 +30,12 @@ In fact, the same specification could be used with a different implementation:
 
 Now how can we check that the implementation actually implements the specification? That is the (or one) purpose of the OpenJML tool.
 If we execute (cf. [Execution](Execution))
-`openjml -esc tutorial/T_ensures1.java`
+`openjml --esc tutorial/T_ensures1.java`
 we find that the openjml tool completes with no error messages and a success
 error code, indicating that the implementation is verified with respect to
 the given specification.
 
-Similarly, `openjml -esc tutorial/T_ensures1a.java` indicates that this
+Similarly, `openjml --esc tutorial/T_ensures1a.java` indicates that this
 second example also verifies.
 
 Now consider a third example:
@@ -45,15 +45,15 @@ Now consider a third example:
 ```
 
 
-Running `openjml -esc tutorial/T_ensures2.java` produces this output (and a non-zero exit code):
+Running `openjml --esc tutorial/T_ensures2.java` produces this output (and a non-zero exit code):
 ```
 {% include_relative T_ensures2.out %}
 ```
 
 The error message tells us that the specification and implementation are
 not consistent; in particular, the `ensures` clause on line 3 is not satisfied
-when the method exits on line 18. Some code inspection reveals that there
-is an error in the `if` condition on line 9: it should be `b > d` (as it is in example `T_ensures1.java` above).
+when the method exits on line 19. Some code inspection reveals that there
+is an error in the `if` condition on line 19: it should be `b > d` (as it is in example `T_ensures1.java` above).
 This is the kind of cut&paste error that can be easy to miss during code inspection.
 
 OpenJML is able to provide more debugging information than just the error
@@ -72,12 +72,10 @@ possible to verify _uses_ of the method in some calling method (unless it
 indeed did not matter what result was returned). We will return to this 
 subject in [Calling Specified Methods](MethodCalls).
 
-Sometimes you may wish to refer to the value returned by a method in the postcon
-dition. This value is referenced as `\result`. Like all JML keywords in expressi
-on, `\result` begins with a backslash so it does conflioct with a Java identifie
-r. `\result` may only be used in `ensures` clauses of method specifications for
- methods that return values (and not for constructors). Here is a simple example
-:
+Sometimes you may wish to refer to the value returned by a method in the postcondition. 
+This value is referenced as `\result`. Like all JML keywords in expression, `\result` begins with a backslash so it will not conflict with a Java identifier.
+ `\result` may only be used in `ensures` clauses of method specifications for
+ methods that return values (and not for constructors). Here is a simple example:
 ```
 {% include_relative T_ensures3.java %}
 ```
