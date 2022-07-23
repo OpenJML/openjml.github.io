@@ -28,7 +28,7 @@ Verification without checking feasibility reports no errors. However, when feasi
 ```
 The problem here is that the specs of `mm()` say that the method is `pure`, meaning that it changes nothing, but the ensures clause says that `k` is incremented. 
 This contradiction results in stopping any verification after the method call. The feasibility check indeed finds this problem.
-This example points out the necessity of verifying all methods used in a program before the program can be considered verified. This is particularly relevant to library methods. These may well have specifications, but a typical client of the library will be forced to trust these specifications and will not have the source code to even attempt a verification of the library cmethods the client uses.
+This example points out the necessity of verifying all methods used in a program before the program can be considered verified. This is particularly relevant to library methods. These may well have specifications, but a typical client of the library will be forced to trust these specifications and will not have the source code to even attempt a verification of the library methods the client uses.
 * Some branches of the code may be _dead_, that is, are never executed. In fact sometimes one may wish to prove that a branch, such as an error reporting or recovery branch, will not be executed. Feasibility checking can assist in detection of dead code.
 
 All the various places that OpenJML implements feasibility checking are enumerated below. But first, some caveats are in order.
@@ -41,7 +41,7 @@ Remember that when checking method A, only the specifications of B are considere
 ```
 {% include_relative T_Feasibility2.java %}
 ```
-The command stated at the top of the example checks whether it is possible to reach the `reachable` statement in the program. Indeed, the check runs without complaint, meaning that the program point is indeed reachable. Given that for positive numbers, the `abs` method should just return its input, how can this be? Well,. in verifying method `m` all we see is the specification of `abs`. That specification is _underspecified_. It only says that the output is non-negative, not that it is equal to the input or its negation. Replacing the `reachable` statement with an `unreachable` statement helps us do some debugging:
+The command stated at the top of the example checks whether it is possible to reach the `reachable` statement in the program. Indeed, the check runs without complaint, meaning that the program point is indeed reachable. Given that for positive numbers, the `abs` method should just return its input, how can this be? Well, in verifying method `m` all we see is the specification of `abs`. That specification is _underspecified_. It only says that the output is non-negative, not that it is equal to the input or its negation. Replacing the `reachable` statement with an `unreachable` statement helps us do some debugging:
 ```
 {% include_relative T_Feasibility3.java %}
 ```

@@ -15,18 +15,20 @@ Thus, suppose we write a model method in this form
 //@ model public void lemma(T x, U y) {}
 ```
 Then if this method verifies, we have established `\forall T x, U y; P(x,y) ==> Q(x,y)`.
-Furthermore, if we write code like this
+If the terminating `{}` is replaced by just `;`, then the lemma is simply assumed --- no proof is attempted.
+
+Then, if we write code like this
 ```
    // some code
    //@ set lemma(i,j);
    // more code
 ```
-The call of lemma(i,j) will be replaced by `assert P(i,j); assume Q(i,j);`; this in essence is an instantiation of the lemma for the specific values `i` and `j`. This mechanism is an improvement over writing a quantified axiom or assumption, because here we have explicitly instantiated the lemma, saving the 
-solver the work of finding an appropriate instantiation for its proof. Of course, we would need to include such a `set` stastement each time it was needed. Another advantage is that the code for the lemma can be included in the specifications of the program and proved along with it.
+The call of `lemma(i,j)` will be replaced by `assert P(i,j); assume Q(i,j);`; this in essence is an instantiation of the lemma for the specific values `i` and `j`. This mechanism is an improvement over writing a quantified axiom or assumption, because here we have explicitly instantiated the lemma, saving the 
+solver the work of finding an appropriate instantiation for its proof. Of course, we would need to include such a `set` statement each time it was needed. Another advantage is that the code for the lemma can be included in the specifications of the program and proved along with it.
 
-Sometimes one needs a lemma that expresses a mathematical fact that the proof engine can't solve even as a standalone lemma. In that case we can write the lemma just as above, but with a `;` instead of the final `{}`. We still have a statement of the lemma, but no proof is attempted because there is no body to the lemma to prove. In this case the truth of the lemma must be separately established.
+Sometimes one needs a lemma that expresses a mathematical fact that the proof engine can't solve even as a standalone lemma. In that case we can write the lemma just as above, but with a `;` instead of the final `{}`. We still have a statement of the lemma, but no proof is attempted because there is no body of the lemma to prove. In this case the truth of the lemma must be separately established.
 
-Another form is a lemma with a body that consists of a series of `assert` statements that guide the solver through a proof.
+Another form is a lemma with a body that consists of a series of `assert` statements that guide the solver through a proof of the lemma..
 
 Here is an example from a client project:
 ```

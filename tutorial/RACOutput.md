@@ -89,8 +89,7 @@ default.
 They must be enabled by the Java `-ea` option.
 Using our running example,
 
-`openjml -rac -racCompileToJavaAssert T_RacOutput.java && openjml-java -cp . -ea T_RacOutput`
-
+`openjml -rac --rac-compile-to-java-assert T_RacOutput.java && openjml-java -cp . -ea T_RacOutput`
 produces
 
 ```
@@ -106,21 +105,21 @@ the source program is edited making test output that inspects this source inform
 error messages to be emitted should the assertion be false. Consequently a verbose error message contributes to the size of the 
 RAC-compiled file.
 
-The content of the error message is controlled by the `-showRacSource` compilation command-line option, which takes one of
+The content of the error message is controlled by the `--rac-show-source` compilation command-line option, which takes one of
 three options: source, line, or none. The default is "source" and produces messages that show part of the source file;
 "line" just gives line information; "none" just gives the message.
 
-With `-showRacSource=source":
+With `--rac-show-source=source1:
 ```
 {% include_relative T_RacOutput1.out %}
 ```
 
-With `-showRacSource=line":
+With `--rac-show-source=line1:
 ```
 {% include_relative T_RacOutput4.out %}
 ```
 
-With `-showRacSource=none":
+With `--rac-show-source=none1:
 ```
 {% include_relative T_RacOutput4a.out %}
 ```

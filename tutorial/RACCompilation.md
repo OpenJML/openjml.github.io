@@ -1,5 +1,5 @@
 ---
-title: JML Tutorial - Runtime Assertion Checking (RAC): Compilation and Execution
+title: JML Tutorial - Runtime Assertion Checking (RAC) - Compilation and Execution
 ---
 
 A JML-annotated Java program can be compiled and executed like any Java program, but with the JML assertions checked at runtime.
