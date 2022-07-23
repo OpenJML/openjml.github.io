@@ -10,7 +10,7 @@ A simple class with a few data fields might have constructors that look like thi
 ```
 
 The first constructor simply initializes the fields from the constructor's argument list. The specification for the constructor first requires that the 
-input values are non-negative and then simply says that aftger the constructor is finished, the newly constructed object's data fields equal the input
+input values are non-negative and then simply says that after the constructor is finished, the newly constructed object's data fields equal the input
 values. The heading `normal_behavior` says that the constructor does not throw any exceptions; it is discussed further [here](MultipleBehaviors).
 There is also the modifier `pure`; more on that below.
 
@@ -19,7 +19,7 @@ constructor. The second constructor uses the _specification_ of the first constr
 
 Both of these specifications are readily verified.
 
-For a constructor, `pure` means that nothing is assigned (for a constructor it is really initialized) other than the
+For a constructor, `pure` means that nothing is assigned (that is, initialized) other than the
 fields of the new object itself. If something else were assigned, say a static field that was keeping a count of new objects, then the costructor could not be pure and would have an assignable clause:
 ```
 {% include_relative T_constructors2.java %}

@@ -1,4 +1,4 @@
-// openjml --esc $@ 
+// openjml --esc T_PureMethod2.java
 // Intentionally not in visible web-page, just checked
 public class T_PureMethod2 {
 

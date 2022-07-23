@@ -1,4 +1,4 @@
-// openjml --esc $@
+// openjml --esc T_constructors1.java 
 public class T_constructors1 {
 
   public int width;

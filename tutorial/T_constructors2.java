@@ -1,4 +1,4 @@
-// openjml --esc $@
+// openjml --esc T_constructors2.java
 public class T_constructors2 {
 
   public static int count = 0;

@@ -1,4 +1,4 @@
-// openjml --esc $@
+// openjml --esc T_PureMethod4.java 
 public class T_PureMethod4 {
 
   //@ requires i > Integer.MIN_VALUE;
@@ -9,6 +9,6 @@ public class T_PureMethod4 {
   }
 
   public void test(int k) {
-    //@ assert k > 0 ==> abs(k) == k;
+    //@ assert abs(k) >= 0;
   }
 }

@@ -17,6 +17,7 @@ Similarly we can't allow static checking to have any effect on the Java program.
 Thus the rule is that methods that are called in specifications must be 
 _pure_, that is, must not have any side-effects. In fact JML requires that 
 a method used in specifications be marked with the modifier `pure`.
+And if a method is pure, it automatically includes the specification clause `assigns \nothing;`.
 
 Here is an example:
 ```
@@ -57,7 +58,7 @@ produces this output:
 {% include_relative T_PureMethod4.out %}
 ```
 This `abs` function verifies successfully; however, the assertion that uses it
-iin `test` does not. That is because all that the method `test` knows about the result of
+in `test` does not. That is because all that the method `test` knows about the result of
 `abs` is that it is greater than zero. In order to verify `test`, the 
 postcondition of `abs` must be strengthened to say that if `i>0` then the
 result is the same as the input. 
@@ -69,12 +70,12 @@ clients of the method need.
 ## Well-defined method calls
 
 [The lesson on well-defined expressions](WellDefinedExpressions) described how expressions in
-specifications must be well-defined. For a method call, that means two things:
+specifications must be well-defined. For a method call within a specification clause, that means two things:
 (a) the pre-conditions of the method must be fulfilled and (b) the method may
 not throw any exceptions.
 
 The next example shows the kind of error message that OpenJML produces when 
-a mthod's precondition is not fulfilled:
+a method's precondition is not fulfilled:
 ```
 {% include_relative T_PureMethod4.java %}
 ```
