@@ -40,8 +40,8 @@ Here is a working example that verifies, with commentary below.
 * `Square` has just one data member, `side` (the length of a side of the square)
 * The constructor for `Square` initializes `side`; it needs a precondition in order to satisfy the invariant for `Polygon`, which applies to `Square` by inheritance.
 * The clause `represents sides = 4` gives a value to the `sides` model field in `Polygon`
-* The clause `represents longestSide = side` gives a value to the `longestSide` model field 
-* And the `side` field is declared to be in `longestSide` . When `twice` (abstractly) assigns to the model field `longestField`, then all the fields
+* The clause `represents longestSide = side` gives a value to the `longestSide` model field using concrete fields of `Square`
+* And the `side` field is declared to be _in_ `longestSide`. When `twice` (abstractly) assigns to the model field `longestField`, then all the fields
 that are _in_ `longestField` are considered assigned to.
 * Then all the methods that `Square` inherits from `Polygon` are implemented as expected, but they can inherit all their specifications from `Polygon`. 
 No additional specifications are needed. Look at `sides()` as an example: the specification says it returns the value of `sides`, which is given a value
@@ -67,5 +67,5 @@ another derived class, `Triangle` (with three different sides) is clearer: put a
 `longestSide` be the maximum of the three sides.
 
 ```
-{% include_relative Polygon2.java %}
+{% include_relative Polygon3.java %}
 ```
