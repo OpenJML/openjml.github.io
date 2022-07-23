@@ -26,7 +26,7 @@ constructor, it only uses that constructor's specifications in reasoning about i
    assume 0 < this.width < this.length
    assert 0 < this.width < this.length
 ```
-That is, it assumes the first constructor's postcondition and assumes the first constructor satisfies the initially clause and then seeks to prove that the initially clause is satisfied. This would be a trivial proof, but actually is a vacuous proof because the middle statement in the dispaly above is assuming false. And that results in no verification complaint being issued about the second constructor.
+That is, it assumes the first constructor's postcondition and assumes the first constructor satisfies the initially clause and then seeks to prove that the initially clause is satisfied after the body of the second constructor. This would be a trivial proof, but actually is a vacuous proof because the middle statement in the display above is assuming false. And that results in no verification complaint being issued about the second constructor.
 
 If we insert a precondition to fix the verification of the first constructor, we now have
 ```
@@ -36,7 +36,9 @@ which yeilds
 ```
 {% include_relative T_initially2.out %}
 ```
-Now the first constructor passes verification, but the second one does not. The reason is obvious: the size we have given for a default rectangle (0 by 0) doe s not satisfy our desired initially postcondition. We'll have a to pick a different size -- 1x2 perhaps.
+Now the first constructor passes verification, but the second one does not. The reason is obvious: 
+the size we have given for a default rectangle (0 by 0) does not satisfy our desired initially postcondition. 
+We'll have a to pick a different size -- 1x2 perhaps.
 
 ## Constraint clauses
 

@@ -1,4 +1,4 @@
-// openjml --esc $@
+// openjml --esc T_initially2.java
 public class T_initially2 {
 
   public int width;
