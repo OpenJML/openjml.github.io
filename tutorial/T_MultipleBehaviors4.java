@@ -1,4 +1,4 @@
-// openjml --esc $@
+// openjml --esc T_MultipleBehaviors4.java
 public class T_MultipleBehaviors4 {
 
     //@  requires a != null;

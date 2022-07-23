@@ -1,4 +1,4 @@
-// openjml --esc $@
+// openjml --esc T_MultipleBehaviors5.java
 public class T_MultipleBehaviors5 {
 
     //@ public normal_behavior

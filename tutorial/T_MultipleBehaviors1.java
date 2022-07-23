@@ -1,4 +1,4 @@
-// openjml --esc $@
+// openjml --esc T_MultipleBehaviors1.java
 public class T_MultipleBehaviors1 {
   //@  requires c >= a && c >= b;
   //@  ensures \result == c;

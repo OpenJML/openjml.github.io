@@ -15,7 +15,7 @@ For example,
 {% include_relative T_MultipleBehaviors1.java %}
 ```
 The specification here is a bit more verbose than the code, but it separates out the cases a bit more readably than the code does.
-Furthermore, by writing the goal of the method in two different ways, an exchange of 'a' for 'b' or '<' for '>' is readily caught by OpenJML.
+Furthermore, by writing the goal of the method in two different ways, an erroneous exchange of 'a' for 'b' or '<' for '>' is readily caught by OpenJML.
 
 There are a few points to note:
 * There is no order to the behaviors; they can be written in any order that is understandable.
@@ -49,13 +49,13 @@ There are then two behaviors.
 that is the first behavior --- the ensures postcondition is `true` (which could be omitted entirely), which just states that
 the method is allowed (but not required) to return normally; the signals postcondition is false, which states that under
 these preconditions, the method is _not_ allowed to throw an exception.
-* The second behavior is the exceptional case. Here one or the other of the argument validation checks fails. In this case, the postcondition is `ensures false`, whcih means that the method is _not_ allowed to return normally; the default, omitted, `signals true` clause says that an exception is allowed; the `signals_only` clause says that if there is an exception it must be an `IllegalArgumentException` (the only one listed).
+* The second behavior is the exceptional case. Here one or the other of the argument validation checks fails. In this case, the postcondition is `ensures false`, which means that the method is _not_ allowed to return normally; the default, omitted, `signals true` clause says that an exception is allowed; the `signals_only` clause says that if there is an exception it must be an `IllegalArgumentException` (the only one listed).
 
 We could even separate out two kinds of exceptions:
 ```
 {% include_relative T_MultipleBehaviors4.java %}
 ```
-Now the `signals_only` clause allows the kinds of exceptions, although the specification does not say when each one is thrown. We could go to one more level of specification detail to stipulate that the each exception is thrown just when the appropriate argument validation check fails. Try it as an exercise. There is a question though: what if both checks fail? Should the specification state which exception is thrown in preference to the other? If it does it is constraining the implementation, perhaps overly so.
+Now the `signals_only` clause allows the two kinds of exceptions, although the specification does not say when each one is thrown. We could go to one more level of specification detail to stipulate that each exception is thrown just when the appropriate argument validation check fails. Try it as an exercise. There is a question though: what if both checks fail? Should the specification state which exception is thrown in preference to the other? If it does it is constraining the implementation, perhaps overly so.
 
 ## Specialized behaviors
 
@@ -63,7 +63,7 @@ The normal and exceptional behaviors illustrated in the previous section are ver
 ```
 {% include_relative T_MultipleBehaviors5.java %}
 ```
-The `normal_behavior` heading implies that no exception is allowed (`signals false`); the `exceptional_behavior` heading says that normal terminatino is not allowed.
+The `normal_behavior` heading implies that no exception is allowed (`signals false`); the `exceptional_behavior` heading says that normal termination is not allowed (`ensures false`).
 A behavior that is neither of these is a simple `behavior`, which is the default when there is no heading.
 
 One other point: any one of the behavior keywords needs a visibility keyword; almost always, as in the example above, the visibility is the same as the method. The absence of a visibility modifier means `package` visibility, just as the absence of a visibility modifier on the method declaration.
@@ -93,7 +93,7 @@ Here is an example:
   also
      requires P3;
      ensures Q3;
-  \}
+  |}
 ```
 which is a less repetitious representation of the equivalent
 ```
