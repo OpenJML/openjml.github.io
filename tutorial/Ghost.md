@@ -1,5 +1,5 @@
 ---
-title: Ghost variables and computations
+title: JML Tutorial - Ghost variables and computations
 ---
 
 It is sometimes helpful to include in a program various variables or computations that are only for specification.
