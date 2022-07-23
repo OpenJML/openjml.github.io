@@ -1,4 +1,4 @@
-// ## openjml --esc $@
+// ## openjml --esc T_show2.java
 public class T_show2 {
   //@ ensures \result >= a && \result >= b && \result >= c && \result >= d;
   //@ ensures \result == a || \result == b || \result == c || \result == d;

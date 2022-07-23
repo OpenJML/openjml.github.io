@@ -28,7 +28,7 @@ type `\real`.
 `\real` can be used like this:
 ```
 //@ ghost \real r;
-//@ ghost \resl rr;
+//@ ghost \real rr;
 //@ set rr = r * 2;
 ```
 

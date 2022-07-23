@@ -22,11 +22,9 @@ find any more failures.
 However, the last step -- where no more assertion violations are found --
 can be time-consuming. So sometimes it is useful to stop after just one verification failure  (or a small fixed number) is reported.
 The number of errors reported for each method can be limited using the 
-`--escMaxWarnings` option. By default it is set to a very large numer,
+`--escMaxWarnings` option. By default it is set to a very large number,
 but it is a reasonable working style to set it to 1.
 
 Note that there will be no proof attempts for any methods in a file if there
 are parsing or type-checking errors in the source or specification files.
-
-
 

@@ -6,6 +6,7 @@ public class Real {
 
   public void test() {
     //@ assert Math.abs(x) >= 0;
+    //@ assert Math.max(x,y) >= Math.min(x,y);
     //@ assert Math.sin(x) >= -1;
   }
 }

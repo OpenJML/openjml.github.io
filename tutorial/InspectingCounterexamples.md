@@ -31,13 +31,13 @@ and does not take `d` into account. Some code inspection shows that there is a c
 The counterexample is always in terms of concrete values --- that is how the underlying solvers work. One would much rather have a symbolic condition that represents the cases that fail, but that is beyond the current state of the art. At present, the best one can do is do some human induction based on a few examples to understand when a program or its specification fails.
 
 A few comments about the `show` statement are in order:
-* Any variable names in the show statement must be in scope at that position in the program.
+* Any variable names in the `show` statement must be in scope at that position in the program.
 * The values are reported as of that position in the program. If we had moved the `show` statement in the above example to an earlier line, the value
 of `maxSoFar` would be different.
 * You can include expressions in the list of items to show, not just variable names. 
 * However, the expressions are evaluated as specification expressions, in other words using mathematical integers (`math_mode`, cf. [the discussion on Arithmetic](ArithmeticModes)) and so might have a different value than the same
 expression in Java code.
-* The `show` statement must be along the execution path that leads to the violation. For example, if the violation is in the then branch of an if-statment but the show statement is in the else branch, the show statement will have no effect.
+* The `show` statement must be along the execution path that leads to the violation. For example, if the violation is in the _then_ branch of an if-statement but the `show` statement is in the _else_ branch, the `show` statement will have no effect.
 * Evaluation of the program stops when a violation is found. So if the `show` statement is after the line with the violation, it will not result in any output.
 
 To illustrate the last bullet point above, consider
@@ -63,7 +63,7 @@ we are told
 The show statement lets you display values of variables or of computations. But sometimes one needs to see the value of a subexpression in situ,
 without recomputing it as one of the shown values.  For this purpose the `\lbl` expression can be used, within specifications.
 For example, suppose you have a postcondition `ensures a+b < c+d;` which is failing. You can label some subexpressions as follows:
-`ensures (\lbl AB a+b) < (\lbl CD c+d);`.  The lbl expression just passes on its value (like a parenthesized expression), but records the value to report in 
+`ensures (\lbl AB a+b) < (\lbl CD c+d);`.  The `\lbl` expression just passes on its value (like a parenthesized expression), but records the value to report in 
 a counterexample. For example, we could try this on the example from the last subsection:
 ```
 {% include_relative T_show2a.java %}
@@ -82,7 +82,7 @@ JML allows placing _ghost declarations_ as statements in the body of a method. T
 
 TODO - example
 
-## Execution traces: the `-`trace` and `--subexpressions` options
+## Execution traces: the `--trace` and `--subexpressions` options
 
 Using a `show` statement is handy but is a bit like debugging a program using print statements: you get some data, but you have to still manually review the program to see what might be going wrong, working through the code step by step. An additional openjml tool is the `--trace` option. Upon a failure, it outputs an execution trace ending at the point of the violation. So the first example above, using now `openjml --esc --trace T_show1.java`, produces
 ```

@@ -1,4 +1,4 @@
-// openjml --esc $@
+// openjml --esc T_show3.java
 public class T_show3 {
   //@ public invariant data.length >= 10;
   //@ spec_public
