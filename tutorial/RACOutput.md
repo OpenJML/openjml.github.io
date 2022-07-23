@@ -109,17 +109,17 @@ The content of the error message is controlled by the `--rac-show-source` compil
 three options: source, line, or none. The default is "source" and produces messages that show part of the source file;
 "line" just gives line information; "none" just gives the message.
 
-With `--rac-show-source=source1:
+With `--rac-show-source=source`:
 ```
 {% include_relative T_RacOutput1.out %}
 ```
 
-With `--rac-show-source=line1:
+With `--rac-show-source=line`:
 ```
 {% include_relative T_RacOutput4.out %}
 ```
 
-With `--rac-show-source=none1:
+With `--rac-show-source=none`:
 ```
 {% include_relative T_RacOutput4a.out %}
 ```
