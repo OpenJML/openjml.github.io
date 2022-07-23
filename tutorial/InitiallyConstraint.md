@@ -1,5 +1,5 @@
 ---
-title: JML Tutorial - Minimizing replicated specifications: initially, constraint, invariant clauses
+title: JML Tutorial - Minimizing replicated specifications (initially, constraint, invariant clauses)
 ---
 
 Sometimes it is the case that certain properties must hold at the end of every constructor or every method.
