@@ -1,52 +1,45 @@
-// openjml --esc Polygon3.java
-interface Polygon3 {
+// openjml --esc Polygon2.java
+interface Polygon2 {
+  //@ model instance public int sides;
   //@ model instance public JMLDataGroup allSides;
-  //@ model instance public int numSides;
+  //@ model instance public int longestSide; //@ in allSides;
 
-  //@ public invariant 0 <= longestSide() < 20000;
-  //@ public invariant sides() >= 3;
+  //@ public invariant 0 <= longestSide < 20000;
+  //@ public invariant sides >= 3;
 
-  //@ requires longestSide() < 10000;
-  //@ old int oldLongest = longestSide();
+  //@ requires longestSide < 10000;
   //@ assigns allSides;
-  //@ ensures longestSide() == oldLongest + oldLongest;
+  //@ ensures longestSide == \old(longestSide) + \old(longestSide);
   public void twice();
 
-  //@ public normal_behavior
-  //@   reads numSides;
-  //@ pure helper
+  //@ ensures \result == sides; pure
   public int sides();
 
-  //@ public normal_behavior
-  //@   reads allSides;
-  //@ pure helper
+  //@ ensures \result == longestSide; pure
   public int longestSide();
 }
-class Square implements Polygon3 {
-  public int side; //@ in allSides;
+class Square implements Polygon2 {
+  public int side; //@ in longestSide;
+
+  //@ public represents sides = 4;
+  //@ public represents longestSide = side;
 
   //@ requires 0 <= s < 20000;
-  //@   ensures side == s;
+  //@ ensures side == s && sides == 4;
   public Square(int s) { side = s; }
 
   // specification inherited
   public void twice() { side = side+side; }
 
-  //@ also public normal_behavior
-  //@   reads numSides;
-  //@   ensures \result == 4;
-  //@ pure helper
+  // specification inherited; cf the represents clause for sides
   public int sides() { return 4; }
 
-  //@ also public normal_behavior
-  //@  reads allSides;
-  //@  ensures \result == side;
-  //@ pure helper
+  // specification inherited; cf the represents clause for longestSide
   public int longestSide() { return side; }
 }
 class Test {
-  //@ requires polygon.longestSide() < 10000;
-  public void test(Polygon3 polygon) {
+  //@ requires polygon.longestSide < 10000;
+  public void test(Polygon2 polygon) {
     int s = polygon.sides();
     int p = polygon.longestSide();
     polygon.twice();
@@ -56,7 +49,7 @@ class Test {
     //@ assert 2*p == pp;
   }
 
-  public void test2(Polygon3 polygon) {
+  public void test2(Polygon2 polygon) {
     //@ assert polygon.sides() == 4; // NOPE - could be any kind of polygon
   }
 
@@ -64,7 +57,7 @@ class Test {
     //@ assert square.sides() == 4; // OK
   }
 
-  public void test4(Polygon3 polygon) {
+  public void test4(Polygon2 polygon) {
     if (polygon instanceof Square square) {
       //# assert square.sides() == 4; // OK as well
     }

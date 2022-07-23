@@ -19,7 +19,7 @@ For example, if the example below did not declare `sides()` as a Java method, on
 
 ## using model methods
 
-Here is the [previous example](ModelFields), altered to use methods --- in this case the Java methods already part of the `Polygon` interface. There are a few key points to note:
+Here is the [model field example](ModelFields), altered to use methods --- in this case the Java methods already part of the `Polygon` interface. There are a few key points to note:
 * The datagroup is still needed. When using model methods, one typically will declare standalone datagroups to use in frame conditions.
 * Reads clauses are needed. They are discussed after the code listing.
 * If the methods are used within invariants, they typically need to be declared `helper` and that they do not throw exceptions (`public normal_behavior`).
@@ -36,7 +36,7 @@ When specifying a method like `twice()` that modifies the program state, it is t
 that field was not changed by the method call.
 
 The example code above uses model methods instead of model fields. So in the `test()` routine, how is it known that `polygon.sides()` does not change
-value upon the call of `twice()` and that `polygon.longestSide()` does change? The answwer is the `reads` clause; this clause states what fields a method
+value upon the call of `twice()` and that `polygon.longestSide()` does change? The answer is the `reads` clause; this clause states what fields a method
 _reads_ or _depends on_. The content of the reads clause may be a model field.
 
 Note that `twice()` assigns to `allSides` and `longestSide()` reads `allSides`. So the value of `longestSide()` might well be changed by the call of `twice()` (though not necessarily).
