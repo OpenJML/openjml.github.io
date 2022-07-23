@@ -9,6 +9,6 @@ public class T_PureMethod4 {
   }
 
   public void test(int k) {
-    //@ assert abs(k) >= 0;
+    //@ assert k >= 0 ==> abs(k) >= k;
   }
 }

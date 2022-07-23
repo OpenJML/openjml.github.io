@@ -40,7 +40,7 @@ it would have to be `assigns \nothing;`. In fact, for a `pure` method,
 the default `assigns` clause is precisely that `assigns \nothing;`.
 (For a non-pure method, the default is `assigns \everything;`.)
 
-If you add a `pure` modifier to `count`, then OpenJML produces
+If you add a `pure` modifier to `count` (as in `T_PureMethod3.java`), then OpenJML produces
 ```
 {% include_relative T_PureMethod3.out %}
 ```
@@ -77,11 +77,11 @@ not throw any exceptions.
 The next example shows the kind of error message that OpenJML produces when 
 a method's precondition is not fulfilled:
 ```
-{% include_relative T_PureMethod4.java %}
+{% include_relative T_PureMethod5.java %}
 ```
 produces
 ```
-{% include_relative T_PureMethod4.out %}
+{% include_relative T_PureMethod5.out %}
 ```
 The relevant error messages include the term 'Undefined' to indicate that this
 instance of an out of range index is part of a specification instead of in
