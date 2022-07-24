@@ -25,8 +25,8 @@ which produces
 {% include_relative T_show2.out %}
 ```
 The values shown are the result of a non-deterministic search; they might very well be different values on subsequent runs.
-Nevertheless, it appears that the value of `maxSoFar`, which is the value returned, is the same as `c`, or perhaps the max of `a`, `b`, and `c`,
-and does not take `d` into account. Some code inspection shows that there is a cut&paste error on line 9.
+Nevertheless, for the values of `a`, `b`, `c`, and `d` shown here, the result is equal to `b` or `d`, instead of, for these values, the value of `a`.
+Some code inspection shows that there is a cut&paste error on line 9.
 
 The counterexample is always in terms of concrete values --- that is how the underlying solvers work. One would much rather have a symbolic condition that represents the cases that fail, but that is beyond the current state of the art. At present, the best one can do is do some human induction based on a few examples to understand when a program or its specification fails.
 
