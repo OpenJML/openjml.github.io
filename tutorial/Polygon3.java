@@ -1,5 +1,5 @@
-// openjml --esc Polygon2.java
-interface Polygon2 {
+// openjml --esc Polygon3.java
+interface Polygon3 {
   //@ model instance public int sides;
   //@ model instance public JMLDataGroup allSides;
   //@ model instance public int longestSide; //@ in allSides;
@@ -18,7 +18,7 @@ interface Polygon2 {
   //@ ensures \result == longestSide; pure
   public int longestSide();
 }
-class Square implements Polygon2 {
+class Square implements Polygon3 {
   public int side; //@ in longestSide;
 
   //@ public represents sides = 4;
@@ -37,9 +37,31 @@ class Square implements Polygon2 {
   // specification inherited; cf the represents clause for longestSide
   public int longestSide() { return side; }
 }
+class Triangle implements Polygon3 {
+  public int side1; //@ in longestSide;
+  public int side2; //@ in longestSide;
+  public int side3; //@ in longestSide;
+
+  //@ public invariant 0 <= side1 && 0 <= side2 && 0 <= side3;
+  //@ public invariant side1 <= longestSide && side2 <= longestSide && side3 <= longestSide;
+
+  //@ requires 0 <= s1 < 20000 && 0 <= s2 < 20000 && 0 <= s3 < 20000;
+  //@ ensures this.side1 == s1 && this.side2 == s2 && this.side3 == s3;
+  public Triangle(int s1, int s2, int s3) { side1 = s1; side2 = s2; side3 = s3; }
+
+  //@ public represents sides = 3;
+  //@ public represents longestSide = Math.max(side1, Math.max(side2, side3));
+  
+  public int longestSide() { return Math.max(side1, Math.max(side2, side3)); }
+
+  public int sides() { return 3; }
+
+  public void twice() { side1 += side1; side2 += side2; side3 += side3; }
+}
+  
 class Test {
   //@ requires polygon.longestSide < 10000;
-  public void test(Polygon2 polygon) {
+  public void test(Polygon3 polygon) {
     int s = polygon.sides();
     int p = polygon.longestSide();
     polygon.twice();
@@ -49,7 +71,7 @@ class Test {
     //@ assert 2*p == pp;
   }
 
-  public void test2(Polygon2 polygon) {
+  public void test2(Polygon3 polygon) {
     //@ assert polygon.sides() == 4; // NOPE - could be any kind of polygon
   }
 
@@ -57,7 +79,7 @@ class Test {
     //@ assert square.sides() == 4; // OK
   }
 
-  public void test4(Polygon2 polygon) {
+  public void test4(Polygon3 polygon) {
     if (polygon instanceof Square square) {
       //# assert square.sides() == 4; // OK as well
     }
