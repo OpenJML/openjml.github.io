@@ -8,7 +8,7 @@ We have introduced a few kinds of method specification clauses so far. In fact t
   * [`old`](#old-clause)
 * Frame conditions
   * `reads` (`accessible`)
-  * `assignable` (`assigns`)
+  * [`assignable` (`assigns`)](FrameConditions)
   * `captures`
   * `callable`
 * Postconditions
@@ -20,8 +20,6 @@ We have introduced a few kinds of method specification clauses so far. In fact t
   * `working_space`
 * Termination
   * `measured_by`
-
-TODO -- add links to the above; check for completeness
 
 Some of these have been already discussed; others are discussed in later lessons; and others are omitted from the tutorial because they are too advanced or too ill-defined -- see the JML Reference Manual for details on those. The `old` clause is presented below. Those clauses discussed in this tutorial are clickable hyperlinks in the above list.
 
