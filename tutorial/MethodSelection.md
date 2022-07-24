@@ -30,7 +30,4 @@ a prepended fully-qualified class name or an appended argument signature, as in
 `--method="mypackage.MyClass.myMethod"` or `--method="myMethod(int,java.lang.String)"`. Note that
 when the expanded name includes characters interpreted by the shell, such as periods and
 parentheses, quotes around the method name are needed.
-*  Matching patterns -- TBD
-
-
-
+* More complicated strings that include wildcards for matching are described in the Ope JML Users' Guide.

@@ -46,7 +46,7 @@ JML statements are well-defined if all their component sub-statements and sub-ex
 As for other JML operations
 * singleton JML expression identifiers like `\result` are well-defined expressions (always presuming they are type-correct)
 * functional-form JML expressions are well-defined if all expression arguments are well-defined; any additional conditions will be stated when the expression is introduced
-* a [quantified expression](QuantifierExpressions) (`Q x; range; value`) is well-defined if (a) the  range expression is well-defined for all values of the local variable (for its type) and (b) the value expression is well-defined for any value of the local variable for which in range value is true (and for the `\choose` operation, the corresponding `\exists` expression is true)
+* a [quantified expression](Expressions#QuantifiedExpressions) (`Q x; range; value`) is well-defined if (a) the  range expression is well-defined for all values of the local variable (for its type) and (b) the value expression is well-defined for any value of the local variable for which in range value is true (and for the `\choose` operation, the corresponding `\exists` expression is true)
 
 
 The requirement that JML expressions be well-defined leads to writing guarded expressions, such as `o != null ==> o.f == 0` as `o.f` by itself might be not well-defined. However, `o.f` by itself is well-defined, if it can be proved for the context of that expression that `o != null`.
