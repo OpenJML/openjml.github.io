@@ -78,9 +78,8 @@ Though `\lbl` can be used in any specification expression, it is most useful in 
 
 ## ghost declarations
 
-JML allows placing _ghost declarations_ as statements in the body of a method. These are declarations of variables that may only be used in specification statements, but otherwise function like Java local declarations. They can be used as part of the modeling and specificaiton of a method, but they are also useful for debugging. Fox example, one might want to capture a value at one point to compare it to something else later on.
-
-TODO - example
+JML allows placing _ghost declarations_ (discussed [here](Ghost)) as statements in the body of a method. 
+They can also be useful to record values of variables and them compare them to others, `show` them, perform specification-side computations, etc. as part of the debugging process.
 
 ## Execution traces: the `--trace` and `--subexpressions` options
 
