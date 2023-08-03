@@ -86,11 +86,11 @@ public boolean primeChecker(int num) {
 	return isPrime;
 }
 ```
-**Asnwer and Explanation:**
+**Answer and Explanation:**
 The function above checks if a number passed in is prime or not, and returns `flag =  true` if it is, and `flag = false` if it's not. We are already given some specifications needed to run this program without any warnings. However, we are asked to determine and include any assertions that can be made. We know that the function will stop and return `flag = false` if it finds that `num` is divisible by anything other than one and itself. If the function runs through the entire for-loop without finding that `num` is divisible by anything other than one and itself, it returns `flag = true` - in other words it has concluded that `num` is a prime number. So, we can assert that the function will set `flag` to false if `num % i == 0`, and we can also assert that `flag` will be set to true if the function runs through the for-loop without stopping. So we can write the following:
 ```Java
 //@ requires num > 0;
-//@ ensures \result <==> !(\exist int i; i >= 2; num % i == 0);
+//@ ensures \result <==> !(\exists int i; i >= 2; num % i == 0);
 public boolean primeChecker(int num) {
 	boolean isPrime;
 	for (int i = 2; i <= num / 2; i++) {
