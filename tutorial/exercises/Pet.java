@@ -11,7 +11,7 @@ public class Pet {
 	
 	//@ public normal_behavior
 	//@		requires species.length() > 0;
-	//@ 	requires name.length() > 0;;
+	//@ 	requires name.length() > 0;
 	//@ 	requires 0 <= yearsOld < 100;
 	//@ 	requires !Double.isNaN(weight);
 	//@ 	requires weight > 0;

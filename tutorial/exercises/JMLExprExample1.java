@@ -1,7 +1,7 @@
 public class JMLExprExample1 {
 
 	//@ requires num > 0;
-	//@ ensures \result <==> !(\exist int i; i >= 2; num % i == 0);
+	//@ ensures \result <==> !(\exists int i; i >= 2; num % i == 0);
 	public boolean primeChecker(int num) {
 		boolean flag;
 		for (int i = 2; i <= num / 2; i++) {

@@ -1,6 +1,6 @@
 #! /bin/bash
 
-J=../../OpenJML/OpenJDKModule
+J=../../OpenJML/OpenJML21
 X=0 
 files=`ls *.java`
 for f in $files ; do
@@ -8,7 +8,7 @@ for f in $files ; do
   c=`cat $f | head -1 | sed -e 'sx//[ ]*xx' | sed -e s/\\$@/$f/ | sed -e "sxopenjmlx$J/openjmlxg" | grep -v '##'`
   if [ "$c" != "" ]; then 
     echo EXEC "$c"
-    bash -c "$c" > logt  2>&1
+    bash -c "$c --specs-path ../../Specs/specs" > logt  2>&1
     e=$?
     grep -v "Note:" logt > log
     if [ -e $o ]; then 

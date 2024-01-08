@@ -5,16 +5,16 @@ Completed proof of T_split1.T_split1() with prover z3_4_3 - no warnings
 Starting proof of T_split1.m(int) with prover z3_4_3
 Proof attempt for split AA
 T_split1.m Method assertions are INVALID
-T_split1.java:16: verify: Show statement expression p has value true
+T_split1.java:17: verify: Show statement expression p has value true
     //@ show p,i;
              ^
-T_split1.java:16: verify: Show statement expression i has value 1
+T_split1.java:17: verify: Show statement expression i has value 1
     //@ show p,i;
                ^
-T_split1.java:17: verify: The prover cannot establish an assertion (Postcondition: T_split1.java:3:) in method m
+T_split1.java:18: verify: The prover cannot establish an assertion (Postcondition: T_split1.java:4:) in method m
     return i;
     ^
-T_split1.java:3: verify: Associated declaration: T_split1.java:17:
+T_split1.java:4: verify: Associated declaration: T_split1.java:18:
   //@ ensures i == 2;
       ^
 Result of split AA is Not verified
@@ -23,31 +23,31 @@ Method assertions are validated
 Result of split AB is Verified
 Proof attempt for split AC
 T_split1.m Method assertions are INVALID
-T_split1.java:16: verify: Show statement expression p has value true
+T_split1.java:17: verify: Show statement expression p has value true
     //@ show p,i;
              ^
-T_split1.java:16: verify: Show statement expression i has value 3
+T_split1.java:17: verify: Show statement expression i has value 1
     //@ show p,i;
                ^
-T_split1.java:17: verify: The prover cannot establish an assertion (Postcondition: T_split1.java:3:) in method m
+T_split1.java:18: verify: The prover cannot establish an assertion (Postcondition: T_split1.java:4:) in method m
     return i;
     ^
-T_split1.java:3: verify: Associated declaration: T_split1.java:17:
+T_split1.java:4: verify: Associated declaration: T_split1.java:18:
   //@ ensures i == 2;
       ^
 Result of split AC is Not verified
 Proof attempt for split B
 T_split1.m Method assertions are INVALID
-T_split1.java:16: verify: Show statement expression p has value false
+T_split1.java:17: verify: Show statement expression p has value false
     //@ show p,i;
              ^
-T_split1.java:16: verify: Show statement expression i has value 0
+T_split1.java:17: verify: Show statement expression i has value 0
     //@ show p,i;
                ^
-T_split1.java:17: verify: The prover cannot establish an assertion (Postcondition: T_split1.java:3:) in method m
+T_split1.java:18: verify: The prover cannot establish an assertion (Postcondition: T_split1.java:4:) in method m
     return i;
     ^
-T_split1.java:3: verify: Associated declaration: T_split1.java:17:
+T_split1.java:4: verify: Associated declaration: T_split1.java:18:
   //@ ensures i == 2;
       ^
 Result of split B is Not verified
