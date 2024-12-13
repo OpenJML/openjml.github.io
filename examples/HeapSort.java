@@ -9,7 +9,7 @@ public class HeapSort {
       ensures \forall int k;i <= k <= len/2;arr[k-1] <= arr[2*k-1];
       ensures \forall int k;i <= k <= (len-1)/2;arr[k-1] <= arr[2*k]; 
   @*/
-  public static void heapify(/*@ non_null @*/ int [] arr, final int i, final int len) {
+  public static void heapify(int /*@ non_null @*/ [] arr, final int i, final int len) {
     int j = i;
     /*@ loop_invariant i <= j <= len;
         loop_invariant \forall int k; j < k <= len/2; arr[k-1] <= arr[2*k-1];
@@ -41,7 +41,7 @@ public class HeapSort {
     requires \forall int k; 1 <= k <= len/2; arr[k-1] <= arr[2*k-1];
     requires \forall int k; 1 <= k <= (len-1)/2; arr[k-1] <= arr[2*k]; 
     ensures  \result && \forall int k; 0 < k < len; arr[k] >= arr[0]; //Always true
-  public static pure model boolean isGeq(final  non_null  int [] arr, final int len) {
+  public static pure model boolean isGeq(final int  non_null [] arr, final int len) {
     loop_invariant 0 <= i < len;
     loop_invariant \forall int k;i < k < len;arr[k] >= arr[0];
     decreasing i;
@@ -62,7 +62,7 @@ public class HeapSort {
   /*@
     ensures \forall int k,j; 0 <= k < j < arr.length; arr[k] >= arr[j];
   @*/
-  public static void sort(/*@ non_null @*/ int [] arr) {
+  public static void sort(int /*@ non_null @*/ [] arr) {
     // Array of size 1 is already sorted
      if (arr.length < 2) return;
 		

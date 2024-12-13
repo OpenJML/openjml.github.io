@@ -36,7 +36,7 @@ public class MergeSort {
       requires \forall int k,j; m <= k < j < r; arr[k] >= arr[j];
       ensures  \forall int k,j; l <= k < j < r; arr[k] >= arr[j] ;
     @*/
-    private static void merge(/*@ non_null @*/ int [] arr, final int l, final int m, final int r) {
+    private static void merge(int /*@ non_null @*/ [] arr, final int l, final int m, final int r) {
         final int [] lCpy = Arrays.copyOfRange(arr, l, m),
                      rCpy = Arrays.copyOfRange(arr,m, r);
             

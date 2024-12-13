@@ -5,7 +5,7 @@ public class SelectionSort {
     /*@
         ensures \forall int k;0 <= k && k < arr.length-1;arr[k] >= arr[k+1];
     @*/
-    public static void sort(/*@ non_null @*/ int [] arr) {
+    public static void sort(int /*@ non_null @*/ [] arr) {
         //@ ghost final int n = arr.length;
         
         //@ loop_invariant 0 <= i <= n; // Bounds check
