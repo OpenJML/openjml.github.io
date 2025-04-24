@@ -1,11 +1,12 @@
 #! /bin/bash
 
 J=../../OpenJML/OpenJML21
+if [ -z "$OJA" ] ; then OJA=$J ; fi
 X=0 
 files=`ls *.java`
 for f in $files ; do
   o=`echo $f | sed -e 's/java/out/'`;
-  c=`cat $f | head -1 | sed -e 'sx//[ ]*xx' | sed -e s/\\$@/$f/ | sed -e "sxopenjmlx$J/openjmlxg" | grep -v '##'`
+  c=`cat $f | head -1 | sed -e 'sx//[ ]*xx' | sed -e s/\\$@/$f/ | sed -e "sxopenjmlx${OJA}xg" | grep -v '##'`
   if [ "$c" != "" ]; then 
     echo EXEC "$c"
     bash -c "$c --specs-path ../../Specs/specs" > logt  2>&1
