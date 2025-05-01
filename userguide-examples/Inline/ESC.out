@@ -1,0 +1,10 @@
+Demo.java:5: verify: The prover cannot establish an assertion (Assert) in method callee
+    //@ assert i > 0;
+        ^
+Demo.java:5: verify: The prover cannot establish an assertion (Assert: Demo.java:10:) in method caller
+    //@ assert i > 0;
+        ^
+Demo.java:10: verify: Associated declaration: Demo.java:5:
+    callee(-10);
+          ^
+3 verification failures

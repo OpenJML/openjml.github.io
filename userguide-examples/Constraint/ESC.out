@@ -1,0 +1,7 @@
+Demo.java:16: verify: The prover cannot establish an assertion (Constraint: Demo.java:5:) in method count
+    return count;
+    ^
+Demo.java:5: verify: Associated declaration: Demo.java:16:
+  //@ public constraint count > \old(count);
+             ^
+2 verification failures

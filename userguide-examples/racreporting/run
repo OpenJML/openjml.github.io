@@ -1,0 +1,21 @@
+#! /usr/bin/env bash
+
+D=$(dirname "$BASH_SOURCE"); cd "$D"
+
+rm -rf A.class 
+X=0
+openjml --rac A.java
+openjml-java A |& diff out1.txt - || X=1
+
+openjml-java -Dorg.jmlspecs.openjml.rac=stdout A |& diff out1.txt - || X=1
+
+openjml-java -Dorg.jmlspecs.openjml.rac=showstack A >& actual ; ( sed -e 's/\$\\\$\$/$/' out1a.txt | diff - actual && rm -rf actual ) || X=1
+
+openjml-java -Dorg.jmlspecs.openjml.rac=exception A >& actual ; ( sed -e 's/\$\\\$\$/$/' out2.txt | diff - actual && rm -rf actual ) || X=1
+
+openjml-java -esa -Dorg.jmlspecs.openjml.rac=javaassert A |& diff out3.txt - || X=1
+
+openjml-java -Dorg.jmlspecs.openjml.rac=assertionerror A |& diff out4.txt - || X=1
+
+rm -rf A.class
+exit $X

@@ -1,0 +1,7 @@
+Demo.java:8: verify: The prover cannot establish an assertion (ExceptionalPostcondition: Demo.java:6:) in method demo
+    init();
+        ^
+Demo.java:6: verify: Associated declaration: Demo.java:8:
+  //@ signals (Exception e) field == i;
+      ^
+2 verification failures

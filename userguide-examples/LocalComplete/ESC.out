@@ -1,0 +1,4 @@
+Demo.java:13: verify: The prover cannot establish an assertion (CompletePreconditions) in method m
+  //@ behaviors local_complete; // ERROR
+      ^
+1 verification failure

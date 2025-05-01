@@ -1,0 +1,7 @@
+MaxEscWarnings.java:6: verify: The prover cannot establish an assertion (Postcondition: MaxEscWarnings.java:3:) in method test
+      return j;
+      ^
+MaxEscWarnings.java:3: verify: Associated declaration: MaxEscWarnings.java:6:
+  //@ ensures \result == 100;
+      ^
+2 verification failures

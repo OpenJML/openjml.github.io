@@ -1,0 +1,22 @@
+Demo.java:5: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method demo: int multiply overflow
+    int k = i * i;
+              ^
+Demo.java:4: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method demo: underflow in int sum
+    int kkk = i + i + i;
+                ^
+Demo.java:4: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method demo: overflow in int sum
+    int kkk = i + i + i;
+                ^
+Demo.java:4: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method demo: overflow in int sum
+    int kkk = i + i + i;
+                    ^
+Demo.java:4: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method demo: underflow in int sum
+    int kkk = i + i + i;
+                    ^
+Demo.java:11: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method demo2: int multiply overflow
+    int k = i * i * i * i;
+                      ^
+Demo.java:11: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method demo2: int multiply overflow
+    int k = i * i * i * i;
+                  ^
+7 verification failures

@@ -1,0 +1,3 @@
+Demo.java:5: verify: JML assumption is false
+    //@ assume i < 0;
+        ^

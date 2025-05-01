@@ -1,0 +1,7 @@
+#! /usr/bin/env bash
+
+X=0
+( openjml --esc MaxEscWarnings.java |& diff - ESC.out ) && X=1
+( openjml --esc --esc-warnings-path MaxEscWarnings.java |& diff - ESCP.out ) && X=1
+
+exit $X

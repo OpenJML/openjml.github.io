@@ -1,0 +1,10 @@
+Demo.java:16: verify: The prover cannot establish an assertion (PossiblyNullReturn: Demo.java:16:) in method mm: mm
+  static Integer mm(int i) { // NonNull by default
+         ^
+Demo.java:16: verify: Associated declaration: Demo.java:16:
+  static Integer mm(int i) { // NonNull by default
+                 ^
+Demo.java:19: verify: Associated method exit
+    return null;
+    ^
+3 verification failures

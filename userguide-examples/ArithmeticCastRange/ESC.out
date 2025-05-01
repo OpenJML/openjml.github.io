@@ -1,0 +1,4 @@
+Demo.java:6: verify: The prover cannot establish an assertion (ArithmeticCastRange) in method demo
+    byte b = (byte)i; 
+             ^
+1 verification failure

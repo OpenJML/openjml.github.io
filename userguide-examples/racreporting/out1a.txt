@@ -1,0 +1,16 @@
+org.jmlspecs.runtime.JmlAssertionError$\$$Precondition: A.java:7: verify: JML precondition is false
+    m(0); // Precondition error
+     ^
+A.java:4: verify: Associated declaration: A.java:7:
+  public static void m(int i) {
+                     ^
+	at java.base/org.jmlspecs.runtime.Utils.createException(Utils.java:127)
+	at java.base/org.jmlspecs.runtime.Utils.assertionFailureL(Utils.java:96)
+	at A.main(A.java:1)
+org.jmlspecs.runtime.JmlAssertionError$\$$Precondition: A.java:3: verify: JML precondition is false
+  //@ requires i > 0;
+      ^
+	at java.base/org.jmlspecs.runtime.Utils.createException(Utils.java:127)
+	at java.base/org.jmlspecs.runtime.Utils.assertionFailureL(Utils.java:96)
+	at A.m(A.java:1)
+	at A.main(A.java:7)

@@ -1,0 +1,8 @@
+#! /usr/bin/env bash
+
+X=0
+( openjml --esc Demo.java |& diff - ESC.out ) || X=1
+( openjml --esc --keys=A Demo.java |& diff - ESC1.out ) || X=1
+
+exit $X
+

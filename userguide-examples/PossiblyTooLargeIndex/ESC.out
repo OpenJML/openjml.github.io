@@ -1,0 +1,4 @@
+Demo.java:7: verify: The prover cannot establish an assertion (PossiblyTooLargeIndex) in method demo
+    return arr[i];
+              ^
+1 verification failure

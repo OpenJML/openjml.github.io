@@ -1,0 +1,9 @@
+A.java:7: verify: JML precondition is false
+    m(0); // Precondition error
+     ^
+A.java:4: verify: Associated declaration: A.java:7:
+  public static void m(int i) {
+                     ^
+A.java:3: verify: JML precondition is false
+  //@ requires i > 0;
+      ^

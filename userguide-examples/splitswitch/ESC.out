@@ -1,0 +1,20 @@
+Proving methods in Demo
+Starting proof of Demo.Demo() with prover !!!!
+Completed proof of Demo.Demo() with prover !!!! - no warnings
+Starting proof of Demo.test(int) with prover !!!!
+Proof attempt for split A
+Demo.java:7: warning: The prover cannot establish an assertion (Assert) in method test
+        //@ assert i > 1;
+            ^
+Result of split A is Not verified
+Proof attempt for split B
+Result of split B is Verified
+Proof attempt for split C
+Demo.java:13: warning: The prover cannot establish an assertion (Assert) in method test
+        //@ assert i == 0;
+            ^
+Result of split C is Not verified
+Composite result Not verified
+Completed proof of Demo.test(int) with prover !!!! - with warnings
+Completed proving methods in Demo
+2 warnings

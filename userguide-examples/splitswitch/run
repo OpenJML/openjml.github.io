@@ -1,0 +1,5 @@
+#! /usr/bin/env bash
+
+X=0
+( openjml -jmltesting --esc --progress Demo.java |& diff - ESC.out ) || X=1
+exit $X

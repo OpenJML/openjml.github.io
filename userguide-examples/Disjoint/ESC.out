@@ -1,0 +1,7 @@
+Demo.java:5: verify: The prover cannot establish an assertion (DisjointPreconditions: Demo.java:3:) in method m
+  //@   requires i >= 0;
+        ^
+Demo.java:3: verify: Associated declaration: Demo.java:5:
+  //@   requires i <= 0;
+        ^
+2 verification failures

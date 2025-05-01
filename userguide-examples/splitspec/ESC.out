@@ -1,0 +1,11 @@
+Proving methods in Demo
+Starting proof of Demo.Demo() with prover !!!!
+Completed proof of Demo.Demo() with prover !!!! - no warnings
+Starting proof of Demo.test(int) with prover !!!!
+Proof attempt for split A
+Result of split A is Verified
+Proof attempt for split B
+Result of split B is Verified
+Composite result Verified
+Completed proof of Demo.test(int) with prover !!!! - no warnings
+Completed proving methods in Demo

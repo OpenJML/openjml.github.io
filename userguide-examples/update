@@ -1,0 +1,24 @@
+#! /bin/bash
+
+## This script updates the contents of the containing folder by pulling the examples from the current version of the User Guide tex sources
+
+cd $(dirname "$BASH_SOURCE[0]" )
+
+TEMP=tempUserGuide
+OVERLEAFID=620c2512d552cc226f5f4c94
+EXS=${TEMP}/${OVERLEAFID}/examples
+rm -rf ${TEMP}; mkdir -p ${TEMP}
+(cd $TEMP; git clone https://git@git.overleaf.com/${OVERLEAFID} )
+
+list=`( cd $EXS; find . -type d -and -not -path "." )`
+for f in $list ; do
+  
+  if [ -d $f ]; then 
+    ( diff -q  $f $EXS/$f || ( echo Updating $f; rm -rf $f; cp $EXS/$f $f ) ) && echo Unchanged $f
+  else
+    echo Copying $f
+    cp -r $EXS/$f $f
+  fi
+done
+
+rm -rf $TEMP

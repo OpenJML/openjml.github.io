@@ -1,0 +1,13 @@
+Demo.java:4: verify: The prover cannot establish an assertion (Precondition: Demo.java:13:) in method demo
+    mm(i);
+      ^
+Demo.java:13: verify: Associated declaration: Demo.java:4:
+  static int mm(int i) {
+             ^
+Demo.java:7: verify: Precondition conjunct is false: i > 0
+  //@ requires i > 0;
+                 ^
+Demo.java:10: verify: Precondition conjunct is false: i < 0
+  //@ requires i < 0;
+                 ^
+4 verification failures

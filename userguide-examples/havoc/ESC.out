@@ -1,0 +1,4 @@
+Demo.java:10: verify: The prover cannot establish an assertion (Assert) in method main
+        //@ assert i == 0; // FAILS
+            ^
+1 verification failure

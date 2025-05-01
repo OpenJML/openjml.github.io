@@ -1,0 +1,6 @@
+  @org.jmlspecs.annotation.SkipEsc
+  @org.jmlspecs.annotation.SkipRac
+  public static void main(String ... args) {
+     int i = args.length == 0 ? 0 : Integer.parseInt(args[0]);
+     demo(i);
+  }
