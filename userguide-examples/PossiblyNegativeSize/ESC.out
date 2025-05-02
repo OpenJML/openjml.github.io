@@ -1,4 +1,0 @@
-Demo.java:4: verify: The prover cannot establish an assertion (PossiblyNegativeSize) in method demo
-    return new int[i];
-                   ^
-1 verification failure

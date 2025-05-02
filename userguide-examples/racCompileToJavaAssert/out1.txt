@@ -1,4 +1,0 @@
-Exception in thread "main" java.lang.AssertionError: A.java:4: verify: JML assertion is false
-    //@ assert args.length == 1;
-        ^
-	at A.main(A.java:4)

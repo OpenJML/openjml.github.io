@@ -1,5 +1,0 @@
-#! /usr/bin/env bash
-
-X=0
-( ( openjml --rac --rac-precondition-entry Demo.java && openjml-java Demo ) |& diff - RAC.out ) || X=1
-exit $X

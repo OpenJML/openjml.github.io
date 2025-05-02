@@ -1,4 +1,0 @@
-Demo.java:6: verify: The prover cannot establish an assertion (CompletePreconditions) in method m
-  //@ behaviors complete;
-      ^
-1 verification failure

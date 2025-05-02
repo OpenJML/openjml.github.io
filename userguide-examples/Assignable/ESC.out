@@ -1,7 +1,0 @@
-Demo.java:6: verify: The prover cannot establish an assertion (Assignable: Demo.java:4:) in method demo: f
-    f = i; // ERROR - f is not in assigns clause
-      ^
-Demo.java:4: verify: Associated declaration: Demo.java:6:
-  //@ assigns \nothing;
-      ^
-2 verification failures

@@ -1,8 +1,0 @@
-Exception in thread "main" java.lang.AssertionError: A.java:7: verify: JML precondition is false
-    m(0); // Precondition error
-     ^
-A.java:4: verify: Associated declaration: A.java:7:
-  public static void m(int i) {
-                     ^
-	at java.base/org.jmlspecs.runtime.Utils.assertionFailureL(Utils.java:99)
-	at A.main(A.java:1)

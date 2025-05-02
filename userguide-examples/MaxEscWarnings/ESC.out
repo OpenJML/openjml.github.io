@@ -1,7 +1,0 @@
-EscPaths.java:6: verify: The prover cannot establish an assertion (Postcondition: EscPaths.java:3:) in method m
-        return 10;
-        ^
-EscPaths.java:3: verify: Associated declaration: EscPaths.java:6:
-  //@ ensures \result == 100;
-      ^
-2 verification failures

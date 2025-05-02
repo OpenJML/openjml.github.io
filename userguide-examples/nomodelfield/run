@@ -1,3 +1,0 @@
-#! /usr/bin/env bash
-
-./runx |& diff - RUN.out

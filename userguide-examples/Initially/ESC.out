@@ -1,7 +1,0 @@
-Demo.java:1: verify: The prover cannot establish an assertion (Initially: Demo.java:5:) in method Demo
-public class Demo {
-       ^
-Demo.java:5: verify: Associated declaration: Demo.java:1:
-  //@ public initially count > 0;
-             ^
-2 verification failures

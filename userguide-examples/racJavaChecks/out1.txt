@@ -1,5 +1,0 @@
-A.java:5: verify: JML Division by zero
-      int j = i/(i-i);
-               ^
-Exception in thread "main" java.lang.ArithmeticException: / by zero
-	at A.main(A.java:5)

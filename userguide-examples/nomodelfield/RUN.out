@@ -1,2 +1,0 @@
-Exception in thread "main" java.lang.NoSuchMethodError: 'int P.`model$i()'
-	at T.main(T.java:4)
