@@ -22,7 +22,7 @@ There are a few points to note:
 * Every behavior applies on its own and must hold by itself --- there is no if-then-else  among them. If a behavior's preconditions hold,
 then its postconditions must hold, independent of what any other behavior says.
 
-In our example, if `a`, `b`, and `c` are all equal, then the precondiition (`requires` clause) of each of the three behaviors is true.
+In our example, if `a`, `b`, and `c` are all equal, then the precondition (`requires` clause) of each of the three behaviors is true.
 So the postconditions of each of the behaviors must also be true.  Fortunately they all agree.
 
 As an experiment, this example introduces a mistake in one behavior:
