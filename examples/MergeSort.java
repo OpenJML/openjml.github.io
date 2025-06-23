@@ -19,6 +19,7 @@ public class MergeSort {
       requires 0 <= l < r <= arr.length; // bounds
       requires arr != null; // non-null
       ensures \forall int k; l <= k < r; \forall int j; k < j < r; arr[k] >= arr[j];
+      measured_by r-l+1;
      @*/
     private static void sortRec(int [] arr, int l, int r) {
         if (l + 1 < r) {
