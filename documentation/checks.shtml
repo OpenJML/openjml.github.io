@@ -135,11 +135,11 @@ These are assertions that can be expressed in JML and are checked by OpenJML.
   <td></td>
 </tr>
 <tr>
-  <td bgcolor=#44FF44><code>ArithmeticCastRange</code><BR>AssertionError</BR></td>
+  <td bgcolor=#44FF44><code>ArithmeticCastRange</code></td>
   <td>An arithmetic cast causes loss in precision, in safe math mode</td>
 </tr>
 <tr>
-  <td bgcolor=#44FF44><code>ArithmeticOpRangeAssert</code><BR>AssertionError</BR></td>
+  <td bgcolor=#44FF44><code>ArithmeticOpRange</code></td>
   <td>An arithmetic operation results in an out-of-range value, in safe math mode</td>
 </tr>
 <tr>
@@ -178,28 +178,18 @@ These are assertions that can be expressed in JML and are checked by OpenJML.
   <td></td>
 </tr>
 <tr>
-  <td bgcolor=#44FF44>Invariant</td>
+  <td bgcolor=#44FF44><code>Invariant</code></td>
   <td>Class invariants must be true when a method ends either normally or with an exception</td>
   <td></td>
 </tr>
 <tr>
-  <td bgcolor=#44FF44>InvariantLeaveCaller</td>
-  <td>Class invariants must be true in the caller when a method is called</td>
-  <td></td>
-</tr>
-<tr>
-  <td bgcolor=#44FF44>InvariantEntrance</td>
+  <td bgcolor=#44FF44><code>InvariantEntrance</code></td>
   <td>Class invariants must be true at the beginning of a callee when a method is called</td>
   <td></td>
 </tr>
 <tr>
-  <td bgcolor=#44FF44>InvariantExit</td>
+  <td bgcolor=#44FF44><code>InvariantExit</code></td>
   <td>Class invariants must be true at the end of a callee when a method is called</td>
-  <td></td>
-</tr>
-<tr>
-  <td bgcolor=#44FF44>InvariantReenterCaller</td>
-  <td>Class invariants must be true in the caller when a called method returns</td>
   <td></td>
 </tr>
 <tr>

@@ -3,8 +3,6 @@ layout: default
 title: Features | OpenJML  
 ---
 
-THIS PAGE IS OUT OF DATE
-
 <link rel="stylesheet" href="/bower_components/bootstrap-vertical-tabs/bootstrap.vertical-tabs.min.css">
   <!-- Example row of columns --> 
   <div class="row">
@@ -26,15 +24,30 @@ THIS PAGE IS OUT OF DATE
 		<th>Status</th>
 	      </thead>
 	      <tr>
-		<td >Eclipse integration</td>
-		<td>Problem indication, source code browsing, auto static checking and runtime compilation, counterexample browsing are implemented; syntax coloring, JML_aware editing is in planning</td>
+		<td >Eclipse/VisualStudio/IntelliJ/LSP integration</td>
+                <td> Obsolete and not supported; awaiting the creation of an LSP interface for OpenJML</td>
+		<!-- <td>Problem indication, source code browsing, auto static checking and runtime compilation, counterexample browsing are implemented; syntax coloring, JML_aware editing is in planning</td> -->
+		<td><span class="label label-error">Complete</span></td>
+	      </tr>
+	      <tr>
+		<td >parsing and type checking</td>
+		<td>Basic parsing and type attribution of Java and JML</td>
+		<td><span class="label label-success">Complete</span></td>
+	      </tr>
+	      <tr>
+		<td>AST generation, JSON input/output</td>
+		<td>ASTs can be exchanged in JSON format</td>
+		<td><span class="label label-success">Complete</span></td>
+	      </tr>
+	      <tr>
+		<td >programmatic tool execution</td>
+		<td>OpenJML can be called programmatically</td>
 		<td><span class="label label-success">Complete</span></td>
 	      </tr>
 	      <tr>
 		<td >static checking tool</td>
 		<td>See the feature status in the tables linked to the headings on the right</td>
 		<td><span class="label label-success">Complete</span></td>
-
 	      </tr>
 	      <tr>
 		<td >runtime assertion checking tool</td>
