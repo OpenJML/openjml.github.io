@@ -130,8 +130,26 @@ These are assertions that can be expressed in JML and are checked by OpenJML.
   <td>Comments</td>
 </tr>
 <tr>
+  <td bgcolor=#44FF44><code>Accessible</code></td>
+  <td>Violation of an accessible clause</td>
+  <td></td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>ArithmeticCastRange</code><BR>AssertionError</BR></td>
+  <td>An arithmetic cast causes loss in precision, in safe math mode</td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>ArithmeticOpRangeAssert</code><BR>AssertionError</BR></td>
+  <td>An arithmetic operation results in an out-of-range value, in safe math mode</td>
+</tr>
+<tr>
   <td bgcolor=#44FF44><code>Assert</code></td>
   <td>Explicit JML assert statement</td>
+  <td></td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>Assignable</code></td>
+  <td>Assignable clauses must be satisfied at each assignment statement or return from a called method</td>
   <td></td>
 </tr>
 <tr>
@@ -182,11 +200,6 @@ These are assertions that can be expressed in JML and are checked by OpenJML.
 <tr>
   <td bgcolor=#44FF44>InvariantReenterCaller</td>
   <td>Class invariants must be true in the caller when a called method returns</td>
-  <td></td>
-</tr>
-<tr>
-  <td bgcolor=#44FF44><code>Assignable</code></td>
-  <td>Assignable clauses must be satisfied at each assignment statement or return from a called method</td>
   <td></td>
 </tr>
 <tr>
@@ -242,6 +255,16 @@ does is undefined.
   <td>OpenJML Key<BR>Java Exception</BR></td>
   <td>Description</td>
   <td>Comments</td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>Choose</code></td>
+  <td>A \choose expression is undefined</td>
+  <td></td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>ChooseX</code></td>
+  <td>A \choosex expression is undefined</td>
+  <td></td>
 </tr>
 <tr>
   <td bgcolor=#44FF44><code>UndefinedNullReference</code><BR>NullPointerException</BR></td>
