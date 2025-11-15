@@ -44,15 +44,15 @@ These tables list the various checks that OpenJML performs on a Java program.
 <H3>Java Language Checks</H3>
 These are program errors that would result in Java runtime exceptions.
 <table border="1">
-<tr>
-  <td bgcolor=#44FF44><code>Assert</code><BR>AssertionError</BR></td>
-  <td>Explicit Java assert statement</td>
-  <td>For RAC, the JML check is performed when <code>-racJavaChecks</code> is enabled for rac compilation</td>
-</tr>
 <TR>
   <td>OpenJML Key<BR>Java Exception</BR></td>
   <td>Description</td>
   <td>Comments</td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>Assert</code><BR>AssertionError</BR></td>
+  <td>Explicit Java assert statement</td>
+  <td>For RAC, the JML check is performed when <code>-ea</code> is enabled a runtime</td>
 </tr>
 <tr>
   <td bgcolor=#FFFF44><code>PossiblyBadArrayAssignment</code><BR>ArrayStoreException</BR></td>
@@ -329,16 +329,11 @@ These are assertions that can be expressed in JML and are checked by OpenJML.
 </tr>
 </table>
 
-NullCheck
-NullField
-ExceptionList
 MethodAxiom
 AssumeCheck
-arithmetic checks
 
 <H3>Undefined JML expressions</H3>
-JML expressions are not allowed to exit with exceptions; an expression that
-does is undefined.
+JML expressions must be well-defined, which includes not exiting with exceptions.
 <table border="1">
 <TR>
   <td>OpenJML Key<BR>Java Exception</BR></td>
