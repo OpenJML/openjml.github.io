@@ -52,7 +52,7 @@ These are program errors that would result in Java runtime exceptions.
 <tr>
   <td bgcolor=#44FF44><code>Assert</code><BR>AssertionError</BR></td>
   <td>Explicit Java assert statement</td>
-  <td>For RAC, the JML check is performed when <code>-ea</code> is enabled a runtime</td>
+  <td>For RAC, the JML check is performed when <code>-ea</code> is enabled at runtime</td>
 </tr>
 <tr>
   <td bgcolor=#FFFF44><code>PossiblyBadArrayAssignment</code><BR>ArrayStoreException</BR></td>

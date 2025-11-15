@@ -27,7 +27,7 @@ title: Features | OpenJML
 		<td >Eclipse/VisualStudio/IntelliJ/LSP integration</td>
                 <td> Obsolete and not supported; awaiting the creation of an LSP interface for OpenJML</td>
 		<!-- <td>Problem indication, source code browsing, auto static checking and runtime compilation, counterexample browsing are implemented; syntax coloring, JML_aware editing is in planning</td> -->
-		<td><span class="label label-danger">Complete</span></td>
+		<td><span class="label label-danger">Planned</span></td>
 	      </tr>
 	      <tr>
 		<td >parsing and type checking</td>
@@ -57,14 +57,14 @@ title: Features | OpenJML
 	      </tr>
 	      <tr>
 		<td >jmldoc tool</td>
-		<td>Specifications shown for all Java elements; needs implementation of model methods and model classes</td>
+		<td>Tool needs to be reimplemented for Java21</td>
 		<td><span class="label label-warning">Planned</span></td>
 
 	      </tr>
 	      <tr>
 		<td >Test suite generation</td>
-		<td><a href="http://insttech.secretninjaformalmethods.org/software/jmlunitng/">See JMLUnitNG</a></td>
-		<td><span class="label label-success">Complete</span></td>
+		<td><a href="http://insttech.secretninjaformalmethods.org/software/jmlunitng/">JMLUnitNG</a> must be ported to Java21</td>
+		<td><span class="label label-danger">Not yet supported</span></td>
 
 	      </tr>
 	      <tr>
