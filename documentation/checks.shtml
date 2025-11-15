@@ -16,7 +16,6 @@
 
 <body>
   
-THIS PAGE NEEDS RECHECKING
   
 <div id="rest">  
 
@@ -45,19 +44,29 @@ These tables list the various checks that OpenJML performs on a Java program.
 <H3>Java Language Checks</H3>
 These are program errors that would result in Java runtime exceptions.
 <table border="1">
+<tr>
+  <td bgcolor=#44FF44><code>Assert</code><BR>AssertionError</BR></td>
+  <td>Explicit Java assert statement</td>
+  <td>For RAC, the JML check is performed when <code>-racJavaChecks</code> is enabled for rac compilation</td>
+</tr>
 <TR>
   <td>OpenJML Key<BR>Java Exception</BR></td>
   <td>Description</td>
   <td>Comments</td>
 </tr>
 <tr>
-  <td bgcolor=#44FF44><code>PossiblyNullValue</code><BR>NullPointerException</BR></td>
-  <td>Illegal null value in Java expressions: switch expression, synchronized statement, throw statement</td>
+  <td bgcolor=#FFFF44><code>PossiblyBadArrayAssignment</code><BR>ArrayStoreException</BR></td>
+  <td>Runtime assignment of an object as an array element, where the runtime class of the object is not a subtype of the dynamic class of the array elements</td>
+  <td>Implemented for ESC; RAC results in only the Java error</td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>PossiblyBadCast</code><BR>ClassCastException</BR></td>
+  <td>In Java expressions, checks that the target type of a cast is legitimate</td>
   <td></td>
 </tr>
 <tr>
-  <td bgcolor=#44FF44><code>PossiblyNullDeReference</code><BR>NullPointerException</BR></td>
-  <td>Null dereference in Java expressions: o may not be null in o.f, o.m(), o[i]</td>
+  <td bgcolor=#44FF44><code>PossiblyDivideByZero</code><BR>ArithmeticException</BR></td>
+  <td>In Java expressions, checks that a Division or Mod operation has a non-zero divisor</td>
   <td></td>
 </tr>
 <tr>
@@ -71,18 +80,23 @@ These are program errors that would result in Java runtime exceptions.
   <td></td>
 </tr>
 <tr>
+  <td bgcolor=#44FF44><code>PossiblyNullUnbox</code><BR>NullPointerException</BR></td>
+  <td>A value being unboxed must not be null</td>
+  <td></td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>PossiblyNullValue</code><BR>NullPointerException</BR></td>
+  <td>Illegal null value in Java expressions: switch expression, synchronized statement, throw statement</td>
+  <td></td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>PossiblyNullDeReference</code><BR>NullPointerException</BR></td>
+  <td>Null dereference in Java expressions: o may not be null in o.f, o.m(), o[i]</td>
+  <td></td>
+</tr>
+<tr>
   <td bgcolor=#44FF44><code>PossiblyTooLargeIndex</code><BR>ArrayIndexOutOfBoundsException</BR></td>
   <td>In Java array reference expressions, the index must be less than the length of the array</td>
-  <td></td>
-</tr>
-<tr>
-  <td bgcolor=#44FF44><code>PossiblyDivideByZero</code><BR>ArithmeticException</BR></td>
-  <td>In Java expressions, checks that a Division or Mod operation has a non-zero divisor</td>
-  <td></td>
-</tr>
-<tr>
-  <td bgcolor=#44FF44><code>PossiblyBadCast</code><BR>ClassCastException</BR></td>
-  <td>In Java expressions, checks that the target type of a cast is legitimate</td>
   <td></td>
 </tr>
 <tr>
@@ -91,21 +105,6 @@ These are program errors that would result in Java runtime exceptions.
   That is, <code>a &lt;&lt; 32</code> is equivalent to no shift, not to a shift of all the bits of a 32-bit value. Though values of
   <code>b</code> larger than 31 are not illegal, they can be confusing. OpenJML warns if the value of the right-hand-side is greater or equal to the number of bits in the promoted type of the left-hand-side. </td>
   <td></td>
-</tr>
-<tr>
-  <td bgcolor=#44FF44><code>PossiblyNullUnbox</code></td>
-  <td>The argument of an unboxing operation must not be null</td>
-  <td></td>
-</tr>
-<tr>
-  <td bgcolor=#44FF44><code>Assert</code><BR>AssertionError</BR></td>
-  <td>Explicit Java assert statement</td>
-  <td>For RAC, the JML check is performed when <code>-racJavaChecks</code> is enabled for rac compilation</td>
-</tr>
-<tr>
-  <td bgcolor=#FFFF44><code>PossiblyBadArrayAssignment</code><BR>ArrayStoreException</BR></td>
-  <td>Runtime assignment of an object as an array element, where the runtime class of the object is not a subtype of the dynamic class of the array elements</td>
-  <td>Implemented for ESC; RAC results in only the Java error</td>
 </tr>
 <tr>
   <td bgcolor=#FF4444>TBD<BR></BR></td>
@@ -139,11 +138,11 @@ These are assertions that can be expressed in JML and are checked by OpenJML.
   <td>An arithmetic cast causes loss in precision, in safe math mode</td>
 </tr>
 <tr>
-  <td bgcolor=#44FF44><code>ArithmeticOpRange</code></td>
+  <td bgcolor=#44FF44><code>ArithmeticOperationRange</code></td>
   <td>An arithmetic operation results in an out-of-range value, in safe math mode</td>
 </tr>
 <tr>
-  <td bgcolor=#44FF44><code>Assert</code></td>
+  <td bgcolor=#44FF44><code>Assert</code></td>log-release-tests
   <td>Explicit JML assert statement</td>
   <td></td>
 </tr>
@@ -153,18 +152,23 @@ These are assertions that can be expressed in JML and are checked by OpenJML.
   <td></td>
 </tr>
 <tr>
-  <td bgcolor=#44FF44><code>PossiblyNullInitialization</code></td>
-  <td>The initializing expression for a declaration of a variable that is declared NonNull must not be null</td>
+  <td bgcolor=#44FF44><code>Callable</code></td>
+  <td>A callable clause must be satisfied</td>
   <td></td>
 </tr>
 <tr>
-  <td bgcolor=#44FF44><code>PossiblyNullAssignment</code></td>
-  <td>The value assigned to a variable or field declared NonNull must not be null</td>
+  <td bgcolor=#44FF44><code>CompletePreconditions</code></td>
+  <td>The preconditions of a method must cover all possible cases</td>
   <td></td>
 </tr>
 <tr>
-  <td bgcolor=#44FF44><code>Postcondition</code></td>
-  <td>Normal postconditions must be true at non-exceptional termination of a method</td>
+  <td bgcolor=#44FF44><code>Constraint</code></td>
+  <td>A constraint clause must be true at a normal or exception termination of a method (but not a constructor)</td>
+  <td></td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>DisjointPreconditions</code></td>
+  <td>The preconditions of a method must be pairwise disjoint</td>
   <td></td>
 </tr>
 <tr>
@@ -178,6 +182,16 @@ These are assertions that can be expressed in JML and are checked by OpenJML.
   <td></td>
 </tr>
 <tr>
+  <td bgcolor=#44FF44><code>IllegalArgument</code></td>
+  <td>An argument of a JML expression is illegal</td>
+  <td></td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>Initially</code></td>
+  <td>An initially clause must be at a normal or exceptional termination of a constructor (but not a method)</td>
+  <td></td>
+</tr>
+<tr>
   <td bgcolor=#44FF44><code>Invariant</code></td>
   <td>Class invariants must be true when a method ends either normally or with an exception</td>
   <td></td>
@@ -188,28 +202,18 @@ These are assertions that can be expressed in JML and are checked by OpenJML.
   <td></td>
 </tr>
 <tr>
+  <td bgcolor=#44FF44><code>InvariantExceptionExit</code></td>
+  <td>Class invariants must be true in exception exits of a method</td>
+  <td></td>
+</tr>
+<tr>
   <td bgcolor=#44FF44><code>InvariantExit</code></td>
-  <td>Class invariants must be true at the end of a callee when a method is called</td>
+  <td>Class invariants must be true at the end of a method</td>
   <td></td>
 </tr>
 <tr>
-  <td bgcolor=#44FF44><code>Constraint</code></td>
-  <td>A constraint clause must be true at a normal or exception termination of a method (but not a constructor)</td>
-  <td></td>
-</tr>
-<tr>
-  <td bgcolor=#44FF44><code>Initially</code></td>
-  <td>An initially clause must be at a normal or exceptional termination of a constructor (but not a method)</td>
-  <td></td>
-</tr>
-<tr>
-  <td bgcolor=#44FF44><code>Unreachable</code></td>
-  <td>A JML unreachable statement must be be able to be executed (equivalent to 'assert false')</td>
-  <td></td>
-</tr>
-<tr>
-  <td bgcolor=#44FF44><code>LoopInvariant</code></td>
-  <td>A JML loop invariant must be true at the end of a loop body</td>
+  <td bgcolor=#44FF44><code>PossiblyLargeShift</code><BR>NullPointerException</BR></td>
+  <td>The shift amount in a left shift operation is legative or larger than the number of bits in the lhs type</td>
   <td></td>
 </tr>
 <tr>
@@ -218,14 +222,109 @@ These are assertions that can be expressed in JML and are checked by OpenJML.
   <td></td>
 </tr>
 <tr>
-  <td bgcolor=#44FF44><code>LoopDecreasesNotPositive</code></td>
+  <td bgcolor=#44FF44><code>LoopDecreasesNonNegative</code></td>
   <td>A JML loop variant value must be zero or positive at the beginning of a loop, at the beginning of each loop body, and when the loop condition tests false (but not necessarily on a break from the loop)</td>
   <td></td>
 </tr>
+<tr>5
+  <td bgcolor=#44FF44><code>LoopInvariant</code></td>
+  <td>A JML loop invariant must be true at the end of a loop body</td>
+  <td></td>
+</tr>
 <tr>
-  <td bgcolor=#44FF44><code>UndefinedCalledMethodPrecondition</code></td>
+  <td bgcolor=#44FF44><code>LoopInvariantAfterLoop</code></td>
+  <td>A JML loop invariant must be true at a normal exit of a loop</td>
+  <td></td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>LoopInvariantBeforeLoop</code></td>
+  <td>A JML loop invariant must be true before the loop is started</td>
+  <td></td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>NullArgument</code></td>
+  <td>An argument is null where non-null is required</td>
+  <td></td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>NullField</code></td>
+  <td>A non-null field is assigned a null value</td>
+  <td></td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>NullFormal</code></td>
+  <td>An argument is null where non-null is required</td>
+  <td></td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>PossiblyNullAssignment</code></td>
+  <td>The value assigned to a variable or field declared NonNull must not be null</td>
+  <td></td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>PossiblyNullDereference</code></td>
+  <td>The receiver expression in a dot-dereference must not be null`</td>
+  <td></td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>PossiblyNullInitialization</code></td>
+  <td>The initializing expression for a declaration of a variable that is declared NonNull must not be null</td>
+  <td></td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>PossiblyNullReturn</code></td>
+  <td>The return value from a method is null where it is expected to be non-null</td>
+  <td></td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>Postcondition</code></td>
+  <td>Normal postconditions must be true at non-exceptional termination of a method</td>
+  <td></td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>Precondition</code></td>
+  <td>The precondition of a called method must be true</td>
+  <td></td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>Reachable</code></td>
+  <td>A JML reachable statement must be be able to be executed</td>
+  <td>Only checked with --check-feasibility</td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>Readable-if</code></td>
+  <td>A JML readable clause must be true when the corresponding field is read</td>
+  <td></td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>StaticInit</code></td>
+  <td>Static invariants and non-nullness of static fields must hold at the end of static initialization</td>
+  <td></td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>TerminationDecreases</code></td>
+  <td>A termination metric must decrease on recursive calls</td>
+  <td></td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>TerminationNonNegative</code></td>
+  <td>A termination metric must not become negative</td>
+  <td></td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>Unreachable</code></td>
+  <td>A JML unreachable statement must not be able to be executed (equivalent to 'assert false')</td>
+  <td></td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>UndefinedPrecondition</code></td>
   <td>Calling a method whose composite precondition is not true is not allowed in a JML expression.
   The composite precondition is the disjunction of all relevant (visible and normal???) specification cases.</td>
+  <td></td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>Writable-if</code></td>
+  <td>A JML writable clause must be true when the corresponding field is assigned</td>
   <td></td>
 </tr>
 </table>
@@ -257,8 +356,23 @@ does is undefined.
   <td></td>
 </tr>
 <tr>
-  <td bgcolor=#44FF44><code>UndefinedNullReference</code><BR>NullPointerException</BR></td>
-  <td>Null dereference in JML expressions: o may not be null in o.f, o.m(), o[i]</td>
+  <td bgcolor=#44FF44><code>UndefinedBadCast</code><BR>ClassCastException</BR></td>
+  <td>An illegal reference casst, within a JML expression</td>
+  <td></td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>UndefinedBigintUSR</code></td>
+  <td>The argument of an unsigned right-shift of a bigint value must be non-negative</td>
+  <td></td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>UndefinedLemmaPrecondition</code></td>
+  <td>The precondition of a lemma call in a 'use' statement must be true</td>
+  <td></td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>UndefinedNegativeIndex</code><BR>ArrayIndexOutOfBoundsException</BR></td>
+  <td>In JML array reference expressions, the index may not be negative</td>
   <td></td>
 </tr>
 <tr>
@@ -267,8 +381,18 @@ does is undefined.
   <td></td>
 </tr>
 <tr>
-  <td bgcolor=#44FF44><code>UndefinedNegativeIndex</code><BR>ArrayIndexOutOfBoundsException</BR></td>
-  <td>In JML array reference expressions, the index may not be negative</td>
+  <td bgcolor=#44FF44><code>UndefinedNullReference</code><BR>NullPointerException</BR></td>
+  <td>Null dereference in JML expressions: o may not be null in o.f, o.m(), o[i]</td>
+  <td></td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>UndefinedNullUnbox</code><BR>NullPointerException</BR></td>
+  <td>In a JML expression, an unboxing operation must have a non-null argument</td>
+  <td></td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>UndefinedNullValue</code><BR>NullPointerException</BR></td>
+  <td>In a JML expression, a switchx expression must have a non-null argument</td>
   <td></td>
 </tr>
 <tr>
@@ -316,18 +440,28 @@ Runtime-assertion compilation can be configured to check these assumptions as as
   <td></td>
 </tr>
 <tr>
-  <td bgcolor=#44FF44><code>DSA</code></td>
-  <td>Assumptions (assignments) introduced to implement Dynamic Static Assignment</td>
+  <td bgcolor=#44FF44><code>InvariantEntranceAssumed</code></td>
+  <td>An invariant is assumed to be true at the beginning of a called method</td>
+  <td></td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>InvariantExitAssumed</code></td>
+  <td>An invariant is assumed to be true by the caller after exit from a called method</td>
+  <td></td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>LoopInvariantAssumption</code></td>
+  <td>A loop invariant is assumed to be true at the beginning of a loop body</td>
+  <td></td>
+</tr>
+<tr>
+  <td bgcolor=#44FF44><code>NullField</code></td>
+  <td>A non-null field must have a non-null value if checked by RAC</td>
   <td></td>
 </tr>
 <tr>
   <td bgcolor=#44FF44><code>Precondition</code></td>
   <td>At the beginning of a method, it is assumed that at least one precondition is true</td>
-  <td></td>
-</tr>
-<tr>
-  <td bgcolor=#44FF44><code>LoopInvariantAssumption</code></td>
-  <td>A JML loop invariant is assumed to be true at the beginning of a loop body</td>
   <td></td>
 </tr>
 
@@ -367,11 +501,8 @@ ArrayInit
 Lbl
 
 Return
-Termination
 Synthetic
 
-LoopInvariantBeforeLoop
-LoopInvariantAfterLoop
 
 LoopCondition
 
