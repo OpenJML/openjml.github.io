@@ -27,7 +27,7 @@ title: Features | OpenJML
 		<td >Eclipse/VisualStudio/IntelliJ/LSP integration</td>
                 <td> Obsolete and not supported; awaiting the creation of an LSP interface for OpenJML</td>
 		<!-- <td>Problem indication, source code browsing, auto static checking and runtime compilation, counterexample browsing are implemented; syntax coloring, JML_aware editing is in planning</td> -->
-		<td><span class="label label-error">Complete</span></td>
+		<td><span class="label label-danger">Complete</span></td>
 	      </tr>
 	      <tr>
 		<td >parsing and type checking</td>
@@ -42,7 +42,7 @@ title: Features | OpenJML
 	      <tr>
 		<td >programmatic tool execution</td>
 		<td>OpenJML can be called programmatically</td>
-		<td><span class="label label-success">Complete</span></td>
+		<td><span class="label label-success">OK*</span></td>
 	      </tr>
 	      <tr>
 		<td >static checking tool</td>
