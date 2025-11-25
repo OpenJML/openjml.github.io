@@ -1,9 +1,9 @@
 <div style="display: flex; justify-content: space-between;">
     <div style="width: 30%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-        <a href="TOC.html">&lt;&lt;&lt;Previous</a>
+        <a href="index.html">&lt;&lt;&lt;Previous</a>
     </div>
     <div style="width: 30%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-        <a href="TOC.html">TOC</a>
+        <a href="index.html">TOC</a>
     </div>
     <div style="width: 30%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
         <a href="Preconditions.html">Next &gt;&gt;&gt;</a>
