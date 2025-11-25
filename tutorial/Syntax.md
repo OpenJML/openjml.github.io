@@ -93,7 +93,7 @@ if
 So positive keys enable a comment and negative keys disable it, with any
 negative key overriding any positive ones.
 
-For example, a comment beginning `//-RAC@` will be used for typechecking (--check) and static checking (--esc), but ignored for runtime checking (--rac). A comment beginning `//+ESC@` will only be used when `-esc` is being applied.
+For example, a comment beginning `//-RAC@` will be used for typechecking (`--check`) and static checking (`--esc`), but ignored for runtime checking (`--rac`). A comment beginning `//+ESC@` will only be used when `-esc` is being applied.
 The most common use of conditional JML annotations is the first example: to turn off 
 non-executable annotations during runtime-assertion checking but leave
 them in place for static checking.
