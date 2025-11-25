@@ -2,6 +2,7 @@
 title: JML Tutorial - Postconditions (ensures clauses)
 ---
 
+<!--
 <div style="display: flex; justify-content: space-between;">
     <div style="width: 30%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
         <a href="index.html">&lt;&lt;&lt;Previous</a>
