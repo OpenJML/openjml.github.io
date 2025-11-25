@@ -25,6 +25,8 @@ The details of all the options are given in the [OpenJML Users' Guide](../docume
 
 Use `--class-path` or `-cp` just as you would for `javac` to specify the list of folders on which to find files. `openjml` uses a classpath and a sourcepath exactly like `javac` does; in addition `openjml` considers a _specspath_ for finding specification files. For most applications, it is simplest to define a single classpath (using the `-cp` command-line option or the `CLASSPATH` environment variable) giving the jar files and folder roots of package hierarchies for all the class, source and specification files. The details are an advanced topic presented [here](SpecificationFiles).
 
+A simple, example command-line is `openjml --esc --progress A.java` .
+
 ## Exit codes
 
 The executable returns with one of these exit values:
