@@ -2,10 +2,10 @@
     <div style="width: 30%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
         <a href="index.html">&lt;&lt;&lt;Previous</a>
     </div>
-    <div style="width: 30%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+    <div style="width: 30%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align:center;">
         <a href="index.html">TOC</a>
     </div>
-    <div style="width: 30%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+    <div style="width: 30%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align:right;">
         <a href="Preconditions.html">Next &gt;&gt;&gt;</a>
     </div>
 </div>
