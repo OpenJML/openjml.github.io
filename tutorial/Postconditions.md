@@ -2,8 +2,8 @@
 title: JML Tutorial - Postconditions (ensures clauses)
 ---
 
-A method's specification states what the method does,
-and not how it is done. The effect of a method is
+A method's specification states _what_ the method does,
+but not _how_ it is done. The effect of a method is
 stated in its _postcondition_, which is written in an 
 _ensures_ clause.
 
@@ -18,7 +18,7 @@ The *ensures* clauses just prior to the method declaration state two
 properties that are expected to hold about the result, which is designated
 by the keyword `\result`.
 
-* The result must be equal to one of the four inputs.
+* The result must be equal to (at least) one of the four inputs.
 * The result must be greater than or equal to each of the four inputs.
 
 The body of the function computes this result. Note that the specification
