@@ -1,3 +1,21 @@
+<div style="display: flex; justify-content: space-between;">
+    <div style="width: 30%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+        <a href="TOC.html">&lt;&lt;&lt;Previous</a>
+        <br>
+        This content will not wrap if it's too long, but it will be cut off.
+    </div>
+    <div style="width: 30%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+        <a href="TOC.html">TOC</a>
+        <br>
+        This content will also be on a single line.
+    </div>
+    <div style="width: 30%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+        <a href="Preconditions.html">Nexti &gt;&gt;&gt;</a>
+        <br>
+        Keeping things spread out across the page.
+    </div>
+</div>
+
 ---
 title: JML Tutorial - Postconditions (ensures clauses)
 ---

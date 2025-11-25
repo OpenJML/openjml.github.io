@@ -2,7 +2,7 @@
 public class T_ensures3 {
   //@ requires a.length > 0;
   //@ ensures \result == a[0];
-  public int fist(int[] a) {
+  public int first(int[] a) {
     return a[0];
   }
 }
