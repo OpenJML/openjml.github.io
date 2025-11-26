@@ -37,9 +37,9 @@ ensures clause that states that `counter2 == \old(counter2)`. This specification
 verifies as correct.
 
 But this is not a practical solution. We can't add to `increment1()`'s specification a clause stating that every visible variable is unchanged.
-Instead we use a *frame condition* whose purpose is to state what memory
+Instead we use a *frame condition* whose purpose is to state which memory
 locations a method might have modified. There are a variety of names for
-the frame clause: traditionally it is `assignable`, but `assigns` is also permitted.
+the frame clause: traditionally it is `assignable`, but `assigns` and `writes` are also permitted.
 Note that `modifies` is also an
 (implemented) synonym, but in some tools it has a slightly different meaning,
 so its use is not recommended.
@@ -69,8 +69,7 @@ that is written to in the body of `m`.
 * `a[*]` for array expression `a` means all elements of that array
 * `a[i..j]` for expressions `a`, `i`, and `j` means the stated range of array elements, from `i` to `j` inclusive.
 
-If there is no frame condition at all, then a default is used, namely `assigns \everything;`--- which means exactly that: after a call of this method, any memory location in the state might have been written to and might be changed. It is very difficult to prove anything about a program that includes a call to a method with such a frame condition. Thus  
-*you must include a frame condition for any method that is called within a program*.
+If there is no frame condition at all, then a default is used, namely `assigns \everything;`--- which means exactly that: after a call of this method, any memory location in the state might have been written to and might be changed. It is very difficult to prove anything about a program that includes a call to a method with such a frame condition. Thus *you must include a frame condition for any method that is called within a program*.
 
 A shorthand way to say that a method `assigns \nothing;` is to designate it `pure`, as in
 ```
@@ -84,7 +83,7 @@ though there are a few other details to purity --- see the [lesson on pure](Meth
 There are two other points to know about frame conditions. First, where a frame condition clause includes expressions, such as the indices of array expressions, those expressions are evaluated in the pre-state, not the post-state.
 
 Second, a frame condition is a method specification clause like `requires` and `ensures`. A method specification may contain more than one such clause.
-However, note that each cluase is considered individually. That is, each clause
+However, note that each clause is considered individually. That is, each clause
 by itself lists the memory locations that may be written to by the method.
 As each frame condition clause must be valid on its own, the effect of multiple clauses is the same as one clause with the _intersection_ of the sets of locations given by the separate clauses.
 For example,
@@ -110,7 +109,7 @@ result of mutiple assigns clauses was the *union* of their contents, but that is
 not the case, for historical reasons. The advice is then to
 *have only one frame condition clause per specification (case)*, even if that
 means the clause has a long list. (All the method specifications in the
-tutorial lessons so far have just one specification case; an advanced lesson
+tutorial lessons so far have just one specification case; a subsequent lesson
 presents [multiple specification cases](MultipleBehaviors).)
 
 

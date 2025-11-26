@@ -16,7 +16,7 @@ So we could write this trivial example:
 ```
 which verifies successfully. Note that the specification includes a second kind of clause, the `signals_only` clause.
 This clause specifies the kinds of exceptions that may be thrown from the method. 
-JML requires the specification to list `RuntimeException` even though Java does not require declaring `RuntimeException` in a throws clause
+JML requires the specification to list `RuntimeException`, even though Java does not require declaring `RuntimeException` in a throws clause,
 in order to make it explicitly clear what exceptions might be thrown.
 
 If we omit any exceptions, by saying `signals_only \nothing`, a verification failure results.
@@ -55,5 +55,26 @@ as it should. We can guard against an exception by requiring that the method alw
 {% include_relative T_Exception3.java %}
 ```
 which now verifies again.
+
+Postcondition clauses can be stated in any order; there is no meaning to one being before the other.
+Consider this example in which there are two kinds of exceptions thrown.
+```
+{% include_relative T_Exception4.java %}
+```
+In the second `signals` clause, the expression `a != null` is required; without it, the later expression
+`a[i]` is not [well-defined](WellDefinedExpressions). It is immaterial that there is a test for `a` being null
+in the other `signals` clause. Note that if there are no `signals` clauses, then OpenJML complains that
+some expected conditions cannot be proved, as shown in this example:
+```
+{% include_relative T_Exception4a.java %}
+```
+which gives this result
+```
+{% include_relative T_Exception4a.out %}
+```
+The three verification failure messages may occur in any order.
+This balance between verification failures and exception specifications is an
+advanced topic discussed [here](JavaErrorsAndExceptions).
+
 
 ## **[Specifying Exceptions Problem Set](https://www.openjml.org/tutorial/exercises/SpecifyingExceptionsEx.html)**

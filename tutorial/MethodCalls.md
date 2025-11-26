@@ -20,7 +20,7 @@ The callee, on the right, is a simple standalone method. When the method is
 verified, the logical engine
 * assumes its preconditions are true
 * symbolically represents the actions of the method body
-* asserts the postconditions---that is, proves the the postconditions logically follow from the preconditions and method body in every initial state allowed by the preconditions
+* asserts the postconditions---that is, proves that the postconditions logically follow from the preconditions and method body in every initial state allowed by the preconditions
 
 As for the caller, it also follows the same three steps. But how do we represent the call to `callee()`? We could inline the whole callee method, but that would
 become unwieldy, would not work for recursion, and is not modular.
@@ -42,7 +42,7 @@ The following code is a simple example of a two-method verification.
 ```
 
 The output on verifying is given next. Note that the openjml command includes
-the `-progress` option, so we receive quite a bit more output.
+the `--progress` option, so we receive quite a bit more output.
 
 ```
 {% include_relative T_CallerCallee.out %}
@@ -70,8 +70,8 @@ is reported as not verified.
 
 A few additional points might be helpful.
 
-Often one is working on the specifications for just one method and so one does not want to try to verify everything. You can specify the one method to run like this:  
-`openjml --esc --method=caller2 T_CallerCallee.java`
+Often one is working on the specifications for just one method and so one does not want to try to verify everything. 
+You can specify the one method to run like this:  `openjml --esc --method=caller2 T_CallerCallee.java`
 
 Secondly, the `--progress` option is useful to see the detail about what verified and what did not; it also puts out information as work is accomplished, so you can see what progress is being made in a long-running job. But you can also reduce the amount of output. For example, the default `--normal` option
 ```
@@ -85,7 +85,7 @@ which just shows any error messages.
 
 If you want you can hide all the output text and just observe the exit code:
 ```
-openjml -esc T_CallerCallee.java > /tmp/t; echo $?
+openjml --esc --quiet T_CallerCallee.java ; echo $?
 ```
 produces just
 ```
