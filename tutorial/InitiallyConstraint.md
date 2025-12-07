@@ -37,7 +37,7 @@ which yeilds
 {% include_relative T_initially2.out %}
 ```
 Now the first constructor passes verification, but the second one does not. The reason is obvious: 
-the size we have given for a default rectangle (0 by 0) does not satisfy our desired initially postcondition. 
+the size we have given for a default rectangle (0 by 0) does not satisfy our desired `initially` postcondition. 
 We'll have a to pick a different size -- 1x2 perhaps.
 
 ## Constraint clauses

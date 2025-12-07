@@ -11,7 +11,7 @@ A simple class with a few data fields might have constructors that look like thi
 
 The first constructor simply initializes the fields from the constructor's argument list. The specification for the constructor first requires that the 
 input values are non-negative and then simply says that after the constructor is finished, the newly constructed object's data fields equal the input
-values. The heading `normal_behavior` says that the constructor does not throw any exceptions; it is discussed further [here](MultipleBehaviors).
+values. The heading `normal_behavior` says that the constructor does not throw any exceptions; it is discussed further [here](MultipleBehaviors#SpecializedBehaviors).
 There is also the modifier `pure`; more on that below.
 
 The second constructor is similar to the first. The specification is perhaps less obvious because of the constructor call (the `this` call) of the first

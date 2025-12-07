@@ -21,7 +21,7 @@ There are a few points to note:
 * There is no order to the behaviors; they can be written in any order that is understandable.
 * Every behavior applies on its own and must hold by itself --- there is no if-then-else  among them. If a behavior's preconditions hold,
 then its postconditions must hold, independent of what any other behavior says.
-* The effective precondition for each behavior is the conjunction (with `&&`) of the preconditions for that behavior. The effective precondition for the combination of multiple behaviors is the disjunction (with `||`) of the effective preconditions of the individual behaviors. Consequently, at the point where such a method is called, at least one, but by no means necessarily all, of the behaviors must have an effective precondition that is true.
+* The effective precondition for each behavior is the conjunction (with `&&`) of the preconditions for that behavior. The effective precondition for the combination of multiple behaviors is the disjunction (with `|`) of the effective preconditions of the individual behaviors. Consequently, at the point where such a method is called, at least one, but by no means necessarily all, of the behaviors must have an effective precondition that is true.
 
 In our example, if `a`, `b`, and `c` are all equal, then the precondiition (`requires` clause) of each of the three behaviors is true.
 So the postconditions of each of the behaviors must also be true.  Fortunately they all agree.
@@ -67,18 +67,18 @@ The normal and exceptional behaviors illustrated in the previous section are ver
 The `normal_behavior` heading implies that no exception is allowed (`signals false`); the `exceptional_behavior` heading says that normal termination is not allowed (`ensures false`).
 A behavior that is neither of these is a simple `behavior`, which is the default when there is no heading.
 
-One other point: any one of the behavior keywords needs a visibility keyword; almost always, as in the example above, the visibility is the same as the method. The absence of a visibility modifier means `package` visibility, just as the absence of a visibility modifier on the method declaration. However, if there is no specialized behavior keyword, then there is no place for the visibility keyword; in that cae, the visibility is the same as the visibility of the method.
+One other point: any one of the behavior keywords needs a visibility keyword; almost always, as in the example above, the visibility is the same as the method. The absence of a visibility modifier means `package` visibility, just as the absence of a visibility modifier on the method declaration. However, if there is no specialized behavior keyword, then there is no place for the visibility keyword; in that case, the visibility is the same as the visibility of the method.
 
-## Summary of specification cases
+## <a name="SpecializedBehaviors"></a>Summary of specification cases
 
 To summarize, a method may have multiple specification cases. 
 * They are separated/connected by the `also` keyword. 
 * Each specification case consists of an optional heading followed by a series of method specification clauses
-* There are four styles of headings. Here `V` is a visibility modifier: one of `public`, `protected, `private`, or absent, meaning package visibility
+* There are four styles of headings. Here `V` is a visibility modifier: one of `public`, `protected`, `private`, or absent, meaning package visibility
   * The most general: `V behavior`
   * Normal exit only: `V normal_behavior`
   * Exit by exception only: `V exceptional_behavior`
-  * The most common: no heading, which means `V behavior` with the visibility `V` being the same as the method's visibilty
+  * The most common: no heading, which means `V behavior` with the visibility `V` being the same as the method's visibility
 
 
 ## Nested clause groups
