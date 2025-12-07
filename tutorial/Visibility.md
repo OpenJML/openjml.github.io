@@ -38,7 +38,7 @@ obviates the goal of having hidden an implementation in the first place. If an
 implementation is hidden in private declarations, exposed to a client only through
 public methods, then we need a specification idiom that respects that.
 
-That is one purpose of model fields, which are preented in the [next lesson](ModelFields).
+That is one purpose of model fields, which are presented in a [subsequent lesson](ModelFields).
 But here we'll repeat our example using a model field.
 
 ```

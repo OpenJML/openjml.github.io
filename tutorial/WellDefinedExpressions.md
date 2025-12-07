@@ -30,7 +30,7 @@ The rules for well-definedness of a JML expression build up from the leaves of t
 * `a.length` is well-defined if `a` is well-defined and not null
 * `a[i]` is well-defined if expressions `a` and `i` are well-defined, `a` is not null, and `0 <= i < a.length`
 * all unary and binary operator expressions (excluding `&&` and `||` and `==>`)
- are well-defined if (a) the operands are well-defined, (b) for division (`/`) and modulo (`%`), the right operand is not zero, (c) the result of the operation is in range of the result type (depending on the [arithmetic mode](ArithmeticModes), and (d) for bit-shift operations (`<<`, `>>`, '>>>`), the value is the right operand is non-negative and less than the number of bits in the type of the left operand
+ are well-defined if (a) the operands are well-defined, (b) for division (`/`) and modulo (`%`), the right operand is not zero, (c) the result of the operation is in range of the result type (depending on the [arithmetic mode](ArithmeticModes)), and (d) for bit-shift operations (`<<`, `>>`, `>>>`), the value of the right operand is non-negative and less than the number of bits in the type of the left operand
 * the short-circuiting `&&` is well-defined if the left operand is well-defined and, if the left operand is true, the right operand is well-defined
 * the short-circuiting `||` is well-defined if the left operand is well-defined and, if the left operand is false, the right operand is well-defined
 * a `==>`  expression is well-defined if the left operand is well-defined and,

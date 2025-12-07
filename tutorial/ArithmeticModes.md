@@ -31,7 +31,7 @@ as mathematical---that is, that specifications use infinite precision arithmetic
 Consequently, JML defines three *arithmetic modes* (for integer arithmetic):
 
 * Java mode: arithmetic behaves precisely as in Java, with silent wrap-around of overflowing and underflowing operations
-* Safe mode: the results of arithmetic operations are the same as in Java mode, but verification errors are issued if the operation may overflow
+* Safe mode: the results of arithmetic operations are the same as in Java mode, but verification errors are issued if the operation may over/underflow
 * Math (bigint) mode: Values and operations are in mathematical arithmetic---values are unbounded and so there is no over/underflow.
 
 The default is *safe mode* for expressions in Java code and *math mode* for
@@ -83,10 +83,10 @@ specific arithmetic mode using the functions `\java_math(...)`, `\safe_math(...)
 These each take one argument and return the value of the argument, but the
 argument expression is computed using the given mode. These operations are
 not available for Java code, because there are no such operations in Java.
-* The mode for a proof attempt using OpenJML can be set using command-line options: `-code-math=...` and `-spec-math=...` to set the mode for Java code and specifications, respectively, with possible values of `java`, `safe`, and `bigint`.
-For example, to turn off overflow warnings in the Java code one can set the global default using `-code-math=java`
+* The mode for a proof attempt using OpenJML can be set using command-line options: `--code-math=...` and `--spec-math=...` to set the mode for Java code and specifications, respectively, with possible values of `java`, `safe`, and `bigint`.
+For example, to turn off overflow warnings in the Java code one can set the global default using `--code-math=java`
 * You can set the mode for a particular method using the modifiers
-`code_java_math`, `spec_java_math`, `code_safe_math`, `spec_safe_math` and `spec_bigint_math` (`code-bigint-math` is not an operational mode at present).
+`code_java_math`, `spec_java_math`, `code_safe_math`, `spec_safe_math` and `spec_bigint_math` (`code_bigint_math` is not an operational mode at present).
 In this example, both the code and specs are computed with java math, so they agree, even when there is an overflow.
 
 ```
