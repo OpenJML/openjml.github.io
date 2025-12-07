@@ -1,6 +1,6 @@
 // openjml --esc PolygonMF.java
 interface PolygonMF {
-  //@ model instance public JMLDataGroup allSides;
+  //@ model instance public \datagroup allSides;
   //@ model instance public int numSides;
 
   //@ public invariant 0 <= longestSide() < 20000;

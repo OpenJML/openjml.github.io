@@ -3,6 +3,6 @@ org.jmlspecs.runtime.JmlAssertionError: T_RacOutput.java:10: verify: JML asserti
         ^
 	at java.base/org.jmlspecs.runtime.Utils.createException(Utils.java:143)
 	at java.base/org.jmlspecs.runtime.Utils.assertionFailureL(Utils.java:96)
-	at T_RacOutput.checkArgs(T_RacOutput.java:1)
+	at T_RacOutput.checkArgs(T_RacOutput.java:10)
 	at T_RacOutput.main(T_RacOutput.java:5)
 END

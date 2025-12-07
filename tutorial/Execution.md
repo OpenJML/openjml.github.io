@@ -10,7 +10,7 @@ and is correspondingly a classic command-line tool:
 * Files are given as absolute file paths 
 or paths relative to the current working directory
 (not relative to the location of `openjml`).
-* Options inherited from javac are unchanged. They are a mix of single-hyphen and double-hyphen spellings.
+* Options inherited from `javac` are unchanged. They are a mix of single-hyphen and double-hyphen spellings.
 * OpenJML-specific options begin with a double hyphen (e.g., `--quiet`) (single hyphens are still accepted for most options). 
 Options that take a value either (a) have the value follow the option as the next argument or (b) 
 (for OpenJML options, but only some Java option) use the syntax `--option=value`.

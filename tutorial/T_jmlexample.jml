@@ -1,6 +1,6 @@
 // openjml --esc $@
 public class T_jmlexample {
   //@ requires i != Integer.MAX_VALUE; // ERROR - should be MIN_VALUE
-  //@ ensures i > 0 ? i : -i;
+  //@ ensures \result == (i > 0 ? i : -i);
   public int abs(int i);
 }

@@ -13,7 +13,7 @@ file or place it on your system PATH.
 * OpenJML is a modified version of the OpenJDK `javac`. It is a standalone, 
 encapsulated executable; no installation of Java is needed to run it.
 
-You can check that the installation is working by running `openjml -version`.
+You can check that the installation is working by running `openjml --version`.
 Instructions on running `openjml` and executing the tutorial examples are
 [here](Execution).
 

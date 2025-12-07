@@ -1,2 +1,2 @@
+( openjml --esc --trace T_show1.java )  2>&1 | diff - T_show5.out
 echo "T_show5.check is nondeterministic -- check it by hand"
-## ( openjml --esc --trace T_show1.java )  2>&1 | diff - T_show5.out

@@ -1,4 +1,10 @@
 T_jmlexample.java:4: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method abs: int negation
     return i < 0 ? -i : i;
                    ^
-1 verification failure
+T_jmlexample.java:4: verify: The prover cannot establish an assertion (Postcondition: ./T_jmlexample.jml:4:) in method abs
+    return i < 0 ? -i : i;
+    ^
+./T_jmlexample.jml:4: verify: Associated declaration: T_jmlexample.java:4:
+  //@ ensures \result == (i > 0 ? i : -i);
+      ^
+3 verification failures

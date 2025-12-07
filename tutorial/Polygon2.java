@@ -1,7 +1,7 @@
 // openjml --esc Polygon2.java
 interface Polygon2 {
   //@ model instance public int sides;
-  //@ model instance public JMLDataGroup allSides;
+  //@ model instance public \datagroup allSides;
   //@ model instance public int longestSide; //@ in allSides;
 
   //@ public invariant 0 <= longestSide < 20000;
