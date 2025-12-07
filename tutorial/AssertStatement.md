@@ -1,5 +1,5 @@
 ---
-title: JML Tutorial - Assert statements (assert
+title: JML Tutorial - Assert statements (assert and check)
 ---
 A JML *assert* statement states a condition that is expected to hold at a point
 within the body of a method. Such statements are not part of a method's interface 
@@ -54,5 +54,37 @@ produces similar output:
 ```
 {% include_relative T_assert3.out %}
 ```
+
+## Check statement
+
+The `check` statement (e.g. `check neg < 0;`) is similar to the `assert` statement.
+It also effects a test of whether the given predicate is always true.
+However, the two statements differ in their effect on the subsequent logic
+of the program:
+
+* A `check` statement tests the predicate but makes no assumption about whether the
+predicate is subsequently true or false. A `check` statement essentially says,
+please just check whether the given predicate is true or false.
+* An `assert` predicate tests the predicate and then _assumes that it is subsequently true_.
+An `assert` statement essentially says, this predicate is supposed to be true, so pleasae test it
+and assume it to be true for analyzing subsequent code.
+
+For example,
+
+```
+{% include_relative T_assert4.java %}
+```
+
+produces this output:
+
+```
+{% include_relative T_assert4.out %}
+```
+
+This explanation points to a potentially confusing point about `assert` statements. If
+the given predicate is always false, then the implicit assumption, after the assert check,
+that it is true causes a complete halt to the symbolic execution -- there is no pre-state
+that satisfies the assert/assume combination. A `check` would be better to be used in such cases.
+
 
 ## **[Assert Statements Problem Set](https://www.openjml.org/tutorial/exercises/AssertEx.html)**

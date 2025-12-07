@@ -70,7 +70,7 @@ Here is a typical for-each loop:
 {% include_relative  T_foreach.java %}
 ```
 Note that the (second) loop invariant states that so far (up to array index `\count`) all array elements are positive. That is because at the beginning of any loop iteration,
-all elements seen have been positive. As soon as a non-positive element is seen, the loop exists prematurely, but the verifier can follow this control flow to prove that 
+all elements seen have been positive. As soon as a non-positive element is seen, the loop exits prematurely, but the verifier can follow this control flow to prove that 
 the postcondition is valid for either exit.
 
 Note also the use of `\count` as a stand-in for a loop counter and the use of `\nothing` to say that nothing is modified in the loop body, other than `\count`, which is always included as a modified variable.

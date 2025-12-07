@@ -1,0 +1,10 @@
+T_assert4.java:8: verify: The prover cannot establish an assertion (PossiblyNullDeReference) in method example
+    int k = t.f; // ERROR because t might be null
+             ^
+T_assert4.java:7: verify: The prover cannot establish an assertion (Assert) in method example
+    //@ check t != null; // ERROR, because not necessarily so
+        ^
+T_assert4.java:12: verify: The prover cannot establish an assertion (Assert) in method example2
+    //@ assert t != null; // ERROR, because not necessarily so
+        ^
+3 verification failures
