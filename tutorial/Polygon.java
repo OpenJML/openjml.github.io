@@ -58,7 +58,7 @@ class Test {
 
   public void test4(Polygon polygon) {
     if (polygon instanceof Square square) {
-      //# assert square.sides() == 4; // OK as well
+      //@ assert square.sides() == 4; // OK as well
     }
   }
 }

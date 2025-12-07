@@ -17,7 +17,7 @@ Model fields:
 in an interface (or class) using the modifier `instance`. As the (Java) default is `static` for field declarations, the `instance` keyword is required in this case.
 
 Datagroups:
-* A model field is also a _datagroup_; or a standalone datagroup (not associated with an abstract value) can be declared using the type `JMLDataGroup`.
+* A model field is also a _datagroup_; or a standalone datagroup (not associated with an abstract value) can be declared using the type `\datagroup`.
 * A datagroup is an abstraction of a frame condition. 
    * In the abstract class the datagroup can be used in a frame condition
    * In the concrete class specific fields can be declared to be _in_ that datagroup
