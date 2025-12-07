@@ -58,7 +58,7 @@ We could even separate out two kinds of exceptions:
 ```
 Now the `signals_only` clause allows the two kinds of exceptions, although the specification does not say when each one is thrown. We could go to one more level of specification detail to stipulate that each exception is thrown just when the appropriate argument validation check fails. Try it as an exercise. There is a question though: what if both checks fail? Should the specification state which exception is thrown in preference to the other? If it does it is constraining the implementation, perhaps overly so.
 
-## Specialized behaviors
+## <a name="SpecializedBehaviors"></a>Specialized behaviors
 
 The normal and exceptional behaviors illustrated in the previous section are very common, so much so that they have specialized syntax: `normal_behavior` and `exceptional_behavior`. We can rewrite the previous example as 
 ```
@@ -69,7 +69,7 @@ A behavior that is neither of these is a simple `behavior`, which is the default
 
 One other point: any one of the behavior keywords needs a visibility keyword; almost always, as in the example above, the visibility is the same as the method. The absence of a visibility modifier means `package` visibility, just as the absence of a visibility modifier on the method declaration. However, if there is no specialized behavior keyword, then there is no place for the visibility keyword; in that case, the visibility is the same as the visibility of the method.
 
-## <a name="SpecializedBehaviors"></a>Summary of specification cases
+## Summary of specification cases
 
 To summarize, a method may have multiple specification cases. 
 * They are separated/connected by the `also` keyword. 
