@@ -1,16 +1,16 @@
-T_show2.java:10: verify: Show statement expression a has value ( - 2147480361 )
+T_show2.java:10: verify: Show statement expression a has value ( - 282 )
     //@ show a, b, c, d, maxSoFar;
              ^
-T_show2.java:10: verify: Show statement expression b has value ( - 2147480362 )
+T_show2.java:10: verify: Show statement expression b has value ( - 281 )
     //@ show a, b, c, d, maxSoFar;
                 ^
-T_show2.java:10: verify: Show statement expression c has value ( - 2147477363 )
+T_show2.java:10: verify: Show statement expression c has value 1
     //@ show a, b, c, d, maxSoFar;
                    ^
-T_show2.java:10: verify: Show statement expression d has value ( - 2147477362 )
+T_show2.java:10: verify: Show statement expression d has value 2
     //@ show a, b, c, d, maxSoFar;
                       ^
-T_show2.java:10: verify: Show statement expression maxSoFar has value ( - 2147480362 )
+T_show2.java:10: verify: Show statement expression maxSoFar has value 1
     //@ show a, b, c, d, maxSoFar;
                          ^
 T_show2.java:11: verify: The prover cannot establish an assertion (Postcondition: T_show2.java:3:) in method max

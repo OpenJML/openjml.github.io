@@ -17,9 +17,10 @@ type `\real`.
 * `j - k` is mathematical real subtraction
 * `j * k` is mathematical real multiplication
 * `j / k` is mathematical real division (not rounded to an integer); `k` must not be 0
-* `j % k` is mathematical real modulo, but is similar to Java's `%` operation: `k` may not be zero, `j%k` has the same sign as `j` and is independent of the sign of `k`, and for `k != 0`, `(j/k)*k + (j%k) == j`.
+* `j % k` is mathematical real modulo, but is similar to Java's `%` operation: `k` may not be zero, `j%k` has the same sign as `j` and is independent of the sign of `k`, and for `k != 0`, `((\bigint)(j/k))*k + (j%k) == j`.
 * `<` and `<=` and `>` and `>=` have their expected meanings with the result type being boolean
-* casts are allowed to and from other numeric types, such as `(\bigint)j`, which truncates towards zero.
+* implicit conversions are allowed from `double`, `real`, `\bigint` and Java integral types
+* explicit casts are allowed to and from other numeric types, such as `(\bigint)j`, which truncates towards zero.
 
 ```diff
 ! Caveat: Though real numbers are supported in OpenJML, the connection between real numbers and floating point numbers is incomplete and in some cases (such as handling NaN and infinite fp numbers) wrong
@@ -32,7 +33,7 @@ type `\real`.
 //@ set rr = r * 2;
 ```
 
-As for `\bigint`, many of the methods in `java.lang.Math` have been specified for `real` values:
+Just like for `\bigint`, many of the methods in `java.lang.Math` have been specified for `real` values:
 ```
 {% include_relative Real.java %}
 ```

@@ -20,7 +20,9 @@ type `\bigint` and `i` a value of a Java numeric type.
 * `j / k` is mathematical integer division (truncation toward zero); `k` must not be 0; `j/k` is negative or zero if `j` and `k` have different signs and is positive or zero if `j` and `k` have the same sign
 * `j % k` is mathematical integer modulo, but is similar to Java's `%` operation: `k` may not be zero, `j%k` has the same sign as `j` and is independent of the sign of `k`, and for `k != 0`, `(j/k)*k + (j%k) == j`
 * `<` and `<=` and `>` and `>=` have their expected meanings with the result type being boolean
-* casts are allowed to and from other numeric types, such as `(\bigint)i` or `(int)j`. When casting from `\bigint` to a bounded type, a range check is performed, depending on the [arithmetic mode](ArithmeticModes).
+* implicit conversions are allowed from Java integral types to `\bigint`
+* casts are allowed to and from other numeric types, such as `(\bigint)i` or `(int)j`. When casting from `\bigint` to a bounded type, a range check is performed, depending on the [arithmetic mode](ArithmeticModes); when casting from `\real`, `double`, or `float`, the value is truncated toward zero.
+* implicit conversion of `java.math.BigInteger` to `\bigint` is permitted; use `i.bigValue()` to convert a `\bigint` value `i` to `java.math.BigInteger`
 
 For example, one can write the following:
 ```

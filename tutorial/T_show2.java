@@ -6,7 +6,7 @@ public class T_show2 {
     int maxSoFar = a;
     if (b > maxSoFar) maxSoFar = b;
     if (c > maxSoFar) maxSoFar = c;
-    if (d > maxSoFar) maxSoFar = b;
+    if (d > maxSoFar) maxSoFar = c;
     //@ show a, b, c, d, maxSoFar;
     return maxSoFar;
   }

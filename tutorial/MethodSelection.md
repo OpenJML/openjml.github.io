@@ -11,10 +11,15 @@ First, remember that the `OpenJML` command-line lists options (and their values)
 just like the Java compiler (`javac`) does. Usually though you have a set of interdependent files
 together in one folder. So `OpenJML` allows you to put a folder path on the command-line,
 after the `--dir` option, as in `openjml --esc --dir ~/myfiles`. You can use the `--dirs` option
-to list several files: `openjml --esc --dirs ~/myfiles1 ~/myfiles2 ~/myfiles3`. Listing a 
+to list several folders: `openjml --esc --dirs ~/myfiles1 ~/myfiles2 ~/myfiles3`. Listing a 
 folder name includes subfolders recursively by default. If you don't want recursion, then list
 the files using a wildcard as in `~/myfiles/*.java`. The `--dirs` option interprets all
 successive command-line arguments as folder paths, up to an argument that begins with a hyphen (`-`).
+
+## Specific files
+
+If you are only interested in proofs of methods within a given file, then list just that file on
+the command-line and make sure that any other needed file is present on the sourcepath or the classpath.
 
 ## Specific methods
 
@@ -30,4 +35,4 @@ a prepended fully-qualified class name or an appended argument signature, as in
 `--method="mypackage.MyClass.myMethod"` or `--method="myMethod(int,java.lang.String)"`. Note that
 when the expanded name includes characters interpreted by the shell, such as periods and
 parentheses, quotes around the method name are needed.
-* More complicated strings that include wildcards for matching are described in the Ope JML Users' Guide.
+* More complicated strings that include wildcards for matching are described in the OpenJML Users' Guide.

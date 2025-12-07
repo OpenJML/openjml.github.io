@@ -15,7 +15,7 @@ First note that there are different kinds of problems that can lead to a failed 
 * The prover is missing some vital information that prevents it from making the necessary proof steps. For this situation you can add lemmas or other assumptions [here](Lemmas).
 
 It is worth restating a few points:
-* Just because a specification and implementation agree (`openjml` verifies) does not mean that they are correct. They could still be both wrong in the same way compared to what is really desired of the program. Careful human review and understanding of requirements cannot replace either traditional testing or verification, though both of those are necessary in giving confidence in a program's correctness.
+* Just because a specification and implementation agree (`openjml` verifies) does not mean that they are correct. They could still be both wrong in the same way compared to what is really desired of the program. Careful human review and understanding of requirements cannot be replaced by either traditional testing or verification, though both of those are necessary in giving confidence in a program's correctness.
 * The techniques presented here are largely specific to `openjml`, at least in the details. Each tool and prover has different ways in which it has difficulties, though some general ideas and techniques may translate from one situation to another.
 * Start with simple problems, understand them well, and then move on to complex situations.
 
