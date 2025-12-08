@@ -17,12 +17,12 @@ produces
 ```
 
 If you want to see both the RAC check and the Java check, compile using the `--rac-java-checks` option:
-`openjml -rac --rac-java-checks T_RacJavaCheck.java && openjml-java -cp . T_RacJavaCheck`
+`openjml --rac --rac-java-checks T_RacJavaCheck.java && openjml-java -cp . T_RacJavaCheck`
 produces
 ```
 {% include_relative T_RacJavaCheck1.out %}
 ```
 
-In most cases of such Java checks (e.g. null dereference, index out of bounds), Java will terminate with an exception, as ther is no way
+In most cases of such Java checks (e.g. null dereference, index out of bounds), Java will terminate with an exception, as there is no way
 to proceed after such an error (unless the program itself catches and handles the exception).
 

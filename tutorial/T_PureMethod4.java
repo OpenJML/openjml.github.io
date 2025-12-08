@@ -3,7 +3,7 @@ public class T_PureMethod4 {
 
   //@ requires i > Integer.MIN_VALUE;
   //@ ensures \result >= 0;
-  //@ pure
+  //@ spec_pure
   public static int abs(int i) {
     return i >= 0 ? i : -i;
   }

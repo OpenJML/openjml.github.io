@@ -9,7 +9,7 @@ some will be ignored during compilation for RAC.
 
 ## Compilation
 
-The `openjml` tool when used with the `-rac` option compiles a Java program with runtime assertions added. In this mode `openjml`
+The `openjml` tool when used with the `--rac` option compiles a Java program with runtime assertions added. In this mode `openjml`
 functions much like `javac`: it has the same Java command-line options (like `-cp` or `--classpath`), along with additional OpenJML
 options.
 
@@ -17,7 +17,7 @@ For example,
 ```
 {% include_relative T_Rac1.java %}
 ```
-compiles with `openjml -rac T_Rac1.java` to produce a `T_Rac1.class` file.
+compiles with `openjml --rac T_Rac1.java` to produce a `T_Rac1.class` file.
 
 
 ## Execution
@@ -42,7 +42,7 @@ If you run it with one command-line argument, then the assertion in the program 
 `openjml-java -cp . T_Rac1 hi`
 
 ### java
-If you have java (at least v. 17, as of 5 December 2021) installed on your system, you can use it to run the RAC-compiled program produced by `openjml`. You need to include in your classpath the JML runtime library, `jmlruntime.jar`, which is available in the OpenJML installation. 
+If you have java (at least v. 21, as of December 2024) installed on your system, you can use it to run the RAC-compiled program produced by `openjml`. You need to include in your classpath the JML runtime library, `jmlruntime.jar`, which is available in the OpenJML installation. 
 If `$OJ` is the path to the installation folder containing `openjml` and `jmlruntime.jar` then you can run the RAC-compiled class file from 
 above as
 

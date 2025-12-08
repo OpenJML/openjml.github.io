@@ -20,6 +20,7 @@ done
 for f in `ls *.md` ; do
   b=${f%.*}
   grep -q $b *.md || echo No link $f
+  grep -q $b index.md || echo No entry in TOC $f
 done
 
 for f in *.md ; do

@@ -5,7 +5,7 @@ public class T_PureMethod5 {
 
   //@ requires 0 <= i & i < a.length;
   //@ ensures \result == a[i];
-  //@ pure
+  //@ spec_pure
   public int elementAt(int i) {
     return a[i];
   }

@@ -14,10 +14,48 @@ Think of a program with specifications converted to run-time checks. We
 can't have the checks modifiying the program that is being checked.
 Similarly we can't allow static checking to have any effect on the Java program.
 
-Thus the rule is that methods that are called in specifications must be 
-_pure_, that is, must not have any side-effects. In fact JML requires that 
-a method used in specifications be marked with the modifier `pure`.
-And if a method is pure, it automatically includes the specification clause `assigns \nothing;`.
+Thus the rule is that methods that are called in specifications must not
+have any effect on the Java program state at the beginning of the method call (the _pre-state_).
+Such methods are called _pure_.
+
+Methods called in specifications must also be deterministic. Thus they may not depend on random events or on
+external properties (such as the system clock or environmental variables or system Properties) that may change during the execution of
+the program.
+
+There is a hierarchy of four kinds of purity, all of which share the
+property of no effect on the initial Java program state.
+
+**pure** methods: The basic kind of pure method has no side effects on the external program
+state but may allocate and dispose of objects within the method and may return
+a newly allocated object (e.g. a `String`). Because it can return a fresh object,
+it is not a deterministic method from the point of view of the Java program heap.
+
+**spec_pure** methods: A spec_pure method is a pure method that does not return any
+fresh object; it either returns a primitive value or an object reference that was
+already allocated in the pre-state. Consequently it is deterministic.
+
+**strictly_pure** methods: A strictly_pure method is a spec_pure method that does not
+allocate any new objects in the body of the method. Such a method has no effect on the 
+object heap at all; it may read heap values and perform computations on the method's
+local stack. Though a strictly_pure method is generally undistinguishable by a calling method from a 
+spec_pure method, some tools can benefit by knowing that a method makes no changes,
+even internally, to the program heap.
+
+**heap_free** methods: A heap_free method is one that does not depend on the program heap
+at all. Hence such a method (if deterministic) returns the same value for the same arguments
+no matter in what heap or program state it is invoked. Examples are purely mathematical
+library functions.
+
+A method marked with any kind of purity may not have any `assignable` clauses;
+all the method's behaviors are implicitly `assignable \nothing`.
+
+To be called in a method specification, a method must be at least `spec_pure`.
+For historical reasons, a method parked `pure` that returns a primitive value
+is implicltly `spec_pure` and may be used in a specification. But it is
+better style to just mark such methods as `spec_pure`.
+
+Similarly, if a method is truly independent of the heap, it is good style to 
+mark it as `heap_free`. Doing so simplifies reasoning about uses of the method.
 
 Here is an example:
 ```
@@ -29,8 +67,8 @@ Running OpenJML produces
 ```
 
 The call of `c.isAnythingCounted` is allowed in the specification because
-it is declared `pure` in its specification. However
-`c.atMax()` is not allowed because it is not declared `pure`.
+it is declared `spec_pure` in its specification. However
+`c.atMax()` is not allowed because it is not declared `spec_pure`.
 If you add that modifier to the declaration of `atMax` then this example will
 verify (cf. example `T_PureMethod2.java`).
 
@@ -102,8 +140,8 @@ but if it has any `exceptional_behavior` cases, they will be ignored for use in 
 
 ## Pure constructors
 You might have noticed that the constructor for `Counter` in the example
-above is also marked `pure`. Constructors create new objects or arrays, so they are not allowed to be used in specifications. Nevertheless, it is helpful to 
-mark a constructor as `pure` to indicate that the constructor does not modify any memory _other than setting its own fields_.
+above is also marked `spec_pure`. Constructors create new objects or arrays, so they are not allowed to be used in specifications. Nevertheless, it is helpful to 
+mark a constructor as `ispec_pure` to indicate that the constructor does not modify any memory _other than setting its own fields_.
 
 ## Pure classes
 A class can also be marked `pure`. This means that all the constructors and

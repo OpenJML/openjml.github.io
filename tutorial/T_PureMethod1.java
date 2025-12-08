@@ -10,7 +10,7 @@ public class T_PureMethod1 {
 
     //@ requires max >= 0;
     //@ ensures count == 0 && maxCount == max;
-    //@ pure
+    //@ spec_pure
     public Counter(int max) {
       count = 0;
       maxCount = max;
@@ -22,7 +22,7 @@ public class T_PureMethod1 {
     public void count() { ++count; }
 
     //@ ensures \result == (count > 0);
-    //@ pure
+    //@ spec_pure
     public boolean isAnythingCounted() {
        return count > 0;
     }

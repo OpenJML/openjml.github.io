@@ -11,7 +11,7 @@ Those modes are illustrated with our example program:
 ```
 compiled with
 
-`openjml -rac T_RacOutput.java`
+`openjml --rac T_RacOutput.java`
 
 ## Error message and continue
 
@@ -89,7 +89,7 @@ default.
 They must be enabled by the Java `-ea` option.
 Using our running example,
 
-`openjml -rac --rac-compile-to-java-assert T_RacOutput.java && openjml-java -cp . -ea T_RacOutput`
+`openjml --rac --rac-compile-to-java-assert T_RacOutput.java && openjml-java -cp . -ea T_RacOutput`
 produces
 
 ```

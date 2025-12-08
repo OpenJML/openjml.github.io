@@ -34,8 +34,8 @@ This example points out the necessity of verifying all methods used in a program
 All the various places that OpenJML implements feasibility checking are enumerated below. But first, some caveats are in order.
 * Feasibility checking can be time-consuming and especially so if the path in question is _not_ feasible. Accordingly, feasibility checking is off by default.
 * Feasibility checking only says that some input combination will reach the given program point, not whether all the combinations you expect will reach that point. For example, if a program
-has assumptions `i<= 0` and `i >= 0`, it will still be feasible for `x == 0`, but that may not be the programmer's intent.
-* If method A calls method B and method B is underspecified, then an execution path may be considered to be feasible, when in reality it is  not.
+has assumptions `i <= 0` and `i >= 0`, it will still be feasible for `i == 0`, but that may not be the programmer's intent.
+* If method A calls method B and method B is underspecified, then an execution path may be considered to be feasible, when in reality it is not.
 Remember that when checking method A, only the specifications of B are considered. Look at this example:
 
 ```
@@ -74,6 +74,8 @@ Here are the possible places that can be checked:
 * **halt** -- at each halt statement
 * **loopcondition** -- at the beginning of the loop body
 * **loopexit** -- on the exit branch after testing the loop condition
+* **loopbreak** -- at each break statement in the loop body
+* **loopcontinue** -- at each continue statement in the loop body
 * **exit** - is it possible to exit the program (either normally or with an exception)
 
 

@@ -128,7 +128,7 @@ The two pieces of the proof are an obvious case for splitting the proof. In fact
 
 Here is a worked example.
 
-TBD
+TODO
 
 
 

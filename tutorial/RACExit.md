@@ -13,7 +13,7 @@ program is executing. For example, the program
 ```
 will produce the exit code `10`, as programmed, when compiled and run with either Java or OpenJML:
 
-`openjml -rac T_RacExit.java; openjml-java -cp . T_RacExit; echo $?`
+`openjml --rac T_RacExit.java; openjml-java -cp . T_RacExit; echo $?`
 
 produces the expected error message and reports the exit code of `10`.
 

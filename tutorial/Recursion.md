@@ -8,7 +8,7 @@ The example shows a singly-linked list. Two other examples are available:
 * A [doubly-linked list](Recursion-DLL)
 * A [singly-linked list modeled with model methods instead of model fields](Recursion-MM)
 
-The particular points to note in the the examples are these:
+The particular points to note in the examples are these:
 * How model fields are recursively defined
 * How datagroups are recursively defined
 * How functions are recursively defined

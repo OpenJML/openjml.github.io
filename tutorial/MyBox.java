@@ -28,15 +28,15 @@ public class MyBox {
 
   //@ public normal_behavior
   //@   ensures \result == size;
-  //@ pure helper
+  //@ pure helper // does not assume the invariant
   public int sizeH() {
     return size;
   }
 
-  //@ private normal_behavior
+  //@ public normal_behavior
   //@   assigns size;
-  //@ helper
-  private void changeSizeH() {
+  //@ helper // does not assume or establish the invariant; may set size to anything
+  final public void changeSizeH() {
   }
 
   public static void test1(MyBox b) {
@@ -46,8 +46,11 @@ public class MyBox {
     //@ assert b.sizeH() >= 0; // OK because sizeH() is pure
   }
   public static void test3(MyBox b) {
+    //@ check b.size >= 0;
     b.changeSizeH();
-    //@ assert b.sizeH() >= 0; // FAILS -- changeSizeH does not necessarily establish the invariant
+    //@ check b.sizeH() == b.size;
+    //@ check b.sizeH() >= 0; // FAILS -- changeSizeH does not assume nor is required to establish the invariant
+                               //          so the assertion may fail
     b.size = 0;
   }
   public static void test4(MyBox b) {
