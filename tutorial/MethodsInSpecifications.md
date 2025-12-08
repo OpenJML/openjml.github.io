@@ -25,29 +25,31 @@ the program.
 There is a hierarchy of four kinds of purity, all of which share the
 property of no effect on the initial Java program state.
 
-**pure** methods: The basic kind of pure method has no side effects on the external program
+**pure** methods: This basic kind of `pure` method has no side effects on the external program
 state but may allocate and dispose of objects within the method and may return
 a newly allocated object (e.g. a `String`). Because it can return a fresh object,
 it is not a deterministic method from the point of view of the Java program heap.
 
-**spec_pure** methods: A spec_pure method is a pure method that does not return any
+**spec_pure** methods: A `spec_pure` method is a `pure` method that does not return any
 fresh object; it either returns a primitive value or an object reference that was
-already allocated in the pre-state. Consequently it is deterministic.
+already allocated in the pre-state. Consequently it is deterministic. 
+A method must be at least `spec_pure` to be used in a specification.
 
-**strictly_pure** methods: A strictly_pure method is a spec_pure method that does not
+**strictly_pure** methods: A `strictly_pure` method is a `spec_pure` method that does not
 allocate any new objects in the body of the method. Such a method has no effect on the 
 object heap at all; it may read heap values and perform computations on the method's
-local stack. Though a strictly_pure method is generally undistinguishable by a calling method from a 
-spec_pure method, some tools can benefit by knowing that a method makes no changes,
+local stack. Though a `strictly_pure` method is generally indistinguishable by a calling method from a 
+`spec_pure` method, some tools can benefit by knowing that a method makes no changes,
 even internally, to the program heap.
 
-**heap_free** methods: A heap_free method is one that does not depend on the program heap
+**heap_free** methods: A `heap_free` method is one that does not depend on the program heap
 at all. Hence such a method (if deterministic) returns the same value for the same arguments
 no matter in what heap or program state it is invoked. Examples are purely mathematical
 library functions.
 
-A method marked with any kind of purity may not have any `assignable` clauses;
+A method marked with any kind of purity should not have any `assignable` clauses;
 all the method's behaviors are implicitly `assignable \nothing`.
+Any `assignable` clause that is present must be `assignable \nothing`.
 
 To be called in a method specification, a method must be at least `spec_pure`.
 For historical reasons, a method parked `pure` that returns a primitive value
