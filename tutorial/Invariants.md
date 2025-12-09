@@ -49,7 +49,7 @@ The cost of not having to have the invariants true on entrance to a method is th
 ## Visibility of invariants
 
 * Invariants have a visibility (public, private, etc.). Almost always, `public` is the appropriate modifier to use. Invariants with visibility other than public only apply where they can be "seen", just like the modifiers when used for methods.
-* Invariants cannot use fields or methods with a visibility more constrained than their own. Conseqeuently, as in this case, a private field will need a `spec_public` declaration. See [the lesson on Visibility](Visibility) for more on this topic.
+* Invariants cannot use fields or methods with a visibility more constrained than their own. Consequently, as in this case, a private field will need a `spec_public` declaration. See [the lesson on Visibility](Visibility) for more on this topic.
 
 ## Invariants when calling methods
 
@@ -59,8 +59,10 @@ preconditions hold before invoking the callee.
 
 In fact, the callee generally expects that the invariants of all of its formal parameters also hold.
 
-To further complicate matters, JML expects that all invariants of all objects hold at the invocation of a callee, _including those of the caller itself_.
-The reason for this rule is shown in this code snippet.
+A callee may in fact rely on invariants of other classes. In that case, it must specify the invariants it relies on in its preconditions.
+This is especially the case when there is recursion or callbacks.
+
+An example of such complications is shown in this code snippet.
 ```
 public class SomeClass {
   //@ public invariant ...
@@ -74,10 +76,9 @@ public class SomeClass {
 ```
 The verification attempt of `SomeClass.m` invalidates and then restores the invariant of `SomeClass`. However, `o.dosomething` is called when the invariant
 of `this` is invalid. `o.dosomething` might actually call a method of `SomeClass` on its argument, which method would then be called in a state in which
-its invariants do not hold. Not knowing what `o.dosomething` does, JML insists on the general rule that all invariants have to hold at every call point.
-But this is a nuisance in the implementation of `m`, particularly if `o.dosomething` is a simple library routine like `Math.abs`.
+its invariants do not hold. So in this case, any invariants of `this` must be established before the call to `o.dosomething`.
 
 ```diff
-! Because of this, the rules about invariants holding are a topic of research and discussion. OpenJML is experimenting with more relaxed rules that are still sound.
+! Just which invariants are required to hold before a method call is a topic of research and discussion. OpenJML is experimenting with defaults that are both convenient and sound.
 ```
     

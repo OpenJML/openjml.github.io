@@ -14,11 +14,12 @@ Model fields:
 * A model field is given an implementation by writing a `represents` clause in the derived class; this connects the model field to the concrete implementation.
 * A model field can also be used within a concrete class to represent some characteristic that is not explicitly present in the concrete class.
 * A model field is typically an _instance_ field. Java only allows static fields in an interface. But in JML one can declare instance model fields
-in an interface (or class) using the modifier `instance`. As the (Java) default is `static` for field declarations, the `instance` keyword is required in this case.
+in an interface (or class) using the modifier `instance`. As the (Java) default is `static` for field declarationsi in an interface, the `instance` keyword is required in this case.
 
 Datagroups:
-* A model field is also a _datagroup_; or a standalone datagroup (not associated with an abstract value) can be declared using the type `\datagroup`.
-* A datagroup is an abstraction of a frame condition. 
+* A _datagroup_ is a set of memory locations in the program state, usually locations in the heap; in the body of a method, local stack locations might also be in a datagroup
+* A model field is also a datagroup, as well as representing some abstract value; or a standalone datagroup (not associated with an abstract value) can be declared using the type `\datagroup`.
+* A datagroup is an abstraction of the set of memory locations used in a frame condition (both _writes_ and _reads_ clauses). 
    * In the abstract class the datagroup can be used in a frame condition
    * In the concrete class specific fields can be declared to be _in_ that datagroup
 

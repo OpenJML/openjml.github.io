@@ -6,24 +6,23 @@ Completed proof of T_split1.T_split1() with prover !!!! - ERROR
 Starting proof of T_split1.m(int) with prover !!!!
 Skipping proof attempt for split AA
 Proof attempt for split AB
-Feasibility check - end of preconditions : OK
 Result of split AB is Verified
 Skipping proof attempt for split AC
 Proof attempt for split B
-T_split1.java:16: warning: Show statement expression p has value false
+T_split1.java:16: verify: Show statement expression p has value false
     //@ show p,i;
              ^
-T_split1.java:16: warning: Show statement expression i has value ( - 2147483610 )
+T_split1.java:16: verify: Show statement expression i has value ( - 2147483610 )
     //@ show p,i;
                ^
-T_split1.java:17: warning: The prover cannot establish an assertion (Postcondition) in method m
+T_split1.java:18: verify: The prover cannot establish an assertion (Postcondition) in method m
     return i;
     ^
-T_split1.java:3: warning: Associated declaration
+T_split1.java:4: verify: Associated declaration
   //@ ensures i == 2;
       ^
 Result of split B is Not verified
 Composite result Not verified with 2 splits skipped
 Completed proof of T_split1.m(int) with prover !!!! - with warnings
 Completed proving methods in T_split1
-4 warnings
+4 verification failures

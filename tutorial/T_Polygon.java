@@ -1,7 +1,8 @@
 // openjml --esc T_Polygon.java
 public interface T_Polygon {
 
-  //@ ensures \result > 0;
+  /** Number of sides to the polygon */
+  //@ ensures \result >= 3;
   //@ pure helper
   public int sides();
 
@@ -9,6 +10,7 @@ public interface T_Polygon {
 
 class Square implements T_Polygon {
 
+  /** Length of one side of the Square */
   //@ public invariant side >= 0;
   public int side;
 

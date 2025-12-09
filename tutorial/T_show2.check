@@ -1,6 +1,6 @@
 
-R=T_split2
+R=T_show2
 tmpfile=$(mktemp)
-C="openjml --esc --split=AB,B --progress -jmltesting T_split1.java"
+C=$(head -1 $R.java | sed -e s.//..)
 bash -c "$C" | tee $R.out.actual | grep -v "Show statement" > $tmpfile
 grep -v "Show statement" < $R.out | diff - $tmpfile && rm -rf $tmpfile $R.out.actual

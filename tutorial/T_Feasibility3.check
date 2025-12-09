@@ -1,6 +1,6 @@
 
-R=T_show6
+R=T_Feasibility3
 tmpfile=$(mktemp)
-C="openjml --esc --subexpressions T_show1.java"
+C=$(head -1 $R.java | sed -e s.//..)
 bash -c "$C" | grep -v "Show statement" > $tmpfile
 grep -v "Show statement" < $R.out | diff - $tmpfile && rm -rf $tmpfile $R.out.actual

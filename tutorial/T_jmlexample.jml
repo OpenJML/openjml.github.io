@@ -1,4 +1,4 @@
-// openjml --esc $@
+
 public class T_jmlexample {
   //@ requires i != Integer.MAX_VALUE; // ERROR - should be MIN_VALUE
   //@ ensures \result == (i > 0 ? i : -i);

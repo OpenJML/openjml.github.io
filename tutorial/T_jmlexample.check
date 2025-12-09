@@ -1,0 +1,6 @@
+
+tmpfile=$(mktemp)
+openjml --esc T_jmlexample.java > $tmpfile
+h=$(pwd)
+sed -e 's/$h/./' < $tmpfile | tee T_jmlexample.out.actual | diff - T_jmlexample.out && rm -rf $tmpfile T_jmlexample.out.actual
+

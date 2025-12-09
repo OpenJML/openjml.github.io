@@ -1,2 +1,6 @@
-( openjml --esc T_show4.java )  2>&1 | diff - T_show4.out
-echo "T_show4.check is nondeterministic -- check it by hand"
+
+R=T_show4
+tmpfile=$(mktemp)
+C=$(head -1 $R.java | sed -e s.//..)
+bash -c "$C" | grep -v "Show statement" > $tmpfile
+grep -v "Show statement" < $R.out | diff - $tmpfile && rm -rf $tmpfile $R.out.actual

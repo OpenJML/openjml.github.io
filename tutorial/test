@@ -2,10 +2,12 @@
 
 J=../../OpenJML/OpenJML21
 X=0 
-files=`ls *.java`
+files="$@"
+if [ -z "$files" ]; then files=`ls *.java *.check` ; fi
 for f in $files ; do
   h=`echo $f | sed -e 's/java/check/'`;
-  if [ -e $h ]; then continue; fi
+  if [ -e $h -a "$f" != "$h" ]; then continue; fi
+  if [ -e $h ]; then echo $f; source $f || X=1; continue; fi
   o=`echo $f | sed -e 's/java/out/'`;
   c=`cat $f | head -1 | sed -e 'sx//[ ]*xx' | sed -e s/\\$@/$f/ | grep -v '##'`
   if [ "$c" != "" ]; then 
@@ -43,12 +45,13 @@ for f in $files ; do
     echo "Skipping non-deterministic test " $f ;
   fi ;
 done 
-for f in *.check ; do echo $f; source $f || X=1; done 
 
+if [ -z "$1" ]; then
 for f in exercises/*.java ; do 
   echo Checking $f
   openjml --esc $f > logx || { X=1; echo $f FAILED; mv logx $f.actual; }
 done
+fi
 rm -rf logt log logx
 if [ "$X" = "0" ]; then echo Tutorial tests successful; else echo Tutorial tests FAILED ; fi
 exit $X 

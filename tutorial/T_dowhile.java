@@ -4,7 +4,8 @@ public class T_dowhile {
   //@ requires 20 < a.length;
   public void test(int[] a) {
     int i = 0;
-    //@ maintaining 0 <= i < 10;
+    //@ maintaining 0 <= i <= 10;
+    //@ maintaining i == \count && (\count > 0 ==> i < 10);
     //@ maintaining \forall int k; 0 <= k < i; a[k] == 0;
     //@ loop_writes i, a[*];
     //@ decreases 10-i;
