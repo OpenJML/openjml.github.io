@@ -42,7 +42,7 @@ local stack. Though a `strictly_pure` method is generally indistinguishable by a
 `spec_pure` method, some tools can benefit by knowing that a method makes no changes,
 even internally, to the program heap.
 
-**heap_free** methods: A `heap_free` method is one that does not depend on the program heap
+**no_state** methods: A `no_state` method is one that does not depend on the program heap
 at all. Hence such a method (if deterministic) returns the same value for the same arguments
 no matter in what heap or program state it is invoked. Examples are purely mathematical
 library functions.
@@ -57,7 +57,7 @@ is implicltly `spec_pure` and may be used in a specification. But it is
 better style to just mark such methods as `spec_pure`.
 
 Similarly, if a method is truly independent of the heap, it is good style to 
-mark it as `heap_free`. Doing so simplifies reasoning about uses of the method.
+mark it as `no_state`. Doing so simplifies reasoning about uses of the method.
 
 Here is an example:
 ```

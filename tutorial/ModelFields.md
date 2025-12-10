@@ -30,19 +30,18 @@ Here is a working example that verifies, with commentary below.
 
 * `Polygon`is an (abstract) interface with a concrete implementation `Square`
 * `Polygon` declares two properties, as model fields: `sides` (the number of sides) and `longestSide` (the length of the longest side of the polygon)
-* There is an invariant limiting the length of the sides and another one saying that all polygons have at least 3 sides.
-* There are two simple methods that return the values of `sides` and `longestSide`. These are pure (do not change anything).
-* The method `twice` doubles the size of the polygon. 
-  * It has a precondition so that the resulting polygon still satisfies the invariant.
+* There is an invariant saying that all polygons have at least 3 sides.
+* There are two simple methods that return the values of `sides` and `longestSide`. These are spec_pure (deterministic and do not change anything).
+* The method `half` halves the size of the polygon. 
   * It has an `assigns` clause saying what is modified. 
   * It has a postcondition saying what happens to the memory locations that are modified.
 
 `Square` is an implementation of `Polygon`:
 * `Square` has just one data member, `side` (the length of a side of the square)
-* The constructor for `Square` initializes `side`; it needs a precondition in order to satisfy the invariant for `Polygon`, which applies to `Square` by inheritance.
+* The constructor for `Square` initializes `side`.
 * The clause `represents sides = 4` gives a value to the `sides` model field in `Polygon`
 * The clause `represents longestSide = side` gives a value to the `longestSide` model field using concrete fields of `Square`
-* And the `side` field is declared to be _in_ `longestSide`. When `twice` (abstractly) assigns to the model field `longestField`, then all the fields
+* And the `side` field is declared to be _in_ `longestSide`. When `half` (abstractly) assigns to the model field `longestField`, then all the fields
 that are _in_ `longestField` are considered assigned to.
 * Then all the methods that `Square` inherits from `Polygon` are implemented as expected, but they can inherit all their specifications from `Polygon`. 
 No additional specifications are needed. Look at `sides()` as an example: the specification says it returns the value of `sides`, which is given a value
@@ -61,7 +60,7 @@ The output when verifying the example above (though you may want to add the `--p
 
 ## Using datagroups
 
-In the above example, `longestSide` does not quite properly capture the effect of `twice()`, which alters the lengths of all of the sides, not just
+In the above example, `longestSide` does not quite properly capture the effect of `half()`, which alters the lengths of all of the sides, not just
 the longest one. The following code separates the datagroup aspect of `longestSide` into a more general, standalone, datagroup named `allSides`.
 This code is only slightly different than the previous listing. In particular, `Square` and `Test` are precisely the same. But now an implementation of
 another derived class, `Triangle` (with three different sides) is clearer: put all three sides `in` `allSides` and make the implementation of 

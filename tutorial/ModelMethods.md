@@ -6,20 +6,20 @@ The [previous lesson](ModelFields) described how to use model fields to specify 
 model fields are applicable they generally are easier to use in specifications and easier to prove. This lesson alters the example of the previous lesson
 to use methods instead.
 
-At the outset, note that methods used in specifications must be `pure` ([cf. here](MethodsInSpecifications)), but can be either Java methods or JML methods. One uses
+At the outset, note that methods used in specifications must be `spec_pure` ([cf. here](MethodsInSpecifications)), but can be either Java methods or JML methods. One uses
 a JML method if there is no Java method that accomplishes what is needed. A JML model method is declared just like a Java method except that
 * it is written in a JML annotation
 * it includes the `model` modifier
 * it need not have an implementation (and generally does not, except if compilation for runtime-assertion-checking is desired).
 
-For example, if the example below did not declare `sides()` as a Java method, one could include in `Polygon3` this declaration, along with any specifications:
+For example, if the example below did not declare `sides()` as a Java method, one could include in `PolygonMM` this declaration, along with any specifications:
 ```
 //@ model public int sides();
 ```
 
 ## using model methods
 
-Here is the [model field example](ModelFields), altered to use methods --- in this case the Java methods already part of the `Polygon` interface. There are a few key points to note:
+Here is the [model field example](ModelFields), altered to use methods --- in this case the Java methods are already part of the `Polygon` interface. There are a few key points to note:
 * The datagroup is still needed. When using model methods, one typically will declare standalone datagroups to use in frame conditions.
 * Reads clauses are needed. They are discussed after the code listing.
 * If the methods are used within invariants, they typically need to be declared `helper` and that they do not throw exceptions (`public normal_behavior`).
@@ -27,20 +27,30 @@ Here is the [model field example](ModelFields), altered to use methods --- in th
 _uninterpreted function_, whose value is given by invariants and concrete implementations and the pre- and postconditions in which it is used.
 
 ```
-{% include_relative Polygon3.java %}
+{% include_relative PolygonMM.java %}
 ```
+which produces this output:
+```
+{% include_relative PolygonMM.out %}
+```
+
 
 ## reads clauses
 
-When specifying a method like `twice()` that modifies the program state, it is the frame condition (the `assigns` clause) that tells what part of the program state is modified. Any particular (model) field or array element can be checked to see if it is part of the changed state. If not, the verification system knows that
+When specifying a method like `half()` that modifies the program state, it is the frame condition (the `assigns` clause) that tells what part of the program state is modified. Any particular (model) field or array element can be checked to see if it is part of the changed state. If not, the verification system knows that
 that field was not changed by the method call.
 
 The example code above uses model methods instead of model fields. So in the `test()` routine, how is it known that `polygon.sides()` does not change
 value upon the call of `twice()` and that `polygon.longestSide()` does change? The answer is the `reads` clause; this clause states what fields a method
 _reads_ or _depends on_. The content of the reads clause may be a model field.
 
-Note that `twice()` assigns to `allSides` and `longestSide()` reads `allSides`. So the value of `longestSide()` might well be changed by the call of `twice()` (though not necessarily).
-But `sides()` reads the model field `numSides`, which is not assigned by `twice()`, so its value does not change.
+Note that `half()` assigns to `allSides` and `longestSide()` reads `allSides`. So the value of `longestSide()` might well be changed by the call of `twice()` (though not necessarily).
+We have to look at the postconditions of on `longestSide` to see what the new value might be.
+Note that these methods are called on a `PolygonMM` instance, so nothiing is known in `test()` about the behavior of derived classes.
+
+On the other hand, `sides()`, in this example, does not depend on any part of the heap, according to the `reads \nothing` clause, so its output value will not be changed by `half()`.
+Alternately, one might have `sides()` read a datagroup `numsides`. As long as `numsides` and `allSides` are disjoint, changes to `allSides` will still not change the result of 
+`sides()`.
 
 ## helper methods
 

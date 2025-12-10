@@ -4,13 +4,11 @@ interface Polygon3 {
   //@ model instance public \datagroup allSides;
   //@ model instance public int longestSide; //@ in allSides;
 
-  //@ public invariant 0 <= longestSide < 20000;
   //@ public invariant sides >= 3;
 
-  //@ requires longestSide < 10000;
   //@ assigns allSides;
-  //@ ensures longestSide == \old(longestSide) + \old(longestSide);
-  public void twice();
+  //@ ensures longestSide == \old(longestSide)/2;
+  public void half();
 
   //@ ensures \result == sides; pure
   public int sides();
@@ -24,12 +22,11 @@ class Square implements Polygon3 {
   //@ public represents sides = 4;
   //@ public represents longestSide = side;
 
-  //@ requires 0 <= s < 20000;
   //@ ensures side == s && sides == 4;
   public Square(int s) { side = s; }
 
   // specification inherited
-  public void twice() { side = side+side; }
+  public void half() { side = side/2; }
 
   // specification inherited; cf the represents clause for sides
   public int sides() { return 4; }
@@ -42,10 +39,8 @@ class Triangle implements Polygon3 {
   public int side2; //@ in longestSide;
   public int side3; //@ in longestSide;
 
-  //@ public invariant 0 <= side1 && 0 <= side2 && 0 <= side3;
   //@ public invariant side1 <= longestSide && side2 <= longestSide && side3 <= longestSide;
 
-  //@ requires 0 <= s1 < 20000 && 0 <= s2 < 20000 && 0 <= s3 < 20000;
   //@ ensures this.side1 == s1 && this.side2 == s2 && this.side3 == s3;
   public Triangle(int s1, int s2, int s3) { side1 = s1; side2 = s2; side3 = s3; }
 
@@ -56,7 +51,7 @@ class Triangle implements Polygon3 {
 
   public int sides() { return 3; }
 
-  public void twice() { side1 += side1; side2 += side2; side3 += side3; }
+  public void half() { side1 /= 2; side2 /= 2; side3 /= 2; }
 }
   
 class Test {
@@ -64,11 +59,11 @@ class Test {
   public void test(Polygon3 polygon) {
     int s = polygon.sides();
     int p = polygon.longestSide();
-    polygon.twice();
+    polygon.half();
     int ss = polygon.sides();
     int pp = polygon.longestSide();
     //@ assert s == ss;
-    //@ assert 2*p == pp;
+    //@ assert pp == p/2;
   }
 
   public void test2(Polygon3 polygon) {
