@@ -100,6 +100,8 @@ example code; just add the appropriate path to the `openjml` command.
 * Advanced topics
   * [Specification (.jml) files](SpecificationFiles)
   * [Java @-annotations for JML](JavaAnnotations)
+  * [JML Errors and Java Exceptions](JavaErrorsAndExceptions)
+  * [Recommends clauses](Recommends)
   * [Reasoning about bit-wise operations](BitVectors)
   * [Reasoning about Floating Point operations](FloatingPoint)
   * [Reasoning about Enums](Enums)

@@ -29,3 +29,7 @@ for f in *.md ; do
   egrep -e 'TBD|TODO' $f  > /dev/null &&  echo "$f has TBD or TODO markings" 
 done
 
+for f in `ls *.java *.out` ; do
+  grep -q $f *.md || echo Not used $f
+done
+

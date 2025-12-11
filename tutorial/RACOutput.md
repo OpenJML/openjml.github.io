@@ -17,7 +17,7 @@ compiled with
 
 The default mode is to simply issue an error message (to `System.out`) and continue execution:
 
-`openjml-java -cp . T_RacOutput`
+`openjml-java -cp . T_RacOutput` or `openjml-java -cp . -Dorg.jmlspecs.openjml.rac=stdout T_RacOutput`
 
 produces
 
@@ -77,9 +77,19 @@ produces the output
 ```
 {% include_relative T_RacOutput6.out %}
 ```
+
 This is still a choice made at runtime. Upon encountering a false assertion, the program will terminate immediately with a Java `java.lang.AssertionError`.
 Remember that assertions in Java are disabled at runtime by default. So executing the compiled program with `openjml-java` requires the 
-option `-esa` to enable the assertions; if executing with `java`, use `-ea`.
+option `-esa` to enable the assertions; if executing with `java`, use `-ea`:
+
+`java -cp .:jmlruntime.jar -ea -Dorg.jmlspecs.openjml.rac=javaassert T_RacOutput`
+
+produces
+```
+{% include_relative T_RacOutput7.out %}
+```
+
+
 
 ## Compiling to Java assert statements
 

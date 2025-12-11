@@ -1,5 +1,5 @@
 ---
-title: JML Tutorial - Java Errors and Exceptions
+title: JML Tutorial - JML Errors and Java Exceptions
 ---
 
 _To be written_

@@ -34,6 +34,10 @@ produces no errors for `has` because `s` is by default non-null, nor for `make`,
 does issue verification errors for both statements in `test` because both `ss` and the result of `make` may be null and the argument of `has`
 is not allowed to be null.
 
+```
+{% include_relative T_Nullness1.out %}
+```
+
 ## Non_null and nullable as type annotations
 
 The proper understanding of

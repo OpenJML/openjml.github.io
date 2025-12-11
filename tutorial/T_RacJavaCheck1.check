@@ -1,0 +1,2 @@
+
+openjml --rac --rac-java-checks T_RacJavaCheck.java && openjml-java -cp . T_RacJavaCheck 2>&1 | diff - T_RacJavaCheck1.out
