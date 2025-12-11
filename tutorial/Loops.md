@@ -50,7 +50,7 @@ It may help to understand what the verifier tries to prove about a loop. It prov
   * and does the update step
   * and the result must satisfy the loop invariants again (with the updated value of the loop index)
   * and also the termination expression must have decreased
-* Third, it assumes the first two steps above but that the loop condition is false and goes on to reason about any program steps and postconditions that follow the loop.
+* Third, it assumes the first two steps above and that the loop condition is false, and then proves that the loop invariants still hold
 
 In the example above, the second proof obligation assumes `0 <= i <= a.length` and `\forall int k; 0 <= k < i; a[k] == k;` and
 `(i < a.length)`, and then applies `a[i]=i` and `i++`, and proves `\forall int k; 0 <= k < i'; a[k]==k`, where `i'` is the updated `i`.
@@ -58,7 +58,8 @@ In the example above, the second proof obligation assumes `0 <= i <= a.length` a
 It also must prove that `a.length-i` is non-negative at the start of the loop body and that after the loop index update that value is greater  than
 the new value of the expression, namely `a.length-i'`.
 
-The third proof obligation assumes `0 <= i <= a.length` and `\forall int k; 0 <= k < i; a[k] == k;` and `!(i < a.length)`, from which it can prove the `assert` statement.
+The third proof obligation assumes `0 <= i <= a.length` and `\forall int k; 0 <= k < i; a[k] == k;` and `!(i < a.length)`; 
+the loop invariants are still true, trivailly and they in turn imply the truth of the `assert` statement.
 
 ## For-each loops
 
@@ -84,19 +85,11 @@ A while loop generally follows the same pattern as a traditional for loop. Here 
 
 ## Do-while loops
 
-Do-while loops can be tricky to specify because they do not follow the same update-at-the-start of a loop pattern. Here is a simple example.
+Do-while loops can be tricky to specify because they do not follow the same update-at-the-start of a loop pattern. Also, the loop body is executed at least once, because the
+loop condition is not evaluated until the end of the loop body. Here is a simple example.
 ```
 {% include_relative  T_dowhile.java %}
 ```
-Here the order of assumptions is this:
-* assume the loop invariants
-* execute the body
-* do the loop test (which in this example incorporates the loop update)
-* check that the loop invariants still hold
-
-Because the loop update and test are at the end of the body, the initial loop invariant only reflects the possible values at the start of the loop; the final increment and exit from the loop happen without 
-checking the loop invariant again. So the loop invariant here is `0 <= i < 10`, not `0 <= i <= 10`.
-
 
 ## Loop verification errors
 
@@ -145,5 +138,10 @@ which produces
 ```
 {% include_relative  T_LoopNegativeError.out %}
 ```
+
+## Loop conditions with side effects
+
+Good programming style avoids loop conditions with side effects. Nevertheless, such constructs are legal Java.
+However, writing workable specifications for such programs is tricky, reflecting the fact that understanding and writing correct programs using conditions with side-effects is tricky.
 
 ## **[Specifying Loops Problem Set](https://www.openjml.org/tutorial/exercises/SpecifyingLoopsEx.html)**

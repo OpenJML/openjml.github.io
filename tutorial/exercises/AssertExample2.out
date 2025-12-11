@@ -1,0 +1,7 @@
+AssertExample2.java:22: verify: The prover cannot establish an assertion (Postcondition: AssertExample2.java:4:) in method primeChecker
+		return isPrime;
+		^
+AssertExample2.java:4: verify: Associated declaration: AssertExample2.java:22:
+	//@ ensures \result <==> !(\exists int i; i >= 2; num % i == 0);
+	    ^
+2 verification failures

@@ -1,0 +1,6 @@
+SpecifyingExceptionsExample2.java:10: error: cannot find symbol
+    @   ensures \result == str.length % tableSize; 
+                              ^
+  symbol:   variable length
+  location: variable str of type String
+1 error

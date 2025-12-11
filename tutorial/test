@@ -47,10 +47,21 @@ for f in $files ; do
 done 
 
 if [ -z "$1" ]; then
-for f in exercises/*.java ; do 
+echo CHECKING EXERCISES
+cd exercises
+for f in *.java ; do 
   echo Checking $f
-  openjml --esc $f > logx || { X=1; echo $f FAILED; mv logx $f.actual; }
+  h=`echo $f | sed -e 's/java/out/'`
+  openjml --esc $f > logx
+  E=$?
+  if [ -e "$h" ]; then 
+    diff logx $h || { X=1; echo $f FAILED; mv logx $f.actual; }
+  elif [ "$E" != "0" ]; then
+    X=1; echo "Exit code $E - $f FAILED" ; mv logx $f.actual
+  fi
 done
+rm -rf logx
+cd ..
 fi
 rm -rf logt log logx
 if [ "$X" = "0" ]; then echo Tutorial tests successful; else echo Tutorial tests FAILED ; fi

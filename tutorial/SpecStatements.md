@@ -1,5 +1,5 @@
 ---
-title: Specifications in Method Bodies
+title: JML Tutorial - Specifications in Method Bodies
 ---
 
 The basic unit of specification and verification in JML is the method,

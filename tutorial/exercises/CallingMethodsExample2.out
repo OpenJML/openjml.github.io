@@ -1,0 +1,8 @@
+CallingMethodsExample2.java:42: warning: A non-pure method is being called where it is not permitted: CallingMethodsExample2.isClassFailing(double[])
+		//@ assert isClassFailing(classGrades);
+		                         ^
+CallingMethodsExample2.java:42: verify: The prover cannot establish an assertion (Assert) in method testClass
+		//@ assert isClassFailing(classGrades);
+		    ^
+1 warning
+1 verification failure

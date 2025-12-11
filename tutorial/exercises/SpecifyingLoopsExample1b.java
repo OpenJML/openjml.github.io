@@ -1,4 +1,4 @@
-public class SpecifyingLoopsExample1 {
+public class SpecifyingLoopsExample1b {
 	//@ ensures \result.length() == str1.length();
     	//@ ensures (\forall int j; 
 	//@			0 <= j <= str1.length()-1; 

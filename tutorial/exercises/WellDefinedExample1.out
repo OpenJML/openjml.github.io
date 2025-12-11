@@ -1,0 +1,4 @@
+WellDefinedExample1.java:14: verify: The prover cannot establish an assertion (Assert) in method search
+		//@ assert !(\exists int j; 0 <= j < a.length; a[j] == key);
+		    ^
+1 verification failure

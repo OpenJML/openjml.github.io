@@ -7,8 +7,8 @@ public class T_foreach {
     //@ maintaining \forall int k; 0 <= k < \count; a[k] > 0;
     //@ loop_writes \nothing;
     //@ decreases a.length - \count;
-    for (int i: a) {
-      if (i <= 0) return false;
+    for (int v: a) {
+      if (v <= 0) return false;
     }
     return true;
   }
