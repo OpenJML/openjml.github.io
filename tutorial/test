@@ -5,6 +5,8 @@ X=0
 files="$@"
 if [ -z "$files" ]; then files=`ls *.java *.check` ; fi
 for f in $files ; do
+  logt=$(mktemp logtXXXXXXXX )
+  log=$(mktemp logXXXXXXXX )
   h=`echo $f | sed -e 's/java/check/'`;
   if [ -e $h -a "$f" != "$h" ]; then continue; fi
   if [ -e $h ]; then echo $f; source $f || X=1; continue; fi
@@ -12,14 +14,14 @@ for f in $files ; do
   c=`cat $f | head -1 | sed -e 'sx//[ ]*xx' | sed -e s/\\$@/$f/ | grep -v '##'`
   if [ "$c" != "" ]; then 
     echo EXEC "$c"
-    bash -c "$c --specs-path ../../Specs/specs" > logt  2>&1
+    bash -c "$c --specs-path ../../Specs/specs" > $logt  2>&1
     e=$?
-    grep -v "Note:" logt > log
+    grep -v "Note:" $logt > $log
     if [ -e $o ]; then 
 	if [ $e -eq "0" ]; then 
 	    if [ "$f" != "T_PureMethod1.java" ]; then X=1; echo $f "has out file but exit code of 0"; fi; ## Special case of all warnings so 0 exit code
 	fi 
-	cat log | sed -e 's/[0-9][0-9.]* secs/TTTT secs/' | sed -e 's/DURATION:[ ]*TTTT/DURATION:          TTTT/' | tee $o.actual | cmp -s - $o ; z=$? ;
+	cat $log | sed -e 's/[0-9][0-9.]* secs/TTTT secs/' | sed -e 's/DURATION:[ ]*TTTT/DURATION:          TTTT/' | tee $o.actual | cmp -s - $o ; z=$? ;
 	if [ $z -ne "0" ]; then 
 	    n=1
 	    while [ -e $o$n ]; do
@@ -35,35 +37,37 @@ for f in $files ; do
         else
             rm $o.actual
 	fi 
-    elif [ -n "$( cat log )" ]; then 
+    elif [ -n "$( cat $log )" ]; then 
 	echo "OK example has output: " $f 
-	cat log 
+	cat $log 
     elif [ $e -ne "0" ]; then 
 	X=1; echo "OK example has unexpected exit code: " $f $e 
     fi ; 
   else
     echo "Skipping non-deterministic test " $f ;
   fi ;
+  rm -rf $log $logt
 done 
 
 if [ -z "$1" ]; then
 echo CHECKING EXERCISES
 cd exercises
 for f in *.java ; do 
+  logx=$(mktemp logxXXXXXXXX )
   echo Checking $f
   h=`echo $f | sed -e 's/java/out/'`
-  openjml --esc $f > logx
+  openjml --esc $f > $logx
   E=$?
   if [ -e "$h" ]; then 
-    diff logx $h || { X=1; echo $f FAILED; mv logx $f.actual; }
+    diff $logx $h || { X=1; echo $f FAILED; mv $logx $f.actual; }
   elif [ "$E" != "0" ]; then
-    X=1; echo "Exit code $E - $f FAILED" ; mv logx $f.actual
+    X=1; echo "Exit code $E - $f FAILED" ; mv $logx $f.actual
   fi
+  rm -rf $logx
 done
-rm -rf logx
 cd ..
 fi
-rm -rf logt log logx
+rm -rf log*
 if [ "$X" = "0" ]; then echo Tutorial tests successful; else echo Tutorial tests FAILED ; fi
 exit $X 
 

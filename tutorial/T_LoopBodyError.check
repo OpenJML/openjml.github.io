@@ -1,0 +1,6 @@
+
+R=T_LoopBodyError
+tmpfile=$(mktemp)
+C=$(head -1 $R.java | sed -e s.//..)
+bash -c "$C" | tee $R.out.actual | grep -v "Show statement" > $tmpfile
+grep -v "Show statement" < $R.out | diff - $tmpfile && rm -rf $tmpfile $R.out.actual

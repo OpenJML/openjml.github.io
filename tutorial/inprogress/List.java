@@ -13,49 +13,54 @@
 /** Parent class for List and Node containing the 'next' field and common functionality */
 class Link<T> {
 
-    //@ public model JMLDataGroup ownerFields;
-    //@ ghost helper nullable public List<T> owner; //@ in ownerFields; maps next.ownerFields \into ownerFields;
+    //@ public model \datagroup ownerFields;
+    //@ ghost nullable public List<T> owner; //@ in ownerFields; maps next.ownerFields \into ownerFields;
 
-    //@ model public seq<T> values; // sequence of values after the current Link, not including the current Link
-    //@ public represents values = next == null ? seq.<T>empty() : next.values.prepend(next.value);
+    //@ model public \seq<T> values; // sequence of values after the current Link, not including the current Link
+    // @ public represents values = next == null ? \seq.<T>empty() : next.values.prepend(next.value);
 
-    //@ model public seq<Link<T>> links;
-    //@ public represents links = next == null ? seq.<Link<T>>empty() : next.links.prepend(next);
+    //@ model public \seq<Link<T>> links;
+    // @ public represents links = next == null ? \seq.<Link<T>>empty() : next.links.prepend(next);
 
     // True if my owner is the argument and all nodes after me have the argument as their owners.
     //@ public normal_behavior
     //@   reads this.owner, this.next.ownerFields, this.links;
     //@   ensures \result == (this.owner == owner && (next != null ==> next.allMine(owner)));
-    //@ model pure helper public boolean allMine(List<T> owner);
+    //@ model spec_pure helper public boolean allMine(List<T> owner);
 
     //@ model public \bigint size; 
-    //@ public represents size = ((next == null) ? 0 : 1 + next.size);
+    //@ public represents size = ((next == null) ? (\bigint)0 : ((\bigint)1 + next.size));
     
-    //@ public invariant this.owner != null && allMine(this.owner);
-    //@ public invariant values.size() == size;
-    //@ public invariant links.size() == size;
-    //@ public invariant !links.contains(this);
+    // @ public invariant this.owner != null && allMine(this.owner);
+    // @ public invariant values.length() == size;
+    // @ public invariant links.length() == size;
+    // @ public invariant !links.contains(this);
 
     //@ nullable spec_public
-    protected List.Node<T> next; //@ in size, values, links, ownerFields; 
+    protected Link<T> next; //@ in size, values, links, ownerFields; 
     //@ maps next.values \into values; maps next.next \into values; maps next.next.values \into values;
     //@ maps next.size \into size; maps next.next \into size; maps next.next.size \into size;
     //@ maps next.links \into links; maps next.next \into links; maps next.next.links \into links;
     
+    //@ nullable
+    public T value;
+
     //@ protected normal_behavior
     //@ pure helper
-    protected Link() {
+    protected Link(T v, Link<T> n) {
+      this.value = v;
+      this.next = n;
     }
 
     /** Returns the nth value in the list */
     //@ public normal_behavior
-    //@   requires 0 <= n < this.values.size;
+    //@   requires 0 <= n < this.values.length();
     //@   reads values, links;
     //@   ensures \result == values[n];
-    //@ pure
+    //@ spec_pure
     public T value(int n) {
         if (n == 0) {
-            return next.value();
+            return next.value;
         } else {
             return next.value(n-1);
         }
@@ -66,8 +71,8 @@ class Link<T> {
     //@   requires 0 <= n < this.size;
     //@   assignable size, values, links, ownerFields, next.size;
     //@   ensures this.size == \old(this.size) - 1;
-    //@   ensures this.values.size() == \old(this.values.size()) - 1;
-    //@   ensures this.links.size() == \old(this.links.size()) - 1;
+    //@   ensures this.values.length() == \old(this.values.length()) - 1;
+    //@   ensures this.links.length() == \old(this.links.length()) - 1;
     //@   ensures n == 0 ==> values == \old(values).tail(1);
     //@   ensures n == 0 ==> links == \old(links).tail(1);
     //@   ensures n == 0 ==> next == \old(next.next);
@@ -96,15 +101,15 @@ class Link<T> {
             //@ assert this.next != null ==> this.next.allMine(this.next.owner);
             //@ assert this.next != null ==> this.next.values == this.values.tail(1);
             //@ assert this.values == \old(this.values).tail(1);
-            //@ assert this.values.size() == \old(this.values.size()-1);
+            //@ assert this.values.length() == \old(this.values.length()-1);
             //@ assert this.links == \old(this.links).tail(1);
-            //@ assert this.links.size() == \old(this.links.size()-1);
+            //@ assert this.links.length() == \old(this.links.length()-1);
         } else {
             this.next.remove(n-1);
             //@ reachable;
             //@ assert this.next.size == \old(this.next.size) - 1;
-            //@ assert this.values.size() == \old(this.values.size()-1);
-            //@ assert this.links.size() == \old(this.links.size()-1);
+            //@ assert this.values.length() == \old(this.values.length()-1);
+            //@ assert this.links.length() == \old(this.links.length()-1);
             //@ assert allMine(this.owner);
             //@ assert this.size == \old(this.size) - 1;
         }
@@ -118,9 +123,9 @@ public class List<T> extends Link<T> {
     
     /** Creates an empty list -- just an anchor node with null 'next' field */
     //@ public normal_behavior
-    //@   ensures \result.values == seq.<TT>empty();
+    //@   ensures \result.values == \seq.<TT>empty();
     //@   ensures \result.size == 0;
-    //@   ensures \result.links == seq.<Link<TT>>empty();
+    //@   ensures \result.links == \seq.<Link<TT>>empty();
     //@   ensures \result.next == null;
     //@   ensures \result.owner == \result;
     //@ pure
@@ -133,7 +138,7 @@ public class List<T> extends Link<T> {
     //@   ensures this.owner == this;
     //@ pure
     private List() {
-        this.next = null;
+        super(null, null);
         //@ set this.owner = this;
     }
     
@@ -149,7 +154,7 @@ public class List<T> extends Link<T> {
     //@   ensures this.next.value == t;
     //@   ensures this.next.next == \old(this.next);
     public void push(T t) {
-        var v = new List.Node<T>(t, next);
+        var v = new Link<T>(t, next);
         //@ set v.owner = this;
         //@ assert this.allMine(this); // a lemma regarding allMine
         //@ assert v.size == this.size;
@@ -163,13 +168,13 @@ public class List<T> extends Link<T> {
     }
 
     //@ public normal_behavior
-    //@ ensures \result; 
-    //@ model pure static public <T> boolean lemma(seq<T> s, T t1, T t2) { return (s.contains(t1) && !s.contains(t2) ==> t1 != t2); }
+    //@   ensures \result; 
+    //@ model spec_pure static public <T> boolean lemma(\seq<T> s, T t1, T t2) { return (s.contains(t1) && !s.contains(t2) ==> t1 != t2); }
     
     /** Removes the first value from the list */
     //@ public normal_behavior
     //@   requires this.size > 0;
-    //@   requires this.values.size() > 0;
+    //@   requires this.values.length() > 0;
     //@   assignable size, values, links, ownerFields;
     //@   ensures this.size == \old(size) - 1;
     //@   ensures this.values == \old(values).tail(1);
@@ -178,8 +183,8 @@ public class List<T> extends Link<T> {
     public void pop() {
         // (proved) lemmas to prompt unrolling
         //@ assert next.size == this.size - 1;
-        //@ assert this.next.values.size() == this.values.size() - 1;
-        //@ assert this.next.links.size() == this.links.size() - 1;
+        //@ assert this.next.values.length() == this.values.length() - 1;
+        //@ assert this.next.links.length() == this.links.length() - 1;
         //@ assert this.next.allMine(this.owner);
         //@ ghost nullable Link<T> nxx = this.next.next;
         //@ assert nxx != null ==> nxx.allMine(nxx.owner);
@@ -190,30 +195,6 @@ public class List<T> extends Link<T> {
         this.next = this.next.next;
     }
     
-    static class Node<T> extends Link<T> {
-
-        /** Constructs a new link with given value and next field; for internal use only */
-        //@ private normal_behavior
-        //@   ensures this.next == next;
-        //@   ensures this.value == value;
-        //@ pure helper
-        private Node(T value, /*@ helper nullable */ Node<T> next) {
-            this.value = value;
-            this.next = next;
-        }
-        
-        //@ spec_public
-        private T value; //@ in values;
-        
-        /** Returns the value from this link */
-        //@ public normal_behavior
-        //@   reads value;
-        //@   ensures \result == value;
-        //@ pure helper
-        public T value() {
-            return value;
-        }
-    }
 }
 
 class Test {
@@ -222,8 +203,8 @@ class Test {
     public static <Y> void testEmpty(Y y) {
         var in = List.<Y>empty();
         //@ assert in.size == 0;
-        //@ assert in.values.size() == 0;
-        //@ assert in.values == seq.<Y>empty();
+        //@ assert in.values.length() == 0;
+        //@ assert in.values == \seq.<Y>empty();
     }
 
     /** pushing a value and then retrieving it */
@@ -335,7 +316,7 @@ class Test {
     //@ requires in.values == other.values;
     //@ requires in.size > 0;
     public static <Y> void testNI2(List<Y> in, List<Y> other) {
-        //@ ghost seq<Y> oldvalues = in.values;
+        //@ ghost \seq<Y> oldvalues = in.values;
         in.pop();
         //@ reachable;
         //@ assert in.values == oldvalues.tail(1);
@@ -348,11 +329,11 @@ class Test {
     //@ requires in.values == other.values;
     //@ requires in.size > 1;
     public static <Y> void testNI3(List<Y> in, List<Y> other) {
-        //@ ghost seq<Y> oldvalues = in.values;
+        //@ ghost \seq<Y> oldvalues = in.values;
         in.remove(1);
         //@ reachable;
-        //@ assert oldvalues.size - 1 == in.values.size;
-        //@ assert other.values.size - 1 == in.values.size;   // Should not be provable without the owner invariant
+        //@ assert oldvalues.length() - 1 == in.values.length();
+        //@ assert other.values.length() - 1 == in.values.length();   // Should not be provable without the owner invariant
     }
     
     /** two different lists may have the same first element, except when the owner invariant is used */
@@ -373,8 +354,8 @@ class Test {
     /*@ model public static <Y> void testNI5(List<Y> in, List<Y> other, Y y) {
         reachable;
         ghost \bigint n = in.size;
-        assert in.values.size() == n;
-        assert in.values.size() == other.values.size();
+        assert in.values.length() == n;
+        assert in.values.length() == other.values.length();
         assert in.size == other.size;
         assert in.size == n;
         assert in.next.values == other.next.values;
