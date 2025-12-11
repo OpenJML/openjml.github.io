@@ -11,7 +11,7 @@ Thus, suppose we write a model method in this form
 ```
 //@ requires P(x,y);
 //@ ensures Q(x,y);
-//@ pure helper heap_free
+//@ pure helper no_state
 //@ model public void lemma(T x, U y) {}
 ```
 Then if this method verifies, we have established `\forall T x, U y; P(x,y) ==> Q(x,y)`.
@@ -28,12 +28,17 @@ solver the work of finding an appropriate instantiation for its proof. Of course
 
 Sometimes one needs a lemma that expresses a mathematical fact that the proof engine can't solve even as a standalone lemma. In that case we can write the lemma just as above, but with a `;` instead of the final `{}`. We still have a statement of the lemma, but no proof is attempted because there is no body of the lemma to prove. In this case the truth of the lemma must be separately established.
 
-Another form is a lemma with a body that consists of a series of `assert` statements that guide the solver through a proof of the lemma..
+Another form is a lemma with a body that consists of a series of `assert` statements that guide the solver through a proof of the lemma.
 
 Here is an example from a client project:
 ```
 {% include_relative LemmaExample.java %}
 ```
-In this case, without the `set` statement, `fromUnsigned` takes a very long time to prove (because it is being proved with bit-vectors).
+
+This example uses `use` instead of `set`. The effect is the same except for one important difference.
+With `use`, subexpressions in the next statement that match the left-hand-side of the lemma being used are replaced by the right-hand-side.
+This is only really essential if the method uses bit-vectors, as in this case, and one wants to avoid proving bit-vector problems.
+
+In this case, without the `use` statement, `fromUnsigned` takes a very long time to prove (because it is being proved with bit-vectors).
 However, with the lemma, it proves quickly. Furthermore, the lemma itself proves quickly (even though it uses bit-vectors).
 So the lemma is a helpful assumption, but it is also proved in a sound fashion.

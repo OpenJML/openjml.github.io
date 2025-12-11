@@ -21,6 +21,8 @@ type `\real`.
 * `<` and `<=` and `>` and `>=` have their expected meanings with the result type being boolean
 * implicit conversions are allowed from `double`, `real`, `\bigint` and Java integral types
 * explicit casts are allowed to and from other numeric types, such as `(\bigint)j`, which truncates towards zero.
+* also, the static method `\real.of(n)` converts its argument to a `\real` value, just like an explicit cast. `n` can be any Java numeric value, a `BigInteger` or a `BigDecimal`
+* similarly the methods `r.intValue`, `r.bigintValue()` and so on for other numeric types convert a `\real` `r` to the destination type
 
 ```diff
 ! Caveat: Though real numbers are supported in OpenJML, the connection between real numbers and floating point numbers is incomplete and in some cases (such as handling NaN and infinite fp numbers) wrong
