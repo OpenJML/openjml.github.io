@@ -1,0 +1,19 @@
+T_show2a.java:3: verify: Label A has value false
+  //@ ensures (\lbl A \result >= a) & (\lbl B \result >= b) & (\lbl C \result >= c) & (\lbl D \result >= d);
+                    ^
+T_show2a.java:3: verify: Label B has value true
+  //@ ensures (\lbl A \result >= a) & (\lbl B \result >= b) & (\lbl C \result >= c) & (\lbl D \result >= d);
+                                            ^
+T_show2a.java:3: verify: Label C has value false
+  //@ ensures (\lbl A \result >= a) & (\lbl B \result >= b) & (\lbl C \result >= c) & (\lbl D \result >= d);
+                                                                    ^
+T_show2a.java:3: verify: Label D has value false
+  //@ ensures (\lbl A \result >= a) & (\lbl B \result >= b) & (\lbl C \result >= c) & (\lbl D \result >= d);
+                                                                                            ^
+T_show2a.java:10: verify: The prover cannot establish an assertion (Postcondition: T_show2a.java:3:) in method max
+    return maxSoFar;
+    ^
+T_show2a.java:3: verify: Associated declaration: T_show2a.java:10:
+  //@ ensures (\lbl A \result >= a) & (\lbl B \result >= b) & (\lbl C \result >= c) & (\lbl D \result >= d);
+      ^
+6 verification failures
