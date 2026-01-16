@@ -15,7 +15,7 @@ which produces
 {% include_relative T_frame1.out %}
 ```
 Note first a new bit of syntax: the `\old` designator. The `increment` methods make a change in state: the value of `counter1` or `counter2` is different after
-the method than before and we need a way to refer to their values before and after. The `\old` syntax means to determine the value of the enclosed expression
+the method than before it is called and we need a way to refer to their values before and after. The `\old` syntax means to evaluate the enclosed expression
 in the pre-state, that is, the state at the beginning of the method's execution.
 `counter1` without the `\old` designator means the value of `counter1` in the
 post-state, the state after the method has completed.
@@ -44,7 +44,7 @@ Note that `modifies` is also an
 (implemented) synonym, but in some tools it has a slightly different meaning,
 so its use is not recommended.
 
-The frame condition states which memory locations might be changed by the method at hand. Anything not mentioned is assumed to be unchanged. In fact, a method
+An explicit  frame condition states which memory locations might be changed by the method at hand. Anything not mentioned is assumed to be unchanged. In fact, a method
 is not allowed to *assign* to a memory location (even with the same value) unless it is listed in the frame condition --- this makes the check for violations of the frame condition, whether by tool or by eye, independent of the values computed.
 
 So now our example looks like this:
@@ -58,7 +58,7 @@ A few more details about the memory locations in a frame condition:
 those are not visible in the specification and they are not part of the 
 program state outside of the method.
 * The formal arguments of the method are in scope for the frame condition,
-just like for the `requires` and `ensures` clauses. The formal arguments \
+just like for the `requires` and `ensures` clauses. The formal arguments 
 themselves cannot be changed by a method, but if they are references to objects,
 their fields might be written to by a method. So a method `m(MyType q)`
 might have a frame condition `assigns q.f;` if `f` is a field of `MyType`
@@ -69,7 +69,7 @@ that is written to in the body of `m`.
 * `a[*]` for array expression `a` means all elements of that array
 * `a[i..j]` for expressions `a`, `i`, and `j` means the stated range of array elements, from `i` to `j` inclusive.
 
-If there is no frame condition at all, then a default is used, namely `assigns \everything;`--- which means exactly that: after a call of this method, any memory location in the state might have been written to and might be changed. It is very difficult to prove anything about a program that includes a call to a method with such a frame condition. Thus *you must include a frame condition for any method that is called within a program*.
+If there is no frame condition clause at alli in a method's specifications, then a default is used, namely `assigns \everything;`--- which means exactly that: after a call of this method, any memory location in the state might have been written to and might be changed. It is very difficult to prove anything about a program that includes a call to a method with such a frame condition. Thus *you must include a frame condition for any method that is called within a program*.
 
 A shorthand way to say that a method `assigns \nothing;` is to designate it `pure`, as in
 ```
@@ -85,7 +85,7 @@ There are two other points to know about frame conditions. First, where a frame 
 Second, a frame condition is a method specification clause like `requires` and `ensures`. A method specification may contain more than one such clause.
 However, note that each clause is considered individually. That is, each clause
 by itself lists the memory locations that may be written to by the method.
-As each frame condition clause must be valid on its own, the effect of multiple clauses is the same as one clause with the _intersection_ of the sets of locations given by the separate clauses.
+As each frame condition clause must be valid on its own, the effect of multiple iframe clauses is the same as one clause with the _intersection_ of the sets of locations given by the separate clauses.
 For example,
 ```
 assigns i,j;
@@ -104,7 +104,7 @@ is the same as
 ```
 assigns \nothing;
 ```
-Admittedly,  it would be much more convenient and perhaps intuitive if the
+Admittedly,  it would be much more convenient and perhaps more intuitive if the
 result of mutiple assigns clauses was the *union* of their contents, but that is
 not the case, for historical reasons. The advice is then to
 *have only one frame condition clause per specification (case)*, even if that
