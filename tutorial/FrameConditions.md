@@ -54,7 +54,7 @@ clause was `assigns \everything`. Then in method `test` the call of
 `increment1` is specified as potentially changing every memory location, 
 including `counter2` in this example.
 
-You can also write `assignss \nothing`, which means no memory locations 
+You can also write `assigns \nothing`, which means no memory locations 
 may be assigned to.
 
 So now our example looks like this:
