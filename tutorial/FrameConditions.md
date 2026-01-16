@@ -47,6 +47,16 @@ so its use is not recommended.
 An explicit  frame condition states which memory locations might be changed by the method at hand. Anything not mentioned is assumed to be unchanged. In fact, a method
 is not allowed to *assign* to a memory location (even with the same value) unless it is listed in the frame condition --- this makes the check for violations of the frame condition, whether by tool or by eye, independent of the values computed.
 
+If there is no explicit frame condition clause in a method's specification (case), then a default is used, namely `assigns \everything;`--- which means exactly that: after a call of this method, any memory location in the state might have been written to and might be changed. It is very difficult to prove anything about a program that includes a call to a method with such a frame condition. Thus *you must include a frame condition for any method that is called within a program*.
+
+In our example above, before we added a frame clause, the effective frame
+clause was `assigns \everything`. Then in method `test` the call of
+`increment1` is specified as potentially changing every memory location, 
+including `counter2` in this example.
+
+You can also write `assignss \nothing`, which means no memory locations 
+may be assigned to.
+
 So now our example looks like this:
 ```
 {% include_relative T_frame3.java %}
@@ -68,8 +78,6 @@ that is written to in the body of `m`.
 * `a[i]` for expression `a` and `i` means that particular array element
 * `a[*]` for array expression `a` means all elements of that array
 * `a[i..j]` for expressions `a`, `i`, and `j` means the stated range of array elements, from `i` to `j` inclusive.
-
-If there is no frame condition clause at alli in a method's specifications, then a default is used, namely `assigns \everything;`--- which means exactly that: after a call of this method, any memory location in the state might have been written to and might be changed. It is very difficult to prove anything about a program that includes a call to a method with such a frame condition. Thus *you must include a frame condition for any method that is called within a program*.
 
 A shorthand way to say that a method `assigns \nothing;` is to designate it `pure`, as in
 ```
