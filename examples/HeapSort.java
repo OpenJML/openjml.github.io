@@ -4,10 +4,11 @@
 public class HeapSort {	
 	
   /*@ requires 1 <= i <= len/2 && len <= arr.length;
-      requires \forall int k;i < k <= len/2;arr[k-1] <= arr[2*k-1]; 
-      requires \forall int k;i < k <= (len-1)/2;arr[k-1] <= arr[2*k];
-      ensures \forall int k;i <= k <= len/2;arr[k-1] <= arr[2*k-1];
-      ensures \forall int k;i <= k <= (len-1)/2;arr[k-1] <= arr[2*k]; 
+      requires \forall int k; i < k <= len/2; arr[k-1] <= arr[2*k-1]; 
+      requires \forall int k; i < k <= (len-1)/2; arr[k-1] <= arr[2*k];
+      assigns arr[*];
+      ensures \forall int k; i <= k <= len/2; arr[k-1] <= arr[2*k-1];
+      ensures \forall int k; i <= k <= (len-1)/2; arr[k-1] <= arr[2*k]; 
   @*/
   public static void heapify(int /*@ non_null @*/ [] arr, final int i, final int len) {
     int j = i;
@@ -18,6 +19,7 @@ public class HeapSort {
         loop_invariant \forall int k; i <= k < j && k <= (len-1)/2; arr[k-1] <= arr[2*k];
         loop_invariant \forall int k; 2*j-1 <= k-1 <= 2*j && k <= len && j > i;
                                       arr[k-1] >= arr[j/2-1]; 
+        loop_assigns j, arr[*];
         decreasing len-j;
       @*/
     while (true) {			
@@ -44,12 +46,14 @@ public class HeapSort {
   public static pure model boolean isGeq(final int  non_null [] arr, final int len) {
     loop_invariant 0 <= i < len;
     loop_invariant \forall int k;i < k < len;arr[k] >= arr[0];
+    loop_assigns i;
     decreasing i;
     for (int i = len-1; i > 0; i--) {
       int j=i+1;
 	
       loop_invariant 1 <= j <= i+1;
       loop_invariant arr[i] >= arr[j-1];
+      loop_assigns j;
       decreasing j;
       while(j > 1) {
         j = j / 2;
@@ -60,6 +64,7 @@ public class HeapSort {
   @*/
 	
   /*@
+    assigns arr[*];
     ensures \forall int k,j; 0 <= k < j < arr.length; arr[k] >= arr[j];
   @*/
   public static void sort(int /*@ non_null @*/ [] arr) {
@@ -70,6 +75,7 @@ public class HeapSort {
     /*@ loop_invariant 0 <= i <= arr.length/2;
         loop_invariant \forall int k; i < k <= arr.length/2; arr[k-1] <= arr[2*k-1];
         loop_invariant \forall int k; i < k <= (arr.length-1)/2; arr[k-1] <= arr[2*k]; 
+        loop_writes i, arr[*];
         decreasing i;
     @*/
     for (int i = arr.length/2; i > 0; i--) {
@@ -84,6 +90,7 @@ public class HeapSort {
         loop_invariant isGeq(arr,len+1);
         loop_invariant \forall int k,j; 0 <= k <= len < j < arr.length; arr[j] <= arr[k];
         loop_invariant \forall int k,j; len <= k < j < arr.length; arr[j] <= arr[k];
+        loop_writes len, tmp, arr[*];
         decreasing len-1;
     @*/
     for (int len = arr.length-1; len>1; len--) {

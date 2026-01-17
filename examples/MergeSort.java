@@ -6,6 +6,7 @@ import java.util.Arrays;
 public class MergeSort {    
     /*@ 
       requires arr != null && arr.length > 0; //non-null
+      assigns arr[*];
       ensures \forall int k; 0<= k < arr.length; \forall int j; k < j < arr.length; arr[k] >= arr[j];
      @*/
     public static void sort(int [] arr) {
@@ -18,6 +19,7 @@ public class MergeSort {
     /*@ 
       requires 0 <= l < r <= arr.length; // bounds
       requires arr != null; // non-null
+      assigns arr[l..r-1];
       ensures \forall int k; l <= k < r; \forall int j; k < j < r; arr[k] >= arr[j];
       measured_by r-l+1;
      @*/
@@ -35,6 +37,7 @@ public class MergeSort {
       requires 0 <= l < m < r <= arr.length && arr.length > 1; //bounds
       requires \forall int k,j; l <= k < j < m; arr[k] >= arr[j];
       requires \forall int k,j; m <= k < j < r; arr[k] >= arr[j];
+      assigns arr[l..r-1];
       ensures  \forall int k,j; l <= k < j < r; arr[k] >= arr[j] ;
     @*/
     private static void merge(int /*@ non_null @*/ [] arr, final int l, final int m, final int r) {
@@ -46,7 +49,7 @@ public class MergeSort {
         
         int l1 = 0, r1 = 0;
         /*@
-         loop_modifies i, l1, r1, arr[*];
+         loop_assigns i, l1, r1, arr[l..r-1];
          loop_invariant 0 <= l1 <= lCpy.length && 0 <= r1 <= rCpy.length;
          loop_invariant l <= i <= r && i == l+l1+r1;
          loop_invariant \forall int k,j; l <= k < i && l1 <= j < lCpy.length; arr[k] >= lCpy[j];

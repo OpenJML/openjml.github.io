@@ -3,6 +3,7 @@
 
 public class SelectionSort {    
     /*@
+        assigns arr[*];
         ensures \forall int k;0 <= k && k < arr.length-1;arr[k] >= arr[k+1];
     @*/
     public static void sort(int /*@ non_null @*/ [] arr) {
@@ -12,6 +13,7 @@ public class SelectionSort {
         /*@ loop_invariant \forall int j; 0 <= j < i; // Sorted up-to i
                                \forall int k; j < k < n; arr[j] >= arr[k];
         @*/
+        //@ loop_assigns i, arr[*];
         //@ decreasing n-i; // i goes up
         for (int i = 0; i < arr.length; i++) {
             int ub = arr[i];
@@ -21,6 +23,7 @@ public class SelectionSort {
             //@ loop_invariant \forall int k; i <= k < j; ub >= arr[k]; // max elem up-to j
             //@ loop_invariant i <= l < n; // max index bounds check
             //@ loop_invariant ub == arr[l]; // max index corresponds to max elem.
+            //@ loop_assigns j, arr[*];
             //@ decreasing n-j; // j goes up
             for (int j = i+1; j < arr.length; j++) {
                 if (arr[j] > ub) {
