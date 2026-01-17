@@ -2,3 +2,6 @@
 /_site/
 npm-debug.log
 .DS_Store
+examples/*.class
+**/*.out
+**/*.timesout
