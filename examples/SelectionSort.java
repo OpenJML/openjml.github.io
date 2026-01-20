@@ -36,9 +36,6 @@ public class SelectionSort {
             }
             // Maximum is at position l
             
-            // assert \forall int k; 0 <= k < i; largest <= arr[k];
-            // assert \forall int k; i <= k < n; largest >= arr[k];
-            
             arr[l] = arr[i];
             arr[i] = ub;
         }
