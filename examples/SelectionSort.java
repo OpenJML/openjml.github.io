@@ -16,6 +16,9 @@ public class SelectionSort {
         //@ loop_assigns i, arr[*];
         //@ decreasing n-i; // i goes up
         for (int i = 0; i < arr.length; i++) {
+            // Sorted sublist is from 0 up to but not including i
+            
+            // Find maximum in i .. end
             int ub = arr[i];
             int l = i;
             
@@ -23,7 +26,7 @@ public class SelectionSort {
             //@ loop_invariant \forall int k; i <= k < j; ub >= arr[k]; // max elem up-to j
             //@ loop_invariant i <= l < n; // max index bounds check
             //@ loop_invariant ub == arr[l]; // max index corresponds to max elem.
-            //@ loop_assigns j, arr[*];
+            //@ loop_assigns j, l, ub;
             //@ decreasing n-j; // j goes up
             for (int j = i+1; j < arr.length; j++) {
                 if (arr[j] > ub) {
@@ -31,6 +34,8 @@ public class SelectionSort {
                     ub = arr[j];
                 }
             }
+            // Maximum is at position l
+            
             // assert \forall int k; 0 <= k < i; largest <= arr[k];
             // assert \forall int k; i <= k < n; largest >= arr[k];
             
