@@ -83,6 +83,7 @@ Two final points:
 * The order of `ensures` clauses matters. The predicates of a sequence of `ensures` clauses are effectively conjoined together (with `&&`) to produce
 a single postcondition predicate. Consequently an earlier predicate can cause a later predicate to be [well-defined](WellDefinedExpressions).
 * In thinking about postconditions, be aware of the semantics of the `ensures` clause, namely,
-_if the method terminates normally (with an exception), then the given postcondition is true_.
+_if the method terminates normally (without an exception or error), 
+then the given postcondition must be true_.
 The converse, if the `ensures` predicate is true then the method terminates normally, is not the meaning and is not necessarily true.
 ## **[Postconditions Problem Set](https://www.openjml.org/tutorial/exercises/PostConEx.html)**
