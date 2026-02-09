@@ -19,7 +19,8 @@ This clause specifies the kinds of exceptions that may be thrown from the method
 JML requires the specification to list `RuntimeException`, even though Java does not require declaring `RuntimeException` in a throws clause,
 in order to make it explicitly clear what exceptions might be thrown.
 
-If we omit any exceptions, by saying `signals_only \nothing`, a verification failure results.
+If we omit any exceptions, by using the default `signals_only` clause
+(`signals_only \nothing`), a verification failure results.
 ```
 {% include_relative T_Exception1a.java %}
 ```
@@ -27,7 +28,7 @@ If we omit any exceptions, by saying `signals_only \nothing`, a verification fai
 {% include_relative T_Exception1a.out %}
 ```
 
-The `signals_only` specification comes explicitly into play when the program wants to throw an exception. Consider
+The `signals_only` specification comes explicitly into play when the program wants to throw an exception. Consider the following incorrect implementation:
 ```
 {% include_relative T_Exception1b.java %}
 ```
@@ -35,14 +36,15 @@ It produces the output
 ```
 {% include_relative T_Exception1b.out %}
 ```
-Here the method explictly throws an exception, but as that exception is not specified to be thrown, OpenJML complains.
+Here the method explictly throws an exception, but as that exception is not specified to be thrown, so OpenJML complains.
 
 
 In order to say that an exception is never thrown, use a `signals` clause with a `false` predicate.
 Then the `signals` clause means --- if an exception is thrown then `false` --- which is equivalent to saying
-"if true, then an exception may not be thrown", or equivalently, "an exception may not be thrown".
+"if false is true, then throwing such an exception is correct",
+or equivalently, "such an exception may not be thrown".
 
-Here is an example:
+Here is an example, with the overall type `Exception` as the exception type:
 ```
 {% include_relative T_Exception2.java %}
 ```
@@ -56,7 +58,8 @@ as it should. We can guard against an exception by requiring that the method alw
 ```
 which now verifies again.
 
-Postcondition clauses can be stated in any order; there is no meaning to one being before the other.
+Exceptional postcondition clauses can be stated in any order;
+there is no meaning to one being before the other as all must be satisfied.
 Consider this example in which there are two kinds of exceptions thrown.
 ```
 {% include_relative T_Exception4.java %}
