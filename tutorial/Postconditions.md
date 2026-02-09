@@ -4,8 +4,8 @@ title: JML Tutorial - Postconditions (ensures clauses)
 
 A method's specification states _what_ the method does,
 but not _how_ it is done. The effect of a method is
-stated in its _postcondition_, which is written in an 
-_ensures_ clause.
+stated in its _postcondition_, which is written in one (or more) 
+_ensures_ clause(s). 
 
 Consider this example of a method that computes the maximum of four int values.
 
@@ -61,15 +61,15 @@ message. Tutorial examples are given under the [Debugging](Debugging) topic.
 
 While in this case the error was in the implementation, the error might 
 instead be in the specification. In fact, it is possible that the 
-specification and implementation agree, but that they differ from what the user intended.
+specification and implementation agree, but that they both differ from what the user intended.
 
 Another situation can be that the specification is not very specific.
 For example, the postcondition could simply be `ensures true;`, which is the
 default if no `ensures` clause is given. In this case the implementation
-trivially satisfies the specification, _no matter what result the implementation returns_.
+trivially satisfies the specification, _no matter what result the implementation does_.
 However, while no problem arises in verifying the method, it would not be
 possible to verify _uses_ of the method in some calling method (unless it
-indeed did not matter what result was returned). We will return to this 
+indeed did not matter what the method does). We will return to this 
 subject in [Calling Specified Methods](MethodCalls).
 
 Sometimes you may wish to refer to the value returned by a method in the postcondition. 
