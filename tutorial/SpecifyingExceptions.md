@@ -39,10 +39,11 @@ It produces the output
 Here the method explictly throws an exception, but as that exception is not specified to be thrown, so OpenJML complains.
 
 
-In order to say that an exception is never thrown, use a `signals` clause with a `false` predicate.
+In order to say that a particular exception is never thrown,
+use a `signals` clause (for that exception type) with a `false` predicate.
 Then the `signals` clause means --- if an exception is thrown then `false` --- which is equivalent to saying
 "if false is true, then throwing such an exception is correct",
-or equivalently, "such an exception may not be thrown".
+thus equivalently: "such an exception may not be thrown".
 
 Here is an example, with the overall type `Exception` as the exception type:
 ```
