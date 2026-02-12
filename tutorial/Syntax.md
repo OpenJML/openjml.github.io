@@ -21,7 +21,7 @@ public class Z {
 
 Note that (aside from conditional annotations described below) a
 Java comment starting with `@` as its very first character is a JML annotation;
-anything else is silently considered a Java comment. Thus
+anything else is silently considered a Java comment. This problem is shown in the following:
 ```
 public class Z {
   // @ ensures P; // ---- NOT JML - whitespace between // and @
@@ -29,8 +29,8 @@ public class Z {
 }
 ```
 
-One pitfall with annotations is the following. Java annotations 
-begin with `@` (such as `@Override`). Thus a commented out Java
+One pitfall with Java's annotation syntax and JML is that all Java annotations 
+begin with an at-sign (such as `@Override`). Thus a commented out Java
 annotation might well read `//@Override`. But this is interpreted by
 JML tools as a JML annotation and will result in error messages.
 
