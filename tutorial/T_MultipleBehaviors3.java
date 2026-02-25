@@ -1,4 +1,4 @@
-// openjml --esc T_MultipleBehaviors3.java
+// openjml --esc --nullable-by-default T_MultipleBehaviors3.java
 public class T_MultipleBehaviors3 {
 
     //@  requires a != null;
