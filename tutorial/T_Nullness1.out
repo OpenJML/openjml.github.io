@@ -1,13 +1,19 @@
-T_Nullness1.java:14: verify: The prover cannot establish an assertion (NullFormal: T_Nullness1.java:4:) in method test: s in has(String,char)
+T_Nullness1.java:14: verify: The prover cannot establish an assertion (Precondition: T_Nullness1.java:4:) in method test
     boolean b = has(ss,'a');
-                    ^
+                   ^
 T_Nullness1.java:4: verify: Associated declaration: T_Nullness1.java:14:
   public static boolean has(String s, char c) {
-                            ^
-T_Nullness1.java:15: verify: The prover cannot establish an assertion (NullFormal: T_Nullness1.java:4:) in method test: s in has(String,char)
+                        ^
+T_Nullness1.java:14: verify: Precondition conjunct is false: _JML__tmp`143 != null
+    boolean b = has(ss,'a');
+                    ^
+T_Nullness1.java:15: verify: The prover cannot establish an assertion (Precondition: T_Nullness1.java:4:) in method test
     b = has(make(2), 'a');
-                ^
+           ^
 T_Nullness1.java:4: verify: Associated declaration: T_Nullness1.java:15:
   public static boolean has(String s, char c) {
-                            ^
-4 verification failures
+                        ^
+T_Nullness1.java:15: verify: Precondition conjunct is false: _JML__tmp`152 != null
+    b = has(make(2), 'a');
+                ^
+6 verification failures

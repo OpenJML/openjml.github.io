@@ -11,7 +11,7 @@ public class T_PureMethod2 {
 
     //@ requires max >= 0;
     //@ ensures count == 0 && maxCount == max;
-    //@ spec_pure
+    //@ pure
     public Counter(int max) {
       count = 0;
       maxCount = max;
