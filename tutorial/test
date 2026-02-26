@@ -1,6 +1,7 @@
 #! /bin/bash
 
 J=../../OpenJML/OpenJMLsrc
+PATH=$J:$PATH
 X=0 
 files="$@"
 if [ -z "$files" ]; then files=`ls *.java *.check` ; fi
