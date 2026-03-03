@@ -1,6 +1,6 @@
 #! /bin/bash
 
-J=../../OpenJML/OpenJMLsrc
+J=`(cd ../../OpenJML/OpenJMLsrc; pwd)`
 PATH=$J:$PATH
 X=0 
 files="$@"
