@@ -21,7 +21,7 @@ public class Z {
 
 Note that (aside from conditional annotations described below) a
 Java comment starting with `@` as its very first character is a JML annotation;
-anything else is silently considered a Java comment. Thus
+anything else is silently considered a Java comment. This problem is shown in the following:
 ```
 public class Z {
   // @ ensures P; // ---- NOT JML - whitespace between // and @
@@ -29,8 +29,8 @@ public class Z {
 }
 ```
 
-One pitfall with annotations is the following. Java annotations 
-begin with `@` (such as `@Override`). Thus a commented out Java
+One pitfall with Java's annotation syntax and JML is that all Java annotations 
+begin with an at-sign (such as `@Override`). Thus a commented out Java
 annotation might well read `//@Override`. But this is interpreted by
 JML tools as a JML annotation and will result in error messages.
 
@@ -93,7 +93,7 @@ if
 So positive keys enable a comment and negative keys disable it, with any
 negative key overriding any positive ones.
 
-For example, a comment beginning `//-RAC@` will be used for typechecking (`--check`) and static checking (`--esc`), but ignored for runtime checking (`--rac`). A comment beginning `//+ESC@` will only be used when `--esc` is being applied.
+For example, a comment beginning `//-RAC@` will be used for typechecking (`--check` in OpenJML) and static checking (`--esc`), but ignored for runtime checking (`--rac`). A comment beginning `//+ESC@` will only be used when `--esc` is being applied.
 The most common use of conditional JML annotations is the first example: to turn off 
 non-executable annotations during runtime-assertion checking but leave
 them in place for static checking.

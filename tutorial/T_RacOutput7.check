@@ -1,3 +1,3 @@
 
-JAR=../../OpenJML/OpenJML21/jmlruntime.jar
+JAR=../../OpenJML/OpenJMLsrc/jmlruntime.jar
 ( openjml --rac T_RacOutput.java && java -cp .:$JAR -ea -Dorg.jmlspecs.openjml.rac=javaassert  T_RacOutput ) 2>&1 | grep -v unchecked | diff - T_RacOutput7.out

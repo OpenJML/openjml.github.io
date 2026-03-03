@@ -2,14 +2,16 @@
 title: JML Tutorial - Method Calls
 ---
 
-We have seen how to verify methods that have pre- and postconditions to describe
+We have seen how to verify method implementations that have
+pre- and postconditions describing
 the behavior of method bodies that contain if statements and assignments.
 Now let's progress to method calls.
 
 The key point to remember is that verification in JML (and other similar
 deductive verification languages and tools) is *modular by method*.
 That is, each method is verified on its own; only when all methods are 
-verified with a consistent set of specifications across all of them can the program as a whole be 
+verified with a consistent set of specifications
+across all of them can the program as a whole be 
 considered verified.
 
 Consider two methods, a caller and a callee, as shown in this diagram.
@@ -30,7 +32,7 @@ pre- and post-conditions. We know that the callee's postconditions will be true 
 * must prove (assert) that the callee's preconditions hold
 * and then it may assume that the callee's postconditions will hold
 
-As long as we keep the callee's specifications the same, we can verify the callee and the caller independently.
+As long as we keep the callee's specifications the same, we can verify the callee and the caller independently. (Thus the callee's specification is a summary of its behavior and is not affected by the callee's implementation details.)
 
 It is easy to see that this process works for verifying the methods in a program that do not call anything, to those methods that just call those leaves, all the way up to the top-level methods of the program. It can also be demonstrated that this process is sound when there are recursive calls, as long as it can
 be proved that the program terminates.
@@ -51,7 +53,7 @@ the `--progress` option, so we receive quite a bit more output.
 Looking at this piece by piece:
 * The method `lessThanDouble` requires positive inputs with the first argument
 larger than the second. It returns true if the first argument is less than double the second. The method proves without a problem. 
-The output about `lessThanDouble` is near the end of the listing.
+The output about `lessThanDouble` is near the end of the verification listing above.
 * The default constructor `T_CallerCallee()` also verifies without problem.
 * The method `caller1` calls `lessThanDouble` for two test cases and checks 
 that the result is what is expected. This method also verifies.

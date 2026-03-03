@@ -4,7 +4,7 @@ Method assertions are validated
 Completed proof of T_split1.T_split1() with prover z3_4_3 - no warnings
 Starting proof of T_split1.m(int) with prover z3_4_3
 Proof attempt for split AA
-T_split1.m Method assertions are INVALID
+Method assertions are INVALID
 T_split1.java:17: verify: Show statement expression p has value true
     //@ show p,i;
              ^
@@ -22,7 +22,7 @@ Proof attempt for split AB
 Method assertions are validated
 Result of split AB is Verified
 Proof attempt for split AC
-T_split1.m Method assertions are INVALID
+Method assertions are INVALID
 T_split1.java:17: verify: Show statement expression p has value true
     //@ show p,i;
              ^
@@ -37,7 +37,7 @@ T_split1.java:4: verify: Associated declaration: T_split1.java:18:
       ^
 Result of split AC is Not verified
 Proof attempt for split B
-T_split1.m Method assertions are INVALID
+Method assertions are INVALID
 T_split1.java:17: verify: Show statement expression p has value false
     //@ show p,i;
              ^

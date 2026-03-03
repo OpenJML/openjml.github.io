@@ -2,11 +2,12 @@
 title: JML Tutorial - What is Deductive Verification?
 ---
 
-We know you are eager to just try out some code, but here is a quick set of bullet points to be sure you understand where this tutorial is headed:
-* JML is a language for writing specifications for Java programs
-* OpenJML is tool for checking that the Java implementation of the program is consistent with the JML specifications
-* This checking can either be done statically (without running the program) -- called Deductive Verification - DV or ESC (Extended static checking)
-* or it can be done by running test cases through an instrumented program (RAC - runtime-assertion-checking)
+We know you are eager to just try out some code, but here is a quick set of points to be sure you understand where this tutorial is headed:
+* JML is a language for writing specifications of the behavior of Java programs.
+* OpenJML is tool for checking that the Java implementation of the program is consistent with its JML specifications.
+* This checking can either be done:
+   * statically (without running the program) -- called Deductive Verification, - DV or ESC (Extended Static Checking), or
+   * dynamically by running test cases through an instrumented program - RAC (Runtime Assertion Checking).
 
 The tutorial is mostly focussed on DV/ESC (though there are lessons on RAC as well):
 * The DV approach is akin to logically symbolically executing a method for every possible legal set of inputs (every possible pre-state)

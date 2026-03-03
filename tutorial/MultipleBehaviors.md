@@ -6,7 +6,7 @@ title: JML Tutorial - Multiple Method Behaviors
 
 So far our method specifications have been simple sequences of clauses: pre-, frame- and post-conditions.
 But as methods become more complex it is helpful to separate the method specification into multiple 
- _specification cases_, which can be thought of as different _behaviors_.
+ _specification cases_, which can be specified as different _behaviors_.
 
 Each behavior is a simple sequence of clauses, with its own preconditions, postconditions, etc.
 The specification can consist of multiple behaviors, connected by the keyword `also`.
@@ -19,12 +19,12 @@ Furthermore, by writing the goal of the method in two different ways, an erroneo
 
 There are a few points to note:
 * There is no order to the behaviors; they can be written in any order that is understandable.
-* Every behavior applies on its own and must hold by itself --- there is no if-then-else  among them. If a behavior's preconditions hold,
+* Every behavior applies on its own and must hold by itself --- there is no if-then-else relationship or ordering among them. If a behavior's preconditions hold,
 then its postconditions must hold, independent of what any other behavior says.
 * The effective precondition for each behavior is the conjunction (with `&&`) of the preconditions for that behavior. The effective precondition for the combination of multiple behaviors is the disjunction (with `|`) of the effective preconditions of the individual behaviors. Consequently, at the point where such a method is called, at least one, but by no means necessarily all, of the behaviors must have an effective precondition that is true.
 
 In our example, if `a`, `b`, and `c` are all equal, then the precondiition (`requires` clause) of each of the three behaviors is true.
-So the postconditions of each of the behaviors must also be true.  Fortunately they all agree.
+So the postconditions of each of the behaviors must also be true.  Fortunately they all agree in that case.
 
 As an experiment, this example introduces a mistake in one behavior:
 ```
@@ -34,8 +34,8 @@ which yields this result
 ```
 {% include_relative T_MultipleBehaviors2.out %}
 ```
-The verification failure message points to the postcondition on line 4, which narrows our debugging to the relationship between
-that behavior and the code. A little inspection shows a typo at the end of the precondition on line 3.
+The verification failure message points to the first behavior's postcondition, on line 4, which narrows our debugging to the relationship between
+that behavior and the code. A little inspection shows a typo at the end of the first behavior's precondition, on line 3.
 
 ## Separating normal from exceptional behaviors
 
@@ -56,7 +56,7 @@ We could even separate out two kinds of exceptions:
 ```
 {% include_relative T_MultipleBehaviors4.java %}
 ```
-Now the `signals_only` clause allows the two kinds of exceptions, although the specification does not say when each one is thrown. We could go to one more level of specification detail to stipulate that each exception is thrown just when the appropriate argument validation check fails. Try it as an exercise. There is a question though: what if both checks fail? Should the specification state which exception is thrown in preference to the other? If it does it is constraining the implementation, perhaps overly so.
+Now the `signals_only` clause allows the two kinds of exceptions, although the specification does not say when each one is thrown. We could go to one more level of specification detail to stipulate that each exception is thrown just when the appropriate argument validation check fails. Try specifying that as an exercise. There is a question though: what if both checks fail? Should the specification state which exception is thrown in preference to the other? If it does specify that, then it is constraining the implementation, perhaps overly so. However, if it does not, and both checks fail, then the specification would say that the method should throw both exceptions, which is impossible.
 
 ## <a name="SpecializedBehaviors"></a>Specialized behaviors
 
@@ -64,17 +64,17 @@ The normal and exceptional behaviors illustrated in the previous section are ver
 ```
 {% include_relative T_MultipleBehaviors5.java %}
 ```
-The `normal_behavior` heading implies that no exception is allowed (`signals false`); the `exceptional_behavior` heading says that normal termination is not allowed (`ensures false`).
+The `normal_behavior` heading implies that no exception is allowed (which is equivalent to specifying `signals false`); the `exceptional_behavior` heading says that normal termination is not allowed (`ensures false`).
 A behavior that is neither of these is a simple `behavior`, which is the default when there is no heading.
 
-One other point: any one of the behavior keywords needs a visibility keyword; almost always, as in the example above, the visibility is the same as the method. The absence of a visibility modifier means `package` visibility, just as the absence of a visibility modifier on the method declaration. However, if there is no specialized behavior keyword, then there is no place for the visibility keyword; in that case, the visibility is the same as the visibility of the method.
+One other point: any one of the behavior keywords needs a visibility keyword; almost always, as in the example above, the visibility is the same as the method. The absence of a visibility modifier means `package` visibility, just as in Java the absence of a visibility modifier would on the method declaration. However, if there is no specialized behavior keyword, then there is no place for the visibility keyword; in that case, the visibility is the same as the visibility of the method.
 
 ## Summary of specification cases
 
 To summarize, a method may have multiple specification cases. 
 * They are separated/connected by the `also` keyword. 
 * Each specification case consists of an optional heading followed by a series of method specification clauses
-* There are four styles of headings. Here `V` is a visibility modifier: one of `public`, `protected`, `private`, or absent, meaning package visibility
+* There are four styles of headings. Here `V` is a visibility modifier: one of `public`, `protected`, `private`, or absent (meaning package visibility)
   * The most general: `V behavior`
   * Normal exit only: `V normal_behavior`
   * Exit by exception only: `V exceptional_behavior`

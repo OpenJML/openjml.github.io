@@ -6,7 +6,7 @@ Starting proof of T_CallerCallee.caller1() with prover z3_4_3
 Method assertions are validated
 Completed proof of T_CallerCallee.caller1() with prover z3_4_3 - no warnings
 Starting proof of T_CallerCallee.caller2() with prover z3_4_3
-T_CallerCallee.caller2 Method assertions are INVALID
+Method assertions are INVALID
 T_CallerCallee.java:12: verify: The prover cannot establish an assertion (Precondition: T_CallerCallee.java:26:) in method caller2
      boolean b1 = lessThanDouble(-1, -2);
                                 ^
@@ -18,7 +18,7 @@ T_CallerCallee.java:24: verify: Precondition conjunct is false: y >= 0
                           ^
 Completed proof of T_CallerCallee.caller2() with prover z3_4_3 - with warnings
 Starting proof of T_CallerCallee.caller3() with prover z3_4_3
-T_CallerCallee.caller3 Method assertions are INVALID
+Method assertions are INVALID
 T_CallerCallee.java:16: verify: The prover cannot establish an assertion (Precondition: T_CallerCallee.java:26:) in method caller3
      boolean b2 = lessThanDouble(2, 2);
                                 ^
@@ -30,7 +30,7 @@ T_CallerCallee.java:24: verify: Precondition conjunct is false: x > y
                  ^
 Completed proof of T_CallerCallee.caller3() with prover z3_4_3 - with warnings
 Starting proof of T_CallerCallee.caller4() with prover z3_4_3
-T_CallerCallee.caller4 Method assertions are INVALID
+Method assertions are INVALID
 T_CallerCallee.java:21: verify: The prover cannot establish an assertion (Assert) in method caller4
      //@ assert b == true;
          ^

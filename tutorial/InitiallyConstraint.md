@@ -2,15 +2,15 @@
 title: JML Tutorial - Minimizing replicated specifications (initially, constraint, invariant clauses)
 ---
 
-Sometimes it is the case that certain properties must hold at the end of every constructor or every method.
-Then the specifications for each method or constructor have to repeat the same specification clause.
-There is a danger that (a) such a clause will be forgotten for some constructor or method and (b) if the clause needs to be modified, it will not be correctly changed in every place it appears.
+Sometimes certain properties must hold at the end of every constructor or every method.
+Then the specifications for each method or constructor would have to repeat the same specification clause in every constructor or method's specification.
+However, there is a danger that: (a) such a clause will be forgotten for some constructor or method and (b) if the clause needs to be modified, it will not be correctly changed in every place it appears.
 
-So JML has a few features to coalesce such replicated clauses. These clauses are part of the _class_ declaration, but apply to every method or constructor as described below.
+So JML has a few features to coalesce such replicated clauses. These clauses are part of the _class_ declaration, but apply to every method or constructor in the class (or interface) as described below.
 
 ## Initially clauses
 
-An `initially` clause at the class level is equivalent to a corresponding `ensures` clause at the end of every constructor, including an unwritten default constructor. For example, suppose we are constructing rectangles and want to ensure that, at least upon construction, every such rectangle has a length larger than its width, which is larger than 0.  We might write
+An `initially` clause at the class level is equivalent to a corresponding `ensures` clause at the end of every constructor, including any unwritten default constructor. For example, suppose we are constructing rectangles and want to ensure that, at least upon construction, every such rectangle has a length larger than its width, which is larger than 0.  We might write
 ```
 {% include_relative T_initially1.java %}
 ```
@@ -20,7 +20,7 @@ This yields
 ```
 This verification failure is understandable. We did not specify a precondition that `0 < width < length`, so the stated initially clause cannot be fulfilled.
 But why is there no failure for the second constructor? The second constructor calls `this(0,0)`, using the first constructor. Because it is calling that
-constructor, it only uses that constructor's specifications in reasoning about its own implementation. So the second constructor sees
+constructor, it only uses that constructor's specifications in reasoning about its own implementation. So the call of the first constructor by the second constructor sees
 ```
    assume \let width = 0 && length = 0 in (this.width == width && this.length == length) 
    assume 0 < this.width < this.length
@@ -32,13 +32,13 @@ If we insert a precondition to fix the verification of the first constructor, we
 ```
 {% include_relative T_initially2.java %}
 ```
-which yeilds
+which yields:
 ```
 {% include_relative T_initially2.out %}
 ```
 Now the first constructor passes verification, but the second one does not. The reason is obvious: 
-the size we have given for a default rectangle (0 by 0) does not satisfy our desired `initially` postcondition. 
-We'll have a to pick a different size -- 1x2 perhaps.
+the size we have given for a default rectangle (0 by 0) does not satisfy our desired `initially` postcondition, which was enforced by the new precondition on the first constructor.
+To fix this failure, we would have a to pick different sizes -- 1x2 perhaps.
 
 ## Constraint clauses
 

@@ -20,7 +20,7 @@ in the pre-state, that is, the state at the beginning of the method's execution.
 `counter1` without the `\old` designator means the value of `counter1` in the
 post-state, the state after the method has completed.
 
-Also, why the comparison to `Integer.MAX_VALUE`? That is to avoid warnings about arithmetic overflow. We'll get to that topic [later](ArithmeticModes).
+Also, why the comparison to `Integer.MAX_VALUE` in the preconditions? That is to avoid warnings about arithmetic overflow. We'll get to that topic [later](ArithmeticModes).
 
 Now to the point of this lesson. The two increment methods verify, but 
 what is happening in the test method?
@@ -36,7 +36,7 @@ that `counter2` is unchanged. One solution would be to add an additional
 ensures clause that states that `counter2 == \old(counter2)`. This specification
 verifies as correct.
 
-But this is not a practical solution. We can't add to `increment1()`'s specification a clause stating that every visible variable is unchanged.
+But adding such postconditions is not a practical solution. We can't add to `increment1()`'s specification a clause stating that every visible variable is unchanged.
 Instead we use a *frame condition* whose purpose is to state which memory
 locations a method might have modified. There are a variety of names for
 the frame clause: traditionally it is `assignable`, but `assigns` and `writes` are also permitted.
@@ -70,12 +70,12 @@ program state outside of the method.
 * The formal arguments of the method are in scope for the frame condition,
 just like for the `requires` and `ensures` clauses. The formal arguments 
 themselves cannot be changed by a method, but if they are references to objects,
-their fields might be written to by a method. So a method `m(MyType q)`
+then the fields of those objects might be written to by the method. So a method `m(MyType q)`
 might have a frame condition `assigns q.f;` if `f` is a field of `MyType`
 that is written to in the body of `m`.
 * If a method has no external effects other than its return value, you can specify a frame condition `assigns \nothing;`
 * `q.*` for an expression `q` means all fields of q
-* `a[i]` for expression `a` and `i` means that particular array element
+* `a[i]` for expressions `a` and `i` means the particular array element `a[i]` (where the values of `a` and `i` are interpreted in the method's pre-state)
 * `a[*]` for array expression `a` means all elements of that array
 * `a[i..j]` for expressions `a`, `i`, and `j` means the stated range of array elements, from `i` to `j` inclusive.
 
@@ -88,7 +88,7 @@ public void m() { ... }
 ```
 though there are a few other details to purity --- see the [lesson on pure](MethodsInSpecifications).
 
-There are two other points to know about frame conditions. First, where a frame condition clause includes expressions, such as the indices of array expressions, those expressions are evaluated in the pre-state, not the post-state.
+There are two other points to know about frame conditions. First, where a frame condition clause includes expressions, such as the indices of array expressions, those expressions are evaluated in the pre-state, not the post-state. This allows callers of the method to understand the potential side-effects of the method before calling it.
 
 Second, a frame condition is a method specification clause like `requires` and `ensures`. A method specification may contain more than one such clause.
 However, note that each clause is considered individually. That is, each clause
