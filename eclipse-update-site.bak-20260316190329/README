@@ -1,0 +1,3 @@
+This folder is an Eclipse update site for the Eclipse plugin that is a client to the OpenJML LSP implementation.
+That is, this plugin make OpenJML capability (JML editing, syntax coloring, typechecking, executing ESC, etc.) 
+available in the Eclipse Java IDE.
