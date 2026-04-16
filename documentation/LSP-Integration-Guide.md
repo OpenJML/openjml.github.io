@@ -581,27 +581,27 @@ Returns full-file semantic token data.  The server's token legend (returned in
 
 | Index | Token type | Used for |
 |---|---|---|
-| 0 | `namespace` | Package names |
-| 1 | `class` | Class declarations and references |
-| 2 | `interface` | Interface declarations and references |
-| 3 | `enum` | Enum type declarations and references |
-| 4 | `struct` | Record declarations and references |
-| 5 | `typeParameter` | Generic type parameters (`<T>`) |
-| 6 | `type` | Primitive types (`int`, `boolean`, …) and JML built-in types (`\bigint`, `\real`, `\locset`, …) |
-| 7 | `parameter` | Method and constructor parameters |
-| 8 | `variable` | Local variables |
-| 9 | `property` | Fields (instance and static) |
-| 10 | `enumMember` | Enum constants |
-| 11 | `method` | Method declarations and call sites |
-| 12 | `function` | JML backslash expressions (`\result`, `\old`, `\forall`, `\nothing`, `\fresh`, …) |
-| 13 | `macro` | Reserved — declared in legend but not currently emitted (allows switching backslash tokens from `function` to `macro` by changing one server constant without a legend change) |
-| 14 | `keyword` | JML structural and behavioral keywords (`requires`, `ensures`, `invariant`, `ghost`, `model`, `also`, `behavior`, …); Java keywords (`return`, `if`, `for`, `new`, `instanceof`, …) in full mode |
-| 15 | `modifier` | JML modifier annotations: `pure`, `spec_public`, `spec_protected`, `nullable`, `non_null`, `helper`, `strictly_pure`, … |
-| 16 | `decorator` | Java and JML annotations (`@Override`, `@NonNull`, …) |
-| 17 | `comment` | Reserved — declared in legend but not emitted (JML comment delimiters `//@ ` and `/*@ */` do not appear in the AST) |
-| 18 | `string` | String literals and text blocks |
-| 19 | `number` | Numeric and character literals |
-| 20 | `operator` | Java binary, unary, and assignment operators; JML-specific operators (`==>`, `<==`, `<==>`, `<:`, …) |
+| 0 | <code>namespace</code> | Package names |
+| 1 | <code>class</code> | Class declarations and references |
+| 2 | <code>interface</code> | Interface declarations and references |
+| 3 | <code>enum</code> | Enum type declarations and references |
+| 4 | <code>struct</code> | Record declarations and references |
+| 5 | <code>typeParameter</code> | Generic type parameters (<code>&lt;T&gt;</code>) |
+| 6 | <code>type</code> | Primitive types (<code>int</code>, <code>boolean</code>, …) and JML built-in types (<code>\bigint</code>, <code>\real</code>, <code>\locset</code>, …) |
+| 7 | <code>parameter</code> | Method and constructor parameters |
+| 8 | <code>variable</code> | Local variables |
+| 9 | <code>property</code> | Fields (instance and static) |
+| 10 | <code>enumMember</code> | Enum constants |
+| 11 | <code>method</code> | Method declarations and call sites |
+| 12 | <code>function</code> | JML backslash expressions (<code>\result</code>, <code>\old</code>, <code>\forall</code>, <code>\nothing</code>, <code>\fresh</code>, …) |
+| 13 | <code>macro</code> | Reserved — declared in legend but not currently emitted (allows switching backslash tokens from <code>function</code> to <code>macro</code> by changing one server constant without a legend change) |
+| 14 | <code>keyword</code> | JML structural and behavioral keywords (<code>requires</code>, <code>ensures</code>, <code>invariant</code>, <code>ghost</code>, <code>model</code>, <code>also</code>, <code>behavior</code>, …); Java keywords (<code>return</code>, <code>if</code>, <code>for</code>, <code>new</code>, <code>instanceof</code>, …) in full mode |
+| 15 | <code>modifier</code> | JML modifier annotations: <code>pure</code>, <code>spec_public</code>, <code>spec_protected</code>, <code>nullable</code>, <code>non_null</code>, <code>helper</code>, <code>strictly_pure</code>, … |
+| 16 | <code>decorator</code> | Java and JML annotations (<code>@Override</code>, <code>@NonNull</code>, …) |
+| 17 | <code>comment</code> | Reserved — declared in legend but not emitted (JML comment delimiters <code>//@&nbsp;</code> and <code>/*@ */</code> do not appear in the AST) |
+| 18 | <code>string</code> | String literals and text blocks |
+| 19 | <code>number</code> | Numeric and character literals |
+| 20 | <code>operator</code> | Java binary, unary, and assignment operators; JML-specific operators (<code>==&gt;</code>, <code>&lt;==</code>, <code>&lt;==&gt;</code>, <code>&lt;:</code>, …) |
 
 All 21 token types are declared in the legend even if not currently emitted (e.g. `macro`,
 `comment`), so that clients have a stable index-to-name mapping and themes can
@@ -611,16 +611,16 @@ The token modifiers legend is:
 
 | Index | Modifier | Bit mask | Applied to |
 |---|---|---|---|
-| 0 | `declaration` | 1 | Declaration sites of symbols |
-| 1 | `definition` | 2 | Reserved |
-| 2 | `readonly` | 4 | `final` fields and local variables |
-| 3 | `static` | 8 | `static` fields and methods |
-| 4 | `deprecated` | 16 | Symbols annotated `@Deprecated` |
-| 5 | `abstract` | 32 | Abstract classes and methods |
-| 6 | `async` | 64 | Reserved |
-| 7 | `modification` | 128 | Reserved |
-| 8 | `documentation` | 256 | Reserved |
-| 9 | `defaultLibrary` | 512 | Standard-library symbols |
+| 0 | <code>declaration</code> | 1 | Declaration sites of symbols |
+| 1 | <code>definition</code> | 2 | Reserved |
+| 2 | <code>readonly</code> | 4 | <code>final</code> fields and local variables |
+| 3 | <code>static</code> | 8 | <code>static</code> fields and methods |
+| 4 | <code>deprecated</code> | 16 | Symbols annotated <code>@Deprecated</code> |
+| 5 | <code>abstract</code> | 32 | Abstract classes and methods |
+| 6 | <code>async</code> | 64 | Reserved |
+| 7 | <code>modification</code> | 128 | Reserved |
+| 8 | <code>documentation</code> | 256 | Reserved |
+| 9 | <code>defaultLibrary</code> | 512 | Standard-library symbols |
 
 All token type names and modifier names are drawn from the LSP standard semantic token
 vocabulary, so clients that follow the specification will have default theme colors for
