@@ -1,0 +1,49 @@
+---
+layout: default
+title: OpenJML VS Code Extension
+---
+<div class="row">
+  <div class="col-md-12">
+
+<h1>VSCode extension for OpenJML</h1>
+
+<h2>Installing OpenJML LSP in VSCode</h2>
+<p>
+To install OpenJML in VSCode:
+<li>Have VSCode on your system</li>
+<li>Download a current <a href="https://github.com/OpenJML/OpenJML/releases">OpenJML release</a> into a clean folder</li>
+<li>Unzip the release .zip file in that folder</li>
+<li>Execute the script ./install-vscode-extension in that folder (don't move it or any of the contents of the installation folder)</li>
+<li>The script accomplishes two things automatically (if it fails, it will emit ideas for manual workaround):</li>
+<ul>
+<li>Installs an extension in VSCode, adding various GUI elements (e.g., menu items) to VSCode</li>
+<li>Sets one of VSCode's settings so that the extension knows where the LSP server for OpenJML is located in the file system (i.e., the installation folder)</li>
+</ul>
+</p>
+<h2>Caveats/Gotchas</h2>
+<ul>
+<li>There is a big gotcha resulting from the interaction of Java support and the JML LSP. RedHat Java support in VSCode has a formatter
+that by default runs automatically on a file save. <b>The formatter disables JML annotations</b> by inserting a space between <code>//</code>
+and <code>@</code> in JML annotations. The JML LSP attempts to disable this aspect of the formatter, but
+disabling can be tricky. If you notice this auto-edit happening on file saves, attempt to disable that aspect of the
+formatting.</li>
+<li>VSCode has an Outline capability that shows a list of the Java declarations in the Java file corresponding to the editor window currently in focus.
+This outline receives contributions from both the Java support, which shows Java declarations, and now from the JML support, which shows both Java and JML declarations.
+The JML declarations may come from a .jml file. But the Java declarations are duplicate information. If you like you can either
+(a) fold/close the Java information, since that information is also present in the JML outline, or (b) toggle the openjml setting to set the outline to <i>jml-only</i>.</li>
+</ul>
+<h2>Additions to the VSCode GUI</h2>
+The OpenJML VSCode extension implements all the standard LSP functionality described on the <a href="openjml-lsp.html">OpenJML LSP description page</a>.
+That functionality is exposed in VSCode through various menu options and the like:
+<ul>
+<li>OpenJML settings are included in the VSCode settings. Just search for "openjml" in the Settings window.</li>
+<li>The LSP server provides syntax coloring for all text in JML annotations (which are comments to Java) and .jml files.</li>
+<li>JML is recognized as a supported language by VSCode.</li>
+<li>Menu items on the editor window (the ... in the upper right, typically) and the context menu in an editor pane have menu items that cause the
+execution of OpenJML commands or LSP-specific commands.</li>
+<li>The Output viewer has a pane for <code>OpenJML</code> that shows a small amount of logging of LSP and OpenJML actions.</li>
+<li>Major internal errors log information to a debug log, by default at /tmp/openjml-lsp-debug.log.</li>
+</ul>
+
+  </div>
+</div>

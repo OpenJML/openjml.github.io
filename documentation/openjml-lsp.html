@@ -1,0 +1,56 @@
+---
+layout: default
+title: Language Server for OpenJML
+---
+<div class="row">
+  <div class="col-md-12">
+
+<h1>LSP server for OpenJML</h1>
+
+<h2>OpenJML</h2>
+<p>
+OpenJML, the tool implementing the Java Modeling Language, is a command-line tool that also
+implements a standard Language Server Protocol (LSP) interface that enables language support for JML
+with any LSP-supporting IDE.
+</p>
+<p>
+The OpenJML LSP implements the following standard LSP features. See the subpages on individual IDEs for
+descriptions of how the OpenJML functionality is enabled in each IDE.
+<ul>
+<li>Displaying OpenJML warnings and errors as standard markers in file editor windows</li>
+<li>Syntax coloring -- coloring JML text in an editor window according to the kinds of parser tokens</li>
+<li>Find Declaration -- navigating from an identifier to its declaration</li>
+<li>Find References -- finding all the uses of a given identifier</li>
+<li>Rename -- renaming all the instances of a given identifier</li>
+<li>Find All Declarations -- find all the declarations for a given identifier</li>
+<li>Outline -- showing JML declarations along with Java entities in the file outline</li>
+<li>Code completion -- of JML keywords in JML contexts</li>
+<li>Folding of multi-line JML text</li>
+<li>Code lens information near method declarations showing OpenJML status (Verified, Not verified, Type errors, etc.)</li>
+<li>An Output pane showing progress information from the LSP server and underlying OpenJML</li>
+<li>Other: signatureHelp, inlay hints</li>
+</ul>
+</p>
+<p>
+The OpenJML LSP also implements a number of actions, typically implemented as GUI menu options or buttons:
+<ul>
+<li>Parsing/typechecking in response to edit or save actions or on explicit request</li>
+<li>Run static checking (ESC) on folders, files or methods</li>
+<li>Cancel currently running ESC proof attempts</li>
+<li>Compile a file with runtime-assertion checking</li>
+</ul>
+</p>
+<p>
+There are a number of options controlling OpenJML that are implemented as Settings or Preferences in the various IDEs.
+For many of these settings there are defaults that are appropriate for most work.
+
+Though the OpenJML language server is implemented to be sufficient for a generic client,
+the OpenJML project has also implemented some specific clients:
+<ul>
+    <li><a href="openjml-vscode.html">A VSCode extension</a></li>
+    <li><a href="openjml-eclipse.html">An Eclipse plugin</a></li>
+</ul>
+</p>
+
+  </div>
+</div>

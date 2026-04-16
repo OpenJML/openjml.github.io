@@ -1,49 +1,22 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html 
-     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-
-  <head>
-    <link href="style.css" rel="STYLESHEET" type="text/css" />
-    <meta name="description" content="OpenJML, formal methods tool for Java and the Java Modeling Language (JML)" />
-    <link rel="SHORTCUT ICON" href="favicon.ico"/>
-
-    <!-- customize the page title -->
-    <title>OpenJML User Guide and Reference</title>
-    <!-- end customized page title -->
-    </head>
-
-<body>
-  
-  
-<div id="rest">  
-
-<div id="banner">
-<img class="center" src="jml-logo-small64.png" alt="JML Logo" />
-
- <h1><a name="top">OpenJML - formal methods tool for Java and the Java Modeling Language
-     (<span style="color:#006000">J</span><span style="color:#a00000">M</span><span style="color:#000090">L</span>)
-      </a>
-    </h1>
-</div>
-
-
-<div id="content">
-
+---
+layout: default
+title: Introduction to OpenJML
+---
+<div class="row">
+  <div class="col-md-12">
 
 <h2>JML</h2>
 <p>
 The Java Modeling Language (JML) is a language used to describe the functional behavior of Java classes and methods.
-The descriptions of behavior are expressed as structured 
-Java comments or Java annotations that use Java-like logical expressions. Various tools can then read the JML 
+The descriptions of behavior are expressed as structured
+Java comments or Java annotations that use Java-like logical expressions. Various tools can then read the JML
 information and do static checking, runtime checking, test generation, display for documentation,
 or other useful tasks.
 </p>
 <p>
-More information about JML can be found on the 
+More information about JML can be found on the
 <a href="http://www.jmlspecs.org">JML web site</a>.
-The information includes publications, groups using or contributing to JML, 
+The information includes publications, groups using or contributing to JML,
 mailing lists, etc.
 There is also a <a href="https://github.com/OpenJML">GitHub project</a>,
 this <a href="../index.html">general documentation site</a>,
@@ -60,10 +33,10 @@ OpenJML intends to be current with current Java.
 This page makes available some resources for OpenJML and links give information about installing and running OpenJML.
 </p>
 <p>
-<b>Note that OpenJML is not a theorem prover or model checker itself.</b> OpenJML 
-translates JML specifications into <a href="http://www.smtlib.org">SMT-LIB format</a> and passes the proof 
+<b>Note that OpenJML is not a theorem prover or model checker itself.</b> OpenJML
+translates JML specifications into <a href="http://www.smtlib.org">SMT-LIB format</a> and passes the proof
 problems implied by the Java+JML program to backend SMT solvers. Success in checking
-the consistency of the specifications and the code will depend on 
+the consistency of the specifications and the code will depend on
 </p>
 <ul>
 <li>(a) the capability of the backend SMT solver, </li>
@@ -73,41 +46,40 @@ the consistency of the specifications and the code will depend on
 
 <p>
 <b>The key goal of OpenJML is to implement a full tool for JML that is easy for practitioners and students
-to use to specify and verify Java programs. 
-In addition, however, and corresponding to the points above, other goals of OpenJML are to provide challenge problems to 
+to use to specify and verify Java programs.
+In addition, however, and corresponding to the points above, other goals of OpenJML are to provide challenge problems to
 SMT solvers (point a), particularly around quantified expressions,
 to experiment with the encoding of code and specifications in OpenJML itself (point b)
 and to allow users to easily experiment with styles of specification writing (point c).
 </b>
 </p>
 <p>
-A summary of the features and the implementation status of OpenJML is 
+A summary of the features and the implementation status of OpenJML is
 <a href="features.shtml">here</a>.
 </p>
 
 <p>
 Current OpenJML does not require an installation of Java to run.
 
-The source code for OpenJML is kept in github as a module of the 
+The source code for OpenJML is kept in github as a module of the
 <a href="https://github.com/OpenJML">OpenJML GitHub project</a>.
 The JMLAnnotations, Specs, OpenJMLDemo and Solvers projects (also modules of that project) are used by OpenJML.
 The openjml.github.io project contains the source for the openjml.org web site.
 </p>
- 
-OpenJML is a command-line tool (plugins for Eclipse and IntelliJ are in progress).
+
+OpenJML itself is a command-line tool. However, there is also a
+<a href="openjml-lsp.html">Language Server for OpenJML</a>, enabling
+LSP-compatible clients to interact with Java+JML programs and with OpenJML capabilities.
+Releases of OpenJML include a VSCode extension and an Eclipse plugin that interact with OpenJML through the LSP interface.
+
+<h3>Language Server for OpenJML</h3>
+
+An integration guide for clients using LSP to interact with OpenJML is
+<a href="openjml-lsp.html">here</a>.
 
 <h3>Development of OpenJML</h3>
 <p>Developers contributing to OpenJML should refer to the <a href="https://github.com/OpenJML/OpenJML/wiki">OpenJML wiki</a>.
 </p>
 
-
-    <!-- end customized content -->
-
   </div>
-  </div>
-
-  </body>
-
-</html>
-
-
+</div>
