@@ -804,33 +804,20 @@ processed.
 
 ## Custom Commands — `workspace/executeCommand`
 
-Commands are dispatched via `workspace/executeCommand`.  Two argument formats are
-supported; the server auto-detects which is in use:
+Commands are dispatched via `workspace/executeCommand`.
 
-### Argument formats
+### Argument format
 
-**Project-ID format** (used by the Eclipse plugin when per-project settings are
-configured):
+All commands use the same argument layout:
+
 ```
-args[0]  projectId   -- short project name (no path separators); selects per-project settings
+args[0]  projectId   -- registered project name, or "" for global/single-project settings
 args[1+]             -- command-specific paths / URIs
 ```
 
-**Legacy format** (used by VS Code and generic clients):
-```
-args[0]  sourcePath      -- paths for -sourcepath (empty = use server default)
-args[1]  classPath       -- paths for -classpath  (empty = use server default)
-args[2]  specsPath       -- path to OpenJML specs dir (empty = use server default)
-args[3]  propertiesFile  -- path to a generated .properties file (empty = none)
-args[4+]                 -- command-specific paths / URIs
-```
-
-**Format detection:** if `args[0]` contains no path-separator characters (`/`, `\`,
-`:`) and matches a project id registered via the `projects` settings array, the
-project-ID format is used.  Otherwise the legacy format is assumed.
-
-In the legacy format, non-empty values in `args[0..3]` override the corresponding
-server settings for that invocation only.
+Path configuration (`sourcePath`, `classPath`, `specsPath`, etc.) is sent once at
+initialization via `initializationOptions` and updated via
+`workspace/didChangeConfiguration`; it is not repeated in command arguments.
 
 ### `openjml.checkJML`
 
@@ -838,9 +825,7 @@ Run `--check` on one or more files or directories.
 
 ```
 command:   "openjml.checkJML"
-arguments (project-ID): ["<projectId>", "<path1>", "<path2>", ...]
-arguments (legacy):     ["<sourcePath>", "<classPath>", "<specsPath>", "<propertiesFile>",
-                         "<path1>", "<path2>", ...]
+arguments: ["<projectId>", "<path1>", "<path2>", ...]
 ```
 
 `path1..N` are file-system paths (files or directories). All `.java` files under a
@@ -852,9 +837,7 @@ Run `--esc` on one or more files or directories.
 
 ```
 command:   "openjml.runEsc"
-arguments (project-ID): ["<projectId>", "<path1>", "<path2>", ...]
-arguments (legacy):     ["<sourcePath>", "<classPath>", "<specsPath>", "<propertiesFile>",
-                         "<path1>", "<path2>", ...]
+arguments: ["<projectId>", "<path1>", "<path2>", ...]
 ```
 
 Cancels any currently running ESC for the same URIs. Marks all methods as CHECKING
@@ -875,25 +858,18 @@ diagnostics and code lens are updated; other methods are unaffected.
 
 ```
 command:   "openjml.runEscForMethod"
+arguments (standard):   ["<projectId>", "<file-uri>", "<name@startLine>"]
 arguments (code-lens):  ["<file-uri>", "<name@startLine>"]
-arguments (project-ID): ["<projectId>", "<file-uri>", "<name@startLine>"]
-arguments (legacy):     ["<sourcePath>", "<classPath>", "<specsPath>", "<propertiesFile>",
-                         "<file-uri>", "<fully-qualified-method-name>"]
 ```
 
-**Code-lens format** (the preferred format for new clients): exactly two elements where
-the first starts with `file://`. `name@startLine` is the simple method name followed by
-`@` and the 0-based start line of the method declaration (e.g. `add@5`). This allows
-overloaded methods on different lines to be distinguished. This is the format emitted by
-`textDocument/codeLens` responses.
+**Standard format**: three elements where `args[0]` is the project ID (or `""`),
+`args[1]` is the file URI, and `args[2]` is the `name@startLine` method reference.
 
-**Project-ID format**: three elements where `args[0]` is a bare project ID (no `/`, `\`,
-or `:`) and `args[2]` is the `name@startLine` method reference.
-
-**Legacy format**: six elements in the old VS Code 4-prefix layout. The method reference
-is a fully-qualified name (`package.ClassName.methodName`); if the simple name uniquely
-identifies a method the package/class prefix may be omitted. An empty method name causes
-the whole file to be checked.
+**Code-lens format**: exactly two elements where the first starts with `file://`.
+This is the format emitted directly by `textDocument/codeLens` responses and is
+detected automatically. `name@startLine` is the simple method name followed by `@`
+and the 0-based start line of the method declaration (e.g. `add@5`), allowing
+overloaded methods on different lines to be distinguished.
 
 ### `openjml.runEscSplitByFile`
 
@@ -903,9 +879,7 @@ all files to finish.
 
 ```
 command:   "openjml.runEscSplitByFile"
-arguments (project-ID): ["<projectId>", "<path1>", "<path2>", ...]
-arguments (legacy):     ["<sourcePath>", "<classPath>", "<specsPath>", "<propertiesFile>",
-                         "<path1>", "<path2>", ...]
+arguments: ["<projectId>", "<path1>", "<path2>", ...]
 ```
 
 ### `openjml.runEscSplitByMethod`
@@ -915,24 +889,18 @@ parallel). Per-method code lens updates arrive in real time as each proof comple
 
 ```
 command:   "openjml.runEscSplitByMethod"
-arguments (project-ID): ["<projectId>", "<path1>", "<path2>", ...]
-arguments (legacy):     ["<sourcePath>", "<classPath>", "<specsPath>", "<propertiesFile>",
-                         "<path1>", "<path2>", ...]
+arguments: ["<projectId>", "<path1>", "<path2>", ...]
 ```
 
 ### `openjml.runRac`
 
 Compile one or more files or directories with JML assertions as runtime checks.
+The output directory for compiled class files is taken from the project's `ProjectConfig`.
 
 ```
 command:   "openjml.runRac"
-arguments (project-ID): ["<projectId>", "<path1>", "<path2>", ...]
-arguments (legacy):     ["<sourcePath>", "<classPath>", "<specsPath>", "<propertiesFile>",
-                         "<outputDir>", "<path1>", "<path2>", ...]
+arguments: ["<projectId>", "<path1>", "<path2>", ...]
 ```
-
-`outputDir` (legacy format only) is the directory for compiled class files. In the
-project-ID format the `outputDir` from the project's `ProjectConfig` is used.
 
 ### `openjml.saveAndRunEsc` (VS Code extension UI command — not a server command)
 
