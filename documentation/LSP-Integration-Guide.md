@@ -165,6 +165,7 @@ The server advertises the following capabilities:
 | `definitionProvider` | `true` |
 | `declarationProvider` | `true` |
 | `referencesProvider` | `true` |
+| `documentHighlightProvider` | `true` — returns the ranges of all occurrences of the symbol under the cursor in the current file; the client performs the visual highlighting |
 | `renameProvider` | `{ "prepareProvider": true }` |
 | `signatureHelpProvider` | trigger characters: `(`, `,` |
 | `semanticTokensProvider` | full-file; see legend in response |
@@ -219,6 +220,7 @@ settings match a given file):
 | `incrementalSync` | boolean | `true` | When `true`, advertise `Incremental` sync and apply ranged edits internally; when `false`, revert to `Full` sync |
 | `javaMode` | string | `"full"` | Java-capability mode: `"full"` enables all Java+JML capabilities; `"jml-only"` suppresses capabilities that duplicate a co-present Java language server (e.g. JDT, Red Hat Java). See note below. |
 | `client` | string | `"generic"` | Known-client hint for default tuning. Values: `"generic"` (no assumptions), `"eclipse-jdt"`, `"vscode-java"`, `"intellij"`. When set to a known Java-capable client, `javaMode` defaults to `"jml-only"` unless explicitly overridden. |
+| `escThreads` | integer | `5` | Size of the shared ESC thread pool; bounds how many concurrent ESC tasks (and SMT solver subprocesses) may run simultaneously |
 | `projects` | array | none | Per-project configuration objects; see [Multi-Project Support](#multi-project-support) below. |
 
 `null` or absent fields leave the current value unchanged.
@@ -400,7 +402,7 @@ Each diagnostic has the following fields (LSP `Diagnostic` type):
 
 | Field | Value |
 |---|---|
-| `range.start/end` | Zero-based line and character offset of the reported location |
+| `range.start/end` | Zero-based line number and zero-based character offset within the line (UTF-16 code units, per the LSP `Position` type) |
 | `severity` | `1` (Error) or `2` (Warning) |
 | `source` | `"openjml.check"` for `--check` results; `"openjml.esc"` for `--esc` results |
 | `message` | Human-readable error or warning text from OpenJML |
@@ -777,8 +779,8 @@ The server registers two file watchers during `initialized()` via
 
 | Glob | Events watched |
 |------|---------------|
-| `**/*.jml` | Created, Changed, Deleted |
-| `**/*.java` | Created, Deleted |
+| <code>**/*.jml</code> | Created, Changed, Deleted |
+| <code>**/*.java</code> | Created, Deleted |
 
 **`.jml` events** — the server reads the updated spec file from disk and
 re-checks the companion `.java` file.  On Deleted, diagnostics for the
@@ -1113,17 +1115,16 @@ both approaches are valid and complementary. Takes no arguments.
 ## Not Yet Implemented
 
 The following LSP features are not currently supported. Clients should not rely on
-them being available.
+them being available, though they may be added in the future.
 
 | Feature | Notes |
 |---|---|
 | `textDocument/codeAction` | Quick fixes — code lens is used for ESC invocation instead |
 | `textDocument/formatting` | Code formatting; must be JML-comment-aware to avoid corrupting `//@ ` lines |
 | `textDocument/rangeFormatting` | Range-based formatting |
-| `textDocument/documentHighlight` | Highlight all occurrences of a symbol in the current file |
-| `window/progress` / `$/progress` | Progress reporting for long-running check and ESC operations |
-| `textDocument/implementation` | Go to implementation (out of scope for JML-focused server) |
-| `textDocument/typeDefinition` | Go to type definition (out of scope) |
+| `window/progress` / <code>$/progress</code> | Progress reporting for long-running check and ESC operations |
+| `textDocument/implementation` | Go to implementation |
+| `textDocument/typeDefinition` | Go to type definition |
 
 ---
 
@@ -1137,7 +1138,9 @@ Within a single file, starting a new ESC cancels the previous one via
 `Future.cancel(true)`. A generation counter ensures that results from a superseded
 ESC run are silently discarded if they arrive after a newer run has already started.
 
-ESC runs for different files may overlap concurrently.
+Separate ESC runs for different files, methods, or projects may overlap concurrently —
+all tasks share a single fixed thread pool (default size: 5, configurable via the
+`escThreads` setting).
 
 The `--check` runner never updates method ESC status or requests a code lens refresh,
 so in-progress edits do not disturb the ESC status badges visible to the user.
@@ -1249,10 +1252,10 @@ Explorer multi-select (the `explorerSelection` argument VS Code passes as the se
 argument to Explorer context commands) is handled by `resolveTargetPaths`, which unions
 all selected URIs into a single path list for the server command.
 
-### Additional commands (beyond the Eclipse plugin)
+### VS Code-specific commands
 
-The VS Code extension registers these commands that have no direct Eclipse plugin
-equivalent:
+The VS Code extension registers these additional commands beyond the core set
+described above:
 
 | Command | Description |
 |---|---|

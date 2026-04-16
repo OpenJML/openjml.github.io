@@ -64,12 +64,17 @@ H4 {
 
 table {
   font-size: 10pt;
+  border-collapse: collapse;
 }
 
-
+td, th {
+  padding: 4px 12px;
+  border: 1px solid #ccc;
+}
 
 th {
   font-weight: bolder;
+  background-color: #f2f2f2;
 }
 
 TH.vertical_text{ text-align: center; -moz-transform=rotate(90deg); writing-mode=tb-rl; }
