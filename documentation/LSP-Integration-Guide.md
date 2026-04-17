@@ -478,6 +478,24 @@ begins (status → CHECKING), completes (status → Verified / Not verified), or
 cancelled. The client should respond by re-requesting `textDocument/codeLens` for
 any open documents of interest.
 
+### Log Message — `window/logMessage` (server → client)
+
+Sent by the server for verbose operational messages such as CheckRunner timing lines
+and internal warnings. Notifications are type 4 (Log) and are typically routed to an
+output panel rather than shown as dialogs. Clients that declare
+`supportsActionMessages: true` in `initializationOptions` still receive
+`window/logMessage` for purely informational output; advisory and error messages that
+warrant a dialog are routed through `$/openjml/actionMessage` instead (see below).
+
+### Show Message Request — `window/showMessageRequest` (server → client)
+
+Sent during `textDocument/rename` when the file has outstanding type-check errors.
+The server sends a Yes/No dialog asking the user whether to proceed with the rename
+despite errors. If the user selects No (or the client does not support
+`window/showMessageRequest`), the rename is aborted and an empty `WorkspaceEdit` is
+returned. Clients that ignore the request will see the rename proceed as if the user
+answered Yes.
+
 ### Code Lens — `textDocument/codeLens`
 
 Returns one code lens per detected method in the document. Each lens shows the current
@@ -775,29 +793,49 @@ Handled as described in the [Configuration](#configuration) section.
 ### `workspace/didChangeWatchedFiles`
 
 The server registers two file watchers during `initialized()` via
-`client/registerCapability`:
+`client/registerCapability`, using a single registration ID so they can be
+atomically unregistered and re-registered when workspace roots change:
 
-| Glob | Events watched |
-|------|---------------|
-| <code>**/*.jml</code> | Created, Changed, Deleted |
-| <code>**/*.java</code> | Created, Deleted |
+| Glob | Events subscribed |
+|------|------------------|
+| `**/*.jml` | Created, Changed, Deleted |
+| `**/*.java` | Created, Deleted only — Changed events are **not** subscribed |
 
-**`.jml` events** — the server reads the updated spec file from disk and
-re-checks the companion `.java` file.  On Deleted, diagnostics for the
-companion `.java` are cleared.  Events for files that are currently open in
-the editor are ignored (the editor's `textDocument/did*` path handles them).
+**`.jml` events** — if the file is currently open in the editor, the event
+is ignored (the `textDocument/did*` path handles it).  Otherwise:
 
-**`.java` events** — Created: the file is indexed into the workspace symbol
-table.  Deleted: the AST cache entry and diagnostics for the file are
-cleared.  Changed-while-not-open: ignored (the user opens the file to
-trigger a re-check).
+- **Created or Changed**: the server reads the updated `.jml` content from
+  disk, locates the companion `.java` file from the spec's package/class
+  declaration, and schedules a `--check` on the companion.  If the companion
+  `.java` is open in the editor with unsaved (dirty) content, that dirty
+  content is used for the check rather than the on-disk version.
+- **Deleted**: diagnostics for the companion `.java` are cleared and the
+  `.jml` AST cache entry is removed.
 
-**Root filtering** — when per-project settings are configured (via the `projects`
-array), events are scoped to the union of all projects' `rootPaths`.  Events for
-files outside those roots (e.g. files in non-JML projects in a multi-project Eclipse
-workspace) are silently dropped.  When no per-project settings are configured the
-filter falls back to `workspaceFolderPaths`; if that is also absent, all events are
-processed.
+**`.java` events** — if the file is currently open in the editor, the event
+is ignored.  Otherwise:
+
+- **Created**: the navigation cache is marked dirty.  The new file is **not**
+  immediately indexed; it is covered by the next project check, which is
+  triggered automatically by the next navigation operation (Go to Definition,
+  Find References, etc.) or explicitly via `openjml.indexProject`.
+- **Deleted**: the AST cache entry and diagnostics for the file are cleared.
+- **Changed**: not subscribed; the client does not send Changed events for
+  `.java` files.  The user opens the file to trigger a re-check.
+
+**Root filtering** — events are filtered in the handler regardless of the
+glob scope.  When per-project settings are configured (via the `projects`
+array), only events for files under the union of all projects' `rootPaths`
+are processed; others are silently dropped.  When no per-project settings are
+configured, the filter falls back to workspace folder paths; if those are also
+absent, all events are processed.
+
+**Watcher re-registration** — when the effective workspace roots change
+(because `workspace/didChangeConfiguration` delivers an updated `projects`
+array, or because `workspace/didChangeWorkspaceFolders` fires), the server
+unregisters the current watchers and immediately re-registers them with the
+same globs.  The brief gap between unregister and re-register is harmless
+because all events are root-filtered in the handler anyway.
 
 
 ---
@@ -1080,19 +1118,46 @@ both approaches are valid and complementary. Takes no arguments.
 
 ---
 
-## Not Yet Implemented
+## Unimplemented LSP Features
 
-The following LSP features are not currently supported. Clients should not rely on
-them being available, though they may be added in the future.
+The following standard LSP features are not implemented. Entries marked *not relevant*
+are outside the server's intended scope and will not be added; all others may be added
+in the future. Sorted alphabetically by method name.
 
 | Feature | Notes |
 |---|---|
-| `textDocument/codeAction` | Quick fixes — code lens is used for ESC invocation instead |
+| `textDocument/prepareCallHierarchy`, `callHierarchy/incomingCalls`, `callHierarchy/outgoingCalls` | Not relevant — complex to implement; provides no JML-specific value beyond what Java IDEs already provide natively |
+| `codeLens/resolve` | Not relevant — lazy-loads additional data for a code lens returned with incomplete information; OpenJML lenses are fully populated (label, command, arguments) on first request, so resolution is never needed. The server advertises `resolveProvider: false` in `CodeLensOptions` |
+| `telemetry/event` | Not relevant — server-to-client telemetry notification used to forward analytics events to the client for reporting; OpenJML does not collect or emit telemetry |
+| `textDocument/codeAction` | Quick fixes for JML errors (e.g. inserting a missing `requires`); code lens is currently used for ESC invocation instead |
+| `textDocument/codeAction/resolve` | Not relevant — lazy-resolves additional detail for a previously returned code action; not applicable while `textDocument/codeAction` itself is unimplemented |
+| `textDocument/colorPresentation`, `textDocument/documentColor` | Not relevant — color-picker protocol for CSS/HTML; Java and JML source files contain no color values |
+| `textDocument/completion/resolve` | Not relevant — lazy-resolves additional detail (e.g. documentation) for a completion item that was intentionally left sparse; OpenJML completion items are fully populated on first request, so resolution is never needed |
+| `textDocument/diagnostic`, `workspace/diagnostic`, `workspace/diagnostic/refresh` | Not relevant — pull-model diagnostics (LSP 3.17); OpenJML publishes diagnostics proactively via `textDocument/publishDiagnostics` (push model), making the pull model redundant |
+| `textDocument/documentHighlight` | Highlights all occurrences of the symbol under the cursor in the current document; could be implemented using the cached AST |
+| `textDocument/documentLink`, `textDocument/documentLink/resolve` | Not relevant — highlights navigable URLs and file links inside source; not applicable to Java/JML compilation workflows |
 | `textDocument/formatting` | Code formatting; must be JML-comment-aware to avoid corrupting `//@ ` lines |
-| `textDocument/rangeFormatting` | Range-based formatting |
-| `window/progress` / <code>$/progress</code> | Progress reporting for long-running check and ESC operations |
 | `textDocument/implementation` | Go to implementation |
+| `workspace/inlayHint/refresh` | Server-initiated hint refresh; would complement `workspace/semanticTokens/refresh` |
+| `textDocument/inlayHint/resolve` | Not relevant — lazy-loads additional hint detail for complex hints; OpenJML hints are simple type strings and contain complete data on first request |
+| `textDocument/linkedEditingRange` | Not relevant — simultaneous editing of matched tag pairs (e.g. HTML open/close tags); not applicable to Java/JML |
+| `textDocument/moniker` | Not relevant — cross-repository symbol package identifiers for code-intelligence platforms (LSIF/SCIP); not applicable to IDE tooling |
+| `textDocument/onTypeFormatting` | Not relevant — live formatting as the user types; Java formatting is the responsibility of the client's Java language server |
+| `window/progress`, `$/progress`, `window/workDoneProgress/create`, `window/workDoneProgress/cancel` | Progress reporting for long-running check and ESC operations. `window/workDoneProgress/create` / `cancel` are the server-initiated variants for client-managed progress tokens; neither is currently sent |
+| `window/showDocument` | Not relevant — server-to-client request to open an arbitrary URI in the client editor or browser; OpenJML has no need to programmatically open documents on behalf of the user |
+| `textDocument/rangeFormatting` | Range-based formatting |
+| `textDocument/selectionRange` | Expand selection to the enclosing syntactic range; could be implemented using the cached AST |
+| `textDocument/semanticTokens/full/delta` | Incremental token diff; an optimization that avoids retransmitting unchanged tokens on each edit |
+| `textDocument/semanticTokens/range` | Viewport-range token request; useful for very large files where full tokenization would be expensive |
+| `workspace/semanticTokens/refresh` | Server-initiated token refresh; would signal clients to re-request tokens after `--check` completes, eliminating the need for client-side workarounds |
 | `textDocument/typeDefinition` | Go to type definition |
+| `textDocument/prepareTypeHierarchy`, `typeHierarchy/supertypes`, `typeHierarchy/subtypes` | Not relevant — complex to implement; Java IDEs provide structural type hierarchy natively; JML spec-inheritance tracing does not yet warrant a dedicated implementation |
+| `textDocument/willSave`, `textDocument/willSaveWaitUntil` | Not relevant — pre-save hooks for server-side processing before disk write; `textDocument/didSave` covers all post-save check needs |
+| `workspace/applyEdit` | Not relevant — server-initiated bulk edit applied by the client; OpenJML returns rename edits directly in the `textDocument/rename` response rather than pushing them via `workspace/applyEdit` |
+| `workspace/configuration` | Not relevant — client-initiated pull of per-section configuration; OpenJML uses a push model (`workspace/didChangeConfiguration`) so the server never requests configuration from the client |
+| `workspace/didCreateFiles`, `workspace/didDeleteFiles`, `workspace/didRenameFiles` | Not relevant — file-system operation notifications; file changes are handled via `workspace/didChangeWatchedFiles` |
+| `workspace/willCreateFiles`, `workspace/willDeleteFiles`, `workspace/willRenameFiles` | Not relevant — pre-operation file-system hooks; no server-side processing is needed before file creation, deletion, or OS-level rename |
+| `workspaceSymbol/resolve` | Not relevant — lazy-resolves additional detail (e.g. `location`) for a workspace symbol that was returned with partial data; OpenJML workspace symbol results are fully populated on first request |
 
 ---
 
@@ -1138,6 +1203,87 @@ as `Check error` and publishes whatever diagnostics were collected before the fa
 
 If OpenJML exits with code 2 (bad command-line arguments), a message is written to
 the debug log; this always indicates a bug in the server.
+
+---
+
+## Custom Notifications: `$/openjml/actionMessage`
+
+The server uses a custom notification to deliver advisory and error messages to clients
+that can act on them (e.g. open a preferences page).  Generic clients that do not
+support this extension continue to receive plain `window/logMessage` instead.
+
+### Capability advertisement
+
+Declare support in `initializationOptions`:
+
+```json
+{ "supportsActionMessages": true }
+```
+
+When the server sees this flag it routes advisory and error messages through
+`$/openjml/actionMessage` exclusively — it does **not** also send a duplicate
+`window/logMessage`.  Clients that omit the flag receive only `window/logMessage`
+and see the text but no action dialog.
+
+### Notification shape
+
+```json
+{
+  "jsonrpc": "2.0",
+  "method": "$/openjml/actionMessage",
+  "params": {
+    "type": 2,
+    "message": "In --(no-)warn, 'asdasd' is not a valid warning key.",
+    "actions": [
+      { "kind": "openPreferences", "target": "toolOptions", "title": "Open Preferences" },
+      { "kind": "dismiss",                                   "title": "OK" }
+    ]
+  }
+}
+```
+
+| Field | Type | Description |
+|---|---|---|
+| `type` | integer | LSP `MessageType`: 1=Error, 2=Warning, 3=Info, 4=Log |
+| `message` | string | Human-readable text to log and (if actions present) display in the dialog |
+| `actions` | array? | Optional; if absent or empty, log only — no dialog |
+
+#### Action kinds
+
+| `kind` | `target` values | Meaning |
+|---|---|---|
+| `openPreferences` | `"settings"` | Open the top-level OpenJML settings/preferences page |
+| `openPreferences` | `"toolOptions"` | Open the OpenJML tool-options page (--warn, --esc flags, etc.) |
+| `dismiss` | — | No-op; use as the cancel/close button |
+
+Clients should silently ignore any `kind` value they do not recognise, treating it
+the same as `dismiss`.
+
+### Expected client behavior
+
+1. **Log** `message` to the client's output/console surface using `type` for severity-
+   appropriate coloring (e.g. Error/Warning in red, Info normal).
+2. **Show a dialog** if `actions` is non-empty, presenting one button per action item.
+3. **Execute** the action when the user clicks a button:
+   - `openPreferences` / `target: "settings"` → open top-level OpenJML settings
+   - `openPreferences` / `target: "toolOptions"` → open tool-options settings
+   - `dismiss` → close dialog, no further action
+
+### Message categories
+
+| Scenario | `type` | `actions` |
+|---|---|---|
+| CheckRunner progress/timing | Log (4) | — (still sent as `window/logMessage`) |
+| Check/RAC summary | Info (3) | none |
+| ESC could not run (type errors in dependency) | Info (3) | none |
+| Unexpected runtime exception (Check/RAC failed) | Error (1) | `[dismiss]` |
+| Unknown project ID / .jml companion mismatch | Error (1) | `[dismiss]` |
+| Bad `--warn`/`--no-warn` key | Warning (2) | `[openPreferences/toolOptions, dismiss]` |
+| openjml rejected CLI option (exit code 2) | Error (1) | `[openPreferences/settings, dismiss]` |
+
+> **Note:** `CheckRunner` log output (verbose invocation lines, timing) is always sent
+> as `window/logMessage` type 4 (Log) regardless of the `supportsActionMessages` flag,
+> because it never warrants a dialog.
 
 ---
 
