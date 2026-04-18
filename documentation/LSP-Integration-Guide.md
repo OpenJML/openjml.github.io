@@ -362,18 +362,18 @@ must contain the complete document text in `contentChanges[0].text`.
   the file from disk directly and no longer need to mock it from memory.
 - Cancels any pending debounced check or ESC.
 - Runs `--check` immediately using the saved (in-memory) content.
-- Does **not** run `--esc` automatically on save from the server side. If ESC-on-save
-  behavior is desired, the client should issue an explicit `workspace/executeCommand`
-  with `openjml.runEsc` after saving. (The VS Code extension does this via its own
-  `onDidSaveTextDocument` handler so it can distinguish manual saves from auto-saves.)
+- Runs `--esc` if `escTriggerOn` not `"manual"`. Because the LSP protocol does not carry
+  a save reason, the server cannot distinguish manual saves from auto-saves and fires
+  on every `didSave`. Users who save frequently (e.g. Eclipse auto-save-on-compile,
+  or VS Code `files.autoSave: afterDelay`) should use `escTriggerOn: "manual"` to
+  avoid unwanted ESC runs.
 
 ### `textDocument/didClose`
 
 - **Clears the dirty mark** for the URI (removes it from the dirty-URI set).
 - Cancels all pending debounced and running checks for the URI.
-- Clears all stored diagnostics for the URI.
-- Publishes an empty `textDocument/publishDiagnostics` to clear all diagnostics (and their visible annotations) from the client.
 - Removes stored content and per-method ESC status.
+- Retains cached diagnostics; the client's Problems panel continues to show them until a fresh check updates or clears them.
 
 ---
 
@@ -384,8 +384,7 @@ must contain the complete document text in `contentChanges[0].text`.
 Diagnostics are sent via `textDocument/publishDiagnostics`. Parsing/typechecking diagnostics and
 verification diagnostics
 are maintained separately per URI and merged before each publication.
-Editing a file intentionally does not clear verification diagnostics; those are rewritten
-by a new ESC action or by an explicit "Clear Markers" command.
+
 
 The merging policy is:
 
@@ -422,7 +421,7 @@ These exit codes are logged to stderr and influence how the server interprets re
 |---|---|
 | 0 | Success — no parse, type, or verification errors (warnings may still be present) |
 | 1 | Syntax or type errors |
-| 2 | Bad command-line arguments (indicates a server bug) |
+| 2 | Bad command-line arguments (typically indicates an invalid setting) |
 | 3 or 4 | Catastrophic error — resource exhaustion (e.g. out of memory), significant misconfiguration, or internal bug |
 | 6 | ESC verification failures (postcondition or assertion violations) |
 
@@ -438,7 +437,7 @@ Two cases are handled:
    of a `var`-declared local, the server returns the inferred type as a plain-text
    string of the form `: TypeName` (e.g. `: int`, `: String`).  Type names are
    shortened by stripping `java.lang.`, `org.jmlspecs.lang.internal.` (JML built-in
-   types appear as `\bigint`, `\real`, etc.), and the containing file's own package
+   types appear as `\bigint`, <code>\real</code>, etc.), and the containing file's own package
    prefix.  This hover is always active regardless of `javaMode`.
 
 2. **Method body / JML spec** — if the cursor is anywhere else inside a method, the
@@ -495,12 +494,21 @@ warrant a dialog are routed through `$/openjml/actionMessage` instead (see below
 
 ### Show Message Request — `window/showMessageRequest` (server → client)
 
-Sent during `textDocument/rename` when the file has outstanding type-check errors.
-The server sends a Yes/No dialog asking the user whether to proceed with the rename
-despite errors. If the user selects No (or the client does not support
-`window/showMessageRequest`), the rename is aborted and an empty `WorkspaceEdit` is
-returned. Clients that ignore the request will see the rename proceed as if the user
-answered Yes.
+The server uses `window/showMessageRequest` as a general mechanism to present the
+user with a question and wait for a response before proceeding.  Clients should
+support this notification for any server feature, not only the ones listed below.
+
+If the client does not support `window/showMessageRequest` (returns `null`), the
+server treats the response as if the user chose the default (affirmative) action and
+continues.  Clients that ignore the request will therefore see the operation proceed
+without user confirmation.
+
+**Current uses:**
+
+- **Rename pre-flight** — sent during `textDocument/rename` when the file has
+  outstanding type-check errors.  The server asks whether to proceed with the rename
+  despite errors.  If the user selects No, the rename is aborted and an empty
+  `WorkspaceEdit` is returned.
 
 ### Code Lens — `textDocument/codeLens`
 
@@ -510,7 +518,7 @@ format is:
 
 | Status | Label |
 |---|---|
-| Not run | `OpenJML: — ▶ Run ESC` |
+| Not run or Unknown | `OpenJML: — ▶ Run ESC` |
 | In progress | `OpenJML: ⧗ Checking… ✕ Cancel` |
 | Verified | `OpenJML: ✓ Verified ↺ Re-run` |
 | Infeasible precondition | `OpenJML: Infeasible ↺ Re-run` |
@@ -522,12 +530,10 @@ format is:
 | Check error in deps | `OpenJML: Check error in other files ↺ Re-run` |
 
 Each code lens embeds the command `openjml.runEscForMethod` with arguments
-`[uri, "name@startLine"]`, where `name` is the simple method name and `startLine` is
-the 0-based line number of the method declaration. This two-element format is the
-**code-lens format** and is detected by the server as distinct from the old VS Code
-4-prefix format and the Eclipse project-ID format. A client that supports code lens
+`[uri, "name"]`, where `name` is a string that is unique across all methods in
+the project, including methods of anonymous and local classes. A client that supports code lens
 execution can invoke (or cancel) ESC on a single method by sending
-`workspace/executeCommand` with that command and those arguments.
+`workspace/executeCommand` with this command and argument.
 
 The command is always `openjml.runEscForMethod` regardless of the current status; when
 the method is already CHECKING the server aborts the in-flight proof (via
@@ -618,8 +624,8 @@ Returns full-file semantic token data.  The server's token legend (returned in
 | 10 | <code>enumMember</code> | Enum constants |
 | 11 | <code>method</code> | Method declarations and call sites |
 | 12 | <code>function</code> | JML backslash expressions (<code>\result</code>, <code>\old</code>, <code>\forall</code>, <code>\nothing</code>, <code>\fresh</code>, …) |
-| 13 | <code>macro</code> | Reserved — declared in legend but not currently emitted (allows switching backslash tokens from <code>function</code> to <code>macro</code> by changing one server constant without a legend change) |
-| 14 | <code>keyword</code> | JML structural and behavioral keywords (<code>requires</code>, <code>ensures</code>, <code>invariant</code>, <code>ghost</code>, <code>model</code>, <code>also</code>, <code>behavior</code>, …); Java keywords (<code>return</code>, <code>if</code>, <code>for</code>, <code>new</code>, <code>instanceof</code>, …) in full mode |
+| 13 | <code>macro</code> | Reserved — declared in legend but not currently emitted (potentially used for some JML backslash tokens) |
+| 14 | <code>keyword</code> | JML structural and behavioral keywords (<code>requires</code>, <code>ensures</code>, <code>invariant</code>, <code>ghost</code>, <code>model</code>, <code>also</code>, <code>behavior</code>, …); Java keywords (<code>return</code>, <code>if</code>, <code>for</code>, <code>new</code>, <code>instanceof</code>, <code>null</code>, <code>true</code> …) in full mode |
 | 15 | <code>modifier</code> | JML modifier annotations: <code>pure</code>, <code>spec_public</code>, <code>spec_protected</code>, <code>nullable</code>, <code>non_null</code>, <code>helper</code>, <code>strictly_pure</code>, … |
 | 16 | <code>decorator</code> | Java and JML annotations (<code>@Override</code>, <code>@NonNull</code>, …) |
 | 17 | <code>comment</code> | Reserved — declared in legend but not emitted (JML comment delimiters <code>//@&nbsp;</code> and <code>/*@ */</code> do not appear in the AST) |
@@ -763,34 +769,42 @@ support would require resolving the receiver expression using OpenJML's
 `Resolve`/`Symtab` infrastructure. Eclipse's own JDT parameter hints
 (`Ctrl+Shift+Space`) handle cross-class calls for Java code.
 
-**Auto-trigger in `.java` file JML regions.** Eclipse's Java editor suppresses
+**Eclipse behavior in `.java` files.** Eclipse's JDT Java editor suppresses
 LSP4E's automatic `(` / `,` trigger inside comment partitions
-(`__java_singleline_comment`, `__java_multiline_comment`). As a result,
-signature help does not pop up automatically when typing `(` inside a
-`//@ assert` or similar JML statement in a `.java` file. Use the
-`Ctrl+Shift+J H` ("JML Parameter Hints") key binding to invoke it manually.
-Standalone `.jml` files are opened in the Generic Editor where the automatic
-trigger works normally.
+(`__java_singleline_comment`, `__java_multiline_comment`).  The OpenJML Eclipse
+plugin works around this by installing `JmlAutoEditStrategy` on every `.java`
+editor when it is first activated.  This strategy intercepts `(` and `,`
+keystrokes inside JML regions (lines beginning with `//@` or inside open `/*@`
+blocks) and sends a `textDocument/signatureHelp` request directly, displaying the
+result in a popup adjacent to the cursor.  This restores automatic popup behavior
+for JML annotations such as `//@ assert m(` or `/*@ requires foo(bar,`.
 
-**Implications for generic clients:** Generic clients are better here. Standard
-LSP clients honor `(` and `,` as trigger characters in all editing contexts,
-including inside comment-like regions. JDT's comment partition suppression is an
-Eclipse-specific limitation. No server-side change is needed; generic clients
-receive full automatic signature help trigger behavior without any workaround.
+If the popup does not appear automatically (for example, outside a recognized JML
+region), the user can invoke the `Jml Parameter Hints`
+Eclipse command directly by binding a key combination to it in the Eclipse key
+preferences.
+
+Standalone `.jml` files are opened in the Generic Editor where LSP4E's standard
+trigger characters fire normally without any workaround.
+
+**Implications for generic clients:** Standard LSP clients honor `(` and `,` as
+trigger characters in all editing contexts, including inside comment-like regions,
+so the workaround above is not needed.  JDT's comment partition suppression is an
+Eclipse-specific limitation; no server-side change is required.
 
 ### Workspace Symbols — `workspace/symbol`
 
 Returns declarations from the AST cache whose simple name contains the query string
 (case-insensitive substring match). An empty query returns all indexed declarations.
-Searches only files present in the current AST cache.
+Without a project filter, all indexed projects are searched.
 
 **Project-filtered query encoding:** To restrict results to a single project without
-using a custom command, the Eclipse plugin encodes the project root into the query
-string as `"<projectRoot>\n<identifier>"` (project path, a newline character, then the
-actual search term). The server detects the newline and passes only the matching
-project's nav section to the search. Generic clients that do not need per-project
-filtering should pass a plain query string. For programmatic project-scoped lookups,
-`openjml.symbolsForProject` is cleaner and does not require this encoding.
+using a custom command, encode the project root into the query string as
+`"<projectRoot>\n<identifier>"` (project path, a newline character, then the actual
+search term). The server detects the newline and limits the search to that project's
+nav section. Generic clients that search all projects should pass a plain query string.
+For a cleaner project-scoped API that avoids this encoding, use
+`openjml.symbolsForProject` instead.
 
 ### Configuration — `workspace/didChangeConfiguration`
 
@@ -1051,17 +1065,17 @@ arguments: ["<query>", "<projectRoot>"]
 
 | Argument | Description |
 |---|---|
-| `query` | Symbol name to search (case-sensitive exact match; empty = return all). |
+| `query` | Symbol name substring to search (case-insensitive; empty = return all). |
 | `projectRoot` | File-system path of the project root (e.g. `/home/user/myproject`). When absent or empty, symbols from all projects are returned. |
 
 Returns a JSON array of `SymbolInformation` objects (same format as `workspace/symbol`).
+Matching behavior is identical to `workspace/symbol`: case-insensitive substring match
+on the simple symbol name.
 
-**Note on case sensitivity:** unlike the plain `workspace/symbol` handler (case-insensitive
-substring match), this command uses an exact case-sensitive match on the symbol name. Pass
-an empty query to retrieve all symbols for the project.
-
-**Eclipse plugin:** replaces the earlier `workspace/symbol`-with-encoded-query approach;
-the handler calls this command and presents results in the "Find All Declarations" dialog.
+**Eclipse plugin:** the "Find All Declarations" handler uses the `workspace/symbol`
+request with the encoded-query form described above rather than this command.
+`openjml.symbolsForProject` is the preferred API for programmatic clients that want
+clean project scoping without the encoding convention.
 
 ### `openjml.focusFile`
 
@@ -1396,8 +1410,10 @@ described above:
   `sourcePath` is configured, but the server does not automatically re-check
   dependent files when a spec file changes.
 
-- **ESC-on-save**: The server does not trigger ESC from `textDocument/didSave`.
-  Clients that want ESC-on-save must issue `openjml.runEsc` themselves after save.
+- **ESC-on-save**: When `escTriggerOn` is `"save"`, the server triggers ESC from
+  `textDocument/didSave`. The LSP protocol does not carry a save reason, so the
+  server fires on every save (manual or auto). Users who save frequently should
+  use `escTriggerOn: "manual"` instead.
 
 - **Method detection**: Code lens placement uses an AST-based scanner when a
   `--check` result is cached, falling back to regex before the first check run.
