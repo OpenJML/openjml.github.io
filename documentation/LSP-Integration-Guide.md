@@ -31,10 +31,9 @@ are available in the OpenJML command-line tool.
   disprove JML specifications such as method postconditions and invariants. Reports verification failures as LSP
   diagnostics and updates per-method status badges (code lenses).
 
-- **`--rac`** - Compile Java code with JML assertions as .class files with runtime checks ("Runtime-Assertion-Checking").
+- **`--rac`** — Compile Java code with JML assertions as .class files with runtime checks ("Runtime-Assertion-Checking").
 
-The server links in OpenJML and they run together in a single JVM process, though some commands may run 
-on separate, concurrent threads.
+The language server links in OpenJML and they run together in a single JVM process, using separate, concurrent threads for long-running processes.
 The server process may spawn one or more subprocesses to execute SMT proof checks.
 Any diagnostics, perhaps accumulated,
 are sent to the client using a `textDocument/publishDiagnostics` notification.
@@ -50,9 +49,10 @@ stdout). There is no TCP socket or named-pipe option.
 
 Stdout (except for JSON-RPC communications) and stderr from the server and openjml are redirected to a log file by the launcher script, so Java
 stack traces and internal debug messages go there, not to the client.
-In the dev launcher (no bundled `jdk/` directory) the log is `/tmp/openjml-lsp-debug.log`, truncated on each restart.
+In the developmente mode, the log is `/tmp/openjml-lsp-debug.log`, truncated on each restart.
 In a release installation the log is `~/.openjml/logs/openjml-lsp-<pid>.log`, unique per server instance.
-Either default can be overridden by setting `OPENJML_LSP_LOG` before starting the server.
+Either default can be overridden by setting `OPENJML_LSP_LOG` before starting the server. The server also, on startup,
+deletes old logs that are not in current use.
 
 ### Launcher Script
 
@@ -64,6 +64,8 @@ openjml-lsp
 
 No arguments are required or supported on the command line; all configuration is passed
 through LSP initialization options or `workspace/didChangeConfiguration` or environment variables.
+The script may not be moved because it expects other installed components to be in specific relative locations
+with respect to the script itself.
 
 The server is released as part of an OpenJML release and
 requires an installation of OpenJML to operate. 
@@ -99,28 +101,26 @@ The launcher sets these if not already present in the environment:
 | `OPENJML_SPECS` | `$OPENJML_INSTALL/specs` | Path to bundled JML specification files |
 | `OPENJML_SOLVERS` | `$OPENJML_INSTALL` | Directory containing SMT solver binaries |
 
-A client may override any of these before spawning the server process. They serve as
-fallbacks when the equivalent settings are not provided via LSP configuration.
+The default values of the environment variables are sufficient in nearly all circumstances.
+A client may override any of these before spawning the server process.
 
 ### Eclipse-only: Server Path System Property
 
 The Eclipse plugin resolves the `openjml-lsp` launcher path in this order:
 
-1. The value stored in the OpenJML Preferences page (`openjml.lspServerPath`).
-2. The Java system property `openjml.lsp.server.path` — intended for the test harness
+1. The Java system property `openjml.lsp.server.path` — intended for the test harness
    and development setups where modifying workspace preferences is inconvenient.
-3. The Eclipse install directory (release layout).
-4. `openjml-lsp` on `PATH` (last resort).
+2. The value stored in the OpenJML Preferences page (`openjml.lspServerPath`).
+3. `openjml-lsp` on `PATH` (last resort).
 
-To use option 2, pass `-Dopenjml.lsp.server.path=/path/to/openjml-lsp` in the Eclipse
-JVM arguments (e.g. in `eclipse.ini` or a launch configuration).
+To use option 1, pass `-Dopenjml.lsp.server.path=/path/to/openjml-lsp` in the Eclipse
+JVM arguments (e.g., in `eclipse.ini` or a launch configuration).
 
 ### JVM Notes
 
-The server's JVM requires several `--add-exports` flags to expose Gson (which is bundled
-inside `jdk.compiler`) and other OpenJDK internals to the unnamed module used by LSP4J for JSON-RPC serialization.
-These flags are set automatically by the launcher script; client integrators do not need
-to set them.
+The server's JVM requires several --add-exports flags to expose OpenJDK compiler internals (com.sun.tools.javac.*, org.jmlspecs.openjml.*) to the unnamed     
+module. Gson does not require any flags: it is unconditionally exported from jdk.compiler via its module-info.java. All required flags are set automatically by the launcher script via $OPENJML_EXPORTS; client  
+integrators do not need to set them.
 
 Do **not** put a separate Gson jar on the classpath; that creates a split-package that the JVM
 will refuse to load.
@@ -140,7 +140,6 @@ Example:
 {
   "initializationOptions": {
     "specsPath": "/path/to/Specs/specs",
-    "solversPath": "/path/to/Solvers",
     "checkTriggerOn": "edit",
     "escTriggerOn": "manual"
   }
@@ -197,7 +196,6 @@ Example `workspace/didChangeConfiguration` payload:
   "settings": {
     "openjml": {
       "specsPath": "/path/to/Specs/specs",
-      "solversPath": "/path/to/Solvers",
       "checkTriggerOn": "save"
     }
   }
@@ -212,10 +210,10 @@ settings match a given file):
 | Field | Type | Default | Description |
 |---|---|---|---|
 | `specsPath` | string | env `OPENJML_SPECS` | Path to JML specification files, passed as `--specs-path` |
-| `solversPath` | string | env `OPENJML_SOLVERS` | Path to SMT solver binaries, passed as `--solvers-path` |
+
 | `sourcePath` | string | none | Source root(s) for cross-file references (see note on effective sourcepath below) |
 | `classPath` | string | none | Classpath for pre-compiled dependencies, passed as `-classpath`; also used as a sourcepath fallback (see note) |
-| `checkTriggerOn` | string | `"edit"` | When to run `--check`: `"edit"` or `"save"` |
+| `checkTriggerOn` | string | `"edit"` | When to run `--check`: `"edit"`, `"save"`, or `"manual"` |
 | `escTriggerOn` | string | `"manual"` | When to run `--esc`: `"manual"`, `"save"`, or `"edit"` (see note) |
 | `incrementalSync` | boolean | `true` | When `true`, advertise `Incremental` sync and apply ranged edits internally; when `false`, revert to `Full` sync |
 | `javaMode` | string | `"full"` | Java-capability mode: `"full"` enables all Java+JML capabilities; `"jml-only"` suppresses capabilities that duplicate a co-present Java language server (e.g. JDT, Red Hat Java). See note below. |
@@ -238,7 +236,7 @@ Each element is a `ProjectConfig` object:
 
 | Field | Type | Description |
 |---|---|---|
-| `id` | string | Unique project identifier (no path separators). Used as the lookup key in command arguments. The Eclipse plugin uses the Eclipse project name (`IProject.getName()`). |
+| `id` | string | Unique project identifier (alphanumeric, no path separators, no whitespace, non-empty). Used as the lookup key in command arguments. The Eclipse plugin uses the Eclipse project name (`IProject.getName()`). |
 | `rootPaths` | list | This project's own source folder paths (not including dependency sources). Used to map a file URI to its owning project. |
 | `sourcePath` | string | Path-separator-separated list of source roots, including own source folders **and** transitive dependency source folders. Passed as `-sourcepath`. |
 | `classPath` | string | Path-separator-separated list of compiled dependency output directories and any additional user classpath entries. Passed as `-classpath`. |
@@ -312,11 +310,16 @@ unchanged.
 and re-run on every keystroke), but it is expensive and no known client UI exposes it
 as an option. Client integrators may choose to omit it from their settings UI.
 
-When `specsPath` or `solversPath` is null or empty, the server falls back to the
-`OPENJML_SPECS` and `OPENJML_SOLVERS` environment variables set by the launcher.
-In addition, if they are not set, OpenJML sets them based on the value of `OPENJML_INSTALL`;
-consequently, for any configuration using an installation of OpenJML and intending to use
-the installed content for specifications and solvers, these variables should be left unset.
+When `specsPath` is null or empty, the server falls back to the `OPENJML_SPECS`
+environment variable set by the launcher. If that is also unset, OpenJML derives
+the specs path from `OPENJML_INSTALL`; for standard installations the variable
+should therefore be left unset.
+
+The SMT solvers path is not configurable at runtime. It is fixed at JVM startup
+from `OPENJML_SOLVERS` (set by the launcher script), falling back to
+`OPENJML_INSTALL`. Client integrators cannot override it via `initializationOptions`
+or `workspace/didChangeConfiguration`; set `OPENJML_SOLVERS` before launching the
+server if a non-default location is required.
 
 
 ---
@@ -347,7 +350,7 @@ must contain the complete document text in `contentChanges[0].text`.
   cross-file checks even before the file is saved.
 - If `checkTriggerOn` is `"edit"`: schedules `--check` with a 500 ms debounce.
   A new change before 500 ms resets the timer.
-- If `checkTriggerOn` is `"save"`: no `--check` is triggered by change (i.e., an edit).
+- If `checkTriggerOn` is `"save"` or `"manual"`: no `--check` is triggered by change.
 - If `escTriggerOn` is `"edit"`: schedules `--esc` with a 2000 ms debounce.
   A new change before 2000 ms resets the timer.
 - `--esc` on change is expensive and not recommended for large files.
@@ -378,15 +381,18 @@ must contain the complete document text in `contentChanges[0].text`.
 
 ### Publication
 
-Diagnostics are sent via `textDocument/publishDiagnostics`. Both `--check` and `--esc`
-results are maintained separately per URI and merged before each publication. Neither
-pass's results overwrite the other's.
+Diagnostics are sent via `textDocument/publishDiagnostics`. Parsing/typechecking diagnostics and
+verification diagnostics
+are maintained separately per URI and merged before each publication.
+Editing a file intentionally does not clear verification diagnostics; those are rewritten
+by a new ESC action or by an explicit "Clear Markers" command.
 
 The merging policy is:
 
 - When `--esc` runs it subsumes `--check` (ESC performs all the same type and
   annotation checks), so an ESC result replaces the `--check` diagnostics entirely,
-  eliminating duplication.
+  eliminating duplication. An ESC result will replace older ESC results. ESC results
+  can also be cleared using the 'Clear markers' command.
 - When `--check` runs after a previous ESC (e.g. triggered by an edit), it replaces
   check-level diagnostics but retains ESC verification failures (postcondition
   violations, assertion failures). Those may be stale after the edit, but remain
@@ -1327,13 +1333,15 @@ The Red Hat Java formatter rewrites `//@ ` to `// @` (inserts a space after `//`
 
 ### Type-checking triggers
 
-`--check` (JML type-check) is triggered automatically:
-- On `textDocument/didOpen` — unconditionally
-- On `textDocument/didChange` — debounced (250 ms) when `checkTriggerOn == "edit"`
-- On `textDocument/didSave` — unconditionally
-- On tab focus (`openjml.focusFile`) — debounced (200 ms) when returning to an already-open file
+`--check` (JML type-check) trigger depends on `checkTriggerOn`:
 
-There is no manual "run check" command; checking is always automatic. ESC (`--esc`) is separate and has its own trigger setting (`openjml.escTriggerOn`).
+| `checkTriggerOn` | `didOpen` | `didChange` | `didSave` | focus (`openjml.focusFile`) |
+|---|---|---|---|---|
+| `"edit"` (default) | yes | yes, debounced 500 ms | yes | yes, debounced 200 ms |
+| `"save"` | yes | no | yes | yes |
+| `"manual"` | no | no | no | no |
+
+In `"manual"` mode, `--check` only runs when explicitly requested via the `openjml.checkJml` command. This mode is intended for codebases where automatic checking is slow or causes problems. ESC (`--esc`) is separate and has its own trigger setting (`openjml.escTriggerOn`).
 
 ### Status bar — ESC progress indicator
 
