@@ -1157,9 +1157,10 @@ content using one of these protocols:
   (both `.java` and `.jml` files).  The `didChange` must carry the complete current
   buffer text, not an incremental delta.
 
-In either case, clients may also send `workspace/didChangeConfiguration` with updated
-project configuration alongside the command; the server rebuilds its project registry
-from the new settings immediately, before the disk scan begins.
+If project configuration has also changed, send `workspace/didChangeConfiguration`
+**before** `clearAndReindex`; the server rebuilds its project registry at the start
+of the reset, so configuration sent after the command arrives too late to influence
+the disk scan.
 
 ### `openjml.clearMarkers`
 
