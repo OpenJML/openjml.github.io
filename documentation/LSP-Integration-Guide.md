@@ -942,9 +942,9 @@ methods are always distinguished.
 
 **`@line` fallback**: if the client does not have the FQN (e.g. before the first
 type-check, so no code lenses have been issued), pass `@<line>` (e.g. `@12`) as
-the method argument.  The server resolves the containing method from the AST or
-regex scanner.  Clients that can obtain the FQN from `textDocument/codeLens`
-should prefer it.
+the method argument.  The server resolves the containing method from the AST.
+If no AST is available yet the request is silently ignored.  Clients that can
+obtain the FQN from `textDocument/codeLens` should prefer it.
 
 ### `openjml.runEscSplitByFile`
 
@@ -1439,14 +1439,13 @@ all selected URIs into a single path list for the server command.
   server fires on every save (manual or auto). Users who save frequently should
   use `escTriggerOn: "manual"` instead.
 
-- **Method detection**: Code lens placement uses an AST-based scanner when a
-  `--check` result is cached, falling back to regex before the first check run.
-  The AST scanner covers methods in all class types — primary and secondary top-level
-  classes, member nested classes, local classes, and anonymous classes — using
-  `Utils.uniqueSymbolName` as the canonical FQN key, which matches the key used by
-  `--method` filtering.  Lambda bodies are not scanned.  Before the first `--check`
-  completes, regex fallback is used; it covers only the primary (public) class in the
-  file and may miss constructors and methods in secondary or nested classes.
+- **Method detection**: Code lens placement uses an AST-based scanner after the first
+  `--check` completes.  The scanner covers methods in all class types — primary and
+  secondary top-level classes, member nested classes, local classes, and anonymous
+  classes — using `Utils.uniqueSymbolName` as the canonical FQN key, which matches
+  the key used by `--method` filtering.  Lambda bodies are not scanned.  Before the
+  first `--check` completes no code lenses are shown; trigger a check (manually or by
+  opening the file) to populate them.
 
 - **Workspace folders**: The server accepts workspace folder roots (from
   `workspaceFolders` in `initialize` and the `workspaceFolderPaths` setting) and
