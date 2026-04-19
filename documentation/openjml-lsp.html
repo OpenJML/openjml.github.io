@@ -11,10 +11,11 @@ title: Language Server for OpenJML
 <p>
 OpenJML, the tool implementing the Java Modeling Language, is a command-line tool that also
 implements a standard Language Server Protocol (LSP) interface that enables language support for JML
-with any LSP-supporting IDE.
+with any LSP-supporting IDE. In addition, for developers of clients or maintainers of existing clients,
+there is a <a href="LSP-Integration-Guide.html">OpenJML Language Server Integration Guide</a>.
 </p>
 <p>
-The OpenJML LSP implements the following standard LSP features. See the subpages on individual IDEs for
+The OpenJML LSP implements the following standard LSP features. See the integration guide and the subpages on individual IDEs for
 descriptions of how the OpenJML functionality is enabled in each IDE.
 <ul>
 <li>Displaying OpenJML warnings and errors as standard markers in file editor windows</li>
@@ -49,7 +50,7 @@ including when type-checking and ESC run automatically (on edit, on save, or man
 For many of these settings there are defaults that are appropriate for most work.
 
 Though the OpenJML language server is implemented to be sufficient for a generic client,
-the OpenJML project has also implemented some specific clients:
+the OpenJML project has also implemented some specific clients with additional capabilities or a more streamlined UX:
 <ul>
     <li><a href="openjml-vscode.html">A VSCode extension</a></li>
     <li><a href="openjml-eclipse.html">An Eclipse plugin</a></li>

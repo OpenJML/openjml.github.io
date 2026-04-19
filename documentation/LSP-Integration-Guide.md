@@ -49,7 +49,7 @@ stdout). There is no TCP socket or named-pipe option.
 
 Stdout (except for JSON-RPC communications) and stderr from the server and openjml are redirected to a log file by the launcher script, so Java
 stack traces and internal debug messages go there, not to the client.
-In the developmente mode, the log is `/tmp/openjml-lsp-debug.log`, truncated on each restart.
+In the development mode, the log is `/tmp/openjml-lsp-debug.log`, truncated on each restart.
 In a release installation the log is `~/.openjml/logs/openjml-lsp-<pid>.log`, unique per server instance.
 Either default can be overridden by setting `OPENJML_LSP_LOG` before starting the server. The server also, on startup,
 deletes old logs that are not in current use.
@@ -219,6 +219,8 @@ settings match a given file):
 | `javaMode` | string | `"full"` | Java-capability mode: `"full"` enables all Java+JML capabilities; `"jml-only"` suppresses capabilities that duplicate a co-present Java language server (e.g. JDT, Red Hat Java). See note below. |
 | `client` | string | `"generic"` | Known-client hint for default tuning. Values: `"generic"` (no assumptions), `"eclipse-jdt"`, `"vscode-java"`, `"intellij"`. When set to a known Java-capable client, `javaMode` defaults to `"jml-only"` unless explicitly overridden. |
 | `escThreads` | integer | `5` | Size of the shared ESC thread pool; bounds how many concurrent ESC tasks (and SMT solver subprocesses) may run simultaneously |
+| `syntaxColoringScope` | string | `"preserve Java coloring"` | Which tokens the semantic-token response covers. `"preserve Java coloring"` — only JML-specific tokens are emitted (use when a co-present Java LS handles Java tokens). `"overwrite Java coloring"` — all tokens (Java + JML) are emitted by the OpenJML server. |
+| `escEngine` | string | `"subprocess"` | ESC execution mode. `"subprocess"` — z3 runs as a separate process (default, most isolation). `"concurrent"` — ESC runs concurrently in-process via `doESC`. `"fresh"` — each ESC call spawns a fresh IAPI context (maximum isolation, slower). |
 | `projects` | array | none | Per-project configuration objects; see [Multi-Project Support](#multi-project-support) below. |
 
 `null` or absent fields leave the current value unchanged.
@@ -658,18 +660,22 @@ them without requiring JML-specific configuration.
 
 #### Operating modes
 
-Two modes are controlled by the `openjml.javaMode` setting and the
-`javaMode` initialization option:
+**Token scope** is controlled by the `syntaxColoringScope` setting:
 
-- **`jml-only`** (default) — only JML constructs are highlighted: JML clause keywords,
-  JML modifier keywords, JML backslash expressions, annotations and modifiers on Java
-  declarations that carry JML annotation tokens, and all Java constructs appearing
+- **`"preserve Java coloring"`** (default) — only JML constructs are emitted: JML clause
+  keywords, JML modifier keywords, JML backslash expressions, annotations and modifiers on
+  Java declarations that carry JML annotation tokens, and all Java constructs appearing
   *inside* JML contexts (e.g., identifiers, operators, and literals inside `requires`
   or `ensures` expressions and inside model method bodies).  Java constructs outside JML
-  context are not emitted, leaving them to the Red Hat Java extension.
+  context are not emitted, leaving them to a co-present Java extension.
 
-- **`full`** — all Java and JML constructs are highlighted.  Use when no other Java
-  semantic token provider is installed.
+- **`"overwrite Java coloring"`** — all Java and JML constructs are highlighted.  Use when
+  no other Java semantic token provider is installed.
+
+**LSP capability scope** is controlled separately by the `javaMode` setting (see
+[Configuration](#configuration) and the inlay hints section).  `javaMode` determines which
+LSP capabilities are advertised (hover, inlay hints, completions, etc.) and is independent
+of `syntaxColoringScope`.
 
 #### Coloring strategies
 
