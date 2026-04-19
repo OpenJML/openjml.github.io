@@ -803,8 +803,8 @@ using a custom command, encode the project root into the query string as
 `"<projectRoot>\n<identifier>"` (project path, a newline character, then the actual
 search term). The server detects the newline and limits the search to that project's
 nav section. Generic clients that search all projects should pass a plain query string.
-For a cleaner project-scoped API that avoids this encoding, use
-`openjml.symbolsForProject` instead.
+For multi-project clients, prefer `openjml.symbolsForProject`, which takes an explicit
+project ID and avoids the encoding convention.
 
 ### Configuration — `workspace/didChangeConfiguration`
 
@@ -829,8 +829,12 @@ is ignored (the `textDocument/did*` path handles it).  Otherwise:
   declaration, and schedules a `--check` on the companion.  If the companion
   `.java` is open in the editor with unsaved (dirty) content, that dirty
   content is used for the check rather than the on-disk version.
-- **Deleted**: diagnostics for the companion `.java` are cleared and the
-  `.jml` AST cache entry is removed.
+- **Deleted**: the `.jml` AST cache entry and the companion `.java` AST cache
+  entry are both removed, diagnostics for the companion `.java` are cleared,
+  and the navigation cache is marked dirty.  No client action is needed: the
+  nav cache is refreshed automatically before the next navigation operation
+  (Go to Definition, Find References, etc.) or can be expedited with
+  `openjml.indexProject`.
 
 **`.java` events** — if the file is currently open in the editor, the event
 is ignored.  Otherwise:
@@ -847,8 +851,8 @@ is ignored.  Otherwise:
 glob scope.  When per-project settings are configured (via the `projects`
 array), only events for files under the union of all projects' `rootPaths`
 are processed; others are silently dropped.  When no per-project settings are
-configured, the filter falls back to workspace folder paths; if those are also
-absent, all events are processed.
+configured, the filter falls back to the global `rootPaths` setting; if that
+is also absent, all events are processed.
 
 **Watcher re-registration** — when the effective workspace roots change
 (because `workspace/didChangeConfiguration` delivers an updated `projects`
@@ -876,6 +880,10 @@ args[1+]             -- command-specific paths / URIs
 Path configuration (`sourcePath`, `classPath`, `specsPath`, etc.) is sent once at
 initialization via `initializationOptions` and updated via
 `workspace/didChangeConfiguration`; it is not repeated in command arguments.
+The command arguments may contain other OpenJML command-line arguments, which,
+along with file paths, as just passed along to the `openjml` tool. Clients have 
+the option of writing all OpenJML options as properties in a `.properties` file
+and passing `--properties` `<filepath>` (as two arguments).
 
 ### `openjml.checkJML`
 
@@ -916,18 +924,27 @@ diagnostics and code lens are updated; other methods are unaffected.
 
 ```
 command:   "openjml.runEscForMethod"
-arguments (standard):   ["<projectId>", "<file-uri>", "<name@startLine>"]
-arguments (code-lens):  ["<file-uri>", "<name@startLine>"]
+arguments (standard):   ["<projectId>", "<file-uri>", "<method-fqn>"]
+arguments (code-lens):  ["<file-uri>", "<method-fqn>"]
 ```
 
 **Standard format**: three elements where `args[0]` is the project ID (or `""`),
-`args[1]` is the file URI, and `args[2]` is the `name@startLine` method reference.
+`args[1]` is the file URI, and `args[2]` is the method FQN.
 
 **Code-lens format**: exactly two elements where the first starts with `file://`.
 This is the format emitted directly by `textDocument/codeLens` responses and is
-detected automatically. `name@startLine` is the simple method name followed by `@`
-and the 0-based start line of the method declaration (e.g. `add@5`), allowing
-overloaded methods on different lines to be distinguished.
+detected automatically.
+
+**Method FQN**: the unique per-project identifier produced by
+`Utils.uniqueSymbolName`, e.g. `com.example.MyClass.add(int,int)`.  It includes
+the fully qualified class name and the erased parameter types, so overloaded
+methods are always distinguished.
+
+**`@line` fallback**: if the client does not have the FQN (e.g. before the first
+type-check, so no code lenses have been issued), pass `@<line>` (e.g. `@12`) as
+the method argument.  The server resolves the containing method from the AST or
+regex scanner.  Clients that can obtain the FQN from `textDocument/codeLens`
+should prefer it.
 
 ### `openjml.runEscSplitByFile`
 
@@ -1021,8 +1038,9 @@ that cancelling one method in a whole-file run does not discard all pending proo
 ### `openjml.getRunningEscTasks`
 
 Returns the list of currently running ESC task keys as a JSON array of strings.
-Each entry is either a plain file URI (whole-file ESC) or a `"<uri>#<methodName>@<startLine>"`
-string (per-method ESC). Returns an empty array when no ESC is in progress.
+Each entry is either a plain file URI (whole-file ESC) or a `"<uri>#<method-fqn>"`
+string (per-method ESC), where `<method-fqn>` is the same FQN used in
+`openjml.runEscForMethod` arguments. Returns an empty array when no ESC is in progress.
 
 ```
 command:   "openjml.getRunningEscTasks"
@@ -1034,10 +1052,12 @@ Quick Pick) before calling `openjml.cancelEsc` or `openjml.abortCurrentProof`.
 
 ### `openjml.indexProject`
 
-Trigger a `--check` pass on all source directories of the specified project,
-rebuilding the declaration index used by `workspace/symbol` ("Find All Declarations").
-Does **not** clear existing diagnostics or the AST cache — use `openjml.clearAndReindex`
-for a full reset.
+Trigger a `--check` pass on all source directories of the specified project.
+For every file the check touches, diagnostics and the nav-tier AST cache entry
+are replaced; files not reached retain their previous values.  The nav-tier AST
+cache takes highest precedence for navigation operations (Go to Definition,
+Find References, `workspace/symbol`).  Use `openjml.clearAndReindex` for a full
+reset that clears all tiers first.
 
 ```
 command:   "openjml.indexProject"
@@ -1054,28 +1074,27 @@ Declarations" to ensure files that have not yet been opened are covered by the i
 
 ### `openjml.symbolsForProject`
 
-Return `workspace/symbol`-style declarations filtered to a single project. This is the
-server-side alternative to the `workspace/symbol` project-encoded query; it avoids the
-cross-project leakage that can occur when multiple projects share a single nav section.
+Return `workspace/symbol`-style declarations filtered to a single project.  This is the
+preferred API for multi-project clients: pass the project ID directly instead of encoding
+a project root into the `workspace/symbol` query string.
 
 ```
 command:   "openjml.symbolsForProject"
-arguments: ["<query>", "<projectRoot>"]
+arguments: ["<query>", "<projectId>"]
 ```
 
 | Argument | Description |
 |---|---|
 | `query` | Symbol name substring to search (case-insensitive; empty = return all). |
-| `projectRoot` | File-system path of the project root (e.g. `/home/user/myproject`). When absent or empty, symbols from all projects are returned. |
+| `projectId` | Project identifier from the `projects` settings array.  When absent or empty, symbols from all projects are returned.  An unknown ID is reported as an error. |
 
 Returns a JSON array of `SymbolInformation` objects (same format as `workspace/symbol`).
 Matching behavior is identical to `workspace/symbol`: case-insensitive substring match
 on the simple symbol name.
 
-**Eclipse plugin:** the "Find All Declarations" handler uses the `workspace/symbol`
-request with the encoded-query form described above rather than this command.
-`openjml.symbolsForProject` is the preferred API for programmatic clients that want
-clean project scoping without the encoding convention.
+**Eclipse plugin:** the "Find All Declarations" handler uses this command, passing
+`IProject.getName()` as the project ID.  `workspace/symbol` with the encoded-query
+form remains supported for generic LSP clients that cannot issue custom commands.
 
 ### `openjml.focusFile`
 
@@ -1104,7 +1123,7 @@ Client authors should implement the equivalent:
 
 ### `openjml.getSemanticTokens`
 
-VS Code-specific workaround. Returns JML semantic token data directly as the command
+This command is a VS Code-specific workaround. It returns JML semantic token data directly as the command
 result rather than via `textDocument/semanticTokens/full`. The VS Code extension uses
 this because it registers its own `DocumentSemanticTokensProvider` directly (to avoid
 being overwritten by the Red Hat Java extension), bypassing the standard LSP
@@ -1122,7 +1141,7 @@ arguments: ["<file-uri>"]
 
 ### `openjml.clearAndReindex`
 
-Clear all server-side caches (AST cache, diagnostics, ESC status) and restart as if
+Clear all server-side caches (AST cache, diagnostics, ESC status) and reindex as if
 the server had just connected — re-checking all open files and re-indexing the
 workspace. Takes no arguments.
 
@@ -1374,11 +1393,12 @@ is hidden when no tasks are running and on any query error.
 When the user invokes **Run ESC for Method** from the keyboard, the extension calls
 `vscode.executeCodeLensProvider` to retrieve the current document's code lenses and finds
 the lens whose range starts at or above the cursor line with command
-`openjml.runEscForMethod`.  The FQN is taken directly from that lens's arguments
-(`name@startLine` format), which were computed by the server's AST scanner using
-`Utils.uniqueSymbolName`.  This approach correctly resolves methods in secondary classes
-and nested classes without any client-side regex.  Generic clients can use the same
-mechanism or read the FQN from the code lens command arguments directly.
+`openjml.runEscForMethod`.  The method FQN is taken directly from that lens's
+arguments (the `Utils.uniqueSymbolName` form, e.g. `com.example.MyClass.add(int,int)`),
+which the server's AST scanner computed and embedded when building the code lenses.
+This approach correctly resolves methods in secondary classes and nested classes without
+any client-side regex.  Generic clients can use the same mechanism or read the FQN from
+the code lens command arguments directly.
 
 ### Explorer context menu
 
