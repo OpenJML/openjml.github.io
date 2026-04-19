@@ -986,6 +986,9 @@ saves the document (equivalent to `textDocument/didSave`) and then sends
 `openjml.saveAndRunEsc` is **never sent to the server**; it is handled entirely
 client-side by the VS Code extension. Other clients (Eclipse, generic LSP clients)
 should implement the same pattern: save first, then call `openjml.runEsc`.
+The command is most relevant to the user when automatically running ESC on 
+a Save is turned off (set to "manual") and the user wants a one-shot way 
+to save a file and start an ESC operation.
 
 ### `openjml.cancelEsc`
 

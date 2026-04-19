@@ -19,30 +19,33 @@ descriptions of how the OpenJML functionality is enabled in each IDE.
 <ul>
 <li>Displaying OpenJML warnings and errors as standard markers in file editor windows</li>
 <li>Syntax coloring -- coloring JML text in an editor window according to the kinds of parser tokens</li>
-<li>Find Declaration -- navigating from an identifier to its declaration</li>
-<li>Find References -- finding all the uses of a given identifier</li>
-<li>Rename -- renaming all the instances of a given identifier</li>
-<li>Find All Declarations -- find all the declarations for a given identifier</li>
-<li>Outline -- showing JML declarations along with Java entities in the file outline</li>
+<li>Go to Definition -- navigating from an identifier to its declaration</li>
+<li>Find References -- finding all uses of a given identifier across the project</li>
+<li>Document highlights -- highlighting all occurrences of an identifier in the current file</li>
+<li>Rename -- renaming all instances of a given identifier</li>
+<li>Workspace symbol search -- finding declarations by name across all checked files</li>
+<li>Outline -- showing JML and Java declarations in the file outline (configurable: JML-only or combined)</li>
+<li>Hover -- showing the JML specification of the method under the cursor</li>
 <li>Code completion -- of JML keywords in JML contexts</li>
 <li>Folding of multi-line JML text</li>
-<li>Code lens information near method declarations showing OpenJML status (Verified, Not verified, Type errors, etc.)</li>
+<li>Code lens information near method declarations showing OpenJML verification status (Verified, Not verified, Type errors, etc.); appears after the first check completes</li>
 <li>An Output pane showing progress information from the LSP server and underlying OpenJML</li>
 <li>Signature help -- shows method signature types and formal parameter names as you type</li>
-<li>Inlay hints -- giving the type of variable declared <i>var</i> in JML ghost declarations</li>
+<li>Inlay hints -- showing the inferred type of <i>var</i>-declared variables in both Java and JML contexts</li>
 </ul>
 </p>
 <p>
 The OpenJML LSP also implements a number of actions, typically implemented as GUI menu options or buttons:
 <ul>
-<li>Parsing/typechecking in response to edit or save actions or on explicit request</li>
-<li>Run static checking (ESC) on folders, files or methods</li>
+<li>Parsing/typechecking triggered by edits, saves, or explicit request (configurable)</li>
+<li>Run static checking (ESC) on folders, files, or methods</li>
 <li>Cancel currently running ESC proof attempts</li>
 <li>Compile a file with runtime-assertion checking</li>
 </ul>
 </p>
 <p>
-There are a number of options controlling OpenJML that are implemented as Settings or Preferences in the various IDEs.
+There are a number of options controlling OpenJML that are implemented as Settings or Preferences in the various IDEs,
+including when type-checking and ESC run automatically (on edit, on save, or manually only).
 For many of these settings there are defaults that are appropriate for most work.
 
 Though the OpenJML language server is implemented to be sufficient for a generic client,
