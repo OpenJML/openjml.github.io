@@ -1249,9 +1249,8 @@ The JSON-RPC stream on stdout is protected by two complementary redirections:
    therefore to the log file, never to the JSON-RPC channel.
 
 OpenJML's compiler text output is additionally captured via the `PrintWriter` argument
-to `IAPI.make()` (a `StringWriter` in the server) and discarded, so it does not appear
-even in the log under normal operation. Only debug-level output (`System.err` calls in
-the server) and verbose OpenJML output (when verbose mode is active) appear in the log.
+to `IAPI.make()`, which wraps `System.err` in the server, so compiler messages also
+appear in the log file alongside the server's own debug output.
 
 If OpenJML exits with code 3 or 4 (catastrophic error), the server marks all methods
 as `Check error` and publishes whatever diagnostics were collected before the failure.
