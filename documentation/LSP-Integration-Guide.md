@@ -1141,9 +1141,25 @@ arguments: ["<file-uri>"]
 
 ### `openjml.clearAndReindex`
 
-Clear all server-side caches (AST cache, diagnostics, ESC status) and reindex as if
-the server had just connected — re-checking all open files and re-indexing the
-workspace. Takes no arguments.
+Clear all server-side caches (AST cache, diagnostics, ESC status) and reindex the
+workspace from disk.  Takes no arguments.
+
+The server cancels all pending work, clears its internal caches, and publishes empty
+diagnostics for every previously-marked URI.  It then re-indexes all configured
+projects from disk.  **The server does not re-check open editors from its internal
+content cache** — that cache is cleared by the reset.  Clients must restore open-editor
+content using one of these protocols:
+
+- **Save-then-clear**: save all dirty open editors before issuing `clearAndReindex`.
+  The workspace index picks up the saved content from disk.
+- **Clear-then-resend**: issue `clearAndReindex`, then send a full-text
+  `textDocument/didChange` for every dirty open editor in JML-natured projects
+  (both `.java` and `.jml` files).  The `didChange` must carry the complete current
+  buffer text, not an incremental delta.
+
+In either case, clients may also send `workspace/didChangeConfiguration` with updated
+project configuration alongside the command; the server rebuilds its project registry
+from the new settings immediately, before the disk scan begins.
 
 ### `openjml.clearMarkers`
 
