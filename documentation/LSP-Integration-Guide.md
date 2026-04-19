@@ -1189,7 +1189,6 @@ in the future. Sorted alphabetically by method name.
 | `textDocument/colorPresentation`, `textDocument/documentColor` | Not relevant — color-picker protocol for CSS/HTML; Java and JML source files contain no color values |
 | `textDocument/completion/resolve` | Not relevant — lazy-resolves additional detail (e.g. documentation) for a completion item that was intentionally left sparse; OpenJML completion items are fully populated on first request, so resolution is never needed |
 | `textDocument/diagnostic`, `workspace/diagnostic`, `workspace/diagnostic/refresh` | Not relevant — pull-model diagnostics (LSP 3.17); OpenJML publishes diagnostics proactively via `textDocument/publishDiagnostics` (push model), making the pull model redundant |
-| `textDocument/documentHighlight` | Highlights all occurrences of the symbol under the cursor in the current document; could be implemented using the cached AST |
 | `textDocument/documentLink`, `textDocument/documentLink/resolve` | Not relevant — highlights navigable URLs and file links inside source; not applicable to Java/JML compilation workflows |
 | `textDocument/formatting` | Code formatting; must be JML-comment-aware to avoid corrupting `//@ ` lines |
 | `textDocument/implementation` | Go to implementation |
