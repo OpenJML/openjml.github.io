@@ -1181,6 +1181,18 @@ its display is stale (e.g. after a workspace rebuild) may also clear its own
 annotations independently, before or without waiting for the server's response —
 both approaches are valid and complementary. Takes no arguments.
 
+### `openjml.clearMarkersSelected` (VS Code extension UI command — not a server command)
+
+Clears OpenJML diagnostics for a specific set of files or folders selected in the
+Explorer, rather than workspace-wide.  This is a VS Code extension–level command;
+the string `openjml.clearMarkersSelected` is **never sent to the server**.
+
+When the user triggers it from the Explorer context menu, the extension resolves the
+selected URIs (including multi-select) into a flat list of file-system paths via
+`resolveTargetPaths`, then sends a single `workspace/executeCommand` with
+`openjml.clearMarkers` and those paths as arguments.  Other clients should implement
+the same pattern: call `openjml.clearMarkers` with the desired paths.
+
 ---
 
 ## Unimplemented LSP Features
@@ -1388,6 +1400,45 @@ The extension overrides `prepareRename` in middleware to return the word range a
 ### `java.format.enabled` caveat
 
 The Red Hat Java formatter rewrites `//@ ` to `// @` (inserts a space after `//`), silently disabling all JML annotations. The extension warns once per workspace on activation and offers to disable `java.format.enabled`. Users who need formatting can still invoke it manually via Shift+Alt+F; they should configure a formatter profile that excludes line-comment reformatting.
+
+### Outline duplication caveat
+
+With `useIntegratedOutline: true` (the default), the Outline panel receives symbol
+contributions from both the Red Hat Java extension (Java symbols only) and the OpenJML
+extension (Java + JML symbols together), producing duplicate Java entries.  Users can
+either fold/close the Java contribution in the Outline panel, or set
+`openjml.useIntegratedOutline` to `false` so OpenJML emits only JML-specific symbols
+and defers Java symbols entirely to the Red Hat extension.
+
+### `dirtyFileAction` — unsaved-file handling before ESC
+
+`dirtyFileAction` is a VS Code extension–only setting (not forwarded to the server)
+that controls what the extension does when **Run ESC** is invoked on a file with
+unsaved edits:
+
+| Value | Behavior |
+|---|---|
+| `"ask"` (default) | Prompt the user each time: save and run, or run on the saved disk copy |
+| `"save"` | Always save silently first, then run ESC on the saved content |
+| `"run"` | Always run ESC on the saved disk copy without saving the unsaved edits |
+
+This setting interacts with `openjml.saveAndRunEsc`: that command always saves first
+regardless of `dirtyFileAction`, making it the preferred shortcut when the user wants
+a one-shot save-then-verify flow with `dirtyFileAction: "run"` in effect.
+
+### Keybindings
+
+Default keybindings contributed by the extension:
+
+| Command | Mac | Windows / Linux |
+|---|---|---|
+| `openjml.runEsc` | `Cmd+E` | `Ctrl+E` |
+| `openjml.runEscForMethod` | `Cmd+Alt+E` | `Ctrl+Alt+E` |
+| `openjml.saveAndRunEsc` | `Ctrl+Cmd+E` | `Ctrl+Shift+E` |
+
+All bindings are scoped to `(editorLangId == java || editorLangId == jml) && editorFocus`
+so they fire only when a Java or JML file is active.  Users can rebind them in the
+standard VS Code keyboard shortcuts editor.
 
 ### Type-checking triggers
 
