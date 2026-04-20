@@ -221,6 +221,7 @@ settings match a given file):
 | `escThreads` | integer | `5` | Size of the shared ESC thread pool; bounds how many concurrent ESC tasks (and SMT solver subprocesses) may run simultaneously |
 | `syntaxColoringScope` | string | `"preserve Java coloring"` | Which tokens the semantic-token response covers. `"preserve Java coloring"` — only JML-specific tokens are emitted (use when a co-present Java LS handles Java tokens). `"overwrite Java coloring"` — all tokens (Java + JML) are emitted by the OpenJML server. |
 | `escEngine` | string | `"subprocess"` | ESC execution mode. `"subprocess"` — z3 runs as a separate process (default, most isolation). `"concurrent"` — ESC runs concurrently in-process via `doESC`. `"fresh"` — each ESC call spawns a fresh IAPI context (maximum isolation, slower). |
+| `toolOptions` | string array | `[]` | Project-independent OpenJML command-line options prepended verbatim to every tool invocation. See [Tool Options](#tool-options) below. |
 | `projects` | array | none | Per-project configuration objects; see [Multi-Project Support](#multi-project-support) below. |
 
 `null` or absent fields leave the current value unchanged.
@@ -243,8 +244,6 @@ Each element is a `ProjectConfig` object:
 | `sourcePath` | string | Path-separator-separated list of source roots, including own source folders **and** transitive dependency source folders. Passed as `-sourcepath`. |
 | `classPath` | string | Path-separator-separated list of compiled dependency output directories and any additional user classpath entries. Passed as `-classpath`. |
 | `specsPath` | string | OpenJML specs path for this project (`--specs-path`). If absent, the global `specsPath` is used. |
-| `propertiesFile` | string | Path to a user-supplied OpenJML `.properties` file. May be null. |
-| `generatedPropertiesFile` | string | Path to a `.properties` file generated from the IDE preferences page. May be null. |
 | `outputDir` | string | Directory for RAC-compiled `.class` files (`-d`). Defaults to the IDE project's build output folder. |
 
 Example:
@@ -322,6 +321,40 @@ from `OPENJML_SOLVERS` (set by the launcher script), falling back to
 `OPENJML_INSTALL`. Client integrators cannot override it via `initializationOptions`
 or `workspace/didChangeConfiguration`; set `OPENJML_SOLVERS` before launching the
 server if a non-default location is required.
+
+### Tool Options
+
+`toolOptions` is a string array of raw OpenJML command-line arguments that are
+prepended verbatim to every tool invocation (`--check`, `--esc`, `--rac`).  It is
+project-independent: the same options are applied regardless of which project owns
+the file being processed.  Project-dependent settings (source path, class path,
+specs path) belong in the named settings fields, not in `toolOptions`.
+
+Clients may use `toolOptions` in two ways:
+
+**Individual flags:**
+```json
+"toolOptions": ["--keys", "MYKEY", "--require-white-space"]
+```
+
+**Properties file:** Write any number of options to a `.properties` file and pass
+`--properties <path>` as two consecutive elements:
+```json
+"toolOptions": ["--properties", "/path/to/openjml.properties"]
+```
+
+The properties file is read by OpenJML on each invocation.  If the file changes,
+the new values are picked up automatically on the next `--check` or `--esc` run —
+no additional configuration notification is required.
+
+When both styles are combined, the flags in `toolOptions` before `--properties` take
+effect before the file is processed; flags after it take effect after.  In practice,
+clients typically use one style or the other.
+
+`toolOptions` is global-only; there is no per-project equivalent.  Options that vary
+by project (e.g. different warning levels per project) should be placed in per-project
+properties files, each referenced via a separate `toolOptions` entry, or handled by
+the client via project-specific `workspace/didChangeConfiguration` updates.
 
 
 ---
@@ -886,10 +919,8 @@ args[1+]             -- command-specific paths / URIs
 Path configuration (`sourcePath`, `classPath`, `specsPath`, etc.) is sent once at
 initialization via `initializationOptions` and updated via
 `workspace/didChangeConfiguration`; it is not repeated in command arguments.
-The command arguments may contain other OpenJML command-line arguments, which,
-along with file paths, as just passed along to the `openjml` tool. Clients have 
-the option of writing all OpenJML options as properties in a `.properties` file
-and passing `--properties` `<filepath>` (as two arguments).
+Project-independent OpenJML flags are passed via `toolOptions` (see
+[Tool Options](#tool-options)) rather than in command arguments.
 
 ### `openjml.checkJML`
 
