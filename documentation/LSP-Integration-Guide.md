@@ -40,6 +40,13 @@ are sent to the client using a `textDocument/publishDiagnostics` notification.
 
 ---
 
+## OpenJML
+
+The server requires an installation of OpenJML, which can be downloaded from https://github.com/openjml/openjml/releases/latest.
+The download, when unzipped into a clean directory, contains a full working version of OpenJML.
+At the top-level of the installation is a bash script named `openjml-lsp`; executing it launches the server,
+ as described below.
+ 
 ## Starting the Server
 
 ### Transport
@@ -100,6 +107,7 @@ The launcher sets these if not already present in the environment:
 | `OPENJML_INSTALL` | Directory containing `openjml-lsp` script | Root of the OpenJML installation |
 | `OPENJML_SPECS` | `$OPENJML_INSTALL/specs` | Path to bundled JML specification files |
 | `OPENJML_SOLVERS` | `$OPENJML_INSTALL` | Directory containing SMT solver binaries |
+| `OPENJML_LSP_LOG` | fixed value (cf. "Error Handling and Logging") | Destination file for server log messages |
 
 The default values of the environment variables are sufficient in nearly all circumstances.
 A client may override any of these before spawning the server process.
@@ -110,7 +118,7 @@ The Eclipse plugin resolves the `openjml-lsp` launcher path in this order:
 
 1. The Java system property `openjml.lsp.server.path` — intended for the test harness
    and development setups where modifying workspace preferences is inconvenient.
-2. The value stored in the OpenJML Preferences page (`openjml.lspServerPath`).
+2. The value stored in the OpenJML Preferences page (`openjml.lspServerPath`), which is an absolute path to either an installation folder or to an instanceof `openjml-lsp` in an installation folder.
 3. `openjml-lsp` on `PATH` (last resort).
 
 To use option 1, pass `-Dopenjml.lsp.server.path=/path/to/openjml-lsp` in the Eclipse
@@ -119,8 +127,8 @@ JVM arguments (e.g., in `eclipse.ini` or a launch configuration).
 ### JVM Notes
 
 The server's JVM requires several --add-exports flags to expose OpenJDK compiler internals (com.sun.tools.javac.*, org.jmlspecs.openjml.*) to the unnamed     
-module. Gson does not require any flags: it is unconditionally exported from jdk.compiler via its module-info.java. All required flags are set automatically by the launcher script via $OPENJML_EXPORTS; client  
-integrators do not need to set them.
+module. Gson does not require any flags: it is unconditionally exported from jdk.compiler via its module-info.java. 
+All required flags are set automatically by the launcher script via $OPENJML_EXPORTS; client integrators do not need to set them.
 
 Do **not** put a separate Gson jar on the classpath; that creates a split-package that the JVM
 will refuse to load.
@@ -281,8 +289,9 @@ When a project list is configured:
 - File-watcher events are scoped to the union of all projects' `rootPaths`.
 - Commands that name a `projectId` are dispatched using that project's settings.
 
-A single-project client (e.g. VS Code) does not need to use `projects` at all —
-the global `sourcePath`, `classPath`, etc. settings are used for all files.
+If a client does not support multiple projects, the configuration information is used to
+create a single project with a default id (an empty string).
+
 
 ### Notes on Settings
 
