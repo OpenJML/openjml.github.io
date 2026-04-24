@@ -108,6 +108,7 @@ The launcher sets these if not already present in the environment:
 | `OPENJML_SPECS` | `$OPENJML_INSTALL/specs` | Path to bundled JML specification files |
 | `OPENJML_SOLVERS` | `$OPENJML_INSTALL` | Directory containing SMT solver binaries |
 | `OPENJML_LSP_LOG` | fixed value (cf. "Error Handling and Logging") | Destination file for server log messages |
+| `OPENJML_SERVER_PATH` | _(unset)_ | Client-side: when set, overrides all other server-path discovery and points directly to the `openjml-lsp` script; useful during extension development (e.g. via `launch.json`) |
 
 The default values of the environment variables are sufficient in nearly all circumstances.
 A client may override any of these before spawning the server process.
@@ -218,17 +219,16 @@ settings match a given file):
 | Field | Type | Default | Description |
 |---|---|---|---|
 | `specsPath` | string | env `OPENJML_SPECS` | Path to JML specification files, passed as `--specs-path` |
-
 | `sourcePath` | string | none | Source root(s) for cross-file references (see note on effective sourcepath below) |
 | `classPath` | string | none | Classpath for pre-compiled dependencies, passed as `-classpath`; also used as a sourcepath fallback (see note) |
 | `checkTriggerOn` | string | `"edit"` | When to run `--check`: `"edit"`, `"save"`, or `"manual"` |
-| `escTriggerOn` | string | `"manual"` | When to run `--esc`: `"manual"`, `"save"`, or `"edit"` (see note) |
+| `escTriggerOn` | string | `"manual"` | When to run `--esc`: `"manual"` or `"save"` |
 | `incrementalSync` | boolean | `true` | When `true`, advertise `Incremental` sync and apply ranged edits internally; when `false`, revert to `Full` sync |
 | `javaMode` | string | `"full"` | Java-capability mode: `"full"` enables all Java+JML capabilities; `"jml-only"` suppresses capabilities that duplicate a co-present Java language server (e.g. JDT, Red Hat Java). See note below. |
 | `client` | string | `"generic"` | Known-client hint for default tuning. Values: `"generic"` (no assumptions), `"eclipse-jdt"`, `"vscode-java"`, `"intellij"`. When set to a known Java-capable client, `javaMode` defaults to `"jml-only"` unless explicitly overridden. |
 | `escThreads` | integer | `5` | Size of the shared ESC thread pool; bounds how many concurrent ESC tasks (and SMT solver subprocesses) may run simultaneously |
 | `syntaxColoringScope` | string | `"preserve Java coloring"` | Which tokens the semantic-token response covers. `"preserve Java coloring"` — only JML-specific tokens are emitted (use when a co-present Java LS handles Java tokens). `"overwrite Java coloring"` — all tokens (Java + JML) are emitted by the OpenJML server. |
-| `escEngine` | string | `"subprocess"` | ESC execution mode. `"subprocess"` — z3 runs as a separate process (default, most isolation). `"concurrent"` — ESC runs concurrently in-process via `doESC`. `"fresh"` — each ESC call spawns a fresh IAPI context (maximum isolation, slower). |
+| `escEngine` | string | `"fresh"` | ESC execution mode. `"fresh"` (default) — spawns a fresh OpenJML process with `--esc`. `"concurrent"` — calls `IAPI.doESC` in-process on the cached AST from the last `--check`; methods within a file are serialized, methods across files run concurrently. |
 | `toolOptions` | string array | `[]` | Project-independent OpenJML command-line options prepended verbatim to every tool invocation. See [Tool Options](#tool-options) below. |
 | `projects` | array | none | Per-project configuration objects; see [Multi-Project Support](#multi-project-support) below. |
 
@@ -237,9 +237,10 @@ settings match a given file):
 ### Multi-Project Support
 
 The server supports multiple independent projects within a single workspace.  Each
-project is a separate compilation domain with its own source folders, classpath, specs
-path, and properties file.  A file belongs to the project whose `rootPaths` contains
-its path as a prefix.
+project has a unique identifier as a project id.
+Each project is a separate compilation domain with its own source folders, classpath, and specs
+path.
+Clients that only support a single, unpartitioned workspace are considered to have a single project with an empty string as the project id.
 
 Per-project settings are conveyed in a **`projects`** array inside the top-level
 `OpenJMLSettings` object (either in `initializationOptions` or `workspace/didChangeConfiguration`).
@@ -249,10 +250,12 @@ Each element is a `ProjectConfig` object:
 |---|---|---|
 | `id` | string | Unique project identifier (alphanumeric, no path separators, no whitespace, non-empty). Used as the lookup key in command arguments. The Eclipse plugin uses the Eclipse project name (`IProject.getName()`). |
 | `rootPaths` | list | This project's own source folder paths (not including dependency sources). Used to map a file URI to its owning project. |
-| `sourcePath` | string | Path-separator-separated list of source roots, including own source folders **and** transitive dependency source folders. Passed as `-sourcepath`. |
-| `classPath` | string | Path-separator-separated list of compiled dependency output directories and any additional user classpath entries. Passed as `-classpath`. |
+| `sourcePath` | string | Path-separator-separated list of source roots, including own source folders **and** transitive dependency source folders. Passed as `-sourcepath` to OpenJML. |
+| `classPath` | string | Path-separator-separated list of compiled dependency output directories and any additional user classpath entries. Passed as `-classpath` to OpenJML. |
 | `specsPath` | string | OpenJML specs path for this project (`--specs-path`). If absent, the global `specsPath` is used. |
 | `outputDir` | string | Directory for RAC-compiled `.class` files (`-d`). Defaults to the IDE project's build output folder. |
+
+A project id that is an empoty string may mean the single default projecdt or that the command applies to all projects.
 
 Example:
 
@@ -316,10 +319,6 @@ is used alone — workspace folders are excluded); and `classPath` as a final fa
 when `sourcePath` is absent. `--specs-path` and `-classpath` are passed through
 unchanged.
 
-**Note on `escTriggerOn: "edit"`:** The server implements this mode (ESC is debounced
-and re-run on every keystroke), but it is expensive and no known client UI exposes it
-as an option. Client integrators may choose to omit it from their settings UI.
-
 When `specsPath` is null or empty, the server falls back to the `OPENJML_SPECS`
 environment variable set by the launcher. If that is also unset, OpenJML derives
 the specs path from `OPENJML_INSTALL`; for standard installations the variable
@@ -338,6 +337,7 @@ prepended verbatim to every tool invocation (`--check`, `--esc`, `--rac`).  It i
 project-independent: the same options are applied regardless of which project owns
 the file being processed.  Project-dependent settings (source path, class path,
 specs path) belong in the named settings fields, not in `toolOptions`.
+Project-specific options are a potential future feature.
 
 Clients may use `toolOptions` in two ways:
 
@@ -360,7 +360,7 @@ When both styles are combined, the flags in `toolOptions` before `--properties` 
 effect before the file is processed; flags after it take effect after.  In practice,
 clients typically use one style or the other.
 
-`toolOptions` is global-only; there is no per-project equivalent.  Options that vary
+`toolOptions` is global-only; there is no per-project equivalent (at present).  Options that vary
 by project (e.g. different warning levels per project) should be placed in per-project
 properties files, each referenced via a separate `toolOptions` entry, or handled by
 the client via project-specific `workspace/didChangeConfiguration` updates.
@@ -388,36 +388,32 @@ must contain the complete document text in `contentChanges[0].text`.
 
 - Stores the updated content.
 - **Marks the file dirty** (adds the URI to an internal dirty-URI set). While a file is
-  marked dirty, multi-file check or ESC invocations (e.g. `openjml.checkJML` or
+  marked dirty, check or ESC invocations (e.g. `openjml.checkJML` or
   `openjml.runEsc` on a directory) use the in-memory content for this file instead of
   reading it from disk. This ensures that unsaved edits are included in context-aware
   cross-file checks even before the file is saved.
 - If `checkTriggerOn` is `"edit"`: schedules `--check` with a 500 ms debounce.
   A new change before 500 ms resets the timer.
 - If `checkTriggerOn` is `"save"` or `"manual"`: no `--check` is triggered by change.
-- If `escTriggerOn` is `"edit"`: schedules `--esc` with a 2000 ms debounce.
-  A new change before 2000 ms resets the timer.
-- `--esc` on change is expensive and not recommended for large files.
 
 ### `textDocument/didSave`
 
 - **Clears the dirty mark** for the URI (removes it from the dirty-URI set). After save,
-  the file's in-memory content matches the disk, so subsequent multi-file checks read
+  the file's in-memory content matches the disk, so subsequent checks may read
   the file from disk directly and no longer need to mock it from memory.
 - Cancels any pending debounced check or ESC.
-- Runs `--check` immediately using the saved (in-memory) content.
+- Runs `--check` immediately.
 - Runs `--esc` if `escTriggerOn` not `"manual"`. Because the LSP protocol does not carry
   a save reason, the server cannot distinguish manual saves from auto-saves and fires
   on every `didSave`. Users who save frequently (e.g. Eclipse auto-save-on-compile,
   or VS Code `files.autoSave: afterDelay`) should use `escTriggerOn: "manual"` to
-  avoid unwanted ESC runs.
+  avoid unwanted, overly frequent ESC runs.
 
 ### `textDocument/didClose`
 
-- **Clears the dirty mark** for the URI (removes it from the dirty-URI set).
-- Cancels all pending debounced and running checks for the URI.
-- Removes stored content and per-method ESC status.
-- Retains cached diagnostics; the client's Problems panel continues to show them until a fresh check updates or clears them.
+- **Clears the dirty mark** for the URI — unsaved changes are gone when the editor closes.
+- **Removes the in-memory editor buffer** — subsequent operations read from disk.
+- **Retains all pending and running checks, proof results, AST cache, and diagnostics.** Closing an editor does not affect project-level analysis state; checks may still be in progress for the file and their results remain valid in the client's Problems panel until a fresh run updates or clears them.
 
 ---
 
@@ -456,6 +452,7 @@ Each diagnostic has the following fields (LSP `Diagnostic` type):
 | `source` | `"openjml.check"` for `--check` results; `"openjml.esc"` for `--esc` results |
 | `message` | Human-readable error or warning text from OpenJML |
 | `code` | OpenJML diagnostic code string (e.g., `"jml.message"`) |
+| `data` | `"esc-verification"` for diagnostics produced by a proof obligation failure (`--esc`); absent for `--check` diagnostics |
 
 ### OpenJML Exit Codes
 
@@ -467,6 +464,7 @@ These exit codes are logged to stderr and influence how the server interprets re
 | 1 | Syntax or type errors |
 | 2 | Bad command-line arguments (typically indicates an invalid setting) |
 | 3 or 4 | Catastrophic error — resource exhaustion (e.g. out of memory), significant misconfiguration, or internal bug |
+| 5 | The ESC task was cancelled from another thread |
 | 6 | ESC verification failures (postcondition or assertion violations) |
 
 ---
@@ -484,9 +482,8 @@ Two cases are handled:
    types appear as `\bigint`, <code>\real</code>, etc.), and the containing file's own package
    prefix.  This hover is always active regardless of `javaMode`.
 
-2. **Method body / JML spec** — if the cursor is anywhere else inside a method, the
-   server returns the JML specification lines (consecutive `//@ ...` comment lines)
-   immediately preceding the method declaration, formatted as a Markdown code block.
+2. **Method declaration / JML spec** — if the cursor is anywhere else inside a method declaration or specs, the
+   server returns the JML specification for the method, formatted as a Markdown code block.
 
 Returns null if none of the above conditions are met (e.g. cursor is outside any
 method, or the method has no JML annotations).
