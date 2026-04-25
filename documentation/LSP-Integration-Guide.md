@@ -1241,33 +1241,30 @@ that never reach the server.
 
 ---
 
-## Unimplemented LSP Features
+## Unused LSP Features
 
-The following standard LSP features are not implemented. Entries marked *not relevant*
-are outside the server's intended scope and will not be added; all others may be added
-in the future. Sorted alphabetically by method name.
+### Client → Server: Unhandled Requests and Notifications
+
+The following client-to-server requests and notifications are not handled by the server.
+Entries marked *not relevant* are outside the server's intended scope and will not be
+added; all others may be added in the future.  Sorted alphabetically by method name.
 
 | Feature | Notes |
 |---|---|
-| `textDocument/prepareCallHierarchy`, `callHierarchy/incomingCalls`, `callHierarchy/outgoingCalls` | Not relevant — complex to implement; provides no JML-specific value beyond what Java IDEs already provide natively |
+| `callHierarchy/incomingCalls`, `callHierarchy/outgoingCalls`, `textDocument/prepareCallHierarchy` | Not relevant — complex to implement; provides no JML-specific value beyond what Java IDEs already provide natively |
 | `codeLens/resolve` | Not relevant — lazy-loads additional data for a code lens returned with incomplete information; OpenJML lenses are fully populated (label, command, arguments) on first request, so resolution is never needed. The server advertises `resolveProvider: false` in `CodeLensOptions` |
-| `telemetry/event` | Not relevant — server-to-client telemetry notification used to forward analytics events to the client for reporting; OpenJML does not collect or emit telemetry |
 | `textDocument/codeAction` | Quick fixes for JML errors (e.g. inserting a missing `requires`); code lens is currently used for ESC invocation instead |
-| `textDocument/codeAction/resolve` | Not relevant — lazy-resolves additional detail for a previously returned code action; not applicable while `textDocument/codeAction` itself is unimplemented |
+| `textDocument/codeAction/resolve` | Not relevant — lazy-resolves additional detail for a previously returned code action; not applicable while `textDocument/codeAction` itself is unhandled |
 | `textDocument/colorPresentation`, `textDocument/documentColor` | Not relevant — color-picker protocol for CSS/HTML; Java and JML source files contain no color values |
-| `textDocument/completion/resolve` | Not relevant — lazy-resolves additional detail (e.g. documentation) for a completion item that was intentionally left sparse; OpenJML completion items are fully populated on first request, so resolution is never needed |
+| `textDocument/completion/resolve` | Not relevant — lazy-resolves additional detail (e.g. documentation) for a completion item; OpenJML completion items are fully populated on first request, so resolution is never needed |
 | `textDocument/diagnostic`, `workspace/diagnostic` | Not relevant — pull-model diagnostics (LSP 3.17); OpenJML publishes diagnostics proactively via `textDocument/publishDiagnostics` (push model), making the pull model redundant |
-| `workspace/diagnostic/refresh` | The server does not send this notification; it would tell clients to re-pull diagnostics, but OpenJML uses the push model exclusively |
 | `textDocument/documentLink`, `textDocument/documentLink/resolve` | Not relevant — highlights navigable URLs and file links inside source; not applicable to Java/JML compilation workflows |
 | `textDocument/formatting` | Code formatting; must be JML-comment-aware to avoid corrupting `//@ ` lines |
 | `textDocument/implementation` | Go to implementation |
-| `workspace/inlayHint/refresh` | The server does not send this notification; inlay hints are re-requested by the client on demand and do not depend on check results |
 | `textDocument/inlayHint/resolve` | Not relevant — lazy-loads additional hint detail for complex hints; OpenJML hints are simple type strings and contain complete data on first request |
 | `textDocument/linkedEditingRange` | Not relevant — simultaneous editing of matched tag pairs (e.g. HTML open/close tags); not applicable to Java/JML |
 | `textDocument/moniker` | Not relevant — cross-repository symbol package identifiers for code-intelligence platforms (LSIF/SCIP); not applicable to IDE tooling |
 | `textDocument/onTypeFormatting` | Not relevant — live formatting as the user types; Java formatting is the responsibility of the client's Java language server |
-| `window/progress`, `$/progress`, `window/workDoneProgress/create`, `window/workDoneProgress/cancel` | The server does not send these notifications. They would report progress on long-running check and ESC operations; clients currently infer progress from `publishDiagnostics` and code lens updates |
-| `window/showDocument` | Not relevant — server-to-client request to open an arbitrary URI in the client editor or browser; OpenJML has no need to programmatically open documents on behalf of the user |
 | `textDocument/rangeFormatting` | Range-based formatting |
 | `textDocument/selectionRange` | Expand selection to the enclosing syntactic range; could be implemented using the cached AST |
 | `textDocument/semanticTokens/full/delta` | Incremental token diff; an optimization that avoids retransmitting unchanged tokens on each edit |
@@ -1275,11 +1272,24 @@ in the future. Sorted alphabetically by method name.
 | `textDocument/typeDefinition` | Go to type definition |
 | `textDocument/prepareTypeHierarchy`, `typeHierarchy/supertypes`, `typeHierarchy/subtypes` | Not relevant — complex to implement; Java IDEs provide structural type hierarchy natively; JML spec-inheritance tracing does not yet warrant a dedicated implementation |
 | `textDocument/willSave`, `textDocument/willSaveWaitUntil` | Not relevant — pre-save hooks for server-side processing before disk write; `textDocument/didSave` covers all post-save check needs |
-| `workspace/applyEdit` | Not relevant — server-initiated bulk edit applied by the client; OpenJML returns rename edits directly in the `textDocument/rename` response rather than pushing them via `workspace/applyEdit` |
-| `workspace/configuration` | The server does not send this request. It is a server-initiated pull of per-section configuration from the client; OpenJML uses the push model (`workspace/didChangeConfiguration`) so it never needs to request configuration |
 | `workspace/didCreateFiles`, `workspace/didDeleteFiles`, `workspace/didRenameFiles` | Not relevant — file-system operation notifications; file changes are handled via `workspace/didChangeWatchedFiles` |
 | `workspace/willCreateFiles`, `workspace/willDeleteFiles`, `workspace/willRenameFiles` | Not relevant — pre-operation file-system hooks; no server-side processing is needed before file creation, deletion, or OS-level rename |
 | `workspaceSymbol/resolve` | Not relevant — lazy-resolves additional detail (e.g. `location`) for a workspace symbol that was returned with partial data; OpenJML workspace symbol results are fully populated on first request |
+
+### Server → Client: Notifications and Requests Not Sent
+
+The following server-to-client notifications and requests are not sent by the server.
+Sorted alphabetically by method name.
+
+| Feature | Notes |
+|---|---|
+| `telemetry/event` | OpenJML does not collect or emit telemetry |
+| `window/progress`, `$/progress`, `window/workDoneProgress/create`, `window/workDoneProgress/cancel` | Would report progress on long-running check and ESC operations; clients currently infer progress from `publishDiagnostics` and code lens updates |
+| `window/showDocument` | Would open an arbitrary URI in the client editor or browser; OpenJML has no need to programmatically open documents on behalf of the user |
+| `workspace/applyEdit` | OpenJML returns rename edits directly in the `textDocument/rename` response rather than pushing them via `workspace/applyEdit` |
+| `workspace/configuration` | A server-initiated pull of per-section configuration from the client; OpenJML uses the push model (`workspace/didChangeConfiguration`) so it never requests configuration |
+| `workspace/diagnostic/refresh` | Would tell clients to re-pull diagnostics; OpenJML uses the push model exclusively |
+| `workspace/inlayHint/refresh` | Inlay hints are re-requested by the client on demand and do not depend on check results |
 
 ---
 
