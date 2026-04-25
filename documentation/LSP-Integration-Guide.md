@@ -1257,7 +1257,6 @@ in the future. Sorted alphabetically by method name.
 | `textDocument/willSave`, `textDocument/willSaveWaitUntil` | Not relevant — pre-save hooks for server-side processing before disk write; `textDocument/didSave` covers all post-save check needs |
 | `workspace/applyEdit` | Not relevant — server-initiated bulk edit applied by the client; OpenJML returns rename edits directly in the `textDocument/rename` response rather than pushing them via `workspace/applyEdit` |
 | `workspace/configuration` | Not relevant — client-initiated pull of per-section configuration; OpenJML uses a push model (`workspace/didChangeConfiguration`) so the server never requests configuration from the client |
-| `workspace/didChangeWorkspaceFolders` | Not implemented — the server reads workspace folders once from `workspaceFolders` in `initialize` and does not update them dynamically; clients that add or remove workspace folders must reconnect or send `workspace/didChangeConfiguration` with updated `rootPaths` |
 | `workspace/didCreateFiles`, `workspace/didDeleteFiles`, `workspace/didRenameFiles` | Not relevant — file-system operation notifications; file changes are handled via `workspace/didChangeWatchedFiles` |
 | `workspace/willCreateFiles`, `workspace/willDeleteFiles`, `workspace/willRenameFiles` | Not relevant — pre-operation file-system hooks; no server-side processing is needed before file creation, deletion, or OS-level rename |
 | `workspaceSymbol/resolve` | Not relevant — lazy-resolves additional detail (e.g. `location`) for a workspace symbol that was returned with partial data; OpenJML workspace symbol results are fully populated on first request |
@@ -1643,8 +1642,9 @@ the user can invoke via a key binding.
 - **Workspace folders**: The server accepts workspace folder roots (from
   `workspaceFolders` in `initialize` and the `workspaceFolderPaths` setting) and
   uses them as a fallback `-sourcepath` when no explicit source path is configured.
-  However, per-folder configuration, cross-folder dependency tracking, and
-  `workspace/didChangeWorkspaceFolders` are not implemented.
+  Dynamic folder changes via `workspace/didChangeWorkspaceFolders` are handled for
+  VS Code and generic clients.  Per-folder configuration and cross-folder dependency
+  tracking are not implemented.
 
 - **Non-disjoint projects (Eclipse plugin)**: The Eclipse plugin does not support
   projects whose source roots overlap.  The LSP protocol does not carry project
