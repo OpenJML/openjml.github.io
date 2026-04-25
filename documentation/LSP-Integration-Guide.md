@@ -754,8 +754,8 @@ the cache (i.e., all files that have been opened and checked in the current sess
 Symbol identity is used for matching, which is correct within a single OpenJML
 compilation context.
 
-Note: the search is limited to files whose ASTs are cached. Files that have not been
-opened or checked since the server started are not searched.
+This operation will initiate a full project typechecking check if there is not a
+current one present.
 
 ### Rename — `textDocument/rename` / `textDocument/prepareRename`
 
@@ -771,6 +771,9 @@ must account for cases where the new name shadows — or no longer shadows — a
 identifier, silently changing the meaning of existing references without necessarily
 producing new errors. If the rename is judged unsafe, or the new name is syntactically
 invalid, a descriptive error is returned rather than applying the edits.
+
+This operation will initiate a full project typechecking check if there is not a
+current one present.
 
 ### Signature Help — `textDocument/signatureHelp`
 
@@ -840,6 +843,9 @@ search term). The server detects the newline and limits the search to that proje
 nav section. Generic clients that search all projects should pass a plain query string.
 For multi-project clients, prefer `openjml.symbolsForProject`, which takes an explicit
 project ID and avoids the encoding convention.
+
+This operation will initiate a full project typechecking check if there is not a
+current one present.
 
 ### Configuration — `workspace/didChangeConfiguration`
 
@@ -1516,7 +1522,7 @@ all selected URIs into a single path list for the server command.
 
 ## Eclipse Plugin Notes
 
-The OpenJMLUI Eclipse plugin (`OpenJML/OpenJMLUI/`) integrates the OpenJML LSP server
+The OpenJMLUI Eclipse plugin integrates the OpenJML LSP server
 into the Eclipse JDT Java editor via LSP4E.  Several LSP4E limitations required
 workarounds that differ from a generic LSP client.  This section documents them for
 plugin maintainers and authors building similar Eclipse integrations.
@@ -1591,6 +1597,19 @@ implements JDT's `IJavaEditorTextHover` interface so it is invoked by JDT's hove
 framework for `.java` files, including positions inside JML comments (`//@ ...`).  It
 calls `textDocument/hover` synchronously (with a 1 500 ms timeout) via the language
 server proxy and extracts the text content from the response.
+
+### `client/registerCapability` — must follow `initialized`
+
+LSP4E throws `OperationNotSupportedException` if `client/registerCapability` arrives
+before the `initialized` notification has been processed.  The server sends
+`client/registerCapability` to register `workspace/didChangeWatchedFiles` file watchers
+(for `.jml` and `.java` files) during startup.  If this is sent immediately after the
+`initialize` response — before the client sends `initialized` — Eclipse rejects it.
+
+The server guards against this with a `serverInitialized` flag: `registerFileWatchers()`
+is only called from the `initialized` handler, never from `initialize`.  Integrators
+building other Eclipse plugins that use `client/registerCapability` must apply the same
+guard.
 
 ### Signature help limitation
 
