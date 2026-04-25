@@ -2,6 +2,7 @@
 layout: default
 title: OpenJML LSP Integration Guide
 ---
+
 # OpenJML Language Server Integration Guide
 
 David R. Cok -- April 2026 (cf. https://github.com/OpenJML/OpenJML)
