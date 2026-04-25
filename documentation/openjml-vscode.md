@@ -73,8 +73,8 @@ fully-qualified name, so it works correctly for methods in secondary classes and
 **Run ESC Split by File / Split by Method** launch parallel ESC invocations — one per file
 or one per method — to take advantage of concurrency.
 
-**Save and Run ESC** saves the file first, then runs ESC. Useful when `dirtyFileAction` is `run`
-(which would otherwise run on the editor content without saving first).
+**Save and Run ESC** saves the file first, then runs ESC. Useful when `dirtyFileAction` is set to `run`,
+which means the default behavior is to check the editor content.
 
 **Index Project** runs `--check` on all source files in the workspace, populating the declaration
 index used by various navigation command.
@@ -121,13 +121,13 @@ receive `abstract`.
 
 ### Modes
 
-**`jml-only`** (default, recommended with Red Hat Java Extension installed): only JML constructs
-are highlighted.  Java constructs outside JML annotation context are left to the Red Hat Java
-Extension.
+**`preserve Java coloring`** (default, `openjml.syntaxColoringScope`; recommended with Red Hat
+Java Extension installed): tokens are emitted only inside JML annotation context.  Java
+constructs outside JML annotations are left to the Red Hat Java Extension.
 
-**`full`** (set `openjml.javaMode` to `full`): all Java and JML constructs are highlighted,
-including class/method/field declarations throughout the file.  Use when no other Java
-extension is active.
+**`overwrite Java coloring`** (set `openjml.syntaxColoringScope` to `overwrite Java coloring`):
+tokens are emitted for all Java and JML constructs throughout the file, replacing whatever the
+Java language server produced.  Use when no other Java extension is active.
 
 ### Strategies
 
@@ -171,7 +171,7 @@ The names match the token type strings listed in the table above.
 | `openjml.syntaxColoringScope` | `preserve Java coloring` | How OpenJML's semantic tokens interact with Java coloring: `preserve Java coloring` (default) — emit tokens only inside JML annotation context, leaving Java code to the Java language server; `overwrite Java coloring` — emit tokens for all Java and JML constructs, replacing whatever the Java language server produced. |
 | `openjml.syntaxColoringStrategy` | `ast` | JML syntax coloring strategy: `ast` (uses the attributed AST when available — precise, no false positives) or `regex` (always uses regex line scanning — may color Java identifiers that share a name with a JML keyword). |
 | `openjml.useIntegratedOutline` | `true` | When `true`, the Outline panel shows all Java and JML symbols together. When `false`, only JML-specific symbols are shown (complementing the Red Hat Java Extension's outline). |
-| `openjml.javaMode` | `jml-only` | Controls which constructs are highlighted and navigated. `jml-only` (default) — only JML constructs; defers Java navigation and coloring to the Red Hat Java Extension. `full` — all Java and JML constructs; use when no Java extension is installed. |
+| `openjml.javaMode` | `jml-only` | Controls which inlay hints are shown. `jml-only` (default) — suppress `var`-type hints for plain Java locals (assumes the Red Hat Java Extension shows those); JML ghost/model `var` hints are always shown. `full` — show `var`-type hints for all locals. |
 | `openjml.client` | `vscode-java` | Client identifier sent to the server. Controls `javaMode` defaults. Leave as `vscode-java` when the Red Hat Java Extension is active. |
 | `openjml.racOutputDir` | `` | Output directory for RAC-compiled class files (`-d`). Relative paths are resolved against the workspace root. Leave empty to use the value of `java.project.outputPath` (default `bin`). |
 
@@ -179,10 +179,10 @@ The names match the token type strings listed in the table above.
 
 This extension is designed to work alongside the
 [Red Hat Language Support for Java](https://marketplace.visualstudio.com/items?itemName=redhat.java)
-extension.  With `javaMode: "jml-only"` (the default), OpenJML only adds JML-specific
-capabilities — type-check diagnostics, ESC code lenses, JML completions, JML hover, JML syntax
-coloring — and defers Java navigation, outline, inlay hints, and Java coloring to the Red Hat
-extension.  The JML semantic tokens are merged *additively* on top of whatever the Red Hat
+extension.  With the default settings, OpenJML only adds JML-specific capabilities — type-check diagnostics,
+ESC code lenses, JML completions, JML hover, JML syntax coloring — and defers Java navigation,
+outline, and plain-Java `var` inlay hints to the Red Hat extension (`openjml.javaMode: "jml-only"`).
+Java syntax coloring is preserved by default via `openjml.syntaxColoringScope: "preserve Java coloring"`.  The JML semantic tokens are merged *additively* on top of whatever the Red Hat
 extension produces, so JML keywords and modifiers are colored without disturbing Java coloring.
 
 **Warning:** The Red Hat Java formatter normalizes `//` comment lines by inserting a space after

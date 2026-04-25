@@ -11,7 +11,7 @@ This document describes how to connect an LSP client to the OpenJML language ser
 It covers the server's capabilities, configuration, wire protocol, and known limitations.
 The intended audience is a developer integrating the server into an editor, IDE, or
 build tool. Note that some such integrations are available as companion projects to this one
-in the OpenJML github project; as of this writing these are VSCode and Eclipse.
+in the OpenJML github project; as of this writing these are a VSCode extension and an Eclipse plug-in.
 
 ---
 
@@ -32,7 +32,7 @@ are available in the OpenJML command-line tool.
   disprove JML specifications such as method postconditions and invariants. Reports verification failures as LSP
   diagnostics and updates per-method status badges (code lenses).
 
-- **`--rac`** — Compile Java code with JML assertions as .class files with runtime checks ("Runtime-Assertion-Checking").
+- **`--rac`** — Compiles Java code with JML assertions as .class files with runtime checks ("Runtime Assertion  Checking").
 
 The language server links in OpenJML and they run together in a single JVM process, using separate, concurrent threads for long-running processes.
 The server process may spawn one or more subprocesses to execute SMT proof checks.
@@ -229,7 +229,7 @@ settings match a given file):
 | `client` | string | `"generic"` | Known-client hint for default tuning. Values: `"generic"` (no assumptions), `"eclipse-jdt"`, `"vscode-java"`, `"intellij"`. When set to a known Java-capable client, `javaMode` defaults to `"jml-only"` unless explicitly overridden. |
 | `escThreads` | integer | `5` | Size of the shared ESC thread pool; bounds how many concurrent ESC tasks (and SMT solver subprocesses) may run simultaneously |
 | `syntaxColoringScope` | string | `"preserve Java coloring"` | Which tokens the semantic-token response covers. `"preserve Java coloring"` — only JML-specific tokens are emitted (use when a co-present Java LS handles Java tokens). `"overwrite Java coloring"` — all tokens (Java + JML) are emitted by the OpenJML server. |
-| `escEngine` | string | `"fresh"` | ESC execution mode. `"fresh"` (default) — spawns a fresh OpenJML process with `--esc`. `"concurrent"` — calls `IAPI.doESC` in-process on the cached AST from the last `--check`; methods within a file are serialized, methods across files run concurrently. |
+| `escEngine` | string | `"fresh"` | ESC execution mode. `"fresh"` (default) — spawns a fresh OpenJML compilation comntext with each ESC task`. `"concurrent"` — shares compilation context among different ESC tasks, where appropriate |
 | `toolOptions` | string array | `[]` | Project-independent OpenJML command-line options prepended verbatim to every tool invocation. See [Tool Options](#tool-options) below. |
 | `projects` | array | none | Per-project configuration objects; see [Multi-Project Support](#multi-project-support) below. |
 
