@@ -1612,6 +1612,19 @@ directly to the JDT source viewer's presentation reconciler.  It reads the user'
 preferences from the OpenJML preference page.  For `.jml` files opened in the Generic
 Editor, semantic tokens arrive via the normal LSP4E path.
 
+**`workspace/semanticTokens/refresh` not advertised**: LSP4E does not advertise
+`workspace.semanticTokens.refreshSupport` in its `ClientCapabilities`, and throws an
+exception if the server sends `workspace/semanticTokens/refresh` without that flag being
+set.  Consequently the server suppresses the notification for the Eclipse client.  The
+effect on `.java` files is nil — `JmlColorizer` re-runs independently after each edit.
+For `.jml` files in the Generic Editor, semantic-token colors may be stale after a
+server-side `--check` completes (e.g. when a companion `.java` file triggers a check of
+its `.jml`); colors update the next time the user edits the `.jml` file, which triggers
+the Generic Editor's own reconciler.  A proper fix would be for `OpenJMLLanguageClient`
+to advertise `refreshSupport: true` and handle the incoming notification by re-triggering
+the Generic Editor reconciler for open `.jml` editors; this is a known LSP4E limitation
+and has not yet been worked around.
+
 ### Hover → `OpenJMLJavaHover` {#eclipse-hover}
 
 LSP4E's built-in `LSPTextHover` is registered via `genericeditor.hoverProviders`, which
