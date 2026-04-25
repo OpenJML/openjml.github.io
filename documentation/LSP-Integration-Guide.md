@@ -878,6 +878,20 @@ unregisters the current watchers and immediately re-registers them with the
 same globs.  The brief gap between unregister and re-register is harmless
 because all events are root-filtered in the handler anyway.
 
+### `workspace/didChangeWorkspaceFolders`
+
+Keeps the synthesized `__workspace__` project's `rootPaths` in sync as the
+user opens and closes workspace folders in VS Code or another generic LSP
+client.
+
+When the notification arrives the server applies the `added` and `removed`
+folder lists to the `__workspace__` project's `rootPaths`, then triggers
+watcher re-registration (see above) so that file-watcher globs cover the
+updated set of roots.
+
+**Eclipse**: the Eclipse plugin does not send this notification.  It manages
+projects explicitly via `workspace/didChangeConfiguration`, so this handler
+is a no-op when no `__workspace__` project entry exists.
 
 ---
 
