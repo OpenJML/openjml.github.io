@@ -2,9 +2,14 @@
 layout: default
 title: OpenJML for Visual Studio Code
 ---
+
 <!-- SYNC: This file and OpenJML/OpenJMLlsp/vscode-extension/README.md are kept as
      strict copies of each other (README.md has a Markdown heading instead of this
      Jekyll front-matter header).  Edit one and apply the same change to the other. -->
+
+# VSCode extension for OpenJML
+
+This VSCode extension provides
 JML specification type-checking and extended static checking (ESC) for Java,
 powered by the [OpenJML](https://www.openjml.org) tool.
 
