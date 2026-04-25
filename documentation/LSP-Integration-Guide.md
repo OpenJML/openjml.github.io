@@ -1256,7 +1256,8 @@ in the future. Sorted alphabetically by method name.
 | `textDocument/codeAction/resolve` | Not relevant — lazy-resolves additional detail for a previously returned code action; not applicable while `textDocument/codeAction` itself is unimplemented |
 | `textDocument/colorPresentation`, `textDocument/documentColor` | Not relevant — color-picker protocol for CSS/HTML; Java and JML source files contain no color values |
 | `textDocument/completion/resolve` | Not relevant — lazy-resolves additional detail (e.g. documentation) for a completion item that was intentionally left sparse; OpenJML completion items are fully populated on first request, so resolution is never needed |
-| `textDocument/diagnostic`, `workspace/diagnostic`, `workspace/diagnostic/refresh` | Not relevant — pull-model diagnostics (LSP 3.17); OpenJML publishes diagnostics proactively via `textDocument/publishDiagnostics` (push model), making the pull model redundant |
+| `textDocument/diagnostic`, `workspace/diagnostic` | Not relevant — pull-model diagnostics (LSP 3.17); OpenJML publishes diagnostics proactively via `textDocument/publishDiagnostics` (push model), making the pull model redundant |
+| `workspace/diagnostic/refresh` | The server does not send this notification; it would tell clients to re-pull diagnostics, but OpenJML uses the push model exclusively |
 | `textDocument/documentLink`, `textDocument/documentLink/resolve` | Not relevant — highlights navigable URLs and file links inside source; not applicable to Java/JML compilation workflows |
 | `textDocument/formatting` | Code formatting; must be JML-comment-aware to avoid corrupting `//@ ` lines |
 | `textDocument/implementation` | Go to implementation |
@@ -1265,7 +1266,7 @@ in the future. Sorted alphabetically by method name.
 | `textDocument/linkedEditingRange` | Not relevant — simultaneous editing of matched tag pairs (e.g. HTML open/close tags); not applicable to Java/JML |
 | `textDocument/moniker` | Not relevant — cross-repository symbol package identifiers for code-intelligence platforms (LSIF/SCIP); not applicable to IDE tooling |
 | `textDocument/onTypeFormatting` | Not relevant — live formatting as the user types; Java formatting is the responsibility of the client's Java language server |
-| `window/progress`, `$/progress`, `window/workDoneProgress/create`, `window/workDoneProgress/cancel` | Progress reporting for long-running check and ESC operations. `window/workDoneProgress/create` / `cancel` are the server-initiated variants for client-managed progress tokens; neither is currently sent |
+| `window/progress`, `$/progress`, `window/workDoneProgress/create`, `window/workDoneProgress/cancel` | The server does not send these notifications. They would report progress on long-running check and ESC operations; clients currently infer progress from `publishDiagnostics` and code lens updates |
 | `window/showDocument` | Not relevant — server-to-client request to open an arbitrary URI in the client editor or browser; OpenJML has no need to programmatically open documents on behalf of the user |
 | `textDocument/rangeFormatting` | Range-based formatting |
 | `textDocument/selectionRange` | Expand selection to the enclosing syntactic range; could be implemented using the cached AST |
@@ -1275,7 +1276,7 @@ in the future. Sorted alphabetically by method name.
 | `textDocument/prepareTypeHierarchy`, `typeHierarchy/supertypes`, `typeHierarchy/subtypes` | Not relevant — complex to implement; Java IDEs provide structural type hierarchy natively; JML spec-inheritance tracing does not yet warrant a dedicated implementation |
 | `textDocument/willSave`, `textDocument/willSaveWaitUntil` | Not relevant — pre-save hooks for server-side processing before disk write; `textDocument/didSave` covers all post-save check needs |
 | `workspace/applyEdit` | Not relevant — server-initiated bulk edit applied by the client; OpenJML returns rename edits directly in the `textDocument/rename` response rather than pushing them via `workspace/applyEdit` |
-| `workspace/configuration` | Not relevant — client-initiated pull of per-section configuration; OpenJML uses a push model (`workspace/didChangeConfiguration`) so the server never requests configuration from the client |
+| `workspace/configuration` | The server does not send this request. It is a server-initiated pull of per-section configuration from the client; OpenJML uses the push model (`workspace/didChangeConfiguration`) so it never needs to request configuration |
 | `workspace/didCreateFiles`, `workspace/didDeleteFiles`, `workspace/didRenameFiles` | Not relevant — file-system operation notifications; file changes are handled via `workspace/didChangeWatchedFiles` |
 | `workspace/willCreateFiles`, `workspace/willDeleteFiles`, `workspace/willRenameFiles` | Not relevant — pre-operation file-system hooks; no server-side processing is needed before file creation, deletion, or OS-level rename |
 | `workspaceSymbol/resolve` | Not relevant — lazy-resolves additional detail (e.g. `location`) for a workspace symbol that was returned with partial data; OpenJML workspace symbol results are fully populated on first request |
