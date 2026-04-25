@@ -1260,7 +1260,7 @@ in the future. Sorted alphabetically by method name.
 | `textDocument/documentLink`, `textDocument/documentLink/resolve` | Not relevant — highlights navigable URLs and file links inside source; not applicable to Java/JML compilation workflows |
 | `textDocument/formatting` | Code formatting; must be JML-comment-aware to avoid corrupting `//@ ` lines |
 | `textDocument/implementation` | Go to implementation |
-| `workspace/inlayHint/refresh` | Server-initiated hint refresh; not implemented |
+| `workspace/inlayHint/refresh` | The server does not send this notification; inlay hints are re-requested by the client on demand and do not depend on check results |
 | `textDocument/inlayHint/resolve` | Not relevant — lazy-loads additional hint detail for complex hints; OpenJML hints are simple type strings and contain complete data on first request |
 | `textDocument/linkedEditingRange` | Not relevant — simultaneous editing of matched tag pairs (e.g. HTML open/close tags); not applicable to Java/JML |
 | `textDocument/moniker` | Not relevant — cross-repository symbol package identifiers for code-intelligence platforms (LSIF/SCIP); not applicable to IDE tooling |
