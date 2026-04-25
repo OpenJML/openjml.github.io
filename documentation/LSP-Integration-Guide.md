@@ -512,11 +512,9 @@ Type names are shortened identically to the hover case above.
   LSP inlay hints from OpenJML are also shown depends on the LSP plugin in use;
   `client: "intellij"` defaults to `"jml-only"` as a conservative default.
 - **Eclipse with OpenJMLUI**: LSP4E does not route `textDocument/inlayHint` responses
-  to the JDT Java editor.  The OpenJMLUI plugin works around this via a direct call
-  from a code mining provider, but `LineContentCodeMining` does not visually render
-  in the JDT Java editor from external providers.  The inferred type is accessible
-  instead via the hover described above.  `client: "eclipse-jdt"` defaults to
-  `"jml-only"`.
+  to the JDT Java editor; the inferred type is accessible instead via the hover described
+  above.  See [Inlay hints → code mining](#eclipse-inlay-hints) in the Eclipse
+  Plugin Notes.
 
 ### Code Lens Refresh — `workspace/codeLens/refresh` (server → client)
 
@@ -632,8 +630,8 @@ support, not by this server.
 If the document has not yet been opened (content not in memory), the server reads it
 from disk.
 
-**Eclipse plugin note:** Eclipse handles folding outside of the server's standaqrd LSP
-conventions, as decribed in the Eclipse-specific notes at the end of this document.
+**Eclipse plugin note:** Eclipse handles folding outside the standard LSP path.
+See [Folding → `JmlFoldingManager`](#eclipse-folding) in the Eclipse Plugin Notes.
 
 ### Semantic Tokens — `textDocument/semanticTokens/full`
 
@@ -725,16 +723,10 @@ Non-VS Code clients should use this standard request. See
 [`openjml.getSemanticTokens`](#openjmlgetsemantictokens) for the VS Code-specific
 alternative.
 
-**Implications for generic clients:** None for the standard semantic token request.
-Generic clients receive JML semantic tokens via `textDocument/semanticTokens/full`
-through the normal LSP negotiation path. The Eclipse plugin's `JmlColorizer` is a
-workaround for JDT's presentation layer intercepting LSP4E's token delivery for `.java`
-files, and for LSP4E's semantic token reconciler not re-firing after `publishDiagnostics`.
-A generic client with proper semantic token support gets the equivalent result through
-the standard path. One potential improvement: the server could send
-`workspace/semanticTokens/refresh` after each `--check` completes, signaling
-well-behaved clients to re-request tokens without needing a client-side workaround.
-This is not yet implemented.
+**Eclipse plugin note:** Uses a client-side workaround (`JmlColorizer`) because LSP4E's
+semantic token reconciler does not target the JDT Java editor; see
+[Semantic tokens → `JmlColorizer`](#eclipse-semantic-tokens) in the Eclipse
+Plugin Notes.
 
 ### Go to Definition — `textDocument/definition`
 
@@ -807,28 +799,12 @@ support would require resolving the receiver expression using OpenJML's
 `Resolve`/`Symtab` infrastructure. Eclipse's own JDT parameter hints
 (`Ctrl+Shift+Space`) handle cross-class calls for Java code.
 
-**Eclipse behavior in `.java` files.** Eclipse's JDT Java editor suppresses
-LSP4E's automatic `(` / `,` trigger inside comment partitions
-(`__java_singleline_comment`, `__java_multiline_comment`).  The OpenJML Eclipse
-plugin works around this by installing `JmlAutoEditStrategy` on every `.java`
-editor when it is first activated.  This strategy intercepts `(` and `,`
-keystrokes inside JML regions (lines beginning with `//@` or inside open `/*@`
-blocks) and sends a `textDocument/signatureHelp` request directly, displaying the
-result in a popup adjacent to the cursor.  This restores automatic popup behavior
-for JML annotations such as `//@ assert m(` or `/*@ requires foo(bar,`.
-
-If the popup does not appear automatically (for example, outside a recognized JML
-region), the user can invoke the `Jml Parameter Hints`
-Eclipse command directly by binding a key combination to it in the Eclipse key
-preferences.
-
-Standalone `.jml` files are opened in the Generic Editor where LSP4E's standard
-trigger characters fire normally without any workaround.
-
-**Implications for generic clients:** Standard LSP clients honor `(` and `,` as
-trigger characters in all editing contexts, including inside comment-like regions,
-so the workaround above is not needed.  JDT's comment partition suppression is an
-Eclipse-specific limitation; no server-side change is required.
+**Eclipse behavior in `.java` files:** Eclipse's JDT Java editor suppresses LSP4E's
+automatic `(` / `,` trigger inside comment partitions, so LS signature help does not pop
+up automatically inside JML annotations. See
+[Signature help limitation](#signature-help-limitation) in the Eclipse Plugin Notes
+for a description of the Eclipse workaround for `.java` files.
+Standalone `.jml` files opened in the Generic Editor are unaffected.
 
 ### Workspace Symbols — `workspace/symbol`
 
@@ -839,8 +815,8 @@ Without a project filter, all indexed projects are searched.
 **Project-filtered query encoding:** To restrict results to a single project without
 using a custom command, encode the project root into the query string as
 `"<projectRoot>\n<identifier>"` (project path, a newline character, then the actual
-search term). The server detects the newline and limits the search to that project's
-nav section. Generic clients that search all projects should pass a plain query string.
+search term). The server detects the newline and limits the search to that project. 
+Generic clients that search all projects should pass a plain query string.
 For multi-project clients, prefer `openjml.symbolsForProject`, which takes an explicit
 project ID and avoids the encoding convention.
 
@@ -945,15 +921,15 @@ command:   "openjml.runEsc"
 arguments: ["<projectId>", "<path1>", "<path2>", ...]
 ```
 
-Cancels any currently running ESC for the same URIs. Marks all methods as CHECKING
-immediately. As each method's proof finishes, its code lens is updated in real time
+Cancels any currently running ESC for the same URIs. As each method's proof finishes, its code lens is updated in real time
 (via `IProofResultListener`) so the user sees individual methods flip from
-⧗ Checking… to their final state rather than all updating at once. Accumulated
-diagnostics are also published progressively per file. A final pass after the run
-reconciles any remaining state.
+⧗ Checking… to their final state rather than all updating at once after all proofs are complete. Accumulated
+diagnostics are also published progressively per file.
 
-A path that starts with `file://` is treated as a document URI and checked against
-in-memory content rather than the on-disk file.
+Arguments must be OS file-system paths or directories. If a path starts with `file:///`
+or `file://` the prefix is stripped automatically. Any file that has unsaved changes
+(is open in the editor with a dirty buffer) is always checked against in-memory content
+rather than the on-disk file.
 
 ### `openjml.runEscForMethod`
 
@@ -976,7 +952,7 @@ detected automatically.
 
 **Method FQN**: the unique per-project identifier produced by
 `Utils.uniqueSymbolName`, e.g. `com.example.MyClass.add(int,int)`.  It includes
-the fully qualified class name and the erased parameter types, so overloaded
+the fully qualified class name and parameter types without formal parameter names, so overloaded
 methods are always distinguished.
 
 **`@line` fallback**: if the client does not have the FQN (e.g. before the first
@@ -1554,7 +1530,7 @@ annotations per method.  `OpenJMLCodeMiningProvider` guards against this with a
 generation counter: only the latest generation's result is applied; earlier ones return
 an empty list so Eclipse discards any stale minings.
 
-### Inlay hints → code mining
+### Inlay hints → code mining {#eclipse-inlay-hints}
 
 LSP4E does not route `textDocument/inlayHint` responses to the JDT Java editor.
 `OpenJMLInlayHintProvider` therefore implements Eclipse's `AbstractCodeMiningProvider`
@@ -1563,7 +1539,7 @@ adapts the `InlayHint` objects into `LineContentCodeMining` annotations rendered
 Eclipse's code mining framework.  The rendering position (immediately after the variable
 name) and label format (`: TypeName`) match the LSP spec.
 
-### Folding → `JmlFoldingManager`
+### Folding → `JmlFoldingManager` {#eclipse-folding}
 
 LSP4E's folding reconciling strategy requires projection (fold annotation) support to
 be enabled on the editor before the reconciler is installed.  There is no suitable
@@ -1577,7 +1553,7 @@ structural folds (methods, imports, Javadoc) in the same `ProjectionAnnotationMo
 For `.jml` files opened in the Generic Editor, `JmlFoldingManager` provides all
 folding.
 
-### Semantic tokens → `JmlColorizer`
+### Semantic tokens → `JmlColorizer` {#eclipse-semantic-tokens}
 
 LSP4E's semantic-token reconciling strategy targets only the Generic Editor, not the
 JDT Java editor.  For `.java` files the server's `textDocument/semanticTokens/full`
@@ -1589,7 +1565,7 @@ directly to the JDT source viewer's presentation reconciler.  It reads the user'
 preferences from the OpenJML preference page.  For `.jml` files opened in the Generic
 Editor, semantic tokens arrive via the normal LSP4E path.
 
-### Hover → `OpenJMLJavaHover`
+### Hover → `OpenJMLJavaHover` {#eclipse-hover}
 
 LSP4E's built-in `LSPTextHover` is registered via `genericeditor.hoverProviders`, which
 only fires for the Generic Editor — not for the JDT Java editor.  `OpenJMLJavaHover`
