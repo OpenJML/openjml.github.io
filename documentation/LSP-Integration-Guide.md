@@ -723,6 +723,12 @@ Non-VS Code clients should use this standard request. See
 [`openjml.getSemanticTokens`](#openjmlgetsemantictokens) for the VS Code-specific
 alternative.
 
+**`workspace/semanticTokens/refresh`**: After each `--check` or ESC pass completes,
+the server sends `workspace/semanticTokens/refresh` to signal clients to re-request
+tokens.  This is conditional on the client advertising
+`workspace.semanticTokens.refreshSupport: true` in its `ClientCapabilities` during
+`initialize`; if that flag is absent or false the notification is suppressed.
+
 **Eclipse plugin note:** Uses a client-side workaround (`JmlColorizer`) because LSP4E's
 semantic token reconciler does not target the JDT Java editor; see
 [Semantic tokens → `JmlColorizer`](#eclipse-semantic-tokens) in the Eclipse
@@ -1254,7 +1260,7 @@ in the future. Sorted alphabetically by method name.
 | `textDocument/documentLink`, `textDocument/documentLink/resolve` | Not relevant — highlights navigable URLs and file links inside source; not applicable to Java/JML compilation workflows |
 | `textDocument/formatting` | Code formatting; must be JML-comment-aware to avoid corrupting `//@ ` lines |
 | `textDocument/implementation` | Go to implementation |
-| `workspace/inlayHint/refresh` | Server-initiated hint refresh; would complement `workspace/semanticTokens/refresh` |
+| `workspace/inlayHint/refresh` | Server-initiated hint refresh; not implemented |
 | `textDocument/inlayHint/resolve` | Not relevant — lazy-loads additional hint detail for complex hints; OpenJML hints are simple type strings and contain complete data on first request |
 | `textDocument/linkedEditingRange` | Not relevant — simultaneous editing of matched tag pairs (e.g. HTML open/close tags); not applicable to Java/JML |
 | `textDocument/moniker` | Not relevant — cross-repository symbol package identifiers for code-intelligence platforms (LSIF/SCIP); not applicable to IDE tooling |
@@ -1265,7 +1271,6 @@ in the future. Sorted alphabetically by method name.
 | `textDocument/selectionRange` | Expand selection to the enclosing syntactic range; could be implemented using the cached AST |
 | `textDocument/semanticTokens/full/delta` | Incremental token diff; an optimization that avoids retransmitting unchanged tokens on each edit |
 | `textDocument/semanticTokens/range` | Viewport-range token request; useful for very large files where full tokenization would be expensive |
-| `workspace/semanticTokens/refresh` | Server-initiated token refresh; would signal clients to re-request tokens after `--check` completes, eliminating the need for client-side workarounds |
 | `textDocument/typeDefinition` | Go to type definition |
 | `textDocument/prepareTypeHierarchy`, `typeHierarchy/supertypes`, `typeHierarchy/subtypes` | Not relevant — complex to implement; Java IDEs provide structural type hierarchy natively; JML spec-inheritance tracing does not yet warrant a dedicated implementation |
 | `textDocument/willSave`, `textDocument/willSaveWaitUntil` | Not relevant — pre-save hooks for server-side processing before disk write; `textDocument/didSave` covers all post-save check needs |
