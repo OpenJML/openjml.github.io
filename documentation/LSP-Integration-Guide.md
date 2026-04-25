@@ -1207,17 +1207,17 @@ Folder URIs clear all files whose URI starts with that prefix.  The server clear
 internal diagnostic state for matching URIs and sends `publishDiagnostics` with an
 empty list so the client removes the visible annotations.
 
-### `openjml.clearMarkersSelected` (VS Code extension UI command — not a server command)
-
-Clears OpenJML diagnostics for a specific set of files or folders selected in the
-Explorer, rather than workspace-wide.  This is a VS Code extension–level command;
-the string `openjml.clearMarkersSelected` is **never sent to the server**.
-
-When the user triggers it from the Explorer context menu, the extension resolves the
-selected URIs (including multi-select) into a flat list of file URIs via
-`resolveTargetPaths`, then sends a single `workspace/executeCommand` with
-`openjml.clearMarkersForUris` and those URIs as arguments.  Other clients should
-implement the same pattern.
+**Client UI wiring:** Clients typically expose this command through a user-visible
+menu action that converts the current UI selection into the URI list.  Both the VS Code
+extension and the Eclipse plugin do this: VS Code registers an `openjml.clearMarkersSelected`
+command bound to the Explorer context menu, which resolves the selected items (supporting
+multi-select) into file/folder URIs and then calls `openjml.clearMarkersForUris`; the
+Eclipse plugin similarly binds a "Clear Markers (Selected)" menu entry in the Package
+Explorer, Project Explorer, and editor context menus that resolves the Eclipse
+`IResource` selection to URIs and calls the same server command.  The command string
+`openjml.clearMarkersSelected` (VS Code) and
+`org.jmlspecs.openjml.commands.clearMarkersSelected` (Eclipse) are client-level names
+that never reach the server.
 
 ---
 
