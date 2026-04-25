@@ -633,7 +633,7 @@ from disk.
 **Eclipse plugin note:** Eclipse handles folding outside the standard LSP path.
 See [Folding → `JmlFoldingManager`](#eclipse-folding) in the Eclipse Plugin Notes.
 
-### Semantic Tokens — `textDocument/semanticTokens/full`
+### Semantic Tokens — `textDocument/semanticTokens/full` {#semantic-tokens-full}
 
 Returns full-file semantic token data.  The server's token legend (returned in
 `ServerCapabilities.semanticTokensProvider.legend`) is:
@@ -1317,7 +1317,8 @@ If OpenJML exits with code 3 or 4 (catastrophic error), the server marks all met
 as `Check error` and publishes whatever diagnostics were collected before the failure.
 
 If OpenJML exits with code 2 (bad command-line arguments), a message is written to
-the debug log; this always indicates a bug in the server.
+the debug log. Such an error indicates a malformed tool option, 
+which might be either because of a server bug or invalide user input.
 
 ---
 
@@ -1424,7 +1425,7 @@ The vscode-languageclient library's built-in semantic tokens feature competes wi
 This approach merges the JML tokens additively on top of whatever Red Hat produces.
 The legend registered with VS Code **must exactly match the server's legend** — all 21
 token type names in index order, then the 10 modifier names in index order
-(see the [Semantic Tokens](#semantic-tokens----textdocumentsemantictokensfull) section
+(see the [Semantic Tokens](#semantic-tokens-full) section
 above for the full table).  A mismatch causes incorrect colors for any token type whose
 index differs between client and server legends.
 
@@ -1457,9 +1458,9 @@ unsaved edits:
 
 | Value | Behavior |
 |---|---|
-| `"ask"` (default) | Prompt the user each time: save and run, or run on the saved disk copy |
+| `"ask"` (default) | Prompt the user each time: save and run, or run on the edited content |
 | `"save"` | Always save silently first, then run ESC on the saved content |
-| `"run"` | Always run ESC on the saved disk copy without saving the unsaved edits |
+| `"run"` | Always run ESC on the edited content without saving the unsaved edits |
 
 This setting interacts with `openjml.saveAndRunEsc`: that command always saves first
 regardless of `dirtyFileAction`, making it the preferred shortcut when the user wants
@@ -1512,7 +1513,7 @@ the lens whose range starts at or above the cursor line with command
 arguments (the `Utils.uniqueSymbolName` form, e.g. `com.example.MyClass.add(int,int)`),
 which the server's AST scanner computed and embedded when building the code lenses.
 This approach correctly resolves methods in secondary classes and nested classes without
-any client-side regex.  Generic clients can use the same mechanism or read the FQN from
+any client-side matching.  Generic clients can use the same mechanism or read the FQN from
 the code lens command arguments directly.
 
 ### Explorer context menu
