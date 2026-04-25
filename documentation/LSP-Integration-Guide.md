@@ -1012,7 +1012,7 @@ targeted run — no further methods are attempted after cancellation.
 
 ```
 command:   "openjml.cancelEsc"
-arguments: ["<target>"]
+arguments: ["<projectId>", "<target>"]
 ```
 
 `target` controls what is cancelled:
@@ -1037,7 +1037,7 @@ and the method is reported `Cancelled`, but no further proofs are prevented.
 
 ```
 command:   "openjml.abortCurrentProof"
-arguments: ["<target>"]
+arguments: ["<projectId>", "<target>"]
 ```
 
 `target` uses the same format as `openjml.cancelEsc`.  If the target identifies a
@@ -1062,8 +1062,11 @@ string (per-method ESC), where `<method-fqn>` is the same FQN used in
 
 ```
 command:   "openjml.getRunningEscTasks"
-arguments: []
+arguments: ["<projectId>"]
 ```
+
+When `projectId` is non-empty, the server filters the returned list to tasks whose
+URI belongs to that project.  Pass `""` to return all running tasks.
 
 Clients can use this to populate a cancellation UI (e.g. a checklist dialog or
 Quick Pick) before calling `openjml.cancelEsc` or `openjml.abortCurrentProof`.
@@ -1086,10 +1089,6 @@ When `projectId` matches a project registered via the `projects` settings array,
 that project's `rootPaths` are indexed.  An absent or empty `projectId` indexes all
 configured projects.
 
-**Eclipse plugin:** exposed as the "Index Project" item in the OpenJML main menu,
-editor popup, and Package Explorer context menu.  Intended for use before "Find All
-Declarations" to ensure files that have not yet been opened are covered by the index.
-
 ### `openjml.symbolsForProject`
 
 Return `workspace/symbol`-style declarations filtered to a single project.  This is the
@@ -1098,21 +1097,20 @@ a project root into the `workspace/symbol` query string.
 
 ```
 command:   "openjml.symbolsForProject"
-arguments: ["<query>", "<projectId>"]
+arguments: ["<projectId>", "<query>"]
 ```
 
 | Argument | Description |
 |---|---|
-| `query` | Symbol name substring to search (case-insensitive; empty = return all). |
 | `projectId` | Project identifier from the `projects` settings array.  When absent or empty, symbols from all projects are returned.  An unknown ID is reported as an error. |
+| `query` | Symbol name substring to search (case-insensitive; empty = return all). |
 
 Returns a JSON array of `SymbolInformation` objects (same format as `workspace/symbol`).
 Matching behavior is identical to `workspace/symbol`: case-insensitive substring match
-on the simple symbol name.
+on the simple symbol name. Clients may do additional filtering of the returned list.
 
-**Eclipse plugin:** the "Find All Declarations" handler uses this command, passing
-`IProject.getName()` as the project ID.  `workspace/symbol` with the encoded-query
-form remains supported for generic LSP clients that cannot issue custom commands.
+`workspace/symbol` with the encoded-query form remains supported for generic LSP
+clients that cannot issue custom commands.
 
 ### `openjml.focusFile`
 
@@ -1121,8 +1119,13 @@ a `--check` recheck so that stale diagnostics from fixed dependencies are cleare
 
 ```
 command:   "openjml.focusFile"
-arguments: ["<file-uri>"]
+arguments: ["<projectId>", "<file-uri>"]
 ```
+
+| Argument | Description |
+|---|---|
+| `projectId` | Project identifier (same as in the `projects` settings array). Pass `""` for single-project or generic clients. |
+| `file-uri` | `file://` URI of the focused file. |
 
 **Implications for generic clients:** This is a real UX gap for clients that do not
 implement it. Without `openjml.focusFile`, a client that edits file A, switches to
@@ -1154,7 +1157,7 @@ plugin uses the standard protocol via LSP4E's `SemanticTokensClient`.
 
 ```
 command:   "openjml.getSemanticTokens"
-arguments: ["<file-uri>"]
+arguments: ["<projectId>", "<file-uri>"]
 ```
 
 ### `openjml.clearAndReindex`
@@ -1190,6 +1193,20 @@ its display is stale (e.g. after a workspace rebuild) may also clear its own
 annotations independently, before or without waiting for the server's response —
 both approaches are valid and complementary. Takes no arguments.
 
+### `openjml.clearMarkersForUris`
+
+Clears OpenJML diagnostics for a specific set of files or folders, without affecting
+diagnostics for other files.
+
+```
+command:   "openjml.clearMarkersForUris"
+arguments: ["<projectId>", "<uri1>", "<uri2>", ...]
+```
+
+Folder URIs clear all files whose URI starts with that prefix.  The server clears its
+internal diagnostic state for matching URIs and sends `publishDiagnostics` with an
+empty list so the client removes the visible annotations.
+
 ### `openjml.clearMarkersSelected` (VS Code extension UI command — not a server command)
 
 Clears OpenJML diagnostics for a specific set of files or folders selected in the
@@ -1197,10 +1214,10 @@ Explorer, rather than workspace-wide.  This is a VS Code extension–level comma
 the string `openjml.clearMarkersSelected` is **never sent to the server**.
 
 When the user triggers it from the Explorer context menu, the extension resolves the
-selected URIs (including multi-select) into a flat list of file-system paths via
+selected URIs (including multi-select) into a flat list of file URIs via
 `resolveTargetPaths`, then sends a single `workspace/executeCommand` with
-`openjml.clearMarkers` and those paths as arguments.  Other clients should implement
-the same pattern: call `openjml.clearMarkers` with the desired paths.
+`openjml.clearMarkersForUris` and those URIs as arguments.  Other clients should
+implement the same pattern.
 
 ---
 
@@ -1586,6 +1603,11 @@ The server guards against this with a `serverInitialized` flag: `registerFileWat
 is only called from the `initialized` handler, never from `initialize`.  Integrators
 building other Eclipse plugins that use `client/registerCapability` must apply the same
 guard.
+
+### `openjml.symbolsForProject` — "Find All Declarations"
+
+The Eclipse plugin's "Find All Declarations" handler invokes this command, passing
+`IProject.getName()` as the project ID so results are scoped to the active project.
 
 ### Signature help limitation
 
