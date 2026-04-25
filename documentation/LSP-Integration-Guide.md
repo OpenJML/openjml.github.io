@@ -1646,3 +1646,13 @@ the user can invoke via a key binding.
   However, per-folder configuration, cross-folder dependency tracking, and
   `workspace/didChangeWorkspaceFolders` are not implemented.
 
+- **Non-disjoint projects (Eclipse plugin)**: The Eclipse plugin does not support
+  projects whose source roots overlap.  The LSP protocol does not carry project
+  identity in standard notifications (`textDocument/didOpen`, `textDocument/didChange`,
+  etc.), so the server resolves a file's project by matching its URI against the
+  known project root paths.  If two projects share a common root, that lookup is
+  ambiguous and the server may apply the wrong project's settings, publish
+  diagnostics to the wrong project's markers, or cancel ESC tasks across project
+  boundaries.  Each project opened with the OpenJML Eclipse plugin must have a
+  source root that is disjoint from every other open project's source root.
+
