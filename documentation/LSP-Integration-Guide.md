@@ -229,7 +229,7 @@ settings match a given file):
 | `client` | string | `"generic"` | Known-client hint for default tuning. Values: `"generic"` (no assumptions), `"eclipse-jdt"`, `"vscode-java"`, `"intellij"`. When set to a known Java-capable client, `javaMode` defaults to `"jml-only"` unless explicitly overridden. |
 | `escThreads` | integer | `5` | Size of the shared ESC thread pool; bounds how many concurrent ESC tasks (and SMT solver subprocesses) may run simultaneously |
 | `syntaxColoringScope` | string | `"preserve Java coloring"` | Which tokens the semantic-token response covers. `"preserve Java coloring"` — only JML-specific tokens are emitted (use when a co-present Java LS handles Java tokens). `"overwrite Java coloring"` — all tokens (Java + JML) are emitted by the OpenJML server. |
-| `escEngine` | string | `"fresh"` | ESC execution mode. `"fresh"` (default) — spawns a fresh OpenJML compilation context with each ESC task;`"concurrent"` — shares compilation context among different ESC tasks, where appropriate |
+| `escEngine` | string | `"fresh"` | ESC execution mode. `"fresh"` (default) — spawns a fresh OpenJML compilation context with each ESC task;`"concurrent"` — shares compilation context among different ESC tasks, where appropriate. |
 | `toolOptions` | string array | `[]` | Project-independent OpenJML command-line options prepended verbatim to every tool invocation. See [Tool Options](#tool-options) below. |
 | `projects` | array | none | Per-project configuration objects; see [Multi-Project Support](#multi-project-support) below. |
 
@@ -256,7 +256,7 @@ Each element is a `ProjectConfig` object:
 | `specsPath` | string | OpenJML specs path for this project (`--specs-path`). If absent, the global `specsPath` is used. |
 | `outputDir` | string | Directory for RAC-compiled `.class` files (`-d`). Defaults to the IDE project's build output folder. |
 
-A project id that is an empoty string may mean the single default projecdt or that the command applies to all projects.
+A project id that is an empty string may mean the single default projecdt or that the command applies to all projects.
 
 Example:
 
@@ -390,7 +390,7 @@ must contain the complete document text in `contentChanges[0].text`.
 - Stores the updated content.
 - **Marks the file dirty** (adds the URI to an internal dirty-URI set). While a file is
   marked dirty, check or ESC invocations (e.g. `openjml.checkJML` or
-  `openjml.runEsc` on a directory) use the in-memory content for this file instead of
+  `openjml.runEsc`) use the in-memory content for this file instead of
   reading it from disk. This ensures that unsaved edits are included in context-aware
   cross-file checks even before the file is saved.
 - If `checkTriggerOn` is `"edit"`: schedules `--check` with a 500 ms debounce.
@@ -480,11 +480,11 @@ Two cases are handled:
    of a `var`-declared local, the server returns the inferred type as a plain-text
    string of the form `: TypeName` (e.g. `: int`, `: String`).  Type names are
    shortened by stripping `java.lang.`, `org.jmlspecs.lang.internal.` (JML built-in
-   types appear as `\bigint`, <code>\real</code>, etc.), and the containing file's own package
-   prefix.  This hover is always active regardless of `javaMode`.
+   types appear as <code>\bigint</code>, <code>\real</code>, etc.), and the containing file's own package
+   prefix. 
 
 2. **Method declaration / JML spec** — if the cursor is anywhere else inside a method declaration or specs, the
-   server returns the JML specification for the method, formatted as a Markdown code block.
+   server returns the JML specification for the method, formatted as a Markdown code block. This hover is always active regardless of `javaMode`.
 
 Returns null if none of the above conditions are met (e.g. cursor is outside any
 method, or the method has no JML annotations).
@@ -541,9 +541,10 @@ user with a question and wait for a response before proceeding.  Clients should
 support this notification for any server feature, not only the ones listed below.
 
 If the client does not support `window/showMessageRequest` (returns `null`), the
-server treats the response as if the user chose the default (affirmative) action and
-continues.  Clients that ignore the request will therefore see the operation proceed
-without user confirmation.
+server aborts the operation and sends a `window/logMessage` (Info) explaining that
+the operation was aborted because workspace errors were present and no confirmation
+was received.  Clients that do not implement `window/showMessageRequest` will therefore
+see the abort reason in their log/console output.
 
 **Current uses:**
 
@@ -571,18 +572,21 @@ format is:
 | Type/check error | `OpenJML: Check error ↺ Re-run` |
 | Check error in deps | `OpenJML: Check error in other files ↺ Re-run` |
 
-Each code lens embeds the command `openjml.runEscForMethod` with arguments
-`[uri, "name"]`, where `name` is a string that is unique across all methods in
-the project, including methods of anonymous and local classes. A client that supports code lens
-execution can invoke (or cancel) ESC on a single method by sending
-`workspace/executeCommand` with this command and argument.
+Each code lens embeds a command with arguments that identify the method by a string
+that is unique across all methods in the project (`Utils.uniqueSymbolName` form, e.g.
+`com.example.MyClass.add(int,int)`), including methods of anonymous and local classes.
 
-The command is always `openjml.runEscForMethod` regardless of the current status; when
-the method is already CHECKING the server aborts the in-flight proof (via
-`openjml.abortCurrentProof` semantics) instead of starting a new one, so a single
-command handles both Run and Cancel without VS Code treating a command change as a new
-lens and showing duplicates.  Aborting the current proof does not stop a whole-file or
-project ESC run from continuing to the next method.
+The embedded command depends on the current status:
+
+- **Not CHECKING** — command is `openjml.runEscForMethod` with arguments `[uri, "name"]`.
+  A client can invoke ESC on a single method by sending `workspace/executeCommand` with
+  this command and arguments.
+- **CHECKING** — command is `openjml.abortMethodProof` with arguments `["name"]`.
+  This aborts only the in-flight proof for this method and allows the ESC loop to
+  continue to the next method (unlike `openjml.cancelEsc`, which stops the entire run).
+
+Using two distinct commands means clients that re-query code lenses during CHECKING will
+see the command change; clients should not cache the command between refreshes.
 
 The server sends a `workspace/codeLens/refresh` notification whenever method ESC status
 changes (including when a check moves from CHECKING to a final state). A client should
@@ -598,8 +602,8 @@ Two categories of items are offered:
 - **JML keywords** — clause and modifier names (`requires`, `ensures`, `ghost`,
   `invariant`, etc.) — offered when the cursor is inside a JML annotation and the
   partial word does not start with `\`.
-- **Backslash tokens** — built-in JML expressions (`\result`, `\old`, `\forall`,
-  `\nothing`, etc.) — offered when the partial word starts with `\`.
+- **Backslash tokens** — built-in JML expressions (<code>\result</code>, <code>\old</code>, <code>\forall</code>,
+  <code>\nothing</code>, etc.) — offered when the partial word starts with `\`.
 
 Completions are only offered when the cursor is inside a JML annotation context;
 positions in regular Java code return an empty list.
@@ -628,23 +632,8 @@ support, not by this server.
 If the document has not yet been opened (content not in memory), the server reads it
 from disk.
 
-**Eclipse plugin note:** The OpenJMLUI Eclipse plugin does not use this LSP request for
-its folding support.  LSP4E's folding reconciling strategy requires projection (fold
-annotation) support to be enabled on the editor before the reconciler is installed, and
-there is no suitable extension point to guarantee that ordering for either the JDT Java
-editor or the Generic Editor.  Instead, the plugin installs `JmlFoldingManager` directly
-on each editor's `ProjectionViewer` via a part listener, running the same character-scan
-algorithm locally without a server round-trip.  For `.java` files, `JmlFoldingManager`
-folds (JML annotation blocks) coexist with JDT's built-in structural folds (methods,
-imports, Javadoc) in the same `ProjectionAnnotationModel` without interfering.  For
-`.jml` files opened in the Generic Editor, `JmlFoldingManager` provides all folding.
-Other clients that do not have this constraint can use `textDocument/foldingRange`
-normally.
-
-**Implications for generic clients:** None. Generic clients use `textDocument/foldingRange`
-through the standard LSP protocol. The Eclipse plugin's local algorithm is a workaround
-for LSP4E's projection-ordering constraint and does not represent a UX difference from
-what generic clients receive via the server.
+**Eclipse plugin note:** Eclipse handles folding outside of the server's standaqrd LSP
+conventions, as decribed in the Eclipse-specific notes at the end of this document.
 
 ### Semantic Tokens — `textDocument/semanticTokens/full`
 
@@ -1522,6 +1511,95 @@ Explorer multi-select (the `explorerSelection` argument VS Code passes as the se
 argument to Explorer context commands) is handled by `resolveTargetPaths`, which unions
 all selected URIs into a single path list for the server command.
 
+
+---
+
+## Eclipse Plugin Notes
+
+The OpenJMLUI Eclipse plugin (`OpenJML/OpenJMLUI/`) integrates the OpenJML LSP server
+into the Eclipse JDT Java editor via LSP4E.  Several LSP4E limitations required
+workarounds that differ from a generic LSP client.  This section documents them for
+plugin maintainers and authors building similar Eclipse integrations.
+
+### Client identifier and `javaMode` default
+
+The plugin passes `client: "eclipse-jdt"` in `initializationOptions`.  This causes the
+server to default `javaMode` to `"jml-only"`, suppressing capabilities that duplicate
+JDT — Java hover, Java inlay hints for plain `var` locals, and Java-only document
+symbols.  The `openjml.javaMode` preference lets users override this if they want full
+coverage (e.g. when JDT is not active for the relevant file type).
+
+### `workspace/codeLens/refresh` — SWT thread dispatch override
+
+LSP4E's `DefaultLanguageClient.refreshCodeLenses()` wraps `updateCodeMinings()` in
+`CompletableFuture.runAsync()`, which runs on a ForkJoinPool worker thread.  On that
+thread `IWorkbench.getActiveWorkbenchWindow()` returns null (no UI event loop), so the
+update call is silently skipped and code lens badges never refresh.
+
+`OpenJMLLanguageClient` overrides `refreshCodeLenses()` to dispatch via
+`Display.asyncExec()` instead, then walks all open editors through
+`getWorkbenchWindows()` (which works even when Eclipse does not have OS focus) and calls
+`updateCodeMinings()` on each source viewer directly.
+
+A second issue: when the server sends two rapid `workspace/codeLens/refresh`
+notifications (e.g. CHECKING → VERIFIED in quick succession), Eclipse accumulates
+results from both concurrent `provideCodeMinings` futures and displays duplicate badge
+annotations per method.  `OpenJMLCodeMiningProvider` guards against this with a
+generation counter: only the latest generation's result is applied; earlier ones return
+an empty list so Eclipse discards any stale minings.
+
+### Inlay hints → code mining
+
+LSP4E does not route `textDocument/inlayHint` responses to the JDT Java editor.
+`OpenJMLInlayHintProvider` therefore implements Eclipse's `AbstractCodeMiningProvider`
+instead.  It calls `textDocument/inlayHint` directly via the language server proxy and
+adapts the `InlayHint` objects into `LineContentCodeMining` annotations rendered by
+Eclipse's code mining framework.  The rendering position (immediately after the variable
+name) and label format (`: TypeName`) match the LSP spec.
+
+### Folding → `JmlFoldingManager`
+
+LSP4E's folding reconciling strategy requires projection (fold annotation) support to
+be enabled on the editor before the reconciler is installed.  There is no suitable
+extension point to guarantee that ordering for either the JDT Java editor or the Generic
+Editor, so `textDocument/foldingRange` cannot be used via LSP4E.
+
+`JmlFoldingManager` is installed directly on each editor's `ProjectionViewer` via a
+part listener.  It runs the same character-scan algorithm as the server locally, without
+a server round-trip.  For `.java` files, JML folds coexist with JDT's built-in
+structural folds (methods, imports, Javadoc) in the same `ProjectionAnnotationModel`.
+For `.jml` files opened in the Generic Editor, `JmlFoldingManager` provides all
+folding.
+
+### Semantic tokens → `JmlColorizer`
+
+LSP4E's semantic-token reconciling strategy targets only the Generic Editor, not the
+JDT Java editor.  For `.java` files the server's `textDocument/semanticTokens/full`
+response is therefore ignored by LSP4E.
+
+`JmlColorizer` is a client-side implementation that runs the same token-classification
+logic locally (without a server round-trip) and applies `TextAttribute` coloring
+directly to the JDT source viewer's presentation reconciler.  It reads the user's color
+preferences from the OpenJML preference page.  For `.jml` files opened in the Generic
+Editor, semantic tokens arrive via the normal LSP4E path.
+
+### Hover → `OpenJMLJavaHover`
+
+LSP4E's built-in `LSPTextHover` is registered via `genericeditor.hoverProviders`, which
+only fires for the Generic Editor — not for the JDT Java editor.  `OpenJMLJavaHover`
+implements JDT's `IJavaEditorTextHover` interface so it is invoked by JDT's hover
+framework for `.java` files, including positions inside JML comments (`//@ ...`).  It
+calls `textDocument/hover` synchronously (with a 1 500 ms timeout) via the language
+server proxy and extracts the text content from the response.
+
+### Signature help limitation
+
+Eclipse's JDT Java editor suppresses `textDocument/signatureHelp` for `.java` files
+when JDT provides its own parameter hints.  The OpenJML server's signature help
+(JML-aware, shows JML specs in the hint) is therefore not visible in the JDT editor for
+`.java` files.  For `.jml` files opened in the Generic Editor, signature help arrives
+via the normal LSP4E path.  `JmlSignatureHelpHandler` provides a manual workaround that
+the user can invoke via a key binding.
 
 ---
 

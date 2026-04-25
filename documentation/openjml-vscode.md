@@ -107,7 +107,9 @@ color themes apply automatically:
 | `operator` | `==>`, `<==`, `<==>`, `<:`, `+`, `-`, `==`, … |
 | `string` | String literals and text blocks inside JML expressions |
 | `number` | Numeric and character literals inside JML expressions |
+| `macro` | Reserved; not currently emitted |
 | `decorator` | `@Override`, `@NonNull`, and other annotations |
+| `comment` | Reserved; not currently emitted |
 | `method`, `property`, `variable`, `parameter` | Resolved symbols inside JML expressions (AST strategy only) |
 | `class`, `interface`, `enum`, `struct` | Class, interface, enum, and record type references in JML expressions (AST strategy only; `struct` = record) |
 | `namespace` | Package-qualified name prefixes in JML expressions (AST strategy only) |
@@ -116,8 +118,9 @@ color themes apply automatically:
 
 In addition, the declaration site of a symbol (e.g. a ghost field declaration) receives the
 `declaration` modifier, `final` fields and locals receive `readonly`, `static` members
-receive `static`, deprecated symbols receive `deprecated`, and abstract methods and classes
-receive `abstract`.
+receive `static`, deprecated symbols receive `deprecated`, abstract methods and classes
+receive `abstract`, and type references whose fully-qualified name begins with `java.` or
+`javax.` receive `defaultLibrary`.
 
 ### Modes
 
