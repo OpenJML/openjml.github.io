@@ -229,6 +229,7 @@ settings match a given file):
 | `client` | string | `"generic"` | Known-client hint for default tuning. Values: `"generic"` (no assumptions), `"eclipse-jdt"`, `"vscode-java"`, `"intellij"`. When set to a known Java-capable client, `javaMode` defaults to `"jml-only"` unless explicitly overridden. |
 | `escThreads` | integer | `5` | Size of the shared ESC thread pool; bounds how many concurrent ESC tasks (and SMT solver subprocesses) may run simultaneously |
 | `syntaxColoringScope` | string | `"preserve Java coloring"` | Which tokens the semantic-token response covers. `"preserve Java coloring"` — only JML-specific tokens are emitted (use when a co-present Java LS handles Java tokens). `"overwrite Java coloring"` — all tokens (Java + JML) are emitted by the OpenJML server. |
+
 | `escEngine` | string | `"fresh"` | ESC execution mode. `"fresh"` (default) — spawns a fresh OpenJML compilation comntext with each ESC task`. `"concurrent"` — shares compilation context among different ESC tasks, where appropriate |
 | `toolOptions` | string array | `[]` | Project-independent OpenJML command-line options prepended verbatim to every tool invocation. See [Tool Options](#tool-options) below. |
 | `projects` | array | none | Per-project configuration objects; see [Multi-Project Support](#multi-project-support) below. |
