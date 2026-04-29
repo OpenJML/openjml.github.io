@@ -248,7 +248,8 @@ These are the JSON keys the client may set in `initializationOptions` or
 | `specsPath` | string | (empty) | For generic clients: user-supplied specs path addition. |
 | `javaOutputDir` | string | (empty) | The IDE's Java compiler output directory. Used in VS Code/generic mode to build the classpath and as the default RAC `-d`. |
 | `racOutputDir` | string | (empty) | RAC output directory (`-d`). If empty, falls back to `javaOutputDir`. |
-| `workspaceFolderPaths` | string | **required for a generic client (may be an empty string)** | **Mode selector.** Non-null (including empty string) signals a generic client (including VSCode): the server assembles the effective paths; null means non-generic clenet: the cxlient assembles the paths. |
+| `genericMode` | boolean | `true` | **Mode selector.** `true` (default) — generic/VS Code client: the server assembles effective paths from the component fields. `false` — non-generic client (e.g. Eclipse/JDT): paths are pre-assembled by the client; the server uses them verbatim. Generic clients may omit this field; the default is the right behavior for any client that is not pre-assembling paths. |
+| `workspaceFolderPaths` | string | (empty) | For generic clients: OS path-separator-delimited list of workspace folder roots, used to assemble the server-side sourcepath. Send `""` when no folders are open. |
 
 ### Multi-Project Support
 
@@ -256,8 +257,10 @@ The server supports multiple independent projects within a single workspace.  Ea
 project has a unique identifier (the project id) and is a separate compilation domain
 with its own source folders, classpath, and specs path.
 
+**A multi-project client must be non-generic (genericMode=false).**
+
 VS Code and other generic clients are treated as single-project workspaces.  The server
-synthesizes a default project with an empty-string project id from the LSP workspace
+synthesizes a default project with a default project id from the LSP workspace
 folders at initialization time, so the same per-project dispatch path is used for all
 clients.  An empty project id in a command argument either identifies this synthesized
 default project or signals that the command applies to all projects.
@@ -307,7 +310,7 @@ Example:
 ```
 
 When a project list is configured:
-- When no owning project id is known, the server maps afile URI to the project whose `rootPaths` contains
+- When no owning project id is known in a command, the server maps a file URI to the project whose `rootPaths` contains
   the file's path.  If no project matches, global settings are used.
 - File-watcher events are scoped to the union of all projects' `rootPaths`.
 - Commands that name a `projectId` are dispatched using that project's settings.
@@ -329,27 +332,25 @@ required from the end user.
 
 **Paths:** The classpath, sourcepath, and specspath are project-specific quantities that
 each client IDE manages in its own way.  The server supports two modes, selected by
-the `workspaceFolderPaths` field:
+the `genericMode` field:
 
-**Generic-client mode** (`workspaceFolderPaths` is non-null — set to `""`
-when no folders are open, or to an OS path-separator-delimited list of workspace folder
-paths).  The server assembles effective paths from client-supplied additions plus
-workspace state:
+**Generic-client mode** (`genericMode` is `true` — the default).
+The server assembles effective paths from client-supplied additions plus workspace state:
 
 - **classpath** — `classPath` (user additions) + `javaOutputDir` + `racOutputDir` (if non-empty and different from `javaOutputDir`).
 - **sourcepath** — `sourcePath` (user additions) + `workspaceFolderPaths`.
-- **specspath** — if `specsPath` is empty, no `--specs-path` is passed (OpenJML uses its default: sourcepath + built-in specs). 
+- **specspath** — if `specsPath` is empty, no `--specs-path` is passed (OpenJML uses its default: sourcepath + built-in specs).
   If `specsPath` is non-empty, it is prepended to the assembled sourcepath and the combined result is passed as `--specs-path`.
 
-**Non-generic client mode** (`workspaceFolderPaths` is null — absent from the JSON).
-The client (e.g., the Eclipse plugin) assembles paths completely before sending them.
+**Non-generic client mode** (`genericMode` is `false`).
+The client (e.g., the Eclipse plugin) assembles per-project paths completely before sending them.
 The server uses `sourcePath`, `classPath`, and `specsPath` verbatim (after env-var
 expansion) and does not append workspace folders.  The client must include the output
 directory, all dependency sources, and any JAR files in the appropriate paths.
 
 In both modes:
 - Environment variable references (`$VARNAME`, `${VARNAME}`, or `$(VARNAME)`) in any path field are expanded by the server before the path is passed to OpenJML.
-- The server temporarily prepends a scratch folder to the sourcepath while unsaved editor content is in use, so that `--check` and `--esc` see the current in-memory content for dirty files.
+- The server may temporarily prepend a scratch folder to the sourcepath and specspath while unsaved editor content is in use, so that `--check` and `--esc` see the current in-memory content for dirty files.
 - The specspath always implicitly includes (at its end) the built-in system library specifications bundled with OpenJML, whether or not an explicit `--specs-path` is passed.
 
 If multiple projects are configured, each project's `ProjectConfig` carries its own
