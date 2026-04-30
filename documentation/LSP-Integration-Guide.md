@@ -39,6 +39,15 @@ The server process may spawn one or more subprocesses to execute SMT proof check
 Any diagnostics, perhaps accumulated,
 are sent to the client using a `textDocument/publishDiagnostics` notification.
 
+**Multi-server clients.**
+The LSP specification permits a client to connect to more than one language server simultaneously.
+This server implementation is unaware of, and does not preclude, any sibling servers a client may manage.
+However, because the OpenJML server spawns multiple threads and may launch several compute-intensive SMT
+solver subprocesses, running multiple OpenJML server instances concurrently would rapidly exhaust CPU and
+memory resources on typical developer hardware.
+For this reason, the clients built for OpenJML — the VS Code extension and the Eclipse plugin — each
+maintain exactly one server instance per client session.
+
 ---
 
 ## OpenJML
