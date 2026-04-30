@@ -1218,7 +1218,6 @@ annotations independently, before or without waiting for the server's response â
 both approaches are valid and complementary. Takes no arguments.
 
 ### `openjml.clearMarkersForUris`
->
 
 Clears OpenJML diagnostics for a specific set of files or folders, without affecting
 diagnostics for other files.
