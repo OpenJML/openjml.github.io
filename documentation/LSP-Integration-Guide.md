@@ -87,17 +87,6 @@ The script expects one of two layouts:
   `OpenJMLsrc/build/*/jdk` and `build/openjml-lsp.jar` from the `OpenJMLlsp` directory.
   An OpenJML development environment, as described in the OpenJML wiki pages, has this layout.
 
-FIXME: double-check all the above paths
-
-### Required Files
-
-| File | Purpose |
-|---|---|
-| `openjml-lsp` | Server launcher script |
-| `lsp/openjml-lsp.jar` | Server logic |
-| `lsp/org.eclipse.lsp4j-1.0.0.jar` | LSP4J protocol library |
-| `lsp/org.eclipse.lsp4j.jsonrpc-1.0.0.jar` | JSON-RPC transport |
-| `jdk/bin/java` | JDK used to run the server (bundled with OpenJML) |
 
 ### Environment Variables
 
@@ -109,7 +98,6 @@ The launcher sets these if not already present in the environment:
 | `OPENJML_SPECS` | `$OPENJML_INSTALL/specs` | Path to bundled JML specification files |
 | `OPENJML_SOLVERS` | `$OPENJML_INSTALL` | Directory containing SMT solver binaries |
 | `OPENJML_LSP_LOG` | fixed value (cf. "Error Handling and Logging") | Destination file for server log messages |
-| `OPENJML_SERVER_PATH` | _(unset)_ | Client-side: when set, overrides all other server-path discovery and points directly to the `openjml-lsp` script; useful during extension development (e.g. via `launch.json`) |
 
 The default values of the environment variables are sufficient in nearly all circumstances.
 A client may override any of these before spawning the server process.
