@@ -80,7 +80,7 @@ The second states that for _some_ index within the array, the value at that inde
 * `(\forall ...; R; V)` is the same as `(\forall ...;; R ==> V)`
 * `(\exists ...; R; V)` is the same as `(exists ...;; R && V)`
 
-However separating `R` and `V` makes it easier to have an efficient implementation for runtime-assertion-checking. Note that if the range predicate is false (for example if the array `a` has length 0 in `(\forall int i; 0 <= i < a.length; V)`, then as in logic a forall expression will be true, but the exists expression `(\forall int i; 0 <= i < a.length; V)` will be false.
+However separating `R` and `V` makes it easier to have an efficient implementation for runtime-assertion-checking. Note that if the range predicate is false (for example if the array `a` has length 0 in `(\forall int i; 0 <= i < a.length; V)`, then, as in logic, a forall expression will be true, but the exists expression `(\forall int i; 0 <= i < a.length; V)` will be false.
 
 Although it is good practice, and avoids possible confusion about the scope of the declared variable, JML's syntax does not require one to use parentheses around quantified expressions. Without parentheses, the scope of the declared variable extends as far to the right as possible.
 
@@ -102,7 +102,8 @@ The `\max` and `\min` predicates have the same form except that the value term m
 * `(\max int i; 0 <= i < a.length; a[i])`
 * `(\min int i; 0 <= i < a.length; a[i])`
 
-A first point to note is that these are each equivalent to a pair of forall and exists expressions: `x == (\max ...; R; v)` where `x` has a numeric type `T`,
+A first point to note is that these are each equivalent to a choose expression with a pair of forall and exists subexpressions inside.
+That is, `x == (\max ...; R; v)` where `x` has a numeric type `T`,
 is equivalent to 
 `(\choose T v; (\forall ... ; R; x <= v) && (\exists ... ; R; x == v); v)`. That is, the value of the `\max` expression is a number that is at least as large as all the elements being considered and is equal to at least one of them. Similarly, the value of `x == (\min ...; R; v)` is equivalent to
 `(\choose T v; (\forall ... ; R; v <= x) && (\exists ... ; R; x == v); v)`, where `T` is again the type of `x`. That is, the value of the `\min` expression is a number that is no bigger than all the elements being considered and is equal to at least one of them.
