@@ -26,7 +26,7 @@ In static reasoning, `&` and `|` are simpler to reason about, but
 But JML also adds to Java some new operators and expression syntax. The new operators are these:
 
 * `==>` (implication): this binary operator takes two boolean operands, e.g., `p` and `q`; `p ==> q` is read as "p implies q" and means the same as logical implication, that is, the same as "not p or q". 
-The implication operator is short-circuiting. That is, the value and well-definedness of the right-hand-side is immaterial, unless the left-hand-side is true. In other words, `p ==> q` is precisely eqiuvalent to `!p || q`.
+The implication operator is short-circuiting. That is, the value and well-definedness of the right-hand-side is immaterial, unless the left-hand-side is true. In other words, `p ==> q` is precisely equivalent to `!p || q`.
 The implication operator has lower 
 precedence than `&&` and `||`, so `p && q ==> r || s` means
 `(p && q) ==> (r || s)`. `==>` is *right* associative, so that
@@ -80,27 +80,25 @@ The second states that for _some_ index within the array, the value at that inde
 * `(\forall ...; R; V)` is the same as `(\forall ...;; R ==> V)`
 * `(\exists ...; R; V)` is the same as `(exists ...;; R && V)`
 
-However separating `R` and `V` makes it easier to have an efficient implementation for runtime-assertion-checking. Note that if the range predicate is false (for example if the array `a` has length 0 in `(\forall int i; 0 <= i < a.length; V)`), then as in logic a forall expression will be true, but an exists expression will be false.
+However separating `R` and `V` makes it easier to have an efficient implementation for runtime-assertion-checking. Note that if the range predicate is false (for example if the array `a` has length 0 in `(\forall int i; 0 <= i < a.length; V)`, then as in logic a forall expression will be true, but the exists expression `(\forall int i; 0 <= i < a.length; V)` will be false.
 
 Although it is good practice, and avoids possible confusion about the scope of the declared variable, JML's syntax does not require one to use parentheses around quantified expressions. Without parentheses, the scope of the declared variable extends as far to the right as possible.
 
-These expressions are very commonly used in reasoning about loops, arrays, sequences and sets.
-
-For example, to say that every element of a set `s` (where the elements have type `T`) has the property `P` one could write the following expression: `(\forall T e; e \in s; P(e))`.
+These expressions are very commonly used in reasoning about loops, arrays, sequences and sets. For example, to say that every element of a set `s` (where the elements have type `T`) has the property `P` one could write the following expression: `(\forall T e; e \in s; P(e))`.
 
 ### choose
 
 The `\choose` predicate is similar to the `\exists` predicate. Whereas `(\exists ...\; R; V)` is true if there is some index for which `R && V` is true,
-`\choose` can return that value as the value of the expression. For example, the value of `(\choose int i; 0 <= i < a.length; a[i] == 0)` is an `int` for which the range and predicate are true, that is in this example, for which the array element is 0. The type of the expression is always the type of the declaration of the declared local variable, as that quantified variable's value is returned as the value of the expression when the predicate (`a[i] == 0` in this example) is true.
+`\choose` can return that value (as the value of the expression). For example, the value of `(\choose int i; 0 <= i < a.length; a[i] == 0)` is an `int` for which the range and predicate are true, that is in this example, for which the array element is 0. The type of the expression is always the type of the declaration of the declared local variable, as that quantified variable's value is returned as the value of the expression when the predicate (`a[i] == 0` in this example) is true.
 
-If there is more than one such index, the result of the expression might be any one of them, but it will always the same one for a semantically identical expression.
-But the fact that the value could be any one satisfying the predicate means that any assertion that uses that value must hold for all cases in which the predicate is true. For example in the expression `P(\choose int i; 0 <= i < a.length; a[i] == 0)`, the value of the overall expression should not depend on the value chosen for `i`.
+If there is more than one such value (in our example more than one such index), the result of the expression might be any one of them, but it will always the same one for a semantically identical expression.
+But the fact that the value could be any one satisfying the predicate means that an assertion that uses that value must hold for all cases in which the predicate is true. For example in the expression `P(\choose int i; 0 <= i < a.length; a[i] == 0)`, the value of the overall expression should not depend on the value chosen for `i`.
 
-If `R && V` is always false, that is there is no such index, then the expression is not [well-defined](WellDefinedExpressions). 
+If `R && V` is false, that is there is no such index, then the expression is not [well-defined](WellDefinedExpressions). Thus, to make sure that a `\choose` predicate is always well-defined, one should make sure that the conjunction of the range expression and the value expression (i.e., `R && V`) is never false.
  
 ### max and min
 
-The `\max` and `\min` predicates have the same form except that the value term hmust be numeric, so that the concepts of "maximum" and "minimum" are meaningful. You might ask, for example, for the maximum and minimum values of an array:
+The `\max` and `\min` predicates have the same form except that the value term must be numeric, so that the concepts of "maximum" and "minimum" are meaningful. You might ask, for example, for the maximum and minimum values of an array:
 * `(\max int i; 0 <= i < a.length; a[i])`
 * `(\min int i; 0 <= i < a.length; a[i])`
 
