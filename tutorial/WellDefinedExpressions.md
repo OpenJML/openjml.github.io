@@ -17,41 +17,39 @@ produces this result
 ```
 
 The output here deserves some explanation:
-* First, OpenJML will continue looking for errors until it can find no more, but the order in which the errors are found is non-deterministic. So in fact, the output you obtain by running the example above may have the error messages in a different order.
-* The tool explores all possible paths in the method, using all possible values of the inputs that conform to the preconditions (an implicit pre-condition here is that `a` is non-null --- we'll deal with that later: [null and non-null defaults](Nullness)).
-* Now `a[i]` is well-defined only if `i` is in range for the array `a`. But one possible combination of inputs is that `i` is actually in range, in which case the expression is well-defined and OpenJML goes on to see if the assertion can be proved true. As we know nothing about the values in the array, the assertion cannot be proved true and a verification error message results.
+* First, OpenJML will continue looking for errors until it can find no more, but the order in which the errors are found is not guaranteed. So, the output you obtain by running the example above may have the error messages in a different order.
+* The tool explores all possible paths in the method, using all possible values of the inputs that conform to the preconditions (an implicit precondition here is that `a` is non-null --- which we'll discuss later [null and non-null defaults](Nullness)).
+* Now `a[i]` is well-defined only if `i` is in range for the array `a` (that is, `i` must necessarily be a legal index into `a`). But one possible combination of inputs is that `i` is actually in range, in which case the expression is well-defined and OpenJML goes on to see if the assertion can be proved true. As the precondition says nothing about the values in the array, the assertion cannot be proved true and a verification error message results.
 * The other two cases are when `i` is too large (at least as large as `a.length`) or too small (`i` is negative). In these cases the expression is not well-defined; OpenJML issues verification errors calling out this undefinedness.
 
-The rules for well-definedness of a JML expression build up from the leaves of the expression tree, with any compound expression requiring that each of its sub-expressions be well-defined. Note that even before OpenJML begins its work, an expression must not have any parse or type-checking errors.
+The rules for well-definedness of a JML expression build up from the leaves of the expression tree, with any compound expression requiring that each of its sub-expressions be well-defined. Note that even before OpenJML begins its work, an expression must not have any parse or type-checking errors. The following describes when particular kinds of expressions are well-defined:
 
-* Literals (`true`, `false`, `null`, numbers and literal strings) are all well-defined
-* Correctly resolved identifiers are well-defined
-* The expression `o.f` is well-defined if `o` is well-defined and `o != null` (and the expression is well-typed, that is, `f` is a field of the static type of `o`)
-* `a.length` is well-defined if `a` is well-defined and not null
-* `a[i]` is well-defined if expressions `a` and `i` are well-defined, `a` is not null, and `0 <= i < a.length`
-* all unary and binary operator expressions (excluding `&&` and `||` and `==>`)
- are well-defined if (a) the operands are well-defined, (b) for division (`/`) and modulo (`%`), the right operand is not zero, (c) the result of the operation is in range of the result type (depending on the [arithmetic mode](ArithmeticModes)), and (d) for bit-shift operations (`<<`, `>>`, `>>>`), the value of the right operand is non-negative and less than the number of bits in the type of the left operand
-* the short-circuiting `&&` is well-defined if the left operand is well-defined and, if the left operand is true, the right operand is well-defined
-* the short-circuiting `||` is well-defined if the left operand is well-defined and, if the left operand is false, the right operand is well-defined
+* Literals (`true`, `false`, `null`, numbers and literal strings) are all well-defined,
+* Correctly resolved identifiers are well-defined,
+* A field access expression such as `o.f` is well-defined if the object (`o`) is well-defined and `o != null` (and the expression is well-typed, that is, `f` is a field of the static type of `o`),
+* `a.length` is well-defined if `a` is a well-defined array that is not null,
+* An array access expression such as `a[i]` is well-defined if the array expression (`a`) and the index expression (`i`) are well-defined, `a` is not null, and `0 <= i < a.length`,
+* Unary and binary operator expressions (excluding `&&` and `||` and `==>`)
+ are well-defined if: (a) the operands are all well-defined, (b) for division (`/`) and modulo (`%`), the right operand is not zero, (c) the result of the operation is necessarily in range of the result type (depending on the [arithmetic mode](ArithmeticModes)), and (d) for bit-shift operations (`<<`, `>>`, `>>>`), the value of the right operand is non-negative and less than the number of bits in the type of the left operand
+* The short-circuiting `&&` is well-defined if the left operand is well-defined and, when the left operand is true, then the right operand is well-defined
+* The short-circuiting `||` is well-defined if the left operand is well-defined and, when the left operand is false, then the right operand is well-defined
 * a `==>`  expression is well-defined if the left operand is well-defined and,
 if the left-operand is true, the right operand is well-defined
-* a conditional operator (`p ? q : r`) is well-defined if (a) the condition is well defined and (b) if the condition is true, then the then-expression is well-defined and (c) if the condition is false, then the else-expression is well-defined
-* the `instanceof` expression is well-defined if its left-hand expression is well-defined (the right hand-expression is a type name). Note that the `instanceof` expression is still well-defined if the left-hand expression is `null` and its value will be false.
-* a cast operation (`(T)o`) is well-defined if its argument expression is well-defined (the type being cast to is just a type name). The argument may be `null`, in which case the result of the operation is `null`.
-* a method call expression (`o.m(..)`) or object creation expression (`o.new T(...)`)is well-defined if the receiver expression is either absent or a type name or a well-defined expression and all the arguments are well-defined
-* a switch expression is well-defined if the switch value is well-defined and the selected expression is well-defined. The switch expression is short-circuiting in the sense that any expression for cases that are not selected are not evaluated and so do not need to be well-defined.
+* A conditional operator (`p ? q : r`) is well-defined if: (a) the condition (`p`) is well defined and (b) if the condition is true, then the then-expression (`q`) is well-defined and (c) if the condition is false, then the else-expression (`r`) is well-defined
+* The `instanceof` expression is well-defined if its left-hand expression is well-defined (the right hand-expression is a type name). Note that the `instanceof` expression is still well-defined if the left-hand expression is `null` (in which case the expression's value will be false).
+* A cast operation such as `(T)o` is well-defined if its argument expression (`o`) is well-defined (since the type `T` being cast to is just a type name). (The argument may be `null`, in which case the result of the operation is `null`.)
+* A method call expression such as `o.m(es...)` or object creation expression such as `o.new T(...)` is well-defined if the receiver expression (`o`) is either absent or a type name or a well-defined expression and all the arguments (`es...`) are well-defined
 
-JML statements are well-defined if all their component sub-statements and sub-expressions are well-defined. There is no-short-circuiting, even if the case of if, if-else, or switch statements.
+JML statements are well-defined if all their component sub-statements and sub-expressions are well-defined. That is, for a statement to be well-defined, each part must be well-defined; the even applies to if, if-else, and switch statements.
 
 As for other JML operations
-* singleton JML expression identifiers like `\result` are well-defined expressions (always presuming they are type-correct)
+* singleton JML expression identifiers like `\result` are well-defined expressions (presuming they are type-correct, as always)
 * functional-form JML expressions are well-defined if all expression arguments are well-defined; any additional conditions will be stated when the expression is introduced
-* a [quantified expression](Expressions#QuantifiedExpressions) (`Q x; range; value`) is well-defined if (a) the  range expression is well-defined for all values of the local variable (for its type) and (b) the value expression is well-defined for any value of the local variable for which in range value is true (and for the `\choose` operation, the corresponding `\exists` expression is true)
+* a [quantified expression](Expressions#QuantifiedExpressions) (`Q x; R; V`) is well-defined if (a) the range expression (`R`) is well-defined for all values of the local variable (for its type) and (b) the value expression (`V`) is well-defined for each value of the local variable for which in range value is true (and for the `\choose` operation, the corresponding `\exists` expression is true)
 
+In practice, one can make sure that JML expressions are well-defined by writing guarded expressions, such as `o != null ==> o.f == 0`. In that expression, the antecedent (`o != null`) ensures that `o.f` is well-defined, since when `o` is `null`, then the antecedent is false, and so the entire expression is well-defined.
 
-The requirement that JML expressions be well-defined leads to writing guarded expressions, such as `o != null ==> o.f == 0` as `o.f` by itself might be not well-defined. However, `o.f` by itself is well-defined, if it can be proved for the context of that expression that `o != null`.
-
-So, since in this example, `o` is designated as non-null (which it would be by default--- see the lesson on [nullness](Nullness)), no definedness errors are issued:
+So, since in the example below, since `o` is declared to be non-null (which it would be by default--- see the lesson on [nullness](Nullness)), no definedness errors are issued:
 ```
 {% include_relative T_WellDefined2.java %}
 ```
@@ -74,4 +72,3 @@ gives
 ```
 
 ## **[Well-defined Expressions](https://www.openjml.org/tutorial/exercises/WellDefinedEx.html)**
-
