@@ -64,7 +64,7 @@ while the following verifies without error.
 ```
 {% include_relative T_arithmetic4.java %}
 ```
-One final example is a bug that was present in binary search library code for yearse.[^2] The algorithm requires computing a value `mid` that is midway between `low` and `hi`, which are indices into an array.
+One final example is a bug that was present in binary search library code for years.[^2] The algorithm requires computing a value `mid` that is midway between `low` and `hi`, which are indices into an array.
 The simple computation `mid = (lo+hi)/2;` has a potential overflow problem,
 and OpenJML would issue an error for the potential overflow;
 however, the preferred alternative `mid = lo + (hi-lo)/2;` does not have that potential overflow.
