@@ -6,8 +6,8 @@ If you have tried verifying some programs of your own that involve arithmetic,
 you will likely have encountered arithmetic overflow errors. This lesson
 describes how to work with those errors.
 
-Arithmetic in Java is 2's-complement arithmetic, modulo 32- or 64- bits,
-with values sometimes being truncated to only 16 or 8 bits.
+Arithmetic in Java code is 2's-complement arithmetic, modulo 32- or 64- bits,
+with values sometimes being truncated to only 16 or 8 bits (for types `short` and `char`).
 Java arithmetic is defined to give no warning if arithmetic operations overflow
 or underflow or if conversions lose high-order bits.
 Thus in Java, for an `int x` (or `long x`), `x+1`
@@ -25,7 +25,7 @@ such uses are less common. Thus JML is designed to, by default, warn about
 potential overflows in Java code.
 
 On the other hand, readers of _specifications_ generally interpret expressions
-as mathematical---that is, that specifications use infinite precision arithmetic.[^1]
+as mathematical---that is, readers interpret specifications as using mathematical (i.e., infinite precision) arithmetic.[^1]
 
 [^1]: These design elements of JML arise from the research work in Chalin, P.: Logical foundations of program assertions: What do practitioners want? In _Proceedings of the 3rd International Conference on Software Engineering and Formal Method(SEFM)_. IEEE Computer Society, Los Alamitos, California (2005).
 
@@ -43,7 +43,7 @@ First an example. The simple code
 ```
 {% include_relative T_arithmetic1.java %}
 ```
-gives an error:
+produces several errors:
 ```
 {% include_relative T_arithmetic1.out %}
 ```
@@ -56,7 +56,7 @@ Similarly
 ```
 {% include_relative T_arithmetic3.java %}
 ```
-produces the following errors:
+produces the following errors (because `Integer.MIN_VALUE` has no positive counterpart in Java's 2's-complement representation):
 ```
 {% include_relative T_arithmetic3.out %}
 ```
@@ -64,11 +64,13 @@ while the following verifies without error.
 ```
 {% include_relative T_arithmetic4.java %}
 ```
-One final example is a bug that was present in binary search library code for years. The algorithm requires computing a value `mid` that is midway between `low` and `hi`, which are indices into an array.
+One final example is a bug that was present in binary search library code for yearse.[^2] The algorithm requires computing a value `mid` that is midway between `low` and `hi`, which are indices into an array.
 The simple computation `mid = (lo+hi)/2;` has a potential overflow problem,
 and OpenJML would issue an error for the potential overflow;
 however, the preferred alternative `mid = lo + (hi-lo)/2;` does not have that potential overflow.
 We will elaborate this example when discussing [specifying and verifying loops](Loops) in a later lesson.
+
+[^2]: See Joshua Bloch, "Extra, Extra - Read All About It: Nearly All Binary Searches and Mergesorts are Broken" in [Google Research Blog post](https://research.google/blog/extra-extra-read-all-about-it-nearly-all-binary-searches-and-mergesorts-are-broken/), June 2, 2006.
 
 An alternate design would have the default mode for specification and Java
 code both be *Java mode*. But this would hide bugs, since if the potential
@@ -96,3 +98,6 @@ In the following example, both the code and specs are computed with Java math,
 ```
 
 ## **[Arithmetic Problem Set](https://www.openjml.org/tutorial/exercises/ArithmeticEx.html)**
+
+## Footnotes
+
