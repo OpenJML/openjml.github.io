@@ -2,11 +2,12 @@
 title: JML Tutorial - Nullable and non-null values and types
 ---
 
-Whether references to objects are null or not is a highly important property in Java programs and just about every other programming language,
+Whether references to objects are null or not is a highly important property in Java programs and in most other programming languages,
 to the point that some languages are including non-nullness as a property of the type of a variable.
 
-JML also allows you to specify whether or not something is allowed to be null. In fact, JML makes it the default that a value of reference type is never null.
-Furthermore, Java has introduced *type annotations* (since Java 8), which are annotations on types rather than on declarations.
+Like Java, JML allows you to specify whether or not the values of a type are allowed to be null. In fact, JML makes it the default that a value of reference type is never null.
+In Java `nullable` and `non_null` are *type annotations* (since Java 8), 
+which are annotations on types rather than on declarations.
 The switch to type annotations for nullness changes the syntax of JML in ways that might be surprising or at least unfamiliar to long-time JML users.
 
 ## Simple uses of non-null and nullable
@@ -16,6 +17,9 @@ At the simplest level, declarations of a variable may include the modifiers `non
 /*@ nullable */ String s = ...
 /*@ non_null */ String ss = ...
 ```
+
+(Note that these annotations refer to whether the _reference_ to an object can be `null`, not to whether the string is empty, which sometimes is referred to as a "null string." An empty string would be found using a non-null reference, since the string object must exist for it to be empty.)
+
 A `nullable` declaration means that a variable, such as `s`, might be null (This must be taken into account when using that variable or verifying programs that use it.)
 On the other hand, a `non_null` declaration means that a variable, such as `ss` should never be null. For example, when `ss` is initialized or is the target of an assignment, the value it is given must be provably not null. But thereafter the values can be assumed to be non-null.
 This is the default in JML; that is, if there is no modifier, a variable is assumed to be non-null.
@@ -46,7 +50,26 @@ is that the modifier applies to the type `String`, not to `ss` directly. That is
 In fact, as a type annotation, `non_null` can be applied to any use of the type: along with the declarations mentioned above, that includes type names in cast expressions, in instanceof expressions, in type parameters, even as a modifier of a type variable --- in short, anywhere a type name is allowed, it may be modified with a type annotation. 
 However, type annotations on types in the extends and implements clauses of a class declaration are meaningless and ignored (except on generic type arguments).
 
-TODO - more examples here
+As an example, consider the declaration of a singly-linked list of objects, shown in the interface `T_NullableList` below.
+
+```
+{% include_relative T_NullableList.java %}
+```
+
+Each node in such a list (i.e., each object of type `T_NullableList`)
+is modeled as a non-null object (the field `elem`) together with a possibly null list (the field `tail`).
+The two model instance fields are used to specify the methods in the interface.
+The null value is used to represent the empty list, hence the static method `isEmpty` returns true if its argument is a null reference.
+
+In the implementation of this interface, in the class `T_NullableListImpl` shown below, there is a constructor, which is needed to ensure that the model field `elem` (represented by the field `car`)
+is initialized to a non-null value.
+The methods `head` and `tail` inherit their specifications from the interface.
+
+```
+{% include_relative T_NullableListImpl.java %}
+```
+
+The interface and the `T_NullableListImpl` class both verify without any errors.
 
 ## Type annotations and fully-qualified type names
 
