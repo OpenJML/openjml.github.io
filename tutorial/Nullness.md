@@ -93,6 +93,13 @@ for (int i = 0; i < array.length; i++) array[i] = ...
 ```
 But the constructor for a new array, `new String[100]`, creates an array with null elements. So the type of `array` cannot be `@NonNull String[]`, even if
 we would like that to be the type once it is fully initialized.
+(However, one can cast `array` to the type `@NonNull String[]` once the array is full initialized if desired.
+For example one could write the following:
+```
+/*@ non_null @*/ String[] nna = array;
+```
+and then the array `nna` will be known to have all its elements be non-null.
+)
 
 TODO - more needs to be said here
 
