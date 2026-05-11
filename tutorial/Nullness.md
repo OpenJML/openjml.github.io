@@ -23,9 +23,6 @@ This is the default in JML; that is, if there is no modifier, a variable is assu
 Instead of these modifiers, one can equivalently use the Java type annotations `@NonNull` or `@Nullable` (if one imports the package `org.jmlspecs.annotation`).
 
 The above modifiers are applicable to local declarations, field declarations, formal parameter declarations, and method return type declarations.
-```diff
-! Caveat: the default for local declarations is still under discussion. OpenJML uses the same default as for types in other places.
-```
 
 Here is an example. The following code
 ```
@@ -65,9 +62,6 @@ Applying annotations to arrays also requires some peculiar Java syntax. The diff
 declares `s` to have the type *possibly null array of non-null String values*. That is the `@NonNull` (or equivalently `/*@ non_null */`) goes with the `String` (elements) and the `@Nullable` goes with the array (`s` itself).
 
 ## Nullness defaults for arrays
-```diff
-! Caveat: the nullness default for array elements is still under discussion
-```
 
 While non-null is the overall default, that causes a problem for arrays. The standard way to create and initialize an array is this:
 ```
