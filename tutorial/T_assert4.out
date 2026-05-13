@@ -1,10 +1,21 @@
-T_assert4.java:8: verify: The prover cannot establish an assertion (PossiblyNullDeReference) in method example
-    int k = t.f; // ERROR because t might be null
-             ^
+Proving methods in T_assert4
+Starting proof of T_assert4.T_assert4() with prover z3_4_3
+Method assertions are validated
+Completed proof of T_assert4.T_assert4() with prover z3_4_3 - no warnings
+Starting proof of T_assert4.example(@Nullable T_assert4) with prover z3_4_3
+T_assert4.example Method assertions are INVALID
 T_assert4.java:7: verify: The prover cannot establish an assertion (Assert) in method example
     //@ check t != null; // ERROR, because not necessarily so
         ^
+T_assert4.java:8: verify: The prover cannot establish an assertion (PossiblyNullDeReference) in method example
+    int k = t.f; // ERROR because t might be null
+             ^
+Completed proof of T_assert4.example(@Nullable T_assert4) with prover z3_4_3 - with warnings
+Starting proof of T_assert4.example2(@Nullable T_assert4) with prover z3_4_3
+T_assert4.example2 Method assertions are INVALID
 T_assert4.java:12: verify: The prover cannot establish an assertion (Assert) in method example2
     //@ assert t != null; // ERROR, because not necessarily so
         ^
+Completed proof of T_assert4.example2(@Nullable T_assert4) with prover z3_4_3 - with warnings
+Completed proving methods in T_assert4
 3 verification failures
