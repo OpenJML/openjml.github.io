@@ -2,18 +2,18 @@
 title: JML Tutorial - Ghost variables and computations
 ---
 
-It is sometimes helpful to include in a program various variables or computations that are only for specification.
-For example, a ghost field might keep track of information about a class that the Java implementation does not.
+It is sometimes helpful to include in a program various variables or computations that are only for specification purposes.
+In JML one can use a `ghost` field to, for example, keep track of information about an object class that the Java implementation does not track.
 Or, in the body of a method, one may want to record some value or perform some computation for the purpose of 
 checking the Java implementation, but not have that variable or computation be part of the Java implementation or 
-compiled into the runnable class.
+compiled into the Java class (and thus not be executed when running the code).
 
-JML provides `ghost` declarations and various JML-only statements for this purpose.
+JML provides `ghost` declarations and various JML-only statements for this purpose:
 
-- Field declarations can be modified with the `ghost` keyword and placed in a JML comment. Such fields are in scope for
+* Field declarations can be modified with the `ghost` keyword and placed in a JML comment. Such fields are in scope for
 specifications but not in Java code.
-- Model field methods and classes are also specification-only constructs.
-- The JML `set` statement permits assignments and computations:
+* Model field methods and classes are also specification-only constructs.
+* The JML `set` statement permits assignments and computations that are only done in the specification (not in the code):
 ```
   //@ ghost int i = x; // x may be a Java variable
   //@ set i = i + 10; // a ghost computation
