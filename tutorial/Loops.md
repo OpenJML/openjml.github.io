@@ -18,6 +18,8 @@ There are four aspects of a loop that may need to be specified:
 4. a termination condition (with an integer type, given by a JML `decreases` specification) that enables proving that the loop will terminate.
 
 In some cases OpenJML can infer the loop frame condition (point 3 above), and in those cases one need not specify the loop frame condition.
+(This is true for all of the examples that verify in this section.)
+However, if the body of the loop calls a method that does not have a specification, then a loop frame condition is essential.
 
 ## For loops
 
