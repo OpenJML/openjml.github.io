@@ -11,7 +11,7 @@ public class T_assert4 {
   public void example2(/*@ nullable */ T_assert4 t) {
     //@ assert t != null; // ERROR, because not necessarily so
                           // but subsequently assumes it is true
-    int k = t.f; // OK
+    int k = t.f; // assumed to be true, so no error given here
   }
 
 }
