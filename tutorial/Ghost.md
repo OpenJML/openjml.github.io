@@ -12,7 +12,6 @@ JML provides `ghost` declarations and various JML-only statements for this purpo
 
 * Field declarations can be modified with the `ghost` keyword and placed in a JML comment. Such fields are in scope for
 specifications but not in Java code.
-* Model field methods and classes are also specification-only constructs.
 * The JML `set` statement permits assignments and computations that are only done in the specification (not in the code):
 ```
   //@ ghost int i = x; // x may be a Java variable
@@ -21,3 +20,6 @@ specifications but not in Java code.
 `set` statements may also include pure method calls.
 
 The values of `ghost` variables may then be used in subsequent JML `assert` statements, for example.
+
+JML also has `model` fields and `represents` specification that can be used to help specify classes and interfaces. These are also specification-only constructs. (See the section on [model fields and datagroups](ModelFields).)
+
