@@ -2,7 +2,7 @@
 title: JML Tutorial - Assume statements (assume clauses)
 ---
 
-Like an `assert` stastement, a JML  `assume` statement may be used in the
+Like an `assert` statement, a JML  `assume` statement may be used in the
 body of a method. The effect of an `assume` statement is to instruct
 the verification engine to assume, *without proof*, that the given 
 predicate is true. Such statements can be used to introduce
@@ -23,11 +23,14 @@ specify the behavior of loops (that is coming [later!](Loops)), so we add some
 assumptions that we expect to be true. With those assumptions, the
 above example verifies.
 
-Assume statements can be very helpful in developing a proof of an implementation, but they have a danger. If the given predicate is not actually 
-true, then it will be possible to prove invalid statements about a program.
+Do you see why the assumptions in the example are not always true?
+This is the danger of `assume` statements; while they
+can be very helpful in developing a proof,
+if the given predicate is not always true,
+then it will be possible to prove invalid specifications or implementations.
 You can even see that in the example above: if the array `a` does not
-contain any element that is zero, then the second `assume` statement is
-invalid and the postcondition cannot actually be proved.
+contain any element that is zero, then the `assume` statements will be
+false; thus the postcondition is incorrect.
 
 The situation can even be worse. Consider the following drastic, if trivial, case.
 ```
