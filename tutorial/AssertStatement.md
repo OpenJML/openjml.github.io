@@ -1,7 +1,10 @@
 ---
 title: JML Tutorial - Assert statements (assert and check)
 ---
-A JML *assert* statement states a condition that is expected to hold at the 
+
+## Assert Statements
+
+A JML `assert` statement states a condition that is expected to hold at the 
 point (where the statement appears) within the body of a method.
 Such statements are not part of a method's interface 
 specification, but they can help debug the execution of a method

@@ -2,10 +2,12 @@
 title: JML Tutorial - Assume statements (assume clauses)
 ---
 
-Preconditions in JML (`requires` clauses) are assumed by JML to hold when verifying a method.
-For purposes of verifying a method body implementation, this is equivalent to using an `assume` statement at the beginning of the method body that assumes the precondition holds.
-However, preconditions must hold at calls sites, while assume statements need are not verified to be true.
-The JML `check` statement is an interesting combination of an `assert` statement and an `assume` statement, as described below.
+Preconditions in JML (the predicates in `requires` clauses) are assumed by JML
+to hold when verifying a method.
+That is, for purposes of verifying a method body, a precondition is equivalent to using an `assume` statement at the beginning of the method body to assume that the precondition holds.
+However, are verified to hold at calls sites,
+while assume statements within a method body need are not verified to be true
+(either at runtime or during static verification).
 
 ## Assume Statements
 
