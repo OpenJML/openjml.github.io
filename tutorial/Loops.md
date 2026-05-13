@@ -12,10 +12,10 @@ A loop typically has the following steps:
 * and then control returns to testing the loop condition
 
 There are four aspects of a loop that may need to be specified:
-1. a constraint on the expected values of the loop index (including just before exiting the loop), given by a loop invariant (a JML `maintaining` statement),
+1. a constraint on the expected values of the loop index (including just before exiting the loop), given by a loop invariant (a JML `maintaining` specification),
 2. an inductive predicate that says what has been accomplished so far by the loop, given also by a loop invariant,
 3. a loop frame condition that says which memory locations are modified by any iteration of the loop body, and
-4. a termination condition (with an integer type, given by a JML `decreasing` statement) that enables proving that the loop will terminate.
+4. a termination condition (with an integer type, given by a JML `decreases` specification) that enables proving that the loop will terminate.
 
 In some cases OpenJML can infer the loop frame condition (point 3 above), and in those cases one need not specify the loop frame condition.
 
@@ -34,8 +34,8 @@ then the desired property for the whole array will not be provable. If the range
 will attempt to check the loop body for these out of range values, likely reporting errors. Very importantly, 
 the range must include the value the loop index will take on when it exits the loop. So in this case the range is
 `0 <= i <= a.length`, not `0 <= i < a.length`.
-* The second `maintaining` clause states what has been accomplished in `i` iterations, namely that each arrray element up
-to (but not yet including) `i` is initialized to the expected value. This invariant is very typically a `forall`expression.
+* The second `maintaining` clause states what has been accomplished in `i` iterations,
+namely that each array element up to (but not yet including) `i` is initialized to the expected value. Such an invariant is typically a `\forall`expression.
 * The third specification clause states which memory locations are modified by the loop body.
 * And the `decreases` specification states a quantity that must decrease on each iteration but will always be non-negative when the loop body is executed.
 If those conditions are satisfied (and the verifier checks them), then we know that the loop will eventually terminate.
@@ -49,15 +49,16 @@ It may help to understand what the verifier tries to prove about a loop. It prov
   * it also establishes that the value of the termination expression at the beginning of the loop body is non-negative
   * and then assumes that the loop condition is true
   * it then applies the actions of the loop body
-  * and does the update step
-  * and the result must satisfy the loop invariants again (with the updated value of the loop index)
-  * and also the termination expression must have decreased
+  * it does the update step
+  * the resulting state must satisfy the loop invariants again
+    (this includes using the updated value of the loop index)
+  * it verifies that the termination expression has decreased
 * Third, it assumes the first two steps above and that the loop condition is false, and then proves that the loop invariants still hold
 
-In the example above, the second proof obligation assumes `0 <= i <= a.length` and `(\forall int k; 0 <= k < i; a[k] == k)`, and
-`(i < a.length)`, and then applies `a[i]=i` and `i++`, and proves `(\forall int k; 0 <= k < i'; a[k]==k)`, where the value of `i'` is the updated value of the variable `i`.
+In the example above, the second proof obligation assumes `0 <= i <= a.length` and `(\forall int k; 0 <= k < i; a[k] == k)` and that the loop is on-going so
+`(i < a.length)`, and then it applies `a[i]=i` and `i++`, and proves `(\forall int k; 0 <= k < i_post; a[k]==k)`, where the value of `i_post` is the updated value of the variable `i`.
 
-It also must prove that `a.length-i` is non-negative at the start of the loop body (when the loop will be entered, logically this means that the loop test `i < a.length` must imply the predicate `a.length-i >= 0`) and that after the loop index update that value is greater than the new value of the expression, namely `a.length-i'`, where the value of `i'` is the updated value of the variable `i`.
+It also must prove that `a.length-i` is non-negative at the start of the loop body (when the loop will be entered, logically this means that the loop test `i < a.length` must imply the predicate `a.length-i >= 0`) and that after the loop index update that value is greater than the new value of the expression, namely `a.length-i_post`, where the value of `i_post` is the updated value of the variable `i`.
 
 The third proof obligation assumes `0 <= i <= a.length` and `(\forall int k; 0 <= k < i; a[k] == k)` and `!(i < a.length)`; 
 the loop invariants are still true, trivially and that they in turn imply the truth of the `assert` statement.
@@ -66,7 +67,7 @@ In this example, the `loop_writes` statement can be omitted and the code will st
 
 ## For-each loops
 
-Java also has a loop syntax that does not have any loop index. In that case, the built-in variable `\count` can be used --- its value is the number of loop
+Java also has a loop syntax that does not have any loop index. In that case, the built-in JML variable `\count` can be used --- its value is the number of loop
 body executions so far. In the for loop above, it would have the same value as `i`.
 
 Here is a typical for-each loop:
@@ -112,7 +113,7 @@ producing this output:
 ### Loop body error
 
 In this example, a loop invariant cannot be proven after execution of the loop body.
-To help debug this problem, a `show` statment (see [Inspecting Counterexamples](InspectingCounterexamples)) is included,
+To help debug this problem, a `show` statement (see [Inspecting Counterexamples](InspectingCounterexamples)) is included,
 which shows that the problem occurs when
 the loop index is one less than the array length.
 Indeed, in that case, when the loop index is incremented on the final loop iteration, its value will be the array length, and then the
@@ -125,7 +126,7 @@ produces
 ```
 {% include_relative  T_LoopBodyError.out %}
 ```
-(The order of error messages and the specific values returned by `show` are non-deterministic.)
+(The order of error messages and the specific values returned by `show` are not guaranteed.)
 
 ### Loop decreases error
 If the `decreases` expression does not decrease, one receives the error shown in this example:
