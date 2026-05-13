@@ -50,31 +50,15 @@ is that the modifier applies to the type `String`, not to `ss` directly. That is
 In fact, as a type annotation, `non_null` can be applied to any use of the type: along with the declarations mentioned above, that includes type names in cast expressions, in instanceof expressions, in type parameters, even as a modifier of a type variable --- in short, anywhere a type name is allowed, it may be modified with a type annotation. 
 However, type annotations on types in the extends and implements clauses of a class declaration are meaningless and ignored (except on generic type arguments).
 
-As an example, consider the declaration of a singly-linked list of objects, shown in the interface `T_NullableList` below.
+As an example, consider the methods in `T_Maybe` shown below.
 
 ```
-{% include_relative T_NullableList.java %}
+{% include_relative T_Maybe.java %}
 ```
+The method `fetch` specifies that the argument object `o` must not be null and simply returns it, effectively casting the argument to a non-null `Object` type (with JML checking that the argument is indeed non-null).
 
-Each node in such a list (i.e., each object of type `T_NullableList`)
-is modeled as a non-null object (the field `elem`) together with a possibly null list (the field `tail`).
-The two model instance fields are used to specify the methods in the interface.
-The null value is used to represent the empty list, hence the static method `isEmpty` returns true if its argument is a null reference.
+The method `isNull` allows its argument to be null and returns `true` just when it is null.
 
-In the implementation of this interface, in the class `T_NullableListImpl` shown below, there is a constructor, which is needed to ensure that the model field `elem` (represented by the field `car`)
-is initialized to a non-null value.
-The methods `head` and `tail` inherit their specifications from the interface.
-
-```
-{% include_relative T_NullableListImpl.java %}
-```
-
-The interface and the `T_NullableListImpl` class both verify without any errors.
-
-## Type annotations and fully-qualified type names
-
-Java's syntax for type annotations applied to fully-qualified type names is a bit unexpected. One writes
-`java.lang.@NonNull String` (rather than the incorrect `@NonNull java.lang.String`).
 
 ## Type annotations and arrays
 

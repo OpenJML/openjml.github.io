@@ -69,3 +69,31 @@ another derived class, `Triangle` (with three different sides) is clearer: put a
 ```
 {% include_relative Polygon3.java %}
 ```
+
+## Singly-linked Lists
+
+The following example specifies singly-linked lists (as in Lisp) with the null value representing the empty list.
+
+```
+{% include_relative T_NullableList.java %}
+```
+
+Each node in such a list (i.e., each object of type `T_NullableList`)
+is modeled as a non-null object (the field `elem`) together with a possibly null list (the field `tail`).
+The two model instance fields are used to specify the methods in the interface.
+The null value is used to represent the empty list, hence the static method `isEmpty` returns true if its argument is a null reference.
+
+In the implementation of this interface, in the class `T_NullableListImpl` shown below, there is a constructor, which is needed to ensure that the model field `elem` (represented by the field `car`)
+is initialized to a non-null value.
+The methods `head` and `tail` inherit their specifications from the interface.
+
+```
+{% include_relative T_NullableListImpl.java %}
+```
+
+The interface and the `T_NullableListImpl` class both verify without any errors.
+
+## Type annotations and fully-qualified type names
+
+Java's syntax for type annotations applied to fully-qualified type names is a bit unexpected. One writes
+`java.lang.@NonNull String` (rather than the incorrect `@NonNull java.lang.String`).
