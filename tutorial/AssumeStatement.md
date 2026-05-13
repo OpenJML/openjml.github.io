@@ -64,9 +64,10 @@ the situation in logic where once a contradiction is assumed, anything,
 even false statements, can be proven.
 
 Thus, to emphasize the point: `assume` statements can be very helpful in the course of developing 
-a specification and proof of a method implementation, but they should be 
-replaced with `assert` statements or removed altogether before a verification
-is considered sound.
+a specification and proof of a method implementation,
+but if the OpenJML proof engine can prove them,
+then they should be replaced with `assert` statements
+or removed altogether before a verification is considered sound.
 
 ## **[Assume Statements Problem Set](https://www.openjml.org/tutorial/exercises/AssumeEx.html)**
 
