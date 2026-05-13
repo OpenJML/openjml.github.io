@@ -97,7 +97,7 @@ loop condition is not evaluated until the end of the loop body. Here is a simple
 
 ## Loop verification errors
 
-The examples above all verify, so here are some examples showing the kinds of verification errors that are produced by erroneous specifications.
+The examples above all verify, but the following are some examples showing several kinds of verification errors that are produced by erroneous specifications.
 
 ### Loop initialization error
 
