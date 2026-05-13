@@ -29,7 +29,7 @@ can be very helpful in developing a proof,
 if the given predicate is not always true,
 then it will be possible to prove invalid specifications or implementations.
 You can even see that in the example above: if the array `a` does not
-contain any element that is zero, then the `assume` statements will be
+contain any elements, then the `assume` statements will be
 false; thus the postcondition is incorrect.
 
 The situation can even be worse. Consider the following drastic, if trivial, case.
