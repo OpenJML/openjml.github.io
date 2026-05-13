@@ -40,10 +40,10 @@ namely that each array element up to (but not yet including) `i` is initialized 
 * And the `decreases` specification states a quantity that must decrease on each iteration but will always be non-negative when the loop body is executed.
 If those conditions are satisfied (and the verifier checks them), then we know that the loop will eventually terminate.
 
-It may help to understand what the verifier tries to prove about a loop. It proves three things:
+It may help to understand what the verifier tries to prove about a loop. It tries to prove three things:
 * First, when control flow reaches the loop (after the loop initialization), the loop invariants must be true. In the example above,
 `i` is `0` at this point, so both `maintaining` clauses are true.
-* Second, it
+* Second, it:
   * assumes it knows nothing about the memory locations in the loop frame condition (which includes the loop index)
   * it then assumes that the loop invariants hold 
   * it also establishes that the value of the termination expression at the beginning of the loop body is non-negative
