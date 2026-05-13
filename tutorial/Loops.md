@@ -19,7 +19,7 @@ There are four aspects of a loop that may need to be specified:
 
 While the loop frame condition (point 3 above) is always needed,
 OpenJML will try to infer it when it can.
-(This is true for all of the examples that verify in this section.)
+(And OpenJML can do this for all of the examples that verify in this section.)
 However, it is better to specify the loop frame condition and have JML check it than to rely on OpenJML to infer the loop frame condition.
 
 ## For loops
