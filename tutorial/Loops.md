@@ -6,28 +6,30 @@ In the current state of deductive verification technology it is essential that a
 
 A loop typically has the following steps:
 * some initialization code
-* a loop condition, which if false causes the control flow to exit the loop
+* a loop condition, which (when false) causes the control flow to exit the loop
 * a loop body 
 * an update statement that typically moves a loop index variable to the next value
 * and then control returns to testing the loop condition
 
-There are four aspects of a loop that typically need to be specified:
-1. a constraint on the expected values of the loop index (including just before exiting the loop), given by a loop invariant
-2. an inductive predicate that says what has been accomplished so far by the loop, given also by a loop invariant
-3. a loop frame condition that says which memory locations are modified by any iteration of the loop body
-4. a termination condition (with an integer type) that enables proving that the loop will terminate
+There are four aspects of a loop that may need to be specified:
+1. a constraint on the expected values of the loop index (including just before exiting the loop), given by a loop invariant (a JML `maintaining` statement),
+2. an inductive predicate that says what has been accomplished so far by the loop, given also by a loop invariant,
+3. a loop frame condition that says which memory locations are modified by any iteration of the loop body, and
+4. a termination condition (with an integer type, given by a JML `decreasing` statement) that enables proving that the loop will terminate.
+
+In some cases OpenJML can infer the loop frame condition (point 3 above), and in those cases one need not specify the loop frame condition.
 
 ## For loops
 
-Here is a typical, simple loop with specifications:
+Here is a typical, simple `for` loop with specifications:
 ```
 {% include_relative T_forloop.java %}
 ```
 
 The loop has a loop index `i` that counts up from 0, exiting the loop when it reaches the length of the input array. 
-On each iteration, the loop body sets the `i`'th element of the array to the value of the index.
+On each iteration, the loop body sets the `i`th element of the array to the value of the index `i`.
 
-* The first loop invariant (`maintaining` clause) states what values the loop index will have. If the range is too small,
+* The first loop invariant states what values the loop index will have. If the range is too small,
 then the desired property for the whole array will not be provable. If the range is too large, then OpenJML
 will attempt to check the loop body for these out of range values, likely reporting errors. Very importantly, 
 the range must include the value the loop index will take on when it exits the loop. So in this case the range is
@@ -35,7 +37,7 @@ the range must include the value the loop index will take on when it exits the l
 * The second `maintaining` clause states what has been accomplished in `i` iterations, namely that each arrray element up
 to (but not yet including) `i` is initialized to the expected value. This invariant is very typically a `forall`expression.
 * The third specification clause states which memory locations are modified by the loop body.
-* And the `decreases` specification states a quantity that must decrease on each iteration but always be non-negative when the loop body is executed.
+* And the `decreases` specification states a quantity that must decrease on each iteration but will always be non-negative when the loop body is executed.
 If those conditions are satisfied (and the verifier checks them), then we know that the loop will eventually terminate.
 
 It may help to understand what the verifier tries to prove about a loop. It proves three things:
@@ -52,14 +54,15 @@ It may help to understand what the verifier tries to prove about a loop. It prov
   * and also the termination expression must have decreased
 * Third, it assumes the first two steps above and that the loop condition is false, and then proves that the loop invariants still hold
 
-In the example above, the second proof obligation assumes `0 <= i <= a.length` and `\forall int k; 0 <= k < i; a[k] == k;` and
-`(i < a.length)`, and then applies `a[i]=i` and `i++`, and proves `\forall int k; 0 <= k < i'; a[k]==k`, where `i'` is the updated `i`.
+In the example above, the second proof obligation assumes `0 <= i <= a.length` and `(\forall int k; 0 <= k < i; a[k] == k)`, and
+`(i < a.length)`, and then applies `a[i]=i` and `i++`, and proves `(\forall int k; 0 <= k < i'; a[k]==k)`, where the value of `i'` is the updated value of the variable `i`.
 
-It also must prove that `a.length-i` is non-negative at the start of the loop body and that after the loop index update that value is greater  than
-the new value of the expression, namely `a.length-i'`.
+It also must prove that `a.length-i` is non-negative at the start of the loop body (when the loop will be entered, logically this means that the loop test `i < a.length` must imply the predicate `a.length-i >= 0`) and that after the loop index update that value is greater than the new value of the expression, namely `a.length-i'`, where the value of `i'` is the updated value of the variable `i`.
 
-The third proof obligation assumes `0 <= i <= a.length` and `\forall int k; 0 <= k < i; a[k] == k;` and `!(i < a.length)`; 
-the loop invariants are still true, trivailly and they in turn imply the truth of the `assert` statement.
+The third proof obligation assumes `0 <= i <= a.length` and `(\forall int k; 0 <= k < i; a[k] == k)` and `!(i < a.length)`; 
+the loop invariants are still true, trivially and that they in turn imply the truth of the `assert` statement.
+
+In this example, the `loop_writes` statement can be omitted and the code will still verify, because the loop is simple enough that JML can infer the value of the loop frame condition from the statements in the loop and its body.
 
 ## For-each loops
 
@@ -74,7 +77,7 @@ Note that the (second) loop invariant states that so far (up to array index `\co
 all elements seen have been positive. As soon as a non-positive element is seen, the loop exits prematurely, but the verifier can follow this control flow to prove that 
 the postcondition is valid for either exit.
 
-Note also the use of `\count` as a stand-in for a loop counter and the use of `\nothing` to say that nothing is modified in the loop body, other than `\count`, which is always included as a modified variable.
+Note also the use of `\count` as a stand-in for a loop counter and the use of `\nothing` to say that nothing is modified in the loop body, other than `\count`, which is implicitly included as a modified variable by OpenJML.
 
 ## While loops
 
@@ -107,8 +110,12 @@ producing this output:
 ```
 
 ### Loop body error
-In this example, a loop invariant cannot be proven after execution of the loop body. To help see why, a `show` statment (cf. [Inspecting Counterexamples](InspectingCounterexamples)) is included, which shows that the problem occurs when
-the loop index is one less than the array length. Indeed, in that case, when the loop index is incremented on the final loop iteration, its value will be the array length, and then the
+
+In this example, a loop invariant cannot be proven after execution of the loop body.
+To help debug this problem, a `show` statment (see [Inspecting Counterexamples](InspectingCounterexamples)) is included,
+which shows that the problem occurs when
+the loop index is one less than the array length.
+Indeed, in that case, when the loop index is incremented on the final loop iteration, its value will be the array length, and then the
 first loop invariant will not hold. Interestingly, there is also a loop initialization error. Why? Because if `a.length` is 0, then the initial value of `i` does not satisfy the first 
 loop invariant.
 ```
