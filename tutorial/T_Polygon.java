@@ -20,7 +20,8 @@ class Square implements T_Polygon {
     this.side = side;
   }
 
-  //@ also ensures \result == 4;
+  //@ also
+  //@   ensures \result == 4;
   //@ pure helper
   public int sides() {
     return 4;
