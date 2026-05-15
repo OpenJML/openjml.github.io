@@ -37,7 +37,7 @@ Here is a working example that verifies, with commentary below.
 * `Polygon`is an (abstract) interface with a concrete implementation `Square`
 * `Polygon` declares two properties, as model fields found in instances of that type: `sides` (the number of sides) and `longestSide` (the length of the longest side of the polygon)
 * There is an invariant saying that all polygons have at least 3 sides.
-* There are two abstract methods that return the values of `sides` and `longestSide`. These are declared to be `spec_pure` (deterministic and do not change anything).
+* There are two abstract methods that return the values of `sides` and `longestSide`. These are declared to be `spec_pure` (deterministic and do not change anything, as described in [the section about calling methods in specifications](MethodsInSpecifications)).
 * The method `half` halves the size of the polygon: 
   * It has an `assigns` clause saying what datagroups can be modified. 
   * It has a postcondition saying what happens to the memory locations that are modified.

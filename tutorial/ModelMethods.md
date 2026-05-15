@@ -7,7 +7,7 @@ model fields are applicable they generally are easier to use in specifications a
 This lesson alters the `Polygon` example of the previous lesson
 to use methods instead.
 
-At the outset, note that methods used in specifications must be `spec_pure` ([cf. here](MethodsInSpecifications)), but can be either Java methods or JML methods. One uses
+At the outset, note that methods used in specifications must be `spec_pure` ([see the section on calling methods in specifications](MethodsInSpecifications) for details), but can be either Java methods or JML methods. One uses
 a JML method if there is no Java method that accomplishes what is needed. A JML model method is declared just like a Java method except that
 * it is written in a JML annotation
 * it includes the `model` modifier
@@ -47,7 +47,7 @@ _reads_ or _depends on_. The content of the reads clause is a datagroup (and thu
 
 Note that `half()` assigns to `allSides` and `longestSide()` reads `allSides`. So the value of `longestSide()` might well be changed by the call of `twice()` (though not necessarily).
 We have to look at the postconditions of on `longestSide` to see what the new value might be.
-Note that these methods are called on a `PolygonMM` instance, so nothiing is known in `test()` about the behavior of derived classes.
+Note that these methods are called on a `PolygonMM` instance, so nothing is known in `test()` about the behavior of derived classes.
 
 On the other hand, `sides()`, in this example, does not depend on any part of the heap, according to the `reads \nothing` clause, so its output value will not be changed by `half()`.
 Alternately, one might have `sides()` read a datagroup `numsides`. As long as `numsides` and `allSides` are disjoint, changes to `allSides` will still not change the result of 
