@@ -24,7 +24,7 @@ A _model field_ is a specification-only field that encapsulates some property of
 
 A _datagroup_ is a set of (concrete) memory locations in the program's state, usually locations in the heap. However, within the body of a method, local stack locations might also comprise a datagroup (this could be useful for stating frame conditions of a loop, for example).
 
-* Each model field is also a datagroup, as well as representing some abstract value. A standalone datagroup (not associated with an model field) can be declared using the type `\datagroup`.
+* Each model field is also a datagroup, as well as representing some abstract value. A standalone datagroup (not associated with a model field) can be declared using the type `\datagroup`.
 * A datagroup is an abstraction of the set of memory locations used in a frame condition (in `assigns` or `assignable` clauses, also known as `modifies` or _writes_ clauses) and in `accessible` (or _reads_ clauses). Datagroups can be used as follows:
    * In an abstract class or interface a datagroup can be used in a frame condition, and
    * In a concrete class, concrete fields can be declared to be `in` a datagroup (and thus are included in frame conditions that include that datagroup).
@@ -106,4 +106,4 @@ Java's syntax for type annotations applied to fully-qualified type names is a bi
 
 ## Exercises
 
-As an exercise, consider what would need to change about the specification of `Polygon` to enforce the invariant that the longest side should always have a positive value.
+As an exercise, change the specification of `Polygon` above to enforce the invariant that the longest side should always have a strictly positive value. (Note that `1/2` is 0 in Java.) Check your work by using openjml to verify the correctness of the result.
