@@ -11,6 +11,6 @@ interface T_NullableList {
     //@ ensures \result == this.elem;
     /*@ non_null @*/ Object head();
 
-    /*@ ensures this.tail != null ==> \result == this.tail; @*/
+    /*@ ensures \result == this.tail; @*/
     /*@ nullable @*/ T_NullableList tail();
 }
