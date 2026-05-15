@@ -8,20 +8,26 @@ abstraction of frame conditions.
 
 ## Using model fields
 
-Model fields:
-* Model fields are specification-only fields that encapsulate some property of a class (typically, but not necessarily, an abstract class or interface).
-* The model field can be used in the specification of the abstract class.
-* A model field is given an implementation by writing a `represents` clause in the derived class; this connects the model field to the concrete implementation.
-* A model field can also be used within a concrete class to represent some characteristic that is not explicitly present in the concrete class.
-* A model field is typically an _instance_ field. Java only allows static fields in an interface. But in JML one can declare instance model fields
-in an interface (or class) using the modifier `instance`. As the (Java) default is `static` for field declarationsi in an interface, the `instance` keyword is required in this case.
+We first give some basic information about model fields and datagroups.
 
-Datagroups:
-* A _datagroup_ is a set of memory locations in the program state, usually locations in the heap; in the body of a method, local stack locations might also be in a datagroup
-* A model field is also a datagroup, as well as representing some abstract value; or a standalone datagroup (not associated with an abstract value) can be declared using the type `\datagroup`.
-* A datagroup is an abstraction of the set of memory locations used in a frame condition (both _writes_ and _reads_ clauses). 
-   * In the abstract class the datagroup can be used in a frame condition
-   * In the concrete class specific fields can be declared to be _in_ that datagroup
+### Model fields
+
+A _model field_ is a specification-only field that encapsulates some property of a class (typically, but not necessarily, an abstract class or interface).
+
+* The model field can be used in specifications (e.g., for a class or interface and its methods).
+* A model field is given an implementation by writing a `represents` clause in the derived class; this connects the model field to the concrete implementation.
+* A model field can also be used within a concrete class to represent some characteristic that is important for clients to know about
+(whether or not that characteristic is directly implemented).
+* A model field is typically an _instance_ field. Although Java only allows static fields to be declared in an interface, in JML one can declare instance model fields in an interface (or class) using the modifier `instance`, and such instance model fields declarations are inherited by classes that implement the interface. As the (Java) default is `static` for field declarations in an interface, so the `instance` keyword is required if the field is intended to be found in objects having that interface's type.
+
+### Datagroups
+
+A _datagroup_ is a set of (concrete) memory locations in the program's state, usually locations in the heap. However, within the body of a method, local stack locations might also comprise a datagroup.
+
+* Each model field is also a datagroup, as well as representing some abstract value. A standalone datagroup (not associated with an model field) can be declared using the type `\datagroup`.
+* A datagroup is an abstraction of the set of memory locations used in a frame condition (in `assignable`, also known as `modifies` or _writes_ clauses) and in `accessible` (or _reads_ clauses). 
+   * In an abstract class or interface a datagroup can be used in a frame condition
+   * In a concrete class, concrete fields can be declared to be _in_ a datagroup (and thus are included in frame conditions that include that datagroup)
 
 Here is a working example that verifies, with commentary below.
 ```
@@ -49,7 +55,7 @@ by the represents clause, so the implementation of `Square.sides()` satisfies th
 
 `Test` just checks that the specifications given for `Polygon` work to verify some simple uses of the interface and its specifications.
 * Note that the implementation and verification of `Test.test()` only use `Polygon` and its specifications.
-* The `assert` in `test2` fails because a polygon (as implemented) can have a variety of numbers of sides.
+* The `assert` in `test2` is incorrect (does not verify) because a polygon (as specified) can have a variety of numbers of sides.
 * But the `assert` in `test3` succeeds, because a `Square` knows how many sides it has.
 * In `test4()` we do a type test to see if the input `polygon` is a `Square`, and if so, we know how many sides it has.
 
