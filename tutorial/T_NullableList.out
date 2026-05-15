@@ -1,2 +1,5 @@
-Error: LinkageError occurred while loading main class org.jmlspecs.openjml.Main
-	java.lang.IllegalAccessError: superclass access check failed: class org.jmlspecs.openjml.Main (in unnamed module @0x764c12b6) cannot access class com.sun.tools.javac.main.Main (in module jdk.compiler) because module jdk.compiler does not export com.sun.tools.javac.main to unnamed module @0x764c12b6
+Proving methods in T_NullableList
+Starting proof of T_NullableList.isEmpty(T_NullableList) with prover z3_4_3
+Method assertions are validated
+Completed proof of T_NullableList.isEmpty(T_NullableList) with prover z3_4_3 - no warnings
+Completed proving methods in T_NullableList

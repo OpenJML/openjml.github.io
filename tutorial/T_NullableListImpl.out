@@ -1,29 +1,16 @@
 Proving methods in T_NullableListImpl
 Starting proof of T_NullableListImpl.T_NullableListImpl(@NonNull Object,@Nullable T_NullableList) with prover z3_4_3
-Method assertions are validated [1.09 secs]
-Completed proof of T_NullableListImpl.T_NullableListImpl(@NonNull Object,@Nullable T_NullableList) with prover z3_4_3 - no warnings [1.16 secs]
+Method assertions are validated
+Completed proof of T_NullableListImpl.T_NullableListImpl(@NonNull Object,@Nullable T_NullableList) with prover z3_4_3 - no warnings
 Starting proof of T_NullableListImpl.head() with prover z3_4_3
-Method assertions are validated [0.16 secs]
-Completed proof of T_NullableListImpl.head() with prover z3_4_3 - no warnings [0.17 secs]
+Method assertions are validated
+Completed proof of T_NullableListImpl.head() with prover z3_4_3 - no warnings
 Starting proof of T_NullableListImpl.tail() with prover z3_4_3
-Method assertions are validated [1.09 secs]
-Completed proof of T_NullableListImpl.tail() with prover z3_4_3 - no warnings [1.10 secs]
-Completed proving methods in T_NullableListImpl [2.45 secs]
+Method assertions are validated
+Completed proof of T_NullableListImpl.tail() with prover z3_4_3 - no warnings
+Completed proving methods in T_NullableListImpl
 Proving methods in T_NullableList
 Starting proof of T_NullableList.isEmpty(T_NullableList) with prover z3_4_3
-Method assertions are validated [1.03 secs]
-Completed proof of T_NullableList.isEmpty(T_NullableList) with prover z3_4_3 - no warnings [1.04 secs]
-Completed proving methods in T_NullableList [1.04 secs]
-Summary:
-  Valid:        4
-  Invalid:      0
-  Infeasible:   0
-  Timeout:      0
-  Error:        0
-  Skipped:      0
- TOTAL METHODS: 4
- Classes:       2 proved of 2
- Model Classes: 0
- Model methods: 0 proved of 0
- DURATION:          3.6 secs
-
+Method assertions are validated
+Completed proof of T_NullableList.isEmpty(T_NullableList) with prover z3_4_3 - no warnings
+Completed proving methods in T_NullableList

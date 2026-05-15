@@ -1,4 +1,4 @@
-// openjml --esc T_NullableListImpl.java
+// openjml --no-show-summary --esc T_NullableListImpl.java
 public class T_NullableListImpl implements T_NullableList {
     /*@ non_null @*/ Object car; //@ in elem;
     //@ represents elem = car;
