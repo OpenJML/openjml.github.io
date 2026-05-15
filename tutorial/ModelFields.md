@@ -106,4 +106,4 @@ Java's syntax for type annotations applied to fully-qualified type names is a bi
 
 ## Exercises
 
-As an exercise, change the specification of `Polygon` above to enforce the invariant that the longest side should always have a strictly positive value. (Note that `1/2` is 0 in Java.) You may need to use `assume` statements, as the prover that openjml uses cannot prove some facts about division (due to fundamental limitations on logic.) Check your work by using openjml to verify the correctness of the result.
+As an exercise, change the specification of `Polygon` above to enforce the invariant that the longest side should always have a strictly positive value. (Note that `1/2` is 0 in Java.) You may need to use `assume` statements, as the prover that openjml uses cannot prove some facts about division (due to fundamental limitations on logic). Check your work by using openjml to verify the correctness of the result.
