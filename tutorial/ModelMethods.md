@@ -3,7 +3,8 @@ title: JML Tutorial - Model methods
 ---
 
 The [previous lesson](ModelFields) described how to use model fields to specify an abstraction. Sometimes model methods can be used instead, though when
-model fields are applicable they generally are easier to use in specifications and easier to prove. This lesson alters the example of the previous lesson
+model fields are applicable they generally are easier to use in specifications and easier to prove.
+This lesson alters the `Polygon` example of the previous lesson
 to use methods instead.
 
 At the outset, note that methods used in specifications must be `spec_pure` ([cf. here](MethodsInSpecifications)), but can be either Java methods or JML methods. One uses
@@ -12,18 +13,18 @@ a JML method if there is no Java method that accomplishes what is needed. A JML 
 * it includes the `model` modifier
 * it need not have an implementation (and generally does not, except if compilation for runtime-assertion-checking is desired).
 
-For example, if the example below did not declare `sides()` as a Java method, one could include in `PolygonMM` this declaration, along with any specifications:
+For example, if the example below did not declare `sides()` as a Java method, one could include in `PolygonMM` this declaration, along with its specifications:
 ```
 //@ model public int sides();
 ```
 
 ## using model methods
 
-Here is the [model field example](ModelFields), altered to use methods --- in this case the Java methods are already part of the `Polygon` interface. There are a few key points to note:
-* The datagroup is still needed. When using model methods, one typically will declare standalone datagroups to use in frame conditions.
+Here is the [Polygon example](ModelFields), altered to use methods --- in this case the Java methods are already part of the `Polygon` interface. However, note that:
+* The datagroup is still needed. When using model methods, one typically will declare standalone datagroups to use in their frame conditions.
 * Reads clauses are needed. They are discussed after the code listing.
-* If the methods are used within invariants, they typically need to be declared `helper` and that they do not throw exceptions (`public normal_behavior`).
-* An abstract method used in modeling typically has no postcondition, or at least not one that fully dictates its value. It is used as an
+* If the methods are used within invariants, they typically need to be declared `helper` and they must not throw exceptions (thus they are specified using only a `public normal_behavior`).
+* An abstract method used in modeling typically has no postcondition, or at least not one that fully dictates its value. It is used in proofs as an
 _uninterpreted function_, whose value is given by invariants and concrete implementations and the pre- and postconditions in which it is used.
 
 ```
@@ -42,7 +43,7 @@ that field was not changed by the method call.
 
 The example code above uses model methods instead of model fields. So in the `test()` routine, how is it known that `polygon.sides()` does not change
 value upon the call of `twice()` and that `polygon.longestSide()` does change? The answer is the `reads` clause; this clause states what fields a method
-_reads_ or _depends on_. The content of the reads clause may be a model field.
+_reads_ or _depends on_. The content of the reads clause is a datagroup (and thus may be a model field).
 
 Note that `half()` assigns to `allSides` and `longestSide()` reads `allSides`. So the value of `longestSide()` might well be changed by the call of `twice()` (though not necessarily).
 We have to look at the postconditions of on `longestSide` to see what the new value might be.
