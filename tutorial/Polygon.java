@@ -9,10 +9,10 @@ interface Polygon {
   //@ ensures longestSide == \old(longestSide)/2;
   public void half();
 
-  //@ ensures \result == sides; pure
+  //@ ensures \result == sides; spec_pure
   public int sides();
 
-  //@ ensures \result == longestSide; pure
+  //@ ensures \result == longestSide; spec_pure
   public int longestSide();
 }
 class Square implements Polygon {

@@ -1,4 +1,4 @@
-// openjml --no-show-summary --esc T_Maybe.java
+// openjml --esc T_Maybe.java
 public class T_Maybe {
 
     //@ requires o != null;

@@ -1,4 +1,4 @@
-// openjml --no-show-summary --esc T_LoopDecreasesError.java
+// openjml --esc T_LoopDecreasesError.java
 public class T_LoopDecreasesError {
 
   public void setToRamp(int[] a) {

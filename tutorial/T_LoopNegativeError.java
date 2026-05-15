@@ -1,4 +1,4 @@
-// openjml --no-show-summary --esc T_LoopNegativeError.java
+// openjml --esc T_LoopNegativeError.java
 public class T_LoopNegativeError {
 
   public void setToRamp(int[] a) {

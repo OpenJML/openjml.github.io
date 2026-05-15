@@ -1,4 +1,4 @@
-// openjml --no-show-summary --esc T_NullableList.java
+// openjml --esc T_NullableList.java
 interface T_NullableList {
     /*@ model instance non_null Object elem; @*/
     /*@ model instance nullable T_NullableList tail; @*/

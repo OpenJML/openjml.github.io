@@ -1,4 +1,4 @@
-// openjml --esc --no-show-summary T_assert4.java
+// openjml --esc T_assert4.java
 
 public class T_assert4 {
   public int f;

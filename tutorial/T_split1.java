@@ -1,4 +1,4 @@
-// openjml --esc --split= --progress --no-show-summary $@
+// openjml --esc --split= --progress --no-show-summary T_split1.java
 public class T_split1 {
   //@ requires 0 <= i <= 2; // to limit counterexaqmples to one value, for deterministic tests
   //@ ensures i == 2;
