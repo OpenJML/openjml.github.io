@@ -3,7 +3,7 @@ public interface T_Polygon {
 
   /** Number of sides to the polygon */
   //@ ensures \result >= 3;
-  //@ pure helper
+  //@ spec_pure helper
   public int sides();
 
 }   
@@ -22,7 +22,7 @@ class Square implements T_Polygon {
 
   //@ also
   //@   ensures \result == 4;
-  //@ pure helper
+  //@ spec_pure helper
   public int sides() {
     return 4;
   }
