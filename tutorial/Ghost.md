@@ -2,7 +2,7 @@
 title: JML Tutorial - Ghost variables and computations
 ---
 
-It is sometimes helpful (for specification or verification) to include in a program various variables or computations that are only for specification purposes.
+It is sometimes helpful (for specification or verification) to include in a program various variables or computations that are intended only for specification or verification.
 In JML one can use a `ghost` field to, for example, keep track of information about an object class that the Java implementation does not track.
 Or, in the body of a method, one may want to record some value or perform some computation for the purpose of 
 checking the Java implementation, but not have that variable or computation be part of the Java implementation or 
