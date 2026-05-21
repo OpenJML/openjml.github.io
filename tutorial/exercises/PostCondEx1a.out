@@ -1,10 +1,7 @@
-PostCondEx1a.java:7: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method multiplyByTwo: int multiply out of range
-	return num*2;
-	          ^
 PostCondEx1a.java:7: verify: The prover cannot establish an assertion (Postcondition: PostCondEx1a.java:5:) in method multiplyByTwo
-	return num*2;
-	^
+     return num*2;
+     ^
 PostCondEx1a.java:5: verify: Associated declaration: PostCondEx1a.java:7:
 //@ ensures \result > num;
     ^
-3 verification failures
+2 verification failures

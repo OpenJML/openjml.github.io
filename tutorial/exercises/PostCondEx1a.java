@@ -1,10 +1,10 @@
 // openjml --esc PostCondEx1a.java
 public class PostCondEx1a {
 
-//@ requires 0 < num;
+//@ requires -1 < num < 100;
 //@ ensures \result > num;
  public int multiplyByTwo(int num) {
-	return num*2;
-}
+     return num*2;
+ }
 
 }
