@@ -14,7 +14,7 @@ title: JML Tutorial - Exercises - Postconditions
 	return num*2;
 }
 ```
-**(c) Suppose we revert to the orignal specifications where the precondition is that `0 < num`. The function is unable to be verified. Determine where in the specifications it is failing, and fix it by (only) changing the specification.**
+**(c) Suppose we revert to the original specifications where the precondition is that `0 < num`. The function is unable to be verified. Determine where in the specifications it is failing, and fix it by (only) changing the specification.**
 
 **(c) Suppose the code was updated to the following, with the original precondition that `0 < num`. What is the strongest postcondition that will allow the code in the body below to be verified?**
 ```Java
@@ -23,7 +23,7 @@ public int divideByTwo(int num) {
 }
 ```
 **On the subject of "strongest" specifications:**
-First let’s discuss what a strong predicate is. For the formula P implies Q, in this situation P is the strong preciate and Q is the weaker one, so P is _stronger than_ Q. So the _strongest predicate_ is one that implies all others. For example, `x > 1` implies `x > 0`, so `x > 1` is stronger than `x > 0`.
+First let’s discuss what a strong predicate is. For the formula P implies Q, in this situation P is the strong predicate and Q is the weaker one, so P is _stronger than_ Q. So the _strongest predicate_ is one that implies all others. For example, `x > 1` implies `x > 0`, so `x > 1` is stronger than `x > 0`.
 
 Simple specifications have just a precondition and a postcondition.
 Let us write (P,Q) for a simple specification with precondition P and postcondition Q.
