@@ -27,7 +27,8 @@ public int divideByTwo(int num) {
 }
 ```
 **On the subject of "strongest" specifications:**
-First let’s discuss what a strong predicate is. For the formula P implies Q, in this situation P is the strong predicate and Q is the weaker one, so P is _stronger than_ Q. So the _strongest predicate_ is one that implies all others. For example, `x > 1` implies `x > 0`, so `x > 1` is stronger than `x > 0`.
+First let’s discuss what a strong predicate is. For the formula P implies Q, in this situation P is the strong predicate and Q is the weaker one, so P is _stronger than_ Q. For example, `x > 1` implies `x > 0`, so `x > 1` is stronger than `x > 0`.
+So the _strongest predicate_ is one that implies all others. 
 
 Simple specifications have just a precondition and a postcondition.
 Let us write (P,Q) for a simple specification with precondition P and postcondition Q.
