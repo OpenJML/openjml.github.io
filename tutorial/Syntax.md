@@ -55,7 +55,7 @@ are joined together; expressions can run from one to the other.
 //@   && R;
 ```
 
-Comments can be conditional, as described below.
+JML annotations can also be conditional, as described below.
 
 JML annotations are one of these types:
 * Modifiers. Modifiers are single words, such as `pure`, that are syntactically similar to Java modifiers like `public` and `static`.
@@ -69,7 +69,7 @@ single words (like `\result`) or function-like, such as `\old(x)`.
 
 # Advanced topic: Conditional Specifications
 
-JML annotations can be *conditional* upon defining various keys.
+JML annotations can be *conditional*, which are only interpreted by JML when one of various keys are defined.
 
 Instead of beginning with either `//@` or `/*@`, the `@` may be preceded by
 one or more instances of a `+` or `-` followed by a Java identifier.
@@ -90,7 +90,7 @@ if
 * (a) at least one of the keys given with a `+` sign is defined and
 * (b) none of the keys with a `-` sign are defined
 
-So positive keys enable a comment and negative keys disable it, with any
+So positive keys enable an annotation and negative keys disable it, with any
 negative key overriding any positive ones.
 
 For example, a comment beginning `//-RAC@` will be used for typechecking (`--check` in OpenJML) and static checking (`--esc`), but ignored for runtime checking (`--rac`). A comment beginning `//+ESC@` will only be used when `--esc` is being applied.
