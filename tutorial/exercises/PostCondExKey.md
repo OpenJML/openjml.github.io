@@ -22,7 +22,7 @@ As Bertrand Meyer points out in his book _Object-oriented Software Construction_
 
 ## **Question 3**
 
-Again due to Bertrand Meyer's book, the precondition of the weakest possible specification would be one that would never allow the method to be called, i.e., _false_. A suitable postcondition would be _true_, since that imposes no burden on the developer. Meyer calls this "good work, if you can get it."
+The precondition of the weakest possible specification would be one that would never allow the method to be called, i.e., _false_. A suitable postcondition would be _true_, since that imposes no burden on the developer.
 
 ## **Question 4**
 
