@@ -26,21 +26,22 @@ public int divideByTwo(int num) {
        return num/2;
 }
 ```
-**On the subject of "strongest" specifications:**
+**Strongest specifications**
+
 First let’s discuss the strength of predicates and specifications.
 Suppose predicate P implies Q, then P is the _strong_ predicate and Q is the weaker one, so P is _stronger than_ Q. For example, `x > 1` implies `x > 0`, so `x > 1` is stronger than `x > 0`.
 So the _strongest predicate_ is one that implies all others. 
 
-Simple specifications have just a precondition and a postcondition.
-Let us write (P,Q) for a simple specification with precondition P and postcondition Q.
+_Simple specifications_ have just a precondition and a postcondition.
+We write (P,Q) for a simple specification with precondition P and postcondition Q.
 
 A specification (P,Q) is _stronger than_ a specification (P',Q') when it prohibits some implementations (does not verify) some implementations that would be correct for (P',Q'). Thus, (P,Q) is _stronger than_ (P',Q') when P' is stronger than P and Q is stronger than Q', so the stronger specification works in more cases (as it has a weaker precondition), but delivers a result that will always satisfy Q'. In the literature, it is often said that (P,Q) _refines_ (P',Q') when P' implies P and Q implies Q'.
 
-## ** Question 2**
+## **Question 2**
 
 ** What precondition would be used in the strongest possible simple specification? What would a suitable be postcondition be?**
 
-## ** Question 3**
+## **Question 3**
 
 ** What precondition would be used in the weakest possible simple specification? What would a suitable postcondition be?**
 
