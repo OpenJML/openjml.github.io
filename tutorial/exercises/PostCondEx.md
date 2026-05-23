@@ -16,7 +16,7 @@ Why would this cause a verification error with the existing code?
 }
 ```
 
-(b) How you could fix the postcondition so that the existing code would verify with the precondition `-1 < num < 100`? Note that you are to only change the postcondition, not the code in the body of the method and you are to use the new precondition `-1 < num < 100`.**
+**(b) How you could fix the postcondition so that the existing code would verify with the precondition `-1 < num < 100`? Note that you are to only change the postcondition, not the code in the body of the method and you are to use the new precondition `-1 < num < 100`.**
 
 **(c) Suppose we revert to the original specifications where the precondition is that `0 < num`. The function is unable to be verified. Determine where in the specifications it is failing, and fix it by (only) changing the specification.**
 
@@ -49,7 +49,7 @@ A specification (P,Q) is _stronger than_ a specification (P',Q') when it prohibi
 + Understand overflow errors
 + Understand relationship between pre and post conditions 
 
-## **Question 2**
+## **Question 4**
 ** (a) Given a rectangle of width w and height h, write a Java method that finds the area of the rectangle and returns it. (b) What is the strongest specifications that verifies the code you wrote?
 The function header is given below.**
 ```Java 
