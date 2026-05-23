@@ -6,7 +6,7 @@ title: JML Tutorial - Exercises - Postconditions
 
 ## **Question 1**
 **(a) Suppose that we want to change the precondition of the method `multiplyByTwo` below so that the argument (`num`) only has to be (strictly) greater than -1, that is the precondition would be `-1 < num < 100.
-Why would this cause a verification error with the existing code?
+Why would this cause a verification error with the existing code?**
 
 ```Java
 //@ requires 0 < num < 100;
