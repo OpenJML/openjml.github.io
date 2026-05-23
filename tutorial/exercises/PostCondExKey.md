@@ -16,7 +16,9 @@ To check this, observe that the output of running `openjml --esc` on the JML+Jav
 
 ## **Question 2**
 
-As Bertrand Meyer points out in his book _Object-oriented Software Construction_, the precondition of the strongest possible specification would be one that allows it to always be called, i.e., _true_, since that is implied by every predicate and so is the weakest possible predicate. A suitable postcondition would be the strongest possible, and thus impossible to achieve, i.e., _false_, since that predicate implies all others.
+As Bertrand Meyer points out in his book _Object-oriented Software Construction_[^1], the precondition of the strongest possible specification would be one that allows it to always be called, i.e., _true_, since that is implied by every predicate and so is the weakest possible predicate. A suitable postcondition would be the strongest possible, and thus impossible to achieve, i.e., _false_, since that predicate implies all others.
+
+[^1]: Bertrand Meyer, _Object-Oriented Software Construction_ (Second Edition), section 11.3, especially pp. 335-336.
 
 ## **Question 3**
 
