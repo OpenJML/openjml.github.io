@@ -12,7 +12,13 @@ To check this, observe that the output of running `openjml --esc` on the JML+Jav
 {% include_relative PostCondEx1a.out %}
 ```
 
-**(b)** A simple fix to the postcondition is to change `<` to `<=`, which will allow the method to return 0 when the argument is 0. This directly addresses the problem noted above.
+**(b)** 
+A simple fix to the postcondition is to change `<` to `<=`, which will allow the method to return 0 when the argument is 0. This directly addresses the problem noted above.
+
+**(c)**
+A postcondition that can be used to make the code verify is `\result == num / 2`.
+(Any equivalent expression will do, including `2*\result == num`, 
+but the theorem prover used in OpenJML cannot reason about multiplication and division, so it will complain about that form of the postcondition.)
 
 ## **Question 2**
 
