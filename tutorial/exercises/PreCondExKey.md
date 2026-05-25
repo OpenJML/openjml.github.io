@@ -4,6 +4,20 @@ title: JML Tutorial - Exercises - Answers to Precondition Exercises
 ## [Precondition Exercises](https://www.openjml.org/tutorial/exercises/PreCondEx)
 
 ## **Question 1**
+
+A simple answer is equivalent to the following.
+```
+//@ requires 0 < a.length;
+```
+
+Requiring that the array has at least one argument guarantees that the expression `a[0]` is well-defined.
+Note that in JML it is already implicit that the array argument `a` is not null, so there is no need to specify that.
+
+(Any logically equivalent form of the precondition expression would work,
+such as `a.length > 0`. However, we think it good style to follow Rustan Leino's idea of writing such expressions with the smallest quantity on the left, so the expression `1 <= a.length` would be equally good.)
+
+
+## **Question 2**
 We know that the method takes three parameters, the current amount in the user's bank account, the price of an item, and the number of items to be purchased. To ensure the bank account is never negative, we need to check the following:
 1. the current amount in the user's bank account is greater to zero;
 2. the cost of one item is greater than or equal to zero; and
@@ -47,19 +61,6 @@ If the specification doesn't require `bankAccount >= 0.0`, then there is no way 
 The specification must require that `price >= 0.0`, because negative prices would actually add money to the resulting account balance.
 
 Why is it okay to specify that the price may be $0.00?
-
-## **Question 2**
-
-A simple answer is equivalent to the following.
-```
-//@ requires 0 < a.length;
-```
-
-Requiring that the array has at least one argument guarantees that the expression `a[0]` is well-defined.
-Note that in JML it is already implicit that the array argument `a` is not null, so there is no need to specify that.
-
-(Any logically equivalent form of the precondition expression would work,
-such as `a.length > 0`. However, we think it good style to follow Rustan Leino's idea of writing such expressions with the smallest quantity on the left, so the expression `1 <= a.length` would be equally good.)
 
 ## **Question 3**
 

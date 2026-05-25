@@ -5,11 +5,22 @@ title: JML Tutorial - Exercises - Preconditions
 ## [Preconditions Tutorial](https://www.openjml.org/tutorial/Preconditions)
 
 ## **Question 1**
+**What precondition would be needed for the following code in the method below to verify? If you can simplify your precondition while still making the code verify, do that.**
+
+```Java
+//@ ensures \result == a[0];
+public int element0(int a[]) {
+   return a[0];
+
+}
+```
+
+## **Question 2**
 
 **The function below will update a user's bank account after making a purchase of a certain number of items.
 The goal of this function is to return the new balance in the user's account,
 but also ensure that their bank account does not dip below zero dollars (as specified in the ensures clause).
-What specifications can we implement to ensure that the user's bank account is never negative?**
+What specifications can we write to ensure that the result is never negative?**
 
 ```Java
 //@ ensures \result >= 0.0;
@@ -19,16 +30,6 @@ public double bankUpdate(double bankAccount, double price, int n) {
 }
 ```
 
-## **Question 2**
-**What precondition would be needed for the following code in the method below to verify? If you can simplify your precondition while still making the code correct, do that.**
-
-```Java
-//@ ensures \result == a[0];
-public int element0(int a[]) {
-   return a[0];
-
-}
-```
 
 ## **Question 3**
 
