@@ -18,9 +18,7 @@ Why would this cause a verification error with the existing code?**
 
 **(b) How you could fix the postcondition so that the existing code would verify with the precondition `-1 < num < 100`? Note that you are to only change the postcondition, not the code in the body of the method and you are to use the new precondition `-1 < num < 100`.**
 
-**(c) Suppose we revert to the original specifications where the precondition is that `0 < num`. The function is unable to be verified. Determine where in the specifications it is failing, and fix it by (only) changing the specification.**
-
-**(c) Suppose the code was updated to the following, with the original precondition that `0 < num`. What is the strongest postcondition that will allow the code in the body below to be verified?**
+**(d) Suppose the code was updated to the following, with the original precondition that `0 < num`. What is the strongest postcondition that will allow the code in the body below to be verified?**
 ```Java
 public int divideByTwo(int num) {
        return num/2;
