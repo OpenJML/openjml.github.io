@@ -26,36 +26,17 @@ public int divideByTwo(int num) {
        return num/2;
 }
 ```
-**Strongest specifications**
-
-First let’s discuss the strength of predicates and specifications.
-Suppose predicate P implies Q, then P is the _strong_ predicate and Q is the weaker one, so P is _stronger than_ Q. For example, `x > 1` implies `x > 0`, so `x > 1` is stronger than `x > 0`.
-So the _strongest predicate_ is one that implies all others. 
-
-_Simple specifications_ have just a precondition and a postcondition.
-We write (P,Q) for a simple specification with precondition P and postcondition Q.
-
-A specification (P,Q) is _stronger than_ a specification (P',Q') when it prohibits some implementations (does not verify) some implementations that would be correct for (P',Q'). Thus, (P,Q) is _stronger than_ (P',Q') when P' is stronger than P and Q is stronger than Q', so the stronger specification works in more cases (as it has a weaker precondition), but delivers a result that will always satisfy Q'. In the literature, it is often said that (P,Q) _refines_ (P',Q') when P' implies P and Q implies Q'.
 
 ## **Question 2**
-
-** What precondition would be used in the strongest possible simple specification? What would a suitable be postcondition be?**
-
-## **Question 3**
-
-** What precondition would be used in the weakest possible simple specification? What would a suitable postcondition be?**
-
-**Learning Objectives:** 
-+ Introduction to “strongest” specification 
-+ Understand overflow errors
-+ Understand relationship between pre and post conditions 
-
-## **Question 4**
 ** (a) Given a rectangle of width w and height h, write a Java method that finds the area of the rectangle and returns it. (b) What is the strongest specifications that verifies the code you wrote?
 The function header is given below.**
 ```Java 
 public int area(int w, int h);
 ```
+
+## **Question 3**
+**Specify and correctly implement a method that takes a sorted integer array, and an element and uses a binary search to check whether the element occurs in the array (and returns _true_ when it occurs in the array and _false_ otherwise).**
+
 **Learning Objectives:** 
 + Gain more experience writhing pre and postconditions 
 + Understand the importance of postconditions and how they can be used to get the correct output for a program

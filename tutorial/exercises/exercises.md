@@ -10,13 +10,13 @@ title: JML Tutorial -- Exercises
 
 ## Supplementary Exercises for the JML Tutorial
 
+### [Preconditions](PreConEx.md)
++ [Problem Statements](PreCondEx.md)
++ [Answer Key](PreCondExKey.md)
+
 ### [Postconditions](PostCondEx.md)
 + [Problem Statements](PostCondEx.md)
 + [Answer Key](PostCondExKey.md) 
-
-### [Preconditions](PreConEx.md)
-+ [Problem Statements](PreConEx.md)
-+ [Answer Key](PreConExKey.md)
 
 ### [Assert Statements](AssertEx.md)
 + [Problem Statements](AssertEx.md)

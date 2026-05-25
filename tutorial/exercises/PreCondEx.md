@@ -7,23 +7,39 @@ title: JML Tutorial - Exercises - Preconditions
 ## **Question 1**
 
 **The function below will update a user's bank account after making a purchase of a certain number of items. We want to make sure that the user's bank account is never below $0.00. What specifications can we implement to ensure that the user's bank account is never negative?**
+
 ```Java
 public double bankUpdate(double bankAccount, double price, int n) {
 		bankAccount = bankAccount - (price*n);
 		return bankAccount;
 }
 ```
-**Java's NaN** 
 
-NaN stands for “not a number” and is used as the result of a floating point operation that results in an undefined answer. A common example of this would be trying to divide zero by zero or taking the square root of a negative number. It is helpful to use the `isNaN()` method from the Java class `Double` (or `Float`) when working with floating point numberss because it will check if the input is not a number. The `isNaN()` method will return _true_ if the input is not a number, else it will return _false_. However, every other floating point comparison involving NaN returns _false_; even if `x` and `y` are both NaN, then `x == y` is _false_, so testing arugments with `isNaN()` is the only reliable way to work with floating point numbers.
+## **Question 2**
+**What precondition would be needed for the following code in the method below to verify? If you can simplify your precondition while still making the code correct, do that.**
+
+```Java
+//@ ensures \result == a[0];
+public int element0(int a[]) {
+   return a[0];
+
+}
+```
+
+## **Question 3**
+
+** What precondition would be used in the strongest possible simple specification? What would a suitable be postcondition be?**
+
+## **Question 4**
+
+** What precondition would be used in the weakest possible simple specification? What would a suitable postcondition be?**
+
 
 **Learning Objectives:** 
 + Gain more experience writing preconditions 
 + Be able to identify preconditions that will prevent errors
 + Be able to identify preconditions that won’t cause a warning in OpenJML but are logically important to the code
 
-## **Question 2**
-**Given an integer array, write a binary search function, and include any specifications needed to verify the function.**
 
 **Learning Objectives:** 
 + Understand relationship between pre/postconditions and arrays
