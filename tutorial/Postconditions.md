@@ -31,7 +31,7 @@ In fact, the same specification could be used with a different implementation:
 {% include_relative T_ensures1a.java %}
 ```
 
-Now how can we check that the implementation actually implements the specification? That is the (or one) purpose of the OpenJML tool.
+Now how can we check that the implementation actually implements the specification? That is one purpose of the OpenJML tool.
 If we execute (cf. [Execution](Execution))
 `openjml --esc tutorial/T_ensures1.java`
 we find that the openjml tool completes with no error messages and a success
@@ -69,7 +69,7 @@ specification and implementation agree, but that they both differ from what the 
 Another situation can be that the specification is not very specific.
 For example, the postcondition could simply be `ensures true;`, which is the
 default if no `ensures` clause is given. In this case the implementation
-trivially satisfies the specification, _no matter what result the implementation does_.
+trivially satisfies the specification, no matter what the implementation does.
 However, while no problem arises in verifying the method, it would not be
 possible to verify _uses_ of the method in some calling method (unless it
 indeed did not matter what the method does). We will return to this 
