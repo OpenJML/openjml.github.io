@@ -6,9 +6,13 @@ title: JML Tutorial - Exercises - Preconditions
 
 ## **Question 1**
 
-**The function below will update a user's bank account after making a purchase of a certain number of items. We want to make sure that the user's bank account is never below $0.00. What specifications can we implement to ensure that the user's bank account is never negative?**
+**The function below will update a user's bank account after making a purchase of a certain number of items.
+The goal of this function is to return the new balance in the user's account,
+but also ensure that their bank account does not dip below zero dollars (as specified in the ensures clause).
+What specifications can we implement to ensure that the user's bank account is never negative?**
 
 ```Java
+//@ ensures \result >= 0.0;
 public double bankUpdate(double bankAccount, double price, int n) {
 		bankAccount = bankAccount - (price*n);
 		return bankAccount;
@@ -34,17 +38,10 @@ public int element0(int a[]) {
 
 ** What precondition would be used in the weakest possible simple specification? What would a suitable postcondition be?**
 
-
 **Learning Objectives:** 
 + Gain more experience writing preconditions 
 + Be able to identify preconditions that will prevent errors
 + Be able to identify preconditions that won’t cause a warning in OpenJML but are logically important to the code
 
-
-**Learning Objectives:** 
-+ Understand relationship between pre/postconditions and arrays
-+ Introduction to the `\forall` clause
-+ Understand the usefulness of using preconditions to check inputs to the code 
-
-## **[Answer Key](PreConExKey.md)**
+## **[Answer Key](PreCondExKey.md)**
 ## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**

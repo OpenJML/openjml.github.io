@@ -37,9 +37,12 @@ public int area(int w, int h);
 ## **Question 3**
 **Specify and correctly implement a method that takes a sorted integer array, and an element and uses a binary search to check whether the element occurs in the array (and returns _true_ when it occurs in the array and _false_ otherwise).**
 
+
+
 **Learning Objectives:** 
 + Gain more experience writhing pre and postconditions 
 + Understand the importance of postconditions and how they can be used to get the correct output for a program
 
 ## **[Answer Key](PostCondExKey.md)**
+## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**
 
