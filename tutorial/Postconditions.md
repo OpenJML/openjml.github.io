@@ -84,7 +84,7 @@ This value is referenced as `\result`. Like all JML keywords in expression, `\re
 ```
 Two final points:
 * The order of `ensures` clauses matters. The predicates of a sequence of `ensures` clauses are effectively conjoined together (with `&&`) to produce
-a single postcondition predicate. Consequently an earlier predicate can cause a later predicate to be [well-defined](WellDefinedExpressions).
+a single postcondition predicate. Consequently an earlier predicate may be needed to make a later predicate be [well-defined](WellDefinedExpressions).
 * In thinking about postconditions, be aware of the semantics of the `ensures` clause, namely,
 _if the method terminates normally (without an exception or error), 
 then the given postcondition must be true_.
