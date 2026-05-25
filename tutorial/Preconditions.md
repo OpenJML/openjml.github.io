@@ -57,9 +57,11 @@ Although in JML one can add many clauses to specifications, what we call a
 _Simple specification_ has just a precondition and a postcondition.
 We write (P,Q) for a simple specification with precondition P and postcondition Q.
 
-A simple specification (P,Q) is _stronger than_ (P',Q') when (P,Q) prohibits some implementations that would be correct for (P',Q'). Thus, (P,Q) is _stronger than_ (P',Q') when P' is stronger than P and Q is stronger than Q', so the stronger specification works in more cases (as it has a weaker precondition), but delivers a result that will always satisfy Q'.
+A simple specification (P,Q) is _stronger than_ (P',Q') when every correct implementation of (P,Q) is also correct for (P',Q'). Thus, (P,Q) is _stronger than_ (P',Q') when P' is stronger than P and Q is stronger than Q', so the stronger specification works in at least as many cases (as it has a weaker precondition), 
+but delivers a result that will always satisfy Q'.
 In the literature, it is often said that (P,Q) _refines_ (P',Q')
 when (P,Q) is stronger than (P',Q').
+Thus the strongest specification is also the _most refined_ specification and permits no more correct implementations than the specifications it refines.
 
 ## **[Preconditions Problem Set](https://www.openjml.org/tutorial/exercises/PreCondEx.html)**
 
