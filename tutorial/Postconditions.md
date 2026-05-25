@@ -7,12 +7,15 @@ but not _how_ it is done. The effect of a method is
 stated in its _postcondition_, which is written in one (or more) 
 _ensures_ clause(s). 
 
+(Ensures clauses may be mixed in any order with its requires clauses, but good,
+and clearer, style suggests putting all requires clauses first and then
+all ensures clauses.)
+
 Consider this example of a method that computes the maximum of four int values.
 
 ```
 {% include_relative T_ensures1.java %}
 ```
-
 
 The *ensures* clauses just prior to the method declaration state two 
 properties that are expected to hold about the result, which is designated
