@@ -11,7 +11,6 @@ title: JML Tutorial - Exercises - Preconditions
 //@ ensures \result == a[0];
 public int element0(int a[]) {
    return a[0];
-
 }
 ```
 
