@@ -26,16 +26,18 @@ public int divideByTwo(int num) {
 ```
 
 ## **Question 2**
-** Given a rectangle of width w and height h: (a) write a Java method that finds the area of the rectangle and returns it. (b) What is the strongest specifications that verifies the code you wrote?
+**Given a rectangle of width w and height h: (a) write a Java method that finds the area of the rectangle and returns it. (b) What is the strongest specifications that verifies the code you wrote?
 The function header is given below.**
 ```Java 
 public int area(int w, int h);
 ```
 
 ## **Question 3**
-**Specify and correctly implement a method that takes a sorted integer array, and an element and uses a binary search to check whether the element occurs in the array (and returns _true_ when it occurs in the array and _false_ otherwise).**
+**Specify and correctly implement a method that returns the average of two `double`s. The interface of the method should be as follows.**
 
-
+```
+    public double average(double x, double y);
+```
 
 **Learning Objectives:** 
 + Gain more experience writhing pre and postconditions 
