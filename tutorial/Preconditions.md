@@ -41,7 +41,7 @@ produces
 NaN stands for “not a number” and is used as the result of a floating point operation that results in an undefined answer. A common example of this would be trying to divide zero by zero or taking the square root of a negative number.
 
 It is usually necessary to use the `isNaN()` method from the Java class `Double` (or `Float`) when working with floating point numbers because every other test involving floating point numbers returns _false_ if at least one number is NaN.
-(This is even true for `==`; even if `x` and `y` are both NaN, then `x == y` is _false_, so testing arugments with `isNaN()` is the only reliable way to work with floating point numbers.
+(This is even true for `==`; even if `x` and `y` are both NaN, then `x == y` is _false_, so testing arguments with `isNaN()` is the only reliable way to work with floating point numbers.
 
 Therefore, a typical precondition for a method that has floating point numbers as arguments is `!Double.isNaN(arg)`, after which other logical operators and comparisons behave more logically.
 
