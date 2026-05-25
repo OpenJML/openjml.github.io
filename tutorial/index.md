@@ -42,8 +42,8 @@ example code; just add the appropriate path to the `openjml` command.
   * [Syntax](Syntax)
 
 * Simple Method Specifications
-  * [Postconditions](Postconditions)
   * [Preconditions](Preconditions)
+  * [Postconditions](Postconditions)
   * [Specifying Exceptions](SpecifyingExceptions)
   * [Verifying Method Calls](MethodCalls)
   * [Frame Conditions](FrameConditions)
