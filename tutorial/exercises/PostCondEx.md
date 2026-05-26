@@ -10,7 +10,7 @@ Why would this cause a verification error with the existing code?**
 
 ```Java
 //@ requires 0 < num < 100;
-//@ ensures \result > num;
+//@ ensures num < \result;
  public int multiplyByTwo(int num) {
 	return num*2;
 }
@@ -18,21 +18,24 @@ Why would this cause a verification error with the existing code?**
 
 **(b) How you could fix the postcondition so that the existing code would verify with the precondition `-1 < num < 100`? Note that you are to only change the postcondition, not the code in the body of the method and you are to use the new precondition `-1 < num < 100`.**
 
-**(c) Suppose the code was updated to the following, with the original precondition that `0 < num`. What is the strongest postcondition that will allow the code in the body below to be verified?**
+## **Question 2**
+
+**Consider the following code was updated to the following. What is the strongest postcondition that will allow the code in the body to be verified?**
 ```Java
+//@ requires 0 < num;
 public int divideByTwo(int num) {
        return num/2;
 }
 ```
 
-## **Question 2**
+## **Question 3**
 **Given a rectangle of width w and height h: (a) write a Java method that finds the area of the rectangle and returns it. (b) What is the strongest specifications that verifies the code you wrote?
 The function header is given below.**
 ```Java 
 public int area(int w, int h);
 ```
 
-## **Question 3**
+## **Question 4**
 **Specify and correctly implement a method that returns the average of two `double`s. The interface of the method should be as follows.**
 
 ```

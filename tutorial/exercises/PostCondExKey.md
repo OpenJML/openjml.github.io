@@ -15,12 +15,14 @@ To check this, observe that the output of running `openjml --esc` on the JML+Jav
 **(b)** 
 A simple fix to the postcondition is to change `<` to `<=`, which will allow the method to return 0 when the argument is 0. This directly addresses the problem noted above.
 
-**(c)**
+## **Question 2**
 A postcondition that can be used to make the code verify is `\result == num / 2`.
 (Any equivalent expression will do, including `2*\result == num`, 
-but the theorem prover used in OpenJML cannot reason about multiplication and division, so it will complain about that form of the postcondition.)
+but the theorem provers, SMT solvers, used in OpenJML cannot reason about
+multiplication and division,
+so OpenJML will complain about that form of the postcondition.)
 
-## **Question 2**
+## **Question 3**
 
 The answer to this question depends on the code you write. However, if you write the obvious body
 ```Java
@@ -42,7 +44,7 @@ Thus an entire solution could look like the following.
 {% include_relative Rectangle.java %}
 ```
 
-## **Question 3**
+## **Question 4**
 
 The answer can vary, but one possible specification and implementation is the following.
 ```
