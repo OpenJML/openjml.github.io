@@ -3,24 +3,31 @@ title: JML Tutorial - Specifying Exceptions
 ---
 
 JML can specify exception execution paths just as well as normal execution paths.
-A normal execution has associated postconditions --- `ensures` clauses. The logic is --- if the method exits normally, then the postcondition must be true.
-Similarly exits with exceptions use an exceptional postcondition --- `signals` clauses.
-A `signals` clause has this syntax: `signals (E e) <expression>`
-where `E` is some exception type (derived from or the same as `java.lang.Exception`).
-The meaning of this clause is --- if the method terminates with an exception derived from `E`, then the given expression must be true.
-[ JML does not specify behavior regarding Java Errors as these are mostly unrecoverable system errors like OutOfMemoryError or StackOverflowError.]
+A normal execution has associated postconditions --- `ensures` clauses.
+OpenJML verifies that if the method exits normally,
+then the postcondition must be true.
+Similarly exits with exceptions use an exceptional postcondition,
+which is a `signals` clause in JML.
+A `signals` clause has this syntax: `signals (E e) <predicate>`
+where `E` is some exception type (derived from `java.lang.Exception`,
+although it could be `java.lang.Exception` itself).
+The meaning of a signals clause is:
+if the method terminates with an exception derived from `E`,
+then the given predicate must be true.
+(In JML one does not specify behavior regarding Java Errors,
+as these are mostly unrecoverable system errors like `OutOfMemoryError`
+or `StackOverflowError`.)
 
 So we could write this trivial example:
 ```
 {% include_relative T_Exception1.java %}
 ```
 which verifies successfully. Note that the specification includes a second kind of clause, the `signals_only` clause.
-This clause specifies the kinds of exceptions that may be thrown from the method. 
-JML requires the specification to list `RuntimeException`, even though Java does not require declaring `RuntimeException` in a throws clause,
-in order to make it explicitly clear what exceptions might be thrown.
+This clause specifies the kinds of exceptions that may be thrown from the method.
+Unlike Java, JML requires that a the specification list runtime exceptions (derived from `java.lang.RuntimeException`), so that each specification is clear about what exceptions might be thrown.
 
 If we omit any exceptions, by using the default `signals_only` clause
-(`signals_only \nothing`), a verification failure results.
+(`signals_only \nothing`), a verification failure results, as shown in the following example and its output with extended static checking.
 ```
 {% include_relative T_Exception1a.java %}
 ```
@@ -28,11 +35,11 @@ If we omit any exceptions, by using the default `signals_only` clause
 {% include_relative T_Exception1a.out %}
 ```
 
-The `signals_only` specification comes explicitly into play when the program wants to throw an exception. Consider the following incorrect implementation:
+The `signals_only` specification comes explicitly into play when the program wants to throw an exception. Thus the method `value` in the following is incorrect.
 ```
 {% include_relative T_Exception1b.java %}
 ```
-It produces the output
+And using ESC on the above produces the following output.
 ```
 {% include_relative T_Exception1b.out %}
 ```
@@ -80,5 +87,4 @@ The three verification failure messages may occur in any order.
 This balance between verification failures and exception specifications is an
 advanced topic discussed [here](JavaErrorsAndExceptions).
 
-
-## **[Specifying Exceptions Problem Set](https://www.openjml.org/tutorial/exercises/SpecifyingExceptionsEx.html)**
+## **[Specifying Exceptions Exercises](https://www.openjml.org/tutorial/exercises/SpecifyingExceptionsEx.html)**
