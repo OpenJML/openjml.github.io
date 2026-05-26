@@ -19,7 +19,7 @@ Instructions on running `openjml` and executing the tutorial examples are
 
 ## **[Installation Problem Set](https://www.openjml.org/tutorial/exercises/InstallationEx.html)**
 
-Follow the link in the above heading to work on the exercises that deal with postconditions.
+Follow the link in the above heading to work on the exercises that deal with installing OpenJML.
 
 
 

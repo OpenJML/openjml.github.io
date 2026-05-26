@@ -65,4 +65,4 @@ Thus the strongest specification is also the _most refined_ specification and pe
 
 ## **[Preconditions Problem Set](https://www.openjml.org/tutorial/exercises/PreCondEx.html)**
 
-Follow the link in the above heading to work on the exercises that deal with postconditions.
+Follow the link in the above heading to work on the exercises that deal with preconditions.
