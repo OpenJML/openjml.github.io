@@ -18,13 +18,13 @@ such as `a.length > 0`. However, we think it good style to follow Rustan Leino's
 
 
 ## **Question 2**
-We know that the method takes three parameters, the current amount in the user's bank account, the price of an item, and the number of items to be purchased. To ensure the bank account is never negative, we need to check the following:
+We know that the method takes three parameters, the current amount in the user's bank account, the price of an item, and the number of items to be purchased. To ensure the bank account is never negative, we require the following:
 1. the current amount in the user's bank account is greater to zero;
 2. the cost of one item is greater than or equal to zero; and
 3. that purchasing n items doesn't make the user's bank account negative.
 If all these requirements are met, we can ensure that the user's bank account will not be below $0.00. 
 
-However, it is important to note that since we are dealing with floating points (doubles in this case) the specification must require that the inputs passed into the function are not NaN. This can be done using the function `isNaN()` of the class Double which is used require that both the inputs `bankAccount` and `price` are not `NaN`.
+However, it is important to note that, since we are dealing with floating point numbers, the specification must require that the inputs passed into the function are not NaN. This can be done using the function `isNaN()` of the class Double which is used require that both the inputs `bankAccount` and `price` are not `NaN`.
 By doing the specification operates in a more logicla manner, and the user will get a verification error if they pass in a `NaN` value. OpenJML will not prohibit `NaN` inputs on its own, so it is important to include this requirement when working with floating point numbers to avoid potential errors.
 In the following we use two requires clauses for these checks, but one could equivalently use one clause, such as the following.
 ```
