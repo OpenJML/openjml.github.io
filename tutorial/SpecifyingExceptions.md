@@ -25,7 +25,7 @@ So we could write this trivial example:
 ```
 which verifies successfully. Note that the specification includes a second kind of clause, the `signals_only` clause.
 This clause specifies the kinds of exceptions that may be thrown from the method.
-Unlike Java, JML requires that a the specification list runtime exceptions (derived from `java.lang.RuntimeException`), so that each specification is clear about what exceptions might be thrown.
+Unlike Java, JML requires that a `signals_only` clause list runtime exceptions (derived from `java.lang.RuntimeException`), so that each specification is clear about what exceptions might be thrown.
 
 However, if the `signals_only` clause is omitted, then the default is as if there was a `signals_only` clause that lists `java.lang.RuntimeException`
 and any declared (checked) exception types.
