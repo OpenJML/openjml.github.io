@@ -44,7 +44,8 @@ which when checked with ESC produces the following.
 ```
 OpenJML complains about the above code since the specification prohibits exceptions from being thrown.
 
-Verification failures can also occur due to such (runtime) conditions as null pointer exceptions, as the following example shows.
+Verification failures can also occur due to such (runtime) conditions as null pointer exceptions (when `nullable_by_default` is used), 
+as the following example shows.
 ```
 {% include_relative T_Exception1a.java %}
 ```
@@ -58,7 +59,7 @@ Then the `signals` clause means --- if an exception is thrown then `false` --- w
 "if false is true, then throwing such an exception is correct",
 thus equivalently: "such an exception may not be thrown".
 
-Here is an example, with the overall type `Exception` as the exception type:
+For example, the following specifies that no exceptions can be thrown by the method `value`, due to the `signals` clause that uses the overall type `Exception` as the exception type and which specifies that an exception may only be thrown when `false` is true.
 ```
 {% include_relative T_Exception2.java %}
 ```
