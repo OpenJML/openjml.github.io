@@ -26,8 +26,25 @@ which verifies successfully. Note that the specification includes a second kind 
 This clause specifies the kinds of exceptions that may be thrown from the method.
 Unlike Java, JML requires that a the specification list runtime exceptions (derived from `java.lang.RuntimeException`), so that each specification is clear about what exceptions might be thrown.
 
-If we omit any exceptions, by using the default `signals_only` clause
-(`signals_only \nothing`), a verification failure results, as shown in the following example and its output with extended static checking.
+However, if the `signals_only` clause is omitted, then the default is as if there was a `signals_only` clause that lists `java.lang.RuntimeException`
+and any declared (checked) exception types.
+
+If we specify that no exceptions can be thrown,
+with the clause `signals_only \nothing`,
+then a verification failure results if any exceptions can be thrown
+as shown in the following example (and its output with extended static checking).
+```
+{% include_relative T_SpecifyingExceptionsNone.java %}
+
+```
+which when checked with ESC produces the following.
+```
+{% include_relative T_SpecifyingExceptionsNone.out %}
+
+```
+OpenJML complains about the above code since the specification prohibits exceptions from being thrown.
+
+Verification failures can also occur due to such (runtime) conditions as null pointer exceptions, as the following example shows.
 ```
 {% include_relative T_Exception1a.java %}
 ```
@@ -35,18 +52,7 @@ If we omit any exceptions, by using the default `signals_only` clause
 {% include_relative T_Exception1a.out %}
 ```
 
-The `signals_only` specification comes explicitly into play when the program wants to throw an exception. Thus the method `value` in the following is incorrect.
-```
-{% include_relative T_Exception1b.java %}
-```
-And using ESC on the above produces the following output.
-```
-{% include_relative T_Exception1b.out %}
-```
-Here the method explictly throws an exception, but as that exception is not specified to be thrown, so OpenJML complains.
-
-
-In order to say that a particular exception is never thrown,
+In order to say that a particular type of exception is never thrown,
 use a `signals` clause (for that exception type) with a `false` predicate.
 Then the `signals` clause means --- if an exception is thrown then `false` --- which is equivalent to saying
 "if false is true, then throwing such an exception is correct",
