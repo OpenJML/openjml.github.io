@@ -8,10 +8,11 @@ OpenJML verifies that if the method exits normally,
 then the postcondition must be true.
 Similarly exits with exceptions use an exceptional postcondition,
 which is a `signals` clause in JML.
-A `signals` clause has this syntax: `signals (E e) <predicate>`
+A `signals` clause has this syntax: `signals (E e) P;`
 where `E` is some exception type (derived from `java.lang.Exception`,
-although it could be `java.lang.Exception` itself).
-The meaning of a signals clause is:
+although it could be `java.lang.Exception` itself),
+`e` is an identifier, which stands for the exception object and can thus be used in the predicate `P`.
+The meaning of such a signals clause is:
 if the method terminates with an exception derived from `E`,
 then the given predicate must be true.
 (In JML one does not specify behavior regarding Java Errors,
