@@ -1,0 +1,7 @@
+T_SpecifyingExceptionsNone.java:7: verify: The prover cannot establish an assertion (ExceptionList: T_SpecifyingExceptionsNone.java:4:) in method getHash
+            throw new IllegalArgumentException();
+            ^
+T_SpecifyingExceptionsNone.java:4: verify: Associated declaration: T_SpecifyingExceptionsNone.java:7:
+    //@ signals_only \nothing;
+        ^
+2 verification failures
