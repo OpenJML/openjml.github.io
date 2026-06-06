@@ -9,12 +9,12 @@ Now let's progress to method calls.
 
 The key point to remember is that verification in JML (and other similar
 deductive verification languages and tools) is *modular by method*.
-That is, each method is verified on its own; only when all methods are 
-verified with a consistent set of specifications
-across all of them can the program as a whole be 
-considered verified.
+That is, each method is verified (against its own specifications) on its own;
+thus, only when all methods are verified against
+a consistent set of specifications across all of them can the program
+as a whole be considered verified.
 
-Consider two methods, a caller and a callee, as shown in this diagram.
+Consider two methods, a caller and a callee, as shown in the following diagram.
 
 ![Caller-callee verification](./tutorial1.001.png)
 
@@ -25,14 +25,18 @@ verified, the logical engine
 * asserts the postconditions---that is, proves that the postconditions logically follow from the preconditions and method body in every initial state allowed by the preconditions
 
 As for the caller, it also follows the same three steps. But how do we represent the call to `callee()`? We could inline the whole callee method, but that would
-become unwieldy, would not work for recursion, and is not modular.
-Instead, we replace the call of `callee()` in the caller's body with the callee's
-pre- and post-conditions. We know that the callee's postconditions will be true if the callee's preconditions are satisfied. So the caller, at the point of the method call,
+become unwieldy, would not work if callee is recursive, and is not modular.
+Instead, we replace the call of `callee()` in the caller's body with the
+callee's
+pre- and post-conditions.
+When the callee is verified, then the callee's postconditions will be true
+if the callee's preconditions are satisfied.
+So the caller, at the point of the method call,
 
 * must prove (assert) that the callee's preconditions hold
-* and then it may assume that the callee's postconditions will hold
+* and then the caller may assume that the callee's postconditions will hold.
 
-As long as we keep the callee's specifications the same, we can verify the callee and the caller independently. (Thus the callee's specification is a summary of its behavior and is not affected by the callee's implementation details.)
+As long as the callee's specifications are unchanged, the callee and the caller can be verified independently. (Thus the callee's specification is a summary of its behavior and is not affected by the callee's implementation details.)
 
 It is easy to see that this process works for verifying the methods in a program that do not call anything, to those methods that just call those leaves, all the way up to the top-level methods of the program. It can also be demonstrated that this process is sound when there are recursive calls, as long as it can
 be proved that the program terminates.
@@ -51,8 +55,10 @@ the `--progress` option, so we receive quite a bit more output.
 ```
 
 Looking at this piece by piece:
-* The method `lessThanDouble` requires positive inputs with the first argument
-larger than the second. It returns true if the first argument is less than double the second. The method proves without a problem. 
+* The method `lessThanDouble` requires non-negative inputs
+with the first argument larger than the second.
+It returns true if the first argument is less than double the second.
+The method proves without a problem. 
 The output about `lessThanDouble` is near the end of the verification listing above.
 * The default constructor `T_CallerCallee()` also verifies without problem.
 * The method `caller1` calls `lessThanDouble` for two test cases and checks 
@@ -89,7 +95,7 @@ If you want you can hide all the output text and just observe the exit code:
 ```
 openjml --esc --quiet T_CallerCallee.java ; echo $?
 ```
-produces just
+produces (on a Unix variant) just the following:
 ```
 6
 ```
