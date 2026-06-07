@@ -9,7 +9,7 @@ public class MethodCallsEx2 {
     }
 
     //@ requires 0 < w && 0 < h;
-    //@ requires 0 <= w*h <= Integer.MAX_VALUE;
+    //@ requires w*h <= Integer.MAX_VALUE;
     //@ ensures 0 < \result;
     //@ ensures w <= \result;
     //@ ensures h <= \result;
