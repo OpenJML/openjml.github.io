@@ -19,7 +19,8 @@ The `isNonNegative` function has a straightforward postcondition. However, it is
 **Answer and Explanation:**
 When one uses OpenJML's ESC on the program, one sees that all the problems lie in the areaOfRectangle method. There are several problems:
 
-1. The multiplication `w*h` my overflow (because the result may be too large to fit in an `int`.
+1. The multiplication `w*h` may overflow,
+because the result may be too large to fit in an `int`.
 2. The result (`A`) may not equal the mathematical result, since the specification uses mathematical integers and the result may not fit into an `int` or may wrap around to a negative number.
 3. Because the result may be negative when put into an `int` result, the result may no longer satisfy `0 < w <= \result` violating two postconditions of `areaOfRectangle`
 
