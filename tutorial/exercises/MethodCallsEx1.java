@@ -1,7 +1,7 @@
 public class MethodCallsEx1 {
 
-    //@ requires 0 < x <= Integer.MAX_VALUE / 2;
-    //@ requires 0 < y <= Integer.MAX_VALUE / 2;
+    //@ requires 0 < x && 0 < y;
+    //@ requires x+y <= Integer.MAX_VALUE;
     //@ ensures Math.abs(\result - ((x+y)/2.0)) < 1e-9;
     //@ pure
     public double averageMeasures(int x, int y) {
@@ -16,5 +16,4 @@ public class MethodCallsEx1 {
     public boolean isNonNegative(int i) {
         return 0 <= i;
     }
-
 }
