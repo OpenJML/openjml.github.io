@@ -5,40 +5,36 @@ title: JML Tutorial - Exercises - Verifying Method Calls
 ## [Verifying Method Calls Tutorial](https://www.openjml.org/tutorial/MethodCalls)
 
 ## **Question 1**
-**Write two functions that perform the following: an function that adds two integer arrays and a function that returns true if the arrays to be added are of the same size. Use the following function headers to help you. Determine the specifications needed to verify your functions.**
+**Write two methods that do the following: `averageMeasures` averages two integers (returning a result that is accurate to within 9 decimal places), assuming both arguments are non-negative, and `isNonNegative`, which returns true just when its integer argument is non-negative. The first method must call the second. Use the following headers for these methods and write the method specifications needed to verify your implementations.**
 ```Java
-public int[] addArrays(int[] a, int[] b);
+public double averageMeasures(int x, int y);
 
-public boolean sameSize(int[] a, int[] b);
+public boolean isNonNegative(int i);
 ```
-**Learning Objectives:**
-+ Understand how to verify method calls
-+ Gain more experience writing JML specifications 
 
 ## **Question 2**
-**The program below is checking whether the user has enough material for an area given the dimensions of the area and the amount of material the user has. However, the program is unable to be verified; determine where in the specifications it is failing, and fix it.**
+**The `enoughMaterial` method below is checking whether the user has enough material for an area given the dimensions of the area (`w` and `h`) and the amount of material the user has (`materialSqFt`). However, the program is unable to be verified; determine the cause of the verification failure and fix it by changing only the specifications of the two methods, without changing the code of either method.**
 ```Java
-//@ ensures \result <==> (area(w, h) > materialSqFt);
-public boolean enoughMaterial(int materialSqFt, int w, int h) {
-	int area = area(w, h);
-		
-	return (area > materialSqFt);	
-}
-	
-//@ ensures \result > 0;
-//@ ensures \result >= w;
-//@ ensures \result >= h;
-//@ pure
-public int area(int w, int h) {
-	int A = w*h;
+    //@ requires 0 < materialSqFt;
+    //@ ensures \result <==> (areaOfRectangle(w,h) < materialSqFt);
+    public boolean enoughMaterial(int materialSqFt, int w, int h) {
+        int area = areaOfRectangle(w, h);
+        return (area < materialSqFt);	
+    }
 
-	return A;	
-}
+    //@ ensures 0 < \result;
+    //@ ensures w <= \result;
+    //@ ensures h <= \result;
+    //@ ensures \result == w*h;
+    //@ spec_pure
+    public int areaOfRectangle(int w, int h) {
+        int A = w*h;
+        return A;
+    }	
 ```
 **Learning Objectives:**
 + Understand the importance of verifying method calls
-+ Understand the importance of `assume` and `assert` statements for verifying method calls
-+ Gain more experience with the process of verifying method calls
++ Gain more experience with the process of specifying and verifying methods, especially those whose implementations involve method calls
 
 ## **[Answer Key](MethodCallsExKey.md)**
 ## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**

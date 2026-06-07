@@ -5,14 +5,16 @@ title: JML Tutorial - Exercises - Verifying Method Calls
 ## [Verifying Method Calls Tutorial](https://www.openjml.org/tutorial/MethodCalls)
 
 ## **Question 1**
-**Write two functions that perform the following: an function that adds two integer arrays and a function that returns true if the arrays to be added are of the same size. Use the following function headers to help you. Determine the specifications needed to verify your functions.**
-```Java
-public int[] addArrays(int[] a, int[] b);
-
-public boolean sameSize(int[] a, int[] b);
-```
 **Answer and Explanation:**
-We are tasked with writing a program that adds two integer arrays, we will break up this process into two functions. The `addArrays()` will take in two integer arrays `a` and `b` and will add their elements if they are the same size. The `sameSize()` will also take in the arrays `a` and `b` and check if they have the same length. Given this information we can write something like the following program:
+One solution that verifies as correct is the following.
+```Java
+{% include_relative MethodCallsEx1.java %}
+```
+
+If one uses the standard computation for the average `(x+y)/2`, then it is important to avoid wrap-around of the Java integers used by making sure that the arguments `x` and `y` can be added together without such problems. This is the reason for the preconditions that say both arguments must be positive integers that are no more than `Integer.MAX_VALUE/2`. Another possibility would be to require that `x+y <= Integer.MAX_VALUE`.
+
+Specifying 
+We are tasked with Thwriting a program that adds two integer arrays, we will break up this process into two functions. The `addArrays()` will take in two integer arrays `a` and `b` and will add their elements if they are the same size. The `sameSize()` will also take in the arrays `a` and `b` and check if they have the same length. Given this information we can write something like the following program:
 ```Java
 public int[] addArrays(int[] a, int[] b) {
 	if(sameSize(a, b)) {
