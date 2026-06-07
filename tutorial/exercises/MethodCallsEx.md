@@ -1,5 +1,5 @@
 ---
-title: JML Tutorial - Exercises - Verifying Method Calls
+title: JML Tutorial - Exercises - Specifying and Verifying Method Calls
 ---
 # Verifying Method Calls Exercises:
 ## [Verifying Method Calls Tutorial](https://www.openjml.org/tutorial/MethodCalls)
