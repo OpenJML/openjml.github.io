@@ -2,9 +2,9 @@
 title: JML Tutorial - Method Calls
 ---
 
-We have seen how to verify method implementations that have
+We have seen how to specify and verify method implementations that have
 pre- and postconditions describing
-the behavior of method bodies that contain if statements and assignments.
+the behavior of method bodies that may contain if statements and assignments.
 Now let's progress to method calls.
 
 The key point to remember is that verification in JML (and other similar
@@ -102,5 +102,5 @@ produces (on a Unix variant) just the following:
 The exit code 6 indicates that verification errors were found (but no parsing
 or type-checking or command-line or system errors).
 
-## **[Veriyfing Method Calls Problem Set](https://www.openjml.org/tutorial/exercises/MethodCallsEx.html)**
+## **[Specifying and Verifying Method Calls Problem Set](https://www.openjml.org/tutorial/exercises/MethodCallsEx.html)**
 
