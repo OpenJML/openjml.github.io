@@ -11,7 +11,7 @@ One solution that verifies as correct is the following.
 {% include_relative MethodCallsEx1.java %}
 ```
 
-If one uses the standard computation for the average `(x+y)/2`, then it is important to avoid wrap-around of the Java integers used by making sure that the arguments `x` and `y` can be added together without such problems. This is the reason for the preconditions that say both arguments must be positive integers that their sum is no more than `Integer.MAX_VALUE`. Another possibility would be to require that both arguments are less than `Integer.MAX_VALUE/2`.
+If one uses a standard computation for the average, like `(x+y)/2.0`, then it is important to avoid wrap-around of the Java integers used by making sure that the arguments `x` and `y` can be added together without such problems. This is the reason for the preconditions that say both arguments must be positive integers that their sum is no more than `Integer.MAX_VALUE`. Another possibility would be to require that both arguments are less than `Integer.MAX_VALUE/2`.
 
 The `isNonNegative` function has a straightforward postcondition. However, it is necessary to specify that it is `pure`, so that it does not have side effects when called.
 
@@ -30,7 +30,7 @@ Fixing these problems can be done by adding preconditions on `w` and `h` in `are
 {% include_relative MethodCallsEx2.java %}
 ```
 
-However, when one adds these preconditions to `areaOfRectangle` then the call to that method in `enoughMaterial` may no longer satisfy `areaOfRectangle`'s precondition, so to get the program to verify, it is necessary to add a precondition to `enoughMaterial` to constrain the values of `w` and `h` (this is the first precondition of `enoughMaterial` above).
+However, when one adds the preconditions shown above to `areaOfRectangle` then the call to that method in `enoughMaterial` may no longer satisfy `areaOfRectangle`'s precondition, so to get the program to verify, it is necessary to add a precondition to `enoughMaterial` to constrain the values of `w` and `h` (this is the first precondition of `enoughMaterial` above).
 
 ## **Resources:**
 + [Verifying Method Calls Exercises](VerifyingMethodCallsEx.md)
