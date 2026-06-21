@@ -17,9 +17,11 @@ Here are instructions for installing the OpenJML plugin in your instance of Ecli
     </li>
     <li>You must have a current version of OpenJML installed on your system (21.0.25 or later)
         (cf. <a href="https://github.com/openjml/openjml/releases">here</a>).
+        (It is generally preferable if this installation folder is not a subfolder of the Desktop.)
     </li>
-    <li>On a Mac you man need to run <code>./mac-setup</code> (in the OpenJML installation folder) to clear some security settings. You can check
-        that the server runs by executing <code>./openjml-lsp --version</code>.
+    <li>On a Mac you may need to run <code>./mac-setup</code> (in the OpenJML installation folder) to clear some security settings. You can check
+        that the server runs by executing <code>./openjml-lsp --version</code>.  Note also that on a Mac security restrictions on 
+        apps accessing the Desktop may prevent the server from running if it is in a folder (recursively) on the Desktop.
     </li>
     <li>Then install the OpenJML plugin in Eclipse using the usual Eclipse mechanism to "Install New Software..."
 using the update site <a href="https://openjml.org/eclipse-update-site">here</a>.</li>
