@@ -141,9 +141,10 @@ but if it has any `exceptional_behavior` cases, they will be ignored for use in 
 (cf. [Multiple Behaviors](MultipleBehaviors))
 
 ## Pure constructors
+
 You might have noticed that the constructor for `Counter` in the example
-above is also marked `spec_pure`. Constructors create new objects or arrays, so they are not allowed to be used in specifications. Nevertheless, it is helpful to 
-mark a constructor as `ispec_pure` to indicate that the constructor does not modify any memory _other than setting its own fields_.
+above is also marked `pure`. Constructors create new objects or arrays, so they are not allowed to be used in specifications. Nevertheless, it is often helpful to 
+mark a constructor as `spec_pure` to indicate that the constructor does not modify any memory _other than setting its own fields_.
 
 ## Pure classes
 A class can also be marked `pure`. This means that all the constructors and

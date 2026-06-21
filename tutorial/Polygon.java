@@ -9,10 +9,10 @@ interface Polygon {
   //@ ensures longestSide == \old(longestSide)/2;
   public void half();
 
-  //@ ensures \result == sides; pure
+  //@ ensures \result == sides; spec_pure
   public int sides();
 
-  //@ ensures \result == longestSide; pure
+  //@ ensures \result == longestSide; spec_pure
   public int longestSide();
 }
 class Square implements Polygon {
@@ -20,14 +20,14 @@ class Square implements Polygon {
 
   //@ public represents sides = 4;
   //@ public represents longestSide = side;
-
+    
   //@ ensures side == s && sides == 4;
   public Square(int s) { side = s; }
 
   // specification inherited
   public void half() { side = side/2; }
 
-  // specification inherited; cf the represents clause for sides
+  // specification inherited; cf. the represents clause for sides
   public int sides() { return 4; }
 
   // specification inherited; cf the represents clause for longestSide

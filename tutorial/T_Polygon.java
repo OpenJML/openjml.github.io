@@ -3,7 +3,7 @@ public interface T_Polygon {
 
   /** Number of sides to the polygon */
   //@ ensures \result >= 3;
-  //@ pure helper
+  //@ spec_pure helper
   public int sides();
 
 }   
@@ -11,8 +11,9 @@ public interface T_Polygon {
 class Square implements T_Polygon {
 
   /** Length of one side of the Square */
-  //@ public invariant side >= 0;
   public int side;
+
+  //@ public invariant side >= 0;
 
   //@ requires 0 <= side < 1000;
   //@ ensures this.side == side;
@@ -20,8 +21,9 @@ class Square implements T_Polygon {
     this.side = side;
   }
 
-  //@ also ensures \result == 4;
-  //@ pure helper
+  //@ also
+  //@   ensures \result == 4;
+  //@ spec_pure helper
   public int sides() {
     return 4;
   }

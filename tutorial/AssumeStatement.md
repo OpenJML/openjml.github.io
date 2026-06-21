@@ -2,7 +2,16 @@
 title: JML Tutorial - Assume statements (assume clauses)
 ---
 
-Like an `assert` stastement, a JML  `assume` statement may be used in the
+Preconditions in JML (the predicates in `requires` clauses) are assumed by JML
+to hold when verifying a method.
+That is, for purposes of verifying a method body, a precondition is equivalent to using an `assume` statement at the beginning of the method body to assume that the precondition holds.
+However, preconditions are verified to hold at calls sites,
+while assume statements within a method body need are not verified to be true
+(either at runtime or during static verification).
+
+## Assume Statements
+
+Like an `assert` statement, a JML  `assume` statement may be used in the
 body of a method. The effect of an `assume` statement is to instruct
 the verification engine to assume, *without proof*, that the given 
 predicate is true. Such statements can be used to introduce
@@ -23,11 +32,14 @@ specify the behavior of loops (that is coming [later!](Loops)), so we add some
 assumptions that we expect to be true. With those assumptions, the
 above example verifies.
 
-Assume statements can be very helpful in developing a proof of an implementation, but they have a danger. If the given predicate is not actually 
-true, then it will be possible to prove invalid statements about a program.
+Do you see why the assumptions in the example are not always true?
+This is the danger of `assume` statements; while they
+can be very helpful in developing a proof,
+if the given predicate is not always true,
+then it will be possible to prove invalid specifications or implementations.
 You can even see that in the example above: if the array `a` does not
-contain any element that is zero, then the second `assume` statement is
-invalid and the postcondition cannot actually be proved.
+contain any elements, then the `assume` statements will be
+false; thus the postcondition is incorrect.
 
 The situation can even be worse. Consider the following drastic, if trivial, case.
 ```
@@ -52,9 +64,10 @@ the situation in logic where once a contradiction is assumed, anything,
 even false statements, can be proven.
 
 Thus, to emphasize the point: `assume` statements can be very helpful in the course of developing 
-a specification and proof of a method implementation, but they should be 
-replaced with `assert` statements or removed altogether before a verification
-is considered sound.
+a specification and proof of a method implementation,
+but if the OpenJML proof engine can prove them,
+then they should be replaced with `assert` statements
+or removed altogether before a verification is considered sound.
 
 ## **[Assume Statements Problem Set](https://www.openjml.org/tutorial/exercises/AssumeEx.html)**
 

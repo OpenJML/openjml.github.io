@@ -39,6 +39,7 @@ if the left-operand is true, the right operand is well-defined
 * The `instanceof` expression is well-defined if its left-hand expression is well-defined (the right hand-expression is a type name). Note that the `instanceof` expression is still well-defined if the left-hand expression is `null` (in which case the expression's value will be false).
 * A cast operation such as `(T)o` is well-defined if its argument expression (`o`) is well-defined (since the type `T` being cast to is just a type name). (The argument may be `null`, in which case the result of the operation is `null`.)
 * A method call expression such as `o.m(es...)` or object creation expression such as `o.new T(...)` is well-defined if the receiver expression (`o`) is either absent or a type name or a well-defined expression and all the arguments (`es...`) are well-defined
+* A switch expression (such as `switch (V) { ... }`) is well-defined if the switch value expression (`V`) is well-defined and the selected expression is well-defined. The switch expression is short-circuiting in the sense that any expression for cases that are not selected are not evaluated and so do not need to be well-defined.
 
 JML statements are well-defined if all their component sub-statements and sub-expressions are well-defined. That is, for a statement to be well-defined, each part must be well-defined; the even applies to if, if-else, and switch statements.
 

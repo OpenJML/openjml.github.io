@@ -4,7 +4,7 @@ title: JML Tutorial
 <i>Last Modified: <script type="text/javascript"> document.write(new Date(document.lastModified).toUTCString())</script></i>
 
 These pages provide a quick introduction to JML (the Java Modeling Language) and 
-OpenJML (a tool that checks specifications written in JML for Java programs)
+OpenJML (the openjml tool that checks specifications written in JML for Java programs)
 in the form of an on-line tutorial.
 
 You should 
@@ -42,8 +42,8 @@ example code; just add the appropriate path to the `openjml` command.
   * [Syntax](Syntax)
 
 * Simple Method Specifications
-  * [Postconditions](Postconditions)
   * [Preconditions](Preconditions)
+  * [Postconditions](Postconditions)
   * [Specifying Exceptions](SpecifyingExceptions)
   * [Verifying Method Calls](MethodCalls)
   * [Frame Conditions](FrameConditions)
@@ -114,3 +114,4 @@ example code; just add the appropriate path to the `openjml` command.
   * [Reasoning about non-deterministic functions and volatile variables](Nondeterminism)
   * [Reasoning about termination](Termination) 
 
+## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**

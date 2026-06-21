@@ -17,4 +17,6 @@ You can check that the installation is working by running `openjml --version`.
 Instructions on running `openjml` and executing the tutorial examples are
 [here](Execution).
 
+## **[Installation Exercises](https://www.openjml.org/tutorial/exercises/InstallationEx.html)**
 
+Follow the link in the above heading to work on the exercises that deal with installing OpenJML.

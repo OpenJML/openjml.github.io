@@ -10,7 +10,7 @@ and also the complexities of what "always" means.
 The basic idea of an invariant is this: an invariant describes a property that always holds of an object. Every method can assume the invariants hold and
 must preserve the invariants. Constructors create objects that satisfy invariants. In this sense, invariants are like pre- and postconditions common to every
 method and constructor.
-* Invariants can be declared `static`, in which case they apply also to static methods. Static invariants apply to all methods; non-static invariants only apply to non-static methods.
+* Invariants can be declared `static`, in which case they apply to static fields and methods. Static invariants apply to all methods; non-static instance invariants only apply to non-static methods.
 * Most typically invariants are declared `public`.  See the discussion below about visibility.
 
 Here is a typical simple example:
@@ -56,6 +56,7 @@ The cost of not having to have the invariants true on entrance to a method is th
 Except in the case of helper methods, methods assume that their invariants are true in their pre-state. Thus when a method is called by some caller method, 
 the caller is responsible to be sure that the callee's invariants are true before invoking the callee, just as the caller has to be sure that the callee's
 preconditions hold before invoking the callee.
+(This is what causes the verification failure of `test4()` in the class `MyBox` above.)
 
 In fact, the callee generally expects that the invariants of all of its formal parameters also hold.
 

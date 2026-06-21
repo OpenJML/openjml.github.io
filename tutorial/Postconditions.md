@@ -7,12 +7,15 @@ but not _how_ it is done. The effect of a method is
 stated in its _postcondition_, which is written in one (or more) 
 _ensures_ clause(s). 
 
+(Ensures clauses may be mixed in any order with its requires clauses, but good,
+and clearer, style suggests putting all requires clauses first and then
+all ensures clauses.)
+
 Consider this example of a method that computes the maximum of four int values.
 
 ```
 {% include_relative T_ensures1.java %}
 ```
-
 
 The *ensures* clauses just prior to the method declaration state two 
 properties that are expected to hold about the result, which is designated
@@ -28,7 +31,7 @@ In fact, the same specification could be used with a different implementation:
 {% include_relative T_ensures1a.java %}
 ```
 
-Now how can we check that the implementation actually implements the specification? That is the (or one) purpose of the OpenJML tool.
+Now how can we check that the implementation actually implements the specification? That is one purpose of the OpenJML tool.
 If we execute (cf. [Execution](Execution))
 `openjml --esc tutorial/T_ensures1.java`
 we find that the openjml tool completes with no error messages and a success
@@ -66,7 +69,7 @@ specification and implementation agree, but that they both differ from what the 
 Another situation can be that the specification is not very specific.
 For example, the postcondition could simply be `ensures true;`, which is the
 default if no `ensures` clause is given. In this case the implementation
-trivially satisfies the specification, _no matter what result the implementation does_.
+trivially satisfies the specification, no matter what the implementation does.
 However, while no problem arises in verifying the method, it would not be
 possible to verify _uses_ of the method in some calling method (unless it
 indeed did not matter what the method does). We will return to this 
@@ -81,9 +84,12 @@ This value is referenced as `\result`. Like all JML keywords in expression, `\re
 ```
 Two final points:
 * The order of `ensures` clauses matters. The predicates of a sequence of `ensures` clauses are effectively conjoined together (with `&&`) to produce
-a single postcondition predicate. Consequently an earlier predicate can cause a later predicate to be [well-defined](WellDefinedExpressions).
+a single postcondition predicate. Consequently an earlier predicate may be needed to make a later predicate be [well-defined](WellDefinedExpressions).
 * In thinking about postconditions, be aware of the semantics of the `ensures` clause, namely,
 _if the method terminates normally (without an exception or error), 
 then the given postcondition must be true_.
 The converse, if the `ensures` predicate is true then the method terminates normally, is not the meaning and is not necessarily true.
-## **[Postconditions Problem Set](https://www.openjml.org/tutorial/exercises/PostConEx.html)**
+
+## **[Postcondition Exercises](https://www.openjml.org/tutorial/exercises/PostCondEx.html)**
+
+Follow the link in the above heading to work on the exercises that deal with postconditions.
