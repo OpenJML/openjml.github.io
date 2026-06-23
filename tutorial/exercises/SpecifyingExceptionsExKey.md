@@ -47,6 +47,4 @@ which says that if an `IllegalArgumentException` is thrown, then the value of th
 
 ## **Resources:**
 + [Specifying Exceptions Exercises](SpecifyingExceptionsEx.md)
-+ [Question 1 Java](SpecifyingExceptionsExample1.java)
-+ [Question 2 Java](SpecifyingExceptionsExample2.java)
 + [All exercises](https://www.openjml.org/tutorial/exercises/exercises)
