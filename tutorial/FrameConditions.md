@@ -4,7 +4,8 @@ title: JML Tutorial - Frame Conditions
 
 The [previous lesson](MethodCalls) described the verification process when 
 there are multiple methods that call each other. But that lesson left out
-an important consideration: how to specify side-effects of methods.
+an important consideration: how to specify the effects of methods
+("effects" are often called "side-effects"), which are changes to storage that exists before a method executes and outlives the method call.
 
 Consider this example:
 ```
@@ -31,15 +32,17 @@ the postcondition of `increment1` says just that and the first assert
 statement is readily proved. 
 
 But the second assert statement is not verified. Why not? `increment1()` does not change
-`counter2`. The problem is that the specification of `increment1()` does not say
+`counter2`; however, the problem is that the specification of `increment1()` does not say
 that `counter2` is unchanged. One solution would be to add an additional 
 ensures clause that states that `counter2 == \old(counter2)`. This specification
 verifies as correct.
 
-But adding such postconditions is not a practical solution. We can't add to `increment1()`'s specification a clause stating that every visible variable is unchanged.
+But adding such postconditions is not a practical solution. We can't add to `increment1()`'s specification a clause stating that every variable that is visible to a caller is unchanged.
 Instead we use a *frame condition* whose purpose is to state which memory
-locations a method might have modified. There are a variety of names for
-the frame clause: traditionally it is `assignable`, but `assigns` and `writes` are also permitted.
+locations a method _might_ have assigned during its execution. 
+There are a variety of names for the frame clause:
+JML traditionally uses the keyword `assignable`,
+but `assigns`, and `writes` are also permitted.
 Note that `modifies` is also an
 (implemented) synonym, but in some tools it has a slightly different meaning,
 so its use is not recommended.
@@ -73,11 +76,7 @@ themselves cannot be changed by a method, but if they are references to objects,
 then the fields of those objects might be written to by the method. So a method `m(MyType q)`
 might have a frame condition `assigns q.f;` if `f` is a field of `MyType`
 that is written to in the body of `m`.
-* If a method has no external effects other than its return value, you can specify a frame condition `assigns \nothing;`
-* `q.*` for an expression `q` means all fields of q
-* `a[i]` for expressions `a` and `i` means the particular array element `a[i]` (where the values of `a` and `i` are interpreted in the method's pre-state)
-* `a[*]` for array expression `a` means all elements of that array
-* `a[i..j]` for expressions `a`, `i`, and `j` means the stated range of array elements, from `i` to `j` inclusive.
+* If a method has no external effects other than its return value, you can specify a frame condition `assigns \nothing;`.
 
 A shorthand way to say that a method `assigns \nothing;` is to designate it `pure`, as in
 ```
@@ -87,6 +86,12 @@ A shorthand way to say that a method `assigns \nothing;` is to designate it `pur
 public void m() { ... }
 ```
 though there are a few other details to purity --- see the [lesson on pure](MethodsInSpecifications).
+
+There are also several abbreviations for mentioning sets of locations in specifications:
+* `q.*` for an expression `q`, means all fields of q
+* `a[i]` for expressions `a` and `i`, means the particular array element `a[i]` (where the values of `a` and `i` are interpreted in the method's pre-state)
+* `a[*]` for array expression `a`, means all elements of that array
+* `a[i..j]` for expressions `a`, `i`, and `j`, means the stated range of array elements, from `i` to `j` inclusive.
 
 There are two other points to know about frame conditions. First, where a frame condition clause includes expressions, such as the indices of array expressions, those expressions are evaluated in the pre-state, not the post-state. This allows callers of the method to understand the potential side-effects of the method before calling it.
 
@@ -113,8 +118,8 @@ is the same as
 assigns \nothing;
 ```
 Admittedly,  it would be much more convenient and perhaps more intuitive if the
-result of mutiple assigns clauses was the *union* of their contents, but that is
-not the case, for historical reasons. The advice is then to
+result of multiple assigns clauses was the *union* of their contents,
+but that is not the case, for historical reasons. The advice is then to
 *have only one frame condition clause per specification (case)*, even if that
 means the clause has a long list. (All the method specifications in the
 tutorial lessons so far have just one specification case; a subsequent lesson
