@@ -5,7 +5,7 @@ title: JML Tutorial - Frame Conditions
 The [previous lesson](MethodCalls) described the verification process when 
 there are multiple methods that call each other. But that lesson left out
 an important consideration: how to specify the effects of methods
-("effects" are often called "side-effects"), which are changes to storage that exists before a method executes and outlives the method call.
+("effects" are often called "side-effects"), which are changes to storage that exists before a method is called and outlives the method call.
 
 Consider this example:
 ```
@@ -24,23 +24,22 @@ post-state, the state after the method has completed.
 Also, why the comparison to `Integer.MAX_VALUE` in the preconditions? That is to avoid warnings about arithmetic overflow. We'll get to that topic [later](ArithmeticModes).
 
 Now to the point of this lesson. The two increment methods verify, but 
-what is happening in the test method?
-First we assume some values for `counter1` and `counter2`. This is just to give
-a concrete starting point.
-After calling `increment1`, the value of `counter1` has increased by 1; 
-the postcondition of `increment1` says just that and the first assert
+what is happening in the `test()` method?
+First we assume some values for `counter1` and `counter2`; this is just to make the assertions more concrete and easier to state.
+After calling `increment1()`, the value of `counter1` has increased by 1; 
+the postcondition of `increment1()` says just that and the first assert
 statement is readily proved. 
 
 But the second assert statement is not verified. Why not? `increment1()` does not change
 `counter2`; however, the problem is that the specification of `increment1()` does not say
 that `counter2` is unchanged. One solution would be to add an additional 
 ensures clause that states that `counter2 == \old(counter2)`. This specification
-verifies as correct.
+would also verify.
 
-But adding such postconditions is not a practical solution. We can't add to `increment1()`'s specification a clause stating that every variable that is visible to a caller is unchanged.
+However, adding such postconditions is not a practical specification technique. We can't add to `increment1()`'s specification a clause stating that every variable that is visible to a caller is unchanged (in part because some of those locations will not be visible to the method `increment1()`).
 Instead we use a *frame condition* whose purpose is to state which memory
-locations a method _might_ have assigned during its execution. 
-There are a variety of names for the frame clause:
+locations a method _might_ assign during its execution. 
+There are a variety of names for such a frame clause:
 JML traditionally uses the keyword `assignable`,
 but `assigns`, and `writes` are also permitted.
 Note that `modifies` is also an
@@ -119,8 +118,8 @@ assigns \nothing;
 ```
 Admittedly,  it would be much more convenient and perhaps more intuitive if the
 result of multiple assigns clauses was the *union* of their contents,
-but that is not the case, for historical reasons. The advice is then to
-*have only one frame condition clause per specification (case)*, even if that
+but that is not the case, for historical reasons. The advice is thus to
+*use only one frame condition per specification (case)*, even if that
 means the clause has a long list. (All the method specifications in the
 tutorial lessons so far have just one specification case; a subsequent lesson
 presents [multiple specification cases](MultipleBehaviors).)
