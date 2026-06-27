@@ -116,7 +116,7 @@ public class Money {
 **Explanation:**
 The above solution adds a frame condition to the method `normalize()`, which limits the fields that can be changed to just the `dollars` and `cents` of the receiver (`this`).
 This solution also declares the `equals` method to be `pure` (which is equivalent to `assignable \nothing`). And thus to verify it must removes the calls to the non-pure method `normalize()`, since those have effects. (With this change, the precondition `this != m` is no longer needed for the `equals` method, but the method cannot normalize the `Money` objects before making the comparison. One might require that the `Money` objects being compared be normalized before calling `equals` but a better solution might be to enforce an invariant that `cents < 100` for all `Money` objects;
-see [the tutorial section on invariants](InitiallyConstraint).
+see [the tutorial section on invariants](https://www.openjml.org/tutorial/InitiallyConstraint.html).
 
 **Learning Objective:** 
 The goal of this exercise is to see if the student understands how to use frame clauses. We want to make sure that the student understands that we need to specify any occurrence of memory locations is being modified. 
