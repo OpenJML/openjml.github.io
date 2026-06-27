@@ -22,13 +22,13 @@ public class FrameCondEx1Ans {
     }
 
     //@ ensures \result <==> (x > y);
-    //@ pure
+    // //@ pure
     public boolean xGreaterThanY() {
         return x > y;
     }
 
     public void test() {
-        FrameCondEx1 fc12 = new FrameCondEx1(1,2);
+        FrameCondEx1Ans fc12 = new FrameCondEx1Ans(1,2);
         //@ assert fc12.x == 1;
         //@ assert fc12.y == 2;
         fc12.determineMax();
