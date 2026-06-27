@@ -49,14 +49,14 @@ so its use is not recommended.
 An explicit  frame condition states which memory locations might be changed by the method at hand. Anything not mentioned is assumed to be unchanged. In fact, a method
 is not allowed to *assign* to a memory location (even with the same value) unless it is listed in the frame condition --- this makes the check for violations of the frame condition, whether by tool or by eye, independent of the values computed.
 
-If there is no explicit frame condition clause in a method's specification (case), then a default is used, namely `assigns \everything;`--- which means exactly that: after a call of this method, any memory location in the state might have been written to and might be changed. It is very difficult to prove anything about a program that includes a call to a method with such a frame condition. Thus *you must include a frame condition for any method that is called within a program*.
+If there is no explicit frame condition clause in a method's specification (case), then a default is used, namely `assignable \everything;`--- which means exactly that: after a call of this method, any memory location in the state might have been written to and might be changed. It is very difficult to prove anything about a program that includes a call to a method with such a frame condition. Thus *you must include a frame condition for any method that is called within a program*.
 
 In our example above, before we added a frame clause, the effective frame
-clause was `assigns \everything`. Then in method `test` the call of
+clause was `assignable \everything`. Then in method `test` the call of
 `increment1` is specified as potentially changing every memory location, 
 including `counter2` in this example.
 
-You can also write `assigns \nothing`, which means no memory locations 
+You can also write `assignable \nothing`, which means no memory locations 
 may be assigned to.
 
 So now our example looks like this:
@@ -73,11 +73,11 @@ program state outside of the method.
 just like for the `requires` and `ensures` clauses. The formal arguments 
 themselves cannot be changed by a method, but if they are references to objects,
 then the fields of those objects might be written to by the method. So a method `m(MyType q)`
-might have a frame condition `assigns q.f;` if `f` is a field of `MyType`
+might have a frame condition `assignable q.f;` if `f` is a field of `MyType`
 that is written to in the body of `m`.
-* If a method has no external effects other than its return value, you can specify a frame condition `assigns \nothing;`.
+* If a method has no external effects other than its return value, you can specify a frame condition `assignable \nothing;`.
 
-A shorthand way to say that a method `assigns \nothing;` is to designate it `pure`, as in
+A shorthand way to say that a method `assignable \nothing;` is to designate it `pure`, as in
 ```
 //@ requires ...
 //@ ensures ...
@@ -100,24 +100,24 @@ by itself lists the memory locations that may be written to by the method.
 As each frame condition clause must be valid on its own, the effect of multiple iframe clauses is the same as one clause with the _intersection_ of the sets of locations given by the separate clauses.
 For example,
 ```
-assigns i,j;
-assigns i,k;
+assignable i,j;
+assignable i,k;
 ```
 is the same as
 ```
-assigns i;
+assignable i;
 ```
 and
 ```
-assigns i;
-assigns j;
+assignable i;
+assignable j;
 ```
 is the same as
 ```
-assigns \nothing;
+assignable \nothing;
 ```
 Admittedly,  it would be much more convenient and perhaps more intuitive if the
-result of multiple assigns clauses was the *union* of their contents,
+result of multiple assignable clauses was the *union* of their contents,
 but that is not the case, for historical reasons. The advice is thus to
 *use only one frame condition per specification (case)*, even if that
 means the clause has a long list. (All the method specifications in the
