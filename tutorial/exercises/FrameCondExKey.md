@@ -133,6 +133,4 @@ The goal of this exercise is to see if the student understands how to use the as
 
 ## **Resources:**
 + [Frame Conditions Exercises](FrameCondEx.md)
-+ [Question 1 Java](FrameCondExample1.java)
-+ [Question 2 Java](FrameCondExample2.java)
 + [All exercises](https://www.openjml.org/tutorial/exercises/exercises)
