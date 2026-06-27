@@ -78,7 +78,7 @@ FrameCondEx1.java:24: warning: Method xGreaterThanY() has 'assignable \everythin
 The trouble is that the verification of the call to `xGreaterThanY()` assumes that it does not change the class's fields. However, since JML does verification method by method, the specification of `xGreaterThanY()` needs to say that, thus the `xGreaterThanY()` method needs to be declared as `assignable \nothing` or `pure`.
 
 ## **Question 2**
-**The following class does verify.
+The following class does verify.
 ```Java
 public class Money {
     private /*@ spec_public @*/ int dollars, cents;
