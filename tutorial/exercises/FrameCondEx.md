@@ -1,7 +1,7 @@
 ---
-title: JML Tutorial - Exercises - Frame Condtions 
+title: JML Tutorial - Exercises - Frame Conditions 
 ---
-# Frame Condtions Exercises:
+# Frame Conditions Exercises:
 ## [Frame Conditions Tutorial](https://www.openjml.org/tutorial/FrameConditions)
 
 ## **Question 1**

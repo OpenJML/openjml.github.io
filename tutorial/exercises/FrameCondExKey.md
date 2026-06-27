@@ -1,135 +1,125 @@
 ---
-title: JML Tutorial - Exercises - Frame Condtions 
+title: JML Tutorial - Exercises - Frame Conditions 
 ---
-# Frame Condtions Exercises Key:
+# Frame Conditions Exercises Key:
 ## [Frame Conditions Tutorial](https://www.openjml.org/tutorial/FrameConditions)
 
 ## **Question 1**
-**The program below checks if two integer arrays are the same size and if they are it adds them. However, the code is unable to be verified; determine what specifications are needed to verify the program.**
-```Java
-//first frame condition
-public void addArrays(int[] a, int[] b) {	
-	if(sameSize(a, b)) {
-		int[] temp = a;
-		for(int i = 0; i < a.length; i++) {
-			a[i] = temp[i] + b[i];
-		}	
-	}
+Adding a frame condition that says that maxValue can be assigned in the method `determineMax()` and one that says that `xGretaterThanY()` has no effects (or is pure), allows the program to be verified, as in the following.
+```
+public class FrameCondEx1 {
+    private /*@ spec_public @*/ int maxValue;
+    private /*@ spec_public @*/ int x;
+    private /*@ spec_public @*/ int y;
+
+    //@ ensures x == xv && y == yv;
+    //@ pure
+    public FrameCondEx1(int xv, int yv) {
+        x = xv;
+        y = yv;
+    }
+
+    //@ assignable maxValue;
+    //@ ensures x == maxValue || y == maxValue;
+    //@ ensures x <= maxValue && y <= maxValue;
+    public void determineMax() {
+        if (xGreaterThanY()) {
+            maxValue = x;
+        } else {
+            maxValue = y;
+        }
+    }
+
+    //@ ensures \result <==> (x > y);
+    //@ pure
+    public boolean xGreaterThanY() {
+        return x > y;
+    }
+
+    public void test() {
+        FrameCondEx1 fca12 = new FrameCondEx1(1,2);
+        //@ assert fc12.x == 1;
+        //@ assert fc12.y == 2;
+        fca12.determineMax();
+        //@ assert fc12.maxValue == 2;
+        //@ assert fc12.x == 1;
+        //@ assert fc12.y == 2;
+    }
 }
 
-//second frame condition 		
-public boolean sameSize(int[] a, int[] b) {
-	return a.length == b.length;
-}
 ```
-**Asnwer and Explanation:**
-The program adds two integer arrays, but breaks up this process by checking is they are the same size and then adds them if they are. We have seen this code in previous [exercises](VerifyingMethodCallsEx.md), but there have been some alterations to it. Notice that we are no longer returning anything from the `addArrays()` function, instead the code simply alters the array `a` passed in as an argument. 
+**Explanation:**
+The problem, as one can see by running ESC on the code in the exercise (which gives the following output)
+```
+FrameCondEx1.java:36: verify: The prover cannot establish an assertion (Assert) in method test
+        //@ assert fc12.x == 1;
+            ^
+FrameCondEx1.java:35: verify: The prover cannot establish an assertion (Assert) in method test
+        //@ assert fc12.maxValue == 2;
+            ^
+2 verification failures
+```
 
-That being said we know after reading the tutorial on "Frame Conditions" that we will have to specify what memory locations the method `addArrays()` may have modified. We can achieve this by using the `assigns` clause. What memory do we know is being alter by the `addArrays()` function? Integer array `a`, so we want to write something that denotes that the elements of `a` are being changed. Additionally, we see that the sameSize function modifies no memory locations, but we can still use the `assigns` clause to specify this by saying that the function `assigns` nothing. Note, that we can also say that `sameSize()` is pure - which also means no memory locations are being changed, but for this exercise we will show both the `assigns` clause and the `pure` clause. That being said we can write the two following frame conditions:
-```Java
-//@ requires sameSize(a, b);
-	//@ requires (\forall int j; 0 <= j < a.length; a[j]+b[j] <= Integer.MAX_VALUE);
-	//@ assigns a[*];
-	//@ ensures a.length == \old(a.length);
-	public void addArrays(int[] a, int[] b) {
-			
-		if(sameSize(a, b)) {
-			//@ assert sameSize(a, b);
-			int[] temp = a;
-			for(int i = 0; i < a.length; i++) {
-				//@ assume 0 <= i < a.length;
-				//@ assume Integer.MIN_VALUE < a[i] + b[i] <= Integer.MAX_VALUE;
-				a[i] = temp[i] + b[i];
-			}	
-		}
-	}
-		
-	//@ ensures \result <==> (a.length == b.length);
-	//@ assigns \nothing;
-	//@ pure
-	public boolean sameSize(int[] a, int[] b) {
-		return a.length == b.length;
-	}
+is that the specification of `determineMax()` does not prevent that method from changing either `x` or `y`.
+So one should add to the specification of `determineMax()` the following frame condition.
 ```
-**Learning Objective:** 
-The goal of this exercise is to see if students see how to use frame conditions in practice. If we don't include `\\@ assigns a[*]` this could cause problems later down the line if we were to add on to this program. We also begin to introduce the idea of `pure` functions with `assigns \nothing` which the student should keep in mind as we move onto later tutorials. It is important that students see how to use the `assigns` clause and frame conditions appropriately.
+    //@ assignable maxValue;
+```
+(or a synonym, such as `assigns maxValue`).
+
+However, if one only makes that change, then call of `xGreaterThanY()` in `determineMax` also causes several verification errors, including the following.
+
+```
+FrameCondEx1.java:24: warning: Method xGreaterThanY() has 'assignable \everything', making its caller likely impossible to verify
+    //@ ensures \result <==> (x > y);
+        ^
+```
+
+The trouble is that the verification of the call to `xGreaterThanY()` assumes that it does not change the class's fields. However, since JML does verification method by method, the specification of `xGreaterThanY()` needs to say that, thus the `xGreaterThanY()` method needs to be declared as `assignable \nothing` or `pure`.
 
 ## **Question 2**
-**Write a function that increases the size of an integer array that is a global variable to the class. Assume the function you write is void and takes in an integer increase that is used to determine how much to increase the original array by. Determine the strongest specifications needed to verify your function.**
+**The following class does verify.
 ```Java
-public class FrameCondExample2 {
-	//@ spec_public
-	private int[] arr = new int[10];
+public class Money {
+    private /*@ spec_public @*/ int dollars, cents;
 
-  	public void increase(int increase);
+    //@ requires c < 100;
+    //@ ensures dollars == d && cents == c;
+    public Money(int d, int c) {
+        dollars = d;
+        cents = c;
+    }
+
+    //@ requires this != m;
+    //@ requires dollars + cents/100 <= Integer.MAX_VALUE;
+    //@ requires m.dollars + m.cents/100 <= Integer.MAX_VALUE;
+    /*@ ensures \result <==> (this.dollars == m.dollars
+      @                        && this.cents == m.cents); @*/
+    public /*@ pure @*/ boolean equals(Money m) {
+        return this.dollars == m.dollars && this.cents == m.cents;
+    }
+        
+
+    //@ requires dollars + cents/100 <= Integer.MAX_VALUE;
+    //@ assignable dollars, cents;
+    //@ ensures cents < 100;
+    public void normalize() {
+        if (cents >= 100) {
+            dollars += cents/100;
+            cents = cents % 100;
+        }
+    }
 }
+
 ```
-**Note:** The `FrameCondExample2` class is included purely to satisfy Java's syntactic requirement that all methods be in a class.
 
-**Asnwer and Explanation:**
-We are tasked with writing a void function that increases the size of a global integer array by int `increase`, so let's think of how we can accomplish this. We might want to create a new array that is of the size of the original array plus `increase`, then we want to copy anything in the original array into the new array. Then since the original array is global to the class we're working in, we would just set it equal to our new array. So we might write the following:
-```Java
-public class FrameCondExample2 {
-	//@ spec_public
-	private int[] arr = new int[10];
-	
-	public void increase(int increase) {
-		int[] newArr = new int[arr.length + increase];
+**Explanation:**
+The above solution adds a frame condition to the method `normalize()`, which limits the fields that can be changed to just the `dollars` and `cents` of the receiver (`this`).
+This solution also declares the `equals` method to be `pure` (which is equivalent to `assignable \nothing`). And thus to verify it must removes the calls to the non-pure method `normalize()`, since those have effects. (With this change, the precondition `this != m` is no longer needed for the `equals` method, but the method cannot normalize the `Money` objects before making the comparison. One might require that the `Money` objects being compared be normalized before calling `equals` but a better solution might be to enforce an invariant that `cents < 100` for all `Money` objects;
+see [the tutorial section on invariants](InitiallyConstraint).
 
-		for (int i = 0; i < arr.length; i++) {
-			newArr[i] = arr[i];
-		}
-
-		arr = newArr;
-	}
-}
-```
-Now, let's start writing our JML statements to verify the function. To begin, we should require that `increase` is greater than zero and less than `Integer.MAX_VALUE` to avoid any overflow errors. Additionally, since we're dealing with addition and for-loops in the function we should include some `assume` statements to ensure that we don't run into any errors when trying to run the function. So we can write the following:
-```Java
-public class FrameCondExample2 {
-	//@ spec_public
-	private int[] arr = new int[10];
-	
-	//@ requires arr != null;
-	//@ requires 0 < increase < Integer.MAX_VALUE;
-	public void increase(int increase) {
-		//@ assume 0 <= (arr.length+increase) < Integer.MAX_VALUE;
-		int[] newArr = new int[arr.length + increase];
-
-		for (int i = 0; i < arr.length; i++) {
-			//@ assume 0 <= i < arr.length;
-			newArr[i] = arr[i];
-		}
-
-		arr = newArr;
-	}
-}
-```
-Now what can we ensure? We can ensure that `arr.length` will always be greater than the original `arr.length`, so how can we write this? Recall the `\old()` designator, we can say `arr.length > \old(arr.length)`. However, notice how the question asks for the “strongest” specifications. If we think about it `arr.length > \old(arr.length)` is NOT the strongest postcondition we could write. It would be better to say that `arr.length == \old(arr.length + increase)` as this accounts for how we alter the length by `increase` and is more specific than simply saying the length will be greater than the original size. Additionally, we are modifying the memory location storing `arr` so we need to specify this as well and write the following to verify the function:
-```Java
-public class FrameCondExample2 {
-	//@ spec_public
-	private int[] arr = new int[10];
-	
-	//@ requires arr != null;
-	//@ requires 0 < increase < Integer.MAX_VALUE;
-	//@ assigns arr;
-	//@ ensures arr.length == \old(arr.length + increase);
-	public void increase(int increase) {
-		//@ assume 0 <= (arr.length+increase) < Integer.MAX_VALUE;
-		int[] newArr = new int[arr.length + increase];
-
-		for (int i = 0; i < arr.length; i++) {
-			//@ assume 0 <= i < arr.length;
-			newArr[i] = arr[i];
-		}
-
-		arr = newArr;
-	}
-}
-```
 **Learning Objective:** 
-The goal of this exercise is to see if the student understands how to use the assigns clause and give them more experience with the `\old()` designator. We want to make sure that the student understands that we need to specify any occurrence of memory locations is being modified. We also check if the student remembers past tutorials, and specifically if they can regonize the “strongest” specifications. 
+The goal of this exercise is to see if the student understands how to use frame clauses. We want to make sure that the student understands that we need to specify any occurrence of memory locations is being modified. 
 
 ## **Resources:**
 + [Frame Conditions Exercises](FrameCondEx.md)
