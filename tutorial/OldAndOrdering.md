@@ -26,10 +26,10 @@ Some of these have been already discussed; others are discussed in later lessons
 
 ## Ordering of clauses
 
-There is no pre-defined order to the clauses within a single specification case (cf. a later lesson on [multiple specification cases](MultipleBehaviors)].
-However, a specification is much more readable if the clauses generally follow the order above, with preconditions first, then frame conditions, followed by postconditions.
+There is no pre-defined order to the clauses within a single specification case (but compare with the later lesson on [multiple specification cases](MultipleBehaviors)).
+However, a specification is more readable (by people familiar with JML) if the clauses generally follow the order above, with preconditions first, then frame conditions, followed by postconditions.
 
-There is some meaning to the ordering within the precondition group and within the postcondition group: earlier clauses can set conditions that are needed for later clauses to be well-defined; but ordering only matters within the each kinds of clause; that is ordering matters within the set of precondition clauses and separately for any `ensures` clauses. For example,
+There is some meaning to the ordering within the precondition group and within the postcondition group: earlier clauses can set conditions that are needed for later clauses to be well-defined; but ordering only matters within the each kinds of clause; that is ordering matters within the set of precondition (`requires`) clauses and separately for any postcondition (`ensures`) clauses. For example,
 ```
 {% include_relative T_order1.java %}
 ```
@@ -37,12 +37,10 @@ yields
 ```
 {% include_relative T_order1.out %}
 ```
-The first requires clause might not be well-defined because `a` might be null. If we reverse the order of the clauses, as in the following specification, then the method verifies:
+The first requires clause might not be well-defined because `a` might be null. However, if we reverse the order of the clauses, as in the following specification, then the method verifies.
 ```
 {% include_relative T_order2.java %}
 ```
-is successfully verified.
-
 
 
 ## old clause
