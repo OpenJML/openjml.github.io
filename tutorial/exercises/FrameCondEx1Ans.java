@@ -1,3 +1,4 @@
+// openjml --esc FrameCondEx1Ans.java
 public class FrameCondEx1Ans {
     private /*@ spec_public @*/ int maxValue;
     private /*@ spec_public @*/ int x;
@@ -22,7 +23,7 @@ public class FrameCondEx1Ans {
     }
 
     //@ ensures \result <==> (x > y);
-    // //@ pure
+    //@ pure
     public boolean xGreaterThanY() {
         return x > y;
     }

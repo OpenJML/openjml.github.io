@@ -1,3 +1,4 @@
+// openjml --esc Money.java
 public class Money {
     private /*@ spec_public @*/ int dollars, cents;
 

@@ -1,3 +1,4 @@
+// openjml --esc FrameCondEx1.java
 public class FrameCondEx1 {
     private /*@ spec_public @*/ int maxValue;
     private /*@ spec_public @*/ int x;
