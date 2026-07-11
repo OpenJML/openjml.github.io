@@ -26,10 +26,10 @@ Some of these have been already discussed; others are discussed in later lessons
 
 ## Ordering of clauses
 
-There is no pre-defined order to the clauses within a single specification case (but compare with the later lesson on [multiple specification cases](MultipleBehaviors)).
+There is no pre-defined order to the clauses within a single specification case (the same applies to [multiple specification cases](MultipleBehaviors)).
 However, a specification is more readable (by people familiar with JML) if the clauses generally follow the order above, with preconditions first, then frame conditions, followed by postconditions.
 
-There is some meaning to the ordering within the precondition group and within the postcondition group: earlier clauses can set conditions that are needed for later clauses to be well-defined; but ordering only matters within the each kinds of clause; that is ordering matters within the set of precondition (`requires`) clauses and separately for any postcondition (`ensures`) clauses. For example,
+There is some meaning to the ordering within the precondition group and within the postcondition group: earlier clauses can set conditions that are needed for later clauses to be well-defined; but ordering only matters within the each kinds of clause; that is ordering matters within the set of preconditions (`requires` clauses) and separately within the set of postconditions (`ensures` clauses). For example,
 ```
 {% include_relative T_order1.java %}
 ```
@@ -47,7 +47,7 @@ The first requires clause might not be well-defined because `a` might be null. H
 
 The `old` clause is a means to compute a value (in the pre-state) that is used elsewhere in the specification.
 It is a means to factor out common subexpressions, to compute something in the pre-state that is used in the postconditions, or to simply make the specification more readable.
-Here is a simple use of it:
+In the following, the value of `g` is determined in the pre-state, and that value is used again in other preconditions and in the postcondition.
 ```
 {% include_relative T_Old.java %}
 ```
