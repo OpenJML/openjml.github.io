@@ -47,7 +47,7 @@ The first requires clause might not be well-defined because `a` might be null. H
 
 The `old` clause is a means to compute a value (in the pre-state) that is used elsewhere in the specification.
 It is a means to factor out common subexpressions, to compute something in the pre-state that is used in the postconditions, or to simply make the specification more readable.
-In the following, the value of `g` is determined in the pre-state, and that value is used again in other preconditions and in the postcondition.
+In the following, the value of `g` is determined in the pre-state of a call to `GCD3`, and that value is used again in other that method's preconditions and in its postcondition.
 ```
 {% include_relative T_Old.java %}
 ```
