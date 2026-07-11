@@ -122,5 +122,5 @@ see [the tutorial section on invariants](https://www.openjml.org/tutorial/Initia
 The goal of this exercise is to see if the student understands how to use frame clauses. We want to make sure that the student understands that we need to specify any occurrence of memory locations is being modified. 
 
 ## **Resources:**
-+ [Frame Conditions Exercises](FrameCondEx.md)
++ [Frame Conditions Exercises](FrameCondEx)
 + [All exercises](https://www.openjml.org/tutorial/exercises/exercises)
