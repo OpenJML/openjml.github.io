@@ -67,7 +67,7 @@ public class Quadratic {
 With the current OpenJML implementation, the above does not verify, because the version of the SMT solver that OpenJML uses cannot handle complex formulas involving real numbers.
 It is also not clear that the code in the method `roots()` is correct.
 
-Furthermore, the repeated preconditions about the discriminant being strictly positive could be better handled by an invariant. See [the tutorial section on invariants](https://www.openjml.org/tutorial/InitiallyInvariants) for details.
+Furthermore, the repeated preconditions about the discriminant being strictly positive could be better handled by an invariant. See [the tutorial section on invariants](https://www.openjml.org/tutorial/Invariants) for details.
 
 ## **Resources:**
 + [Old and Ordering Exercises](OldAndOrderingEx)
