@@ -2,7 +2,7 @@
 title: JML Tutorial - Multiple Method Behaviors
 ---
 
-## Multiple behaviors
+## Multiple Behaviors
 
 So far our method specifications have been simple sequences of clauses: pre-, frame- and post-conditions.
 But as methods become more complex it is helpful to separate the method specification into multiple 
@@ -37,7 +37,7 @@ which yields this result
 The verification failure message points to the first behavior's postcondition, on line 4, which narrows our debugging to the relationship between
 that behavior and the code. A little inspection shows a typo at the end of the first behavior's precondition, on line 3.
 
-## Separating normal from exceptional behaviors
+## Separating Normal from Exceptional Behaviors
 
 A very common use of multiple behaviors is to separate normal execution from exceptions. For example,
 ```
@@ -69,7 +69,7 @@ A behavior that is neither of these is a simple `behavior`, which is the default
 
 One other point: any one of the behavior keywords needs a visibility keyword; almost always, as in the example above, the visibility is the same as the method. The absence of a visibility modifier means `package` visibility, just as in Java the absence of a visibility modifier would on the method declaration. However, if there is no specialized behavior keyword, then there is no place for the visibility keyword; in that case, the visibility is the same as the visibility of the method.
 
-## Summary of specification cases
+## Summary of Specification Cases
 
 To summarize, a method may have multiple specification cases. 
 * They are separated/connected by the `also` keyword. 
@@ -81,7 +81,7 @@ To summarize, a method may have multiple specification cases.
   * The most common: no heading, which means `V behavior` with the visibility `V` being the same as the method's visibility
 
 
-## Nested clause groups
+## Nested Clause Groups
 
 We will just mention an advanced topic here: nested clauses groups within a method specification. For details see the JML Reference Manual.
 Here is an example:
