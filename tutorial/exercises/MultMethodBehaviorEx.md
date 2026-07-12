@@ -5,12 +5,13 @@ title: JML Tutorial - Exercises - Multiple Method Behavior
 ## [Multiple Method Behavior Tutorial](https://www.openjml.org/tutorial/MultipleBehaviors)
 
 ## **Question 1**
-**Given the function below, determine the strongest specifications needed to verify the function below.**
+**What is the strongest specifications needed to verify the function below. (Do not change the code, only write a specification.)**
 ```Java
 public int mean(int sum, int totalNum) {
-	if(totalNum == 0) throw new ArithmeticException();
-		
-  return sum/totalNum;
+    if(totalNum == 0) {
+        throw new ArithmeticException();
+    }
+    return sum/totalNum;
 }
 ```
 **Learning Objectives:**
@@ -18,5 +19,8 @@ public int mean(int sum, int totalNum) {
 + Understand how to use the `also` clause
 + Understand the difference between `normal_behavior` and `exceptional_behavior`
 
-## **[Answer Key](MultMethodBehaviorExKey.md)**
-## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**
+## [Answer Key](MultMethodBehaviorExKey.md)
+
+## **Resources:**
++ [Question 1 Java](MultMethodBehaviorEx1.java)
++ [All exercises](https://www.openjml.org/tutorial/exercises/exercises)
