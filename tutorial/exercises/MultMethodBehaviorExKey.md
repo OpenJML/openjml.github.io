@@ -27,7 +27,7 @@ The first specification case describes the "normal" behavior of the method (alth
 
 The second specification case (although it does not need to be second) describes what happens if the argument `totalNum` is zero, and says that if that is the case, then the method must throw an`ArithmeticException`.
 
-Effectively the precondition of the method (which describes when it can be called without a verification error) says that `totalNum` must be at least zero; that is it must be non-negative.
+Effectively the precondition of the entire method (which describes when the method can be called without a verification error) says that `totalNum` must be at least zero; that is `totalNum` must be non-negative for the call to not result in a precondition error during verification. Of course if `totalNum` is zero, then there will be a runtime exception thrown.
 
 Also note that in neither case is it necessary to constrain `sum` to be a legal integer, since the type system of Java does that already.
 
