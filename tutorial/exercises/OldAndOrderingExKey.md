@@ -5,7 +5,7 @@ title: JML Tutorial - Exercises - Old and Ordering of Clauses
 ## [Old and Ordering Tutorial](https://www.openjml.org/tutorial/OldAndOrdering)
 
 ## **Question 1**
-No, the order of frame condition clauses does not matter, as the effective frame condition is the intersection of the frames mentioned in all of the frame conditions (within a given specification case). See the [Frame Conditions Tutorial](https://www.openjml.org/tutorial/FrameConditions) for more about this topic.
+No, the order of frame condition clauses does not matter, as the effective frame condition is the intersection of the frames mentioned in all of the frame conditions (within a given specification case). See the last topic in the [Frame Conditions Tutorial](https://www.openjml.org/tutorial/FrameConditions) for more details.
 
 ## **Question 2**
 The problem is that to use the remainder (`%`) operator (in Java or JML) the second (right hand) argument must be non-zero.  So a solution to the exercise is to move the requires clause containing `0 < div` above the requires clause that uses `div` in the formula `n % div == 0`. In our solution below, we also put the requires clauses above the ensures clauses, but that is just a matter of style.
