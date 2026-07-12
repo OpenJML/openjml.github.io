@@ -5,7 +5,7 @@ title: JML Tutorial - Exercises - Multiple Method Behavior
 ## [Multiple Method Behavior Tutorial](https://www.openjml.org/tutorial/MultipleBehaviors)
 
 ## **Question 1**
-**What is the strongest specifications needed to verify the function below. (Do not change the code, only write a specification.)**
+**Write the strongest specification for the code below that is needed to verify the function below? (Do not change the code, only write a specification.)**
 ```Java
 public int mean(int sum, int totalNum) {
     if(totalNum == 0) {
