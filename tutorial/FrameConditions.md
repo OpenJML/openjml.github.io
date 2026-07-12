@@ -49,6 +49,8 @@ so its use is not recommended.
 An explicit  frame condition states which memory locations might be changed by the method at hand. Anything not mentioned is assumed to be unchanged. In fact, a method
 is not allowed to *assign* to a memory location (even with the same value) unless it is listed in the frame condition --- this makes the check for violations of the frame condition, whether by tool or by eye, independent of the values computed.
 
+## Names for Frame Condition Clauses
+
 If there is no explicit frame condition clause in a method's specification (case), then a default is used, namely `assignable \everything;`--- which means exactly that: after a call of this method, any memory location in the state might have been written to and might be changed. It is very difficult to prove anything about a program that includes a call to a method with such a frame condition. Thus *you must include a frame condition for any method that is called within a program*.
 
 In our example above, before we added a frame clause, the effective frame
@@ -64,6 +66,8 @@ So now our example looks like this:
 {% include_relative T_frame3.java %}
 ```
 which successfully verifies.
+
+## Memory Location Details
 
 A few more details about the memory locations in a frame condition:
 * One does not need to list variables that are local to the body of a method;
@@ -92,7 +96,11 @@ There are also several abbreviations for mentioning sets of locations in specifi
 * `a[*]` for array expression `a`, means all elements of that array
 * `a[i..j]` for expressions `a`, `i`, and `j`, means the stated range of array elements, from `i` to `j` inclusive.
 
+## Evaluation of Expressions is in the Pre-State
+
 There are two other points to know about frame conditions. First, where a frame condition clause includes expressions, such as the indices of array expressions, those expressions are evaluated in the pre-state, not the post-state. This allows callers of the method to understand the potential side-effects of the method before calling it.
+
+## Multiple Frame Conditions in a Specification
 
 Second, a frame condition is a method specification clause like `requires` and `ensures`. A method specification may contain more than one such clause.
 However, note that each clause is considered individually. That is, each clause
