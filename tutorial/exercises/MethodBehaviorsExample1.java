@@ -1,3 +1,4 @@
+// openjml --esc MethodBehaviorsExample1.java
 public class MethodBehaviorsExample1 {
 	
 	//@ public normal_behavior
@@ -8,9 +9,9 @@ public class MethodBehaviorsExample1 {
 	//@		requires totalNum == 0;
 	//@ 	signals_only ArithmeticException;
 	public int mean(int sum, int totalNum) {
-		if(totalNum == 0) throw new ArithmeticException();
+            if(totalNum == 0) { throw new ArithmeticException(); }
 		
-		return sum/totalNum;
+            return sum/totalNum;
 	}
 
 }
