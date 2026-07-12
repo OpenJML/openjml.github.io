@@ -58,7 +58,7 @@ We could even separate out two kinds of exceptions:
 ```
 Now the `signals_only` clause allows the two kinds of exceptions, although the specification does not say when each one is thrown. We could go to one more level of specification detail to stipulate that each exception is thrown just when the appropriate argument validation check fails. Try specifying that as an exercise. There is a question though: what if both checks fail? Should the specification state which exception is thrown in preference to the other? If it does specify that, then it is constraining the implementation, perhaps overly so. However, if it does not, and both checks fail, then the specification would say that the method should throw both exceptions, which is impossible.
 
-## <a name="SpecializedBehaviors"></a>Specialized behaviors
+## <a name="SpecializedBehaviors"></a>Specialized Behaviors
 
 The normal and exceptional behaviors illustrated in the previous section are very common, so much so that they have specialized syntax: `normal_behavior` and `exceptional_behavior`. We can rewrite the previous example as 
 ```
