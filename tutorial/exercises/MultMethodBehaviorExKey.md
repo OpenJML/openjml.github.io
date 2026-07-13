@@ -31,6 +31,40 @@ Effectively the precondition of the entire method (which describes when the meth
 
 Also note that in neither case is it necessary to constrain `sum` to be a legal integer, since the type system of Java does that already.
 
+## **Question 2**
+One possible answer is the following, which verifies the code of `testMax`.
+```
+public class IntMax {
+    /*@   requires y <= x;
+      @   ensures \result == x;
+      @ also
+      @   requires x <= y;
+      @   ensures \result == y;
+      @*/
+    //@ pure
+    public static int max(int x, int y) {
+        if (y <= x) {
+            return x;
+        } else {
+            return y;
+        }
+    }
+
+    public static void testMax() {
+        int m1 = max(5, 7);
+        //@ assert m1 == 7;
+        int m2 = max(9, 7);
+        //@ assert m2 == 9;
+        int m3 = max(11,11);
+        //@ assert m3 == 11;
+    }
+}
+```
+
+It would be fine to have the precondition of the second specification case be `x < y` instead of `x <= y`. However, the precondition `x <= y` also works, as when `x == y` then both `x <= y` and `y <= x` are true, and the code returns the value of `x`, which is also the value of `y`, and so both postconditions are satisfied.
+
+Note that one could also write a specification, such as `ensures true;` for the method `testMax`, and if this was made a (public) normal behavior, then it would ensure that the method terminated normally (even under runtime assertion checking). However, that is not necessary in this example.
+
 ## **Resources:**
 + [Multiple Method Behavior tutorial](https://www.openjml.org/tutorial/MultMethodBehavior)
 + [All exercises](https://www.openjml.org/tutorial/exercises/exercises)
