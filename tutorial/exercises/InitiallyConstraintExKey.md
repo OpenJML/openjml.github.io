@@ -5,13 +5,20 @@ title: JML Tutorial - Exercises - Minimizing replicated specifications (initiall
 ## [Minimizing replicated specifications Tutorial](https://www.openjml.org/tutorial/InitiallyConstraint)
 
 ## **Question 1**
+The following is one way to answer this question.
 
-**Learning Objectives:**
-+ Gain more experience writing frame conditions and using the `assignable` clause
-+ Understand how to use the `\old` designator 
-+ Understand the importance of denoting when memory locations have been modified
+```
+{% include_relative InchesAns.java %}
+```
 
-## **[Answer Key](FrameCondExKey.md)**
-+ [Question 1 Java](FrameCondEx1.java)
-+ [Question 2 Java](Money.java)
-## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**
+Note that the above uses two `initially` clauses, this is equivalent to conjoining the first to the second using `&&`.
+
+## **Question 2**
+The following is one way to answer this question.
+
+```
+{% include_relative LogAns.java %}
+```
+
+## **[Answer Key](InitiallyConstraintKey)**
+## **[All exercises](exercises)**
