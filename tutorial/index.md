@@ -70,8 +70,6 @@ example code; just add the appropriate path to the `openjml` command.
   * [Abstractions using Model Fields and Datagroups](ModelFields)
   * [Abstractions using Model Methods](ModelMethods)
 
-* [Object Invariants](Invariants)
-
 * [Built-in mathematical types for specifications](BuiltinTypes)
   * [\bigint](type-bigint)
   * [\real](type-real)
