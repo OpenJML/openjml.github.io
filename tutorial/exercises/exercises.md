@@ -36,8 +36,7 @@ the following links to access the exercises for the JML Tutorial.
   * [Well-defined Expressions](WellDefinedEx)
   * [Arithmetic](ArithmeticModes)
   * [Null and non-null](Nullness)
-
-* * [Method Body Specifications](SpecStatementsEx)
+  * [Method Body Specifications](SpecStatementsEx)
   * [Assert statements](AssertStatementEx)
   * [Assume statements](AssumeStatementEx)
   * [Specifying Loops](LoopsEx)
