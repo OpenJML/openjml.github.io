@@ -2,11 +2,11 @@
 title: JML Tutorial - Minimizing replicated specifications (initially, constraint, invariant clauses)
 ---
 
-Sometimes certain properties must hold at the end of every constructor or every method.
-Then the specifications for each method or constructor would have to repeat the same specification clause in every constructor or method's specification.
-However, there is a danger that: (a) such a clause will be forgotten for some constructor or method and (b) if the clause needs to be modified, it will not be correctly changed in every place it appears.
+Sometimes certain properties must hold at the end of every constructor or method.
+In that case, the specifications would repeat the same clauses;
+however, there is a danger that: (a) some such clauses may be forgotten, and (b) if a change is needed, it may not be correctly made in every place.
 
-So JML has a few features to coalesce such replicated clauses. These clauses are part of the _class_ declaration, but apply to every method or constructor in the class (or interface) as described below.
+So JML has a few features to coalesce such replicated clauses. These clauses are part of the _class_ declaration, but apply to every method or constructor derived from that class (or interface) as described below.
 
 ## Initially clauses
 
@@ -68,5 +68,7 @@ Since these are validity properties,
 * a method may assume that the invariants are true in its pre-state
 * and must ensure that the invariants are still true (or true again) in its post-state
 
-Further detail on invariants is given in a [dedicated lesson on the topic](Invariants).
+Further detail on invariants is given in the next lesson which is all about [invariants](Invariants).
+
+## **[Minimizing Replicated Clauses Problem Set](https://www.openjml.org/tutorial/exercises/InitiallyConstraint.html)
 
