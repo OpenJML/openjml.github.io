@@ -50,6 +50,7 @@ example code; just add the appropriate path to the `openjml` command.
   * [Method Specifications: old clauses and clause ordering](OldAndOrdering)
   * [Multiple Method Behaviors](MultipleBehaviors)
   * [Minimizing replicated specifications --- initially, constraint, invariant clauses](InitiallyConstraint)
+  * [Invariant Clauses](Invariants)
   * [Specifying Constructors](Constructors)
   * [Using Method Calls in Specifications](MethodsInSpecifications)
   * [Visibility](Visibility)
