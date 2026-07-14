@@ -21,9 +21,11 @@ title: JML Tutorial - Exercises - Minimizing replicated specifications (initiall
 
 **Learning Objectives:**
 + Gain more experience writing `initially` clauses.
-+ Gain more experience writing `constrant` clauses.
++ Gain more experience writing `constraint` clauses.
 
 ## **[Answer Key](InitiallyConstraintExKey)**
+
+## Resources
 + [Question 1 Java](Inches.java)
 + [Question 2 Java](Log.java)
-## **[All exercises](exercises)**
++ [All exercises](exercises)

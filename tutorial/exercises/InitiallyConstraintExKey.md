@@ -20,5 +20,7 @@ The following is one way to answer this question.
 {% include_relative LogAns.java %}
 ```
 
-## **[Answer Key](InitiallyConstraintKey)**
-## **[All exercises](exercises)**
+Depending on the version of OpenJML used, this may still not verify, because some of the operations on the built-in type `String` may not have been implemented yet in the tool.
+
+## Resources
++ [All exercises](exercises)
