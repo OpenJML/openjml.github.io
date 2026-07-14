@@ -90,4 +90,4 @@ the following links to access the exercises for the JML Tutorial.
   * [Reasoning about recursive functions and data structures](RecursionEx)
   * [Reasoning about non-deterministic functions and volatile variables](NondeterminismEx)
   * [Reasoning about termination](TerminationEx) 
-  * [Using Method Calls in SpecX1ifications](CallingMethodsExEx)
+  * [Using Method Calls in Specifications](CallingMethodsExEx)
