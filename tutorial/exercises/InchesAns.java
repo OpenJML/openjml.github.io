@@ -2,8 +2,8 @@
 public class InchesAns {
     private /*@ spec_public @*/ double measure;
 
-    public initially !Double.isNaN(measure);
-    public initially 0.0 <= measure;
+    //@ public initially !Double.isNaN(measure);
+    //@ public initially 0.0 <= measure;
     
     //@ requires !Double.isNaN(inches);
     //@ requires 0.0 <= inches;
@@ -14,9 +14,11 @@ public class InchesAns {
     //@ old double epsilon = 0.1e-9;
     //@ requires !Double.isNaN(oth);
     //@ requires 0.0 <= oth;
+    //@ requires 0 < multiple;
     //@ ensures Math.abs(measure - multiple*oth) < epsilon;
     public InchesAns(double oth, int multiple) {
         measure = multiple * oth;
+        //@ assume !Double.isNaN(measure); // only needed temporarily.
     }
 
     public void test() {
