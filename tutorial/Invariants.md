@@ -84,4 +84,5 @@ To prevent such situations, all invariants of `this` must be established before 
 ```diff
 ! Just which invariants are required to hold before a method call is a topic of research and discussion. OpenJML is experimenting with defaults that are both convenient and sound.
 ```
-    
+
+## **[Invariants Problem Set](https://www.openjml.org/tutorial/exercises/InvariantsEx.html)**
