@@ -2,15 +2,15 @@
 title: JML Tutorial - Invariants
 ---
 
-JML uses `invariant` clauses to specify properties of an object that should "always" hold. This lesson describes the straightforward uses of invariants
+JML uses `invariant` clauses to specify properties of an object that should "always" hold. This lesson describes the straightforward uses of such invariants
 and also the complexities of what "always" means.
 
 ## Simple invariants
 
 The basic idea of an invariant is this: an invariant describes a property that always holds of an object. Every method can assume the invariants hold and
 must preserve the invariants. Constructors create objects that satisfy invariants. In this sense, invariants are like pre- and postconditions common to every
-method and constructor.
-* Invariants can be declared `static`, in which case they apply to static fields and methods. Static invariants apply to all methods; non-static instance invariants only apply to non-static methods.
+method (and like postconditions common to every constructor).
+* Invariants can be declared `static`, in which case they apply to static fields and methods. Such static invariants apply to all methods; however, non-static instance invariants only apply to non-static methods.
 * Most typically invariants are declared `public`.  See the discussion below about visibility.
 
 Here is a typical simple example:
@@ -48,7 +48,7 @@ The cost of not having to have the invariants true on entrance to a method is th
 
 ## Visibility of invariants
 
-* Invariants have a visibility (public, private, etc.). Almost always, `public` is the appropriate modifier to use. Invariants with visibility other than public only apply where they can be "seen", just like the modifiers when used for methods.
+* Invariants have a visibility (public, private, etc.). Almost always, `public` is the appropriate modifier to use. Invariants with visibility other than public only apply where they can be "seen", just like the modifiers when used for methods (and their specification cases).
 * Invariants cannot use fields or methods with a visibility more constrained than their own. Consequently, as in this case, a private field will need a `spec_public` declaration. See [the lesson on Visibility](Visibility) for more on this topic.
 
 ## Invariants when calling methods
@@ -71,13 +71,15 @@ public class SomeClass {
   public void m(SomeOtherClass o) {
     // some code that temporarily invalidates the invariant of SomeClass
     o.dosomething(this);
-    // code that restore the invariant of SomeClass
+    // code that restores the invariant of SomeClass
   }
 }
 ```
-The verification attempt of `SomeClass.m` invalidates and then restores the invariant of `SomeClass`. However, `o.dosomething` is called when the invariant
-of `this` is invalid. `o.dosomething` might actually call a method of `SomeClass` on its argument, which method would then be called in a state in which
-its invariants do not hold. So in this case, any invariants of `this` must be established before the call to `o.dosomething`.
+When OpenJML attempts to verify `SomeClass.m`,
+which invalidates and then restores the invariant of `SomeClass` it finds that the call `o.dosomething` is made when the invariant is invalid.
+Thus `o.dosomething` might actually call a method of `SomeClass` on its argument,
+but that method would then be called in a state in which its invariant does not hold.
+To prevent such situations, all invariants of `this` must be established before the call to `o.dosomething`.
 
 ```diff
 ! Just which invariants are required to hold before a method call is a topic of research and discussion. OpenJML is experimenting with defaults that are both convenient and sound.
