@@ -86,3 +86,8 @@ To prevent such situations, all invariants of `this` must be established before 
 ```
 
 ## **[Invariants Problem Set](https://www.openjml.org/tutorial/exercises/InvariantsEx.html)**
+
+## Resources
++ [MyBox Java](MyBox.java)
++ [SomeClass Java](SomeClass.java), which is more concrete than the sketch above
++ [SomeOtherClass Java](SomeOtherClass.java)
