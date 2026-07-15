@@ -22,7 +22,7 @@ the following links to access the exercises for the JML Tutorial.
   * [Method Specifications: old clauses and clause ordering](OldAndOrderingEx)
   * [Multiple  Method Behaviors](MultMethodBehaviorEx)
   * [Minimizing replicated specifications --- initially, constraint, invariant clauses](InitiallyConstraintEx)
-  * [Invariants](InvariantsEx)
+  * [Invariant Clauses](InvariantsEx)
   * [Specifying Constructors](SpecifyingConstructorsEx)
   * [Using Method Calls in Specifications](MethodsInSpecificationsEx)
   * [Visibility](VisibilityEx)
