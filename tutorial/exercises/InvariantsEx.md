@@ -56,6 +56,6 @@ In your solution, you will need to add one or more `invariant` clauses to the cl
 ## **[Answer Key](InvariantsExKey)**
 
 ## Resources
-+ [Question 1 Java](.java)
++ [Question 1 Java](ScreenPoint.java)
 + [Question 2 Java](.java)
 + [All exercises](exercises)
