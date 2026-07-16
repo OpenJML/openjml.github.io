@@ -49,7 +49,7 @@ public class ScreenPoint {
 }
 ```
 
-In your solution, you must add one or more `invariant` clauses to the class. Doint that may make it necessary to change some method preconditions. However, changing those preconditions will also require changes in the code for the method `test()`, but you should make those without changing the calls to `moveRight` and `moveUp` and the assertions that follow those calls.
+In your solution, you must add one or more `invariant` clauses to the class. Doing that may make it necessary to change some method preconditions. However, changing those preconditions will also require changes in the code for the method `test()`, but you should make those without changing the calls to `moveRight` and `moveUp` and the assertions that follow those calls.
 
 ## **Question 2**
 
