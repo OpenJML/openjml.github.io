@@ -5,7 +5,7 @@ title: JML Tutorial - Exercises - Invariant clauses
 ## [Invariants Tutorial](https://www.openjml.org/tutorial/Invariants)
 
 ## **Question 1**
-**The following class does not verify. Fix the specifications and the code so that it verifies and makes the assertions in method `test()` pass.** 
+**The following class does not verify. Add one or more `invariant` clauses and fix the specifications and the code so that it verifies and makes the assertions in method `test()` pass.** 
 
 ```Java
 public class ScreenPoint {
@@ -49,7 +49,7 @@ public class ScreenPoint {
 }
 ```
 
-In your solution, you will need to add one or more `invariant` clauses to the class and that may make it necessary to change some method preconditions. However, changing those preconditions will also require changes in the code for the method `test()`, but you should make those without changing the calls to `moveRight` and `moveUp` and the assertions that follow those calls.
+In your solution, you must add one or more `invariant` clauses to the class. Doint that may make it necessary to change some method preconditions. However, changing those preconditions will also require changes in the code for the method `test()`, but you should make those without changing the calls to `moveRight` and `moveUp` and the assertions that follow those calls.
 
 ## **Question 2**
 
