@@ -13,6 +13,16 @@ title: JML Tutorial -- Exercises
 In addition to the links at the end of each tutorial page, one can also use
 the following links to access the exercises for the JML Tutorial.
 
+* [Basic Method Body Specifications](SpecStatementsEx)
+  * [Assert statements](AssertStatementEx)
+  * [Assume statements](AssumeStatementEx)
+
+* [JML Expressions](JmlExprEx):
+  * [JML Expressions](ExpressionsEx)
+  * [Well-defined Expressions](WellDefinedEx)
+  * [Arithmetic](ArithmeticModes)
+  * [Null and non-null](Nullness)
+
 * Simple Method Specifications:
   * [Preconditions](PreConEx)
   * [Postconditions](PostCondEx)
@@ -31,14 +41,7 @@ the following links to access the exercises for the JML Tutorial.
   * [Specifying Loops](LoopsEx)
   * [Ghost variables and computations](GhostEx)
 
-* [JML Expressions](JmlExprEx):
-  * [JML Expressions](ExpressionsEx)
-  * [Well-defined Expressions](WellDefinedEx)
-  * [Arithmetic](ArithmeticModes)
-  * [Null and non-null](Nullness)
-  * [Method Body Specifications](SpecStatementsEx)
-  * [Assert statements](AssertStatementEx)
-  * [Assume statements](AssumeStatementEx)
+* More Method Body Specifications
   * [Specifying Loops](LoopsEx)
   * [Ghost variables and computations](GhostEx)
 
