@@ -52,10 +52,38 @@ public class ScreenPoint {
 In your solution, you must add one or more `invariant` clauses to the class. Doing that may make it necessary to change some method preconditions. However, changing those preconditions will also require changes in the code for the method `test()`, but you should make those without changing the calls to `moveRight` and `moveUp` and the assertions that follow those calls.
 
 ## **Question 2**
+**Consider the following class that also does not verify. Write one or more `invariant` clauses and an `assume` statement to explain (to OpenJML) why the code in the `equals` method is correct.**
+
+```
+public class Rational {
+    private /*@ spec_public @*/ long n, d;
+
+    //@ requires dv != 0;
+    //@ requires nv % dv != 0;
+    public Rational(int nv, int dv) {
+        n = nv;
+        d = dv;
+    }
+
+    //@   requires oth == null;
+    //@   ensures !\result;
+    //@ also
+    //@   requires oth != null;
+    //@   ensures \result <==> d * oth.n == n * oth.d;
+    public boolean equals(/*@ nullable @*/ Rational oth) {
+        if (oth == null) {
+            return false;
+        }
+        // whd would the following be correct? When would it be correct?
+        return n == oth.n && d == oth.d;
+    }
+        
+}
+```
 
 ## **[Answer Key](InvariantsExKey)**
 
 ## Resources
 + [Question 1 Java](ScreenPoint.java)
-+ [Question 2 Java](.java)
++ [Question 2 Java](Rational.java)
 + [All exercises](exercises)

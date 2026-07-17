@@ -1,10 +1,12 @@
-// openjml --esc Rational.java
-public class Rational {
+// openjml --esc RationalAns.java
+public class RationalAns {
     private /*@ spec_public @*/ long n, d;
+    //@ public invariant d != 0;
+    //@ public invariant n % d != 0;
 
     //@ requires dv != 0;
     //@ requires nv % dv != 0;
-    public Rational(int nv, int dv) {
+    public RationalAns(int nv, int dv) {
         n = nv;
         d = dv;
     }
@@ -15,11 +17,12 @@ public class Rational {
     //@   requires oth != null;
     //@   ensures \result <==> d * oth.n == n * oth.d;
     //@ spec_pure
-    public boolean equals(/*@ nullable @*/ Rational oth) {
+    public boolean equals(/*@ nullable @*/ RationalAns oth) {
         if (oth == null) {
             return false;
         }
-        // Why would the following be correct? When would it be correct?
+        /*@ assume (n == oth.n && d == oth.d && d != 0 && n%d == 0)
+                   <==> (d*oth.n == n*oth.d); @*/
         return n == oth.n && d == oth.d;
     }
         
