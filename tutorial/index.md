@@ -41,6 +41,16 @@ example code; just add the appropriate path to the `openjml` command.
   * [Execution](Execution)
   * [Syntax](Syntax)
 
+* [Basic Method Body Specifications](SpecStatements)
+  * [Assert statements](AssertStatement)
+  * [Assume statements](AssumeStatement)
+
+* JML Expressions
+  * [JML Expressions](Expressions)
+  * [Well-defined Expressions](WellDefinedExpressions)
+  * [Arithmetic](ArithmeticModes)
+  * [Null and non-null](Nullness)
+
 * Simple Method Specifications
   * [Preconditions](Preconditions)
   * [Postconditions](Postconditions)
@@ -54,14 +64,8 @@ example code; just add the appropriate path to the `openjml` command.
   * [Specifying Constructors](Constructors)
   * [Using Method Calls in Specifications](MethodsInSpecifications)
   * [Visibility](Visibility)
-* JML Expressions
-  * [JML Expressions](Expressions)
-  * [Well-defined Expressions](WellDefinedExpressions)
-  * [Arithmetic](ArithmeticModes)
-  * [Null and non-null](Nullness)
-* [Method Body Specifications](SpecStatements)
-  * [Assert statements](AssertStatement)
-  * [Assume statements](AssumeStatement)
+
+* More Method Body Specifications
   * [Specifying Loops](Loops)
   * [Ghost variables and computations](Ghost)
 
