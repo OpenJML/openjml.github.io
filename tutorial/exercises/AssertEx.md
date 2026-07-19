@@ -27,7 +27,12 @@ public void max(int a, int b, int c) {
 + Understand the relationship between `assert` statements and postconditions 
 
 ## **Question 2**
-**Given the function below, write the strongest assert statements that will pass at the places indicated.**
+**Given the function below, write the strongest[^1] assert statements that will pass at the places indicated.**
+
+[^1] An assert statement `assert P;` is stronger
+than assert statement `assert Q;` when the predicate `P` is stronger than the predicate `Q` (that is, when `P` implies `Q`).
+See (the tutorial section on preconditions)[https://www.openjml.org/tutorial/Preconditions] for more about the strength of predicates.
+
 ```Java
 //@ requires num > 0;
 public boolean primeChecker(int num) {
