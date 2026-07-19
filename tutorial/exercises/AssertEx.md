@@ -57,3 +57,5 @@ public boolean primeChecker(int num) {
 
 ## **[Answer Key](AssertExKey.md)**
 ## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**
+
+## Footnotes
