@@ -42,7 +42,7 @@ example code; just add the appropriate path to the `openjml` command.
   * [Syntax](Syntax)
 
 * [Basic Method Body Specifications](SpecStatements)
-  * [Assert statements](AssertStatement)
+  * [Assert statements (assert and check)](AssertStatement)
   * [Assume statements](AssumeStatement)
 
 * JML Expressions
