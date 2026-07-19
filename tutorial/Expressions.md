@@ -2,8 +2,8 @@
 title: JML Tutorial - JML Expressions
 ---
 
-The earlier lessons on pre- and post-conditions, assert and assume
-statements all showed examples of *expressions* used in JML clauses.
+The lessons on pre- and post-conditions (and those on assert and assume
+statements) all show examples of *expressions* used in JML clauses.
 As expressions are a building block for nearly all other JML constructs, 
 we include a couple lessons at this point to introduce JML expressions.
 
