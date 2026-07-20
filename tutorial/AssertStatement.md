@@ -99,4 +99,11 @@ from such predicates (i.e., those that might be false).
 
 Follow the link in the above heading to work on the exercises on this topic.
 
-
+## Resources
++ [T_assert1.java](T_assert1.java)
++ [T_assert2.java](T_assert2.java)
++ [T_assert2.out](T_assert2.out)
++ [T_assert3.java](T_assert3.java)
++ [T_assert3.out](T_assert3.out)
++ [T_assert4.java](T_assert4.java)
++ [T_assert4.out](T_assert4.out)

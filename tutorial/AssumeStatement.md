@@ -72,3 +72,9 @@ or removed altogether before a verification is considered sound.
 ## **[Exercises](https://www.openjml.org/tutorial/exercises/AssumeEx.html)**
 
 Follow the link in the above heading to work on the exercises on this topic.
+
+## Resources
++ [T_assume1.java](T_assume1.java)
++ [T_assume2.java](T_assume2.java)
++ [T_assume2.out](T_assume2.out)
++ [T_assume3.java](T_assume3.java)
