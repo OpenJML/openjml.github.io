@@ -113,3 +113,9 @@ because at the dereference of `s` it cannot be proven that `s` is non-null, beca
 ## **[Exercises](https://www.openjml.org/tutorial/exercises/NullnessEx.html)**
 
 Follow the link in the above heading to work on the exercises on this topic.
+
+## Resources
++ [T_Nullness1 file](T_Nullness1.java)
++ [T_Maybe file](T_Maybe.java)
++ [T_NullnessDefault file](T_NullnessDefault.java)
++ [T_NullnessDefault2 file](T_NullnessDefault2.java)

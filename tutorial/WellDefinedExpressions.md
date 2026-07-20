@@ -75,3 +75,9 @@ gives
 ## **[Exercises](https://www.openjml.org/tutorial/exercises/WellDefinedEx.html)**
 
 Follow the link in the above heading to work on the exercises on this topic.
+
+## Resources
++ [T_WellDefined1 file](T_WellDefined1.java)
++ [T_WellDefined2 file](T_WellDefined2.java)
++ [T_WellDefined3 file](T_WellDefined3.java)
++ [T_WellDefined4 file](T_WellDefined4.java)
