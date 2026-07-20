@@ -23,3 +23,6 @@ The values of `ghost` variables may then be used in subsequent JML `assert` stat
 
 JML also has `model` fields and `represents` specification that can be used to help specify classes and interfaces. These are also specification-only constructs. (See the section on [model fields and datagroups](ModelFields).)
 
+## **[Exercises](https://www.openjml.org/tutorial/exercises/GhostEx.html)**
+
+Follow the link in the above heading to work on the exercises on this topic.
