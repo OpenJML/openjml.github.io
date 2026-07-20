@@ -10,7 +10,7 @@ title: JML Tutorial - Exercises - Nullable and non-null values and types
 
 (b) To make the code verify without changing the rest of the program, the line marked "wrong" should be deleted or commented out.
 
-(c) The other option for making the code verify would be to declare both arguments to the constructor as "nullable". This could be done either by using a Java annotation (`@Nullable`) or by using a JML annotation (`/*@ nullable @*/`) on each argument, as well as the declaration of the fields `fst` and `snd`[^1]. 
+(c) The other option for making the code verify would be to declare both arguments to the constructor as "nullable". This could be done either by using a Java annotation (`@Nullable` from `org.jmlspecs.annotation`) or by using a JML annotation (`/*@ nullable @*/`) on each argument, as well as the declaration of the fields `fst` and `snd`[^1]. 
 Note that if one only declares that the constructor's arguments can be null (i.e., are nullable), then the assignments to the fields `fst` and `snd` will be incorrect, as those fields would still be non-null (by default) in JML.
 
 Note also that the assertion in the `test()` method does not have a possibility of dereferencing null, because although the fields might be null, `p` itself cannot be null and is (by default in JML) not null.
