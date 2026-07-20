@@ -136,6 +136,7 @@ presents [multiple specification cases](MultipleBehaviors).)
 ## **[Exercises](https://www.openjml.org/tutorial/exercises/FrameCondEx.html)**
 
 Follow the link in the above heading to work on the exercises on this topic.
+
 ## Resources
 + [T_frame1 file](T_frame1.java)
 + [T_frame3 file](T_frame3.java)
