@@ -74,7 +74,6 @@ or removed altogether before a verification is considered sound.
 Follow the link in the above heading to work on the exercises on this topic.
 
 ## Resources
-+ [T_assume1.java](T_assume1.java)
-+ [T_assume2.java](T_assume2.java)
-+ [T_assume2.out](T_assume2.out)
-+ [T_assume3.java](T_assume3.java)
++ [T_assume1 file](T_assume1.java)
++ [T_assume2 file](T_assume2.java)
++ [T_assume3 file](T_assume3.java)
