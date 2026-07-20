@@ -63,7 +63,7 @@ then the following messages happen:
 {% include_relative T_WellDefined3.out %}
 ```
 
-Finally well-definedness is a requirement for JML expressions, not Java expressions. But similar Java expressions would just throw exceptions, so OpenJML gives slightly different verification messages:
+Finally, well-definedness is a requirement for JML expressions, not Java expressions. But similar Java expressions would just throw exceptions, so OpenJML gives slightly different verification messages:
 ```
 {% include_relative T_WellDefined4.java %}
 ```
