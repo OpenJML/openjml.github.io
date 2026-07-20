@@ -85,9 +85,11 @@ To prevent such situations, all invariants of `this` must be established before 
 ! Just which invariants are required to hold before a method call is a topic of research and discussion. OpenJML is experimenting with defaults that are both convenient and sound.
 ```
 
-## **[Invariants Problem Set](https://www.openjml.org/tutorial/exercises/InvariantsEx.html)**
+## **[Exercises](https://www.openjml.org/tutorial/exercises/InvariantsEx.html)**
+
+Follow the link in the above heading to work on the exercises on this topic.
 
 ## Resources
-+ [MyBox Java](MyBox.java)
++ [MyBox Java](MyBox.java) 
 + [SomeClass Java](SomeClass.java), which is more concrete than the sketch above
 + [SomeOtherClass Java](SomeOtherClass.java)

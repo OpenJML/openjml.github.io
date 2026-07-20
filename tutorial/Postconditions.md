@@ -90,6 +90,6 @@ _if the method terminates normally (without an exception or error),
 then the given postcondition must be true_.
 The converse, if the `ensures` predicate is true then the method terminates normally, is not the meaning and is not necessarily true.
 
-## **[Postcondition Exercises](https://www.openjml.org/tutorial/exercises/PostCondEx.html)**
+## **[Exercises](https://www.openjml.org/tutorial/exercises/PostCondEx.html)**
 
-Follow the link in the above heading to work on the exercises that deal with postconditions.
+Follow the link in the above heading to work on the exercises on this topic.

@@ -95,4 +95,6 @@ The three verification failure messages may occur in any order.
 This balance between verification failures and exception specifications is an
 advanced topic discussed [here](JavaErrorsAndExceptions).
 
-## **[Specifying Exceptions Exercises](https://www.openjml.org/tutorial/exercises/SpecifyingExceptionsEx.html)**
+## **[Exercises](https://www.openjml.org/tutorial/exercises/SpecifyingExceptionsEx.html)**
+
+Follow the link in the above heading to work on the exercises on this topic.

@@ -53,4 +53,6 @@ access to the data field, that is, not allowing clients to modify `_value` direc
 So for simple cases like this the `spec_public` modifier is perfectly fine; in fact, it is
 syntactic sugar for the solution in terms of a model field.
 
-## **[Visibility Problem Set](https://www.openjml.org/tutorial/exercises/VisibilityEx.html)**
+## **[Exercises](https://www.openjml.org/tutorial/exercises/VisibilityEx.html)**
+
+Follow the link in the above heading to work on the exercises on this topic.

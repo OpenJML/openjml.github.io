@@ -32,5 +32,7 @@ The implementation of these constructors is so simple, and common, that one migh
 
 TODO- say more about the whole initialization process and initializer specs.
 
-## **[Specifying Constructors Problem Set](https://www.openjml.org/tutorial/exercises/SpecifyingConstructorsEx.html)**
+## **[Exercises](https://www.openjml.org/tutorial/exercises/SpecifyingConstructorsEx.html)**
+
+Follow the link in the above heading to work on the exercises on this topic.
 

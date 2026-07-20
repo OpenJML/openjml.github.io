@@ -52,5 +52,8 @@ In the following, the value of `g` is determined in the pre-state of a call to `
 {% include_relative T_Old.java %}
 ```
 
-## **[Old and Ordering Problem Set](https://www.openjml.org/tutorial/exercises/OldAndOrderingEx.html)**
+## **[Exercises](https://www.openjml.org/tutorial/exercises/OldAndOrderingEx.html)**
+
+Follow the link in the above heading to work on the exercises on this topic.
+
 

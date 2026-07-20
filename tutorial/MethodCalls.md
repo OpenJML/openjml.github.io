@@ -102,5 +102,8 @@ produces (on a Unix variant) just the following:
 The exit code 6 indicates that verification errors were found (but no parsing
 or type-checking or command-line or system errors).
 
-## **[Specifying and Verifying Method Calls Problem Set](https://www.openjml.org/tutorial/exercises/MethodCallsEx.html)**
+## **[Exercises](https://www.openjml.org/tutorial/exercises/MethodCallsEx.html)**
+
+Follow the link in the above heading to work on the exercises on this topic.
+
 

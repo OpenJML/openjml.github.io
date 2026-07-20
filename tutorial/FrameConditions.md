@@ -133,5 +133,6 @@ tutorial lessons so far have just one specification case; a subsequent lesson
 presents [multiple specification cases](MultipleBehaviors).)
 
 
-## **[Frame Conditions Problem Set](https://www.openjml.org/tutorial/exercises/FrameCondEx.html)**
+## **[Exercises](https://www.openjml.org/tutorial/exercises/FrameCondEx.html)**
 
+Follow the link in the above heading to work on the exercises on this topic.

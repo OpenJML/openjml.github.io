@@ -70,5 +70,7 @@ Since these are validity properties,
 
 Further detail on invariants is given in the next lesson which is all about [invariants](Invariants).
 
-## **[Minimizing Replicated Clauses Problem Set](https://www.openjml.org/tutorial/exercises/InitiallyConstraintEx.html)**
+## **[Exercises](https://www.openjml.org/tutorial/exercises/InitiallyConstraintEx.html)**
+
+Follow the link in the above heading to work on the exercises on this topic.
 

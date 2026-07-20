@@ -78,7 +78,7 @@ To summarize, a method may have multiple specification cases.
   * The most general: `V behavior`
   * Normal exit only: `V normal_behavior`
   * Exit by exception only: `V exceptional_behavior`
-  * The most common: no heading, which means `V behavior` with the visibility `V` being the same as the method's visibility
+  * The mo st common: no heading, which means `V behavior` with the visibility `V` being the same as the method's visibility
 
 
 ## Nested Clause Groups
@@ -109,4 +109,7 @@ also
   ensures Q3;
 ```
 
-## **[Multiple Method Behavior Problem Set](https://www.openjml.org/tutorial/exercises/MultMethodBehaviorEx.html)**
+## **[Exercises](https://www.openjml.org/tutorial/exercises/MultMethodBehaviorEx.html)**
+
+Follow the link in the above heading to work on the exercises on this topic.
+
