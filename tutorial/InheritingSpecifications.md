@@ -52,6 +52,10 @@ We can also check the type of the input `T_Polygon` with a Java statement. If op
 This simple example is intended only to show specification inheritance. The next two lessons
 on specification with [model fields](ModelFields) and [model methods](ModelMethods), show more complex examples that specify abstract classes.
 
+## **[Exercises](https://www.openjml.org/tutorial/exercises/InheritingSpecificationsEx.html)**
+
+Follow the link in the above heading to work on the exercises on this topic.
+
 ## Resources
 + [T_Polygon file](T_Polygon.java)
 + [T_PolyTest file](T_PolyTest.java)

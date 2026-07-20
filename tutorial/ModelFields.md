@@ -106,6 +106,8 @@ Java's syntax for type annotations applied to fully-qualified type names is a bi
 
 ## **[Exercises](https://www.openjml.org/tutorial/exercises/ModelFieldsEx.html)**
 
+Follow the link in the above heading to work on the exercises on this topic.
+
 ## Resources
 + [Polygon file](Polygon.java)
 + [Polygon3 file](Polygon3.java)
