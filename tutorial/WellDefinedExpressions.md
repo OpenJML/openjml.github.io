@@ -72,4 +72,6 @@ gives
 {% include_relative T_WellDefined4.out %}
 ```
 
-## **[Well-defined Expressions](https://www.openjml.org/tutorial/exercises/WellDefinedEx.html)**
+## **[Exercises](https://www.openjml.org/tutorial/exercises/WellDefinedEx.html)**
+
+Follow the link in the above heading to work on the exercises on this topic.

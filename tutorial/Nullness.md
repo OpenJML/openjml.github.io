@@ -110,4 +110,6 @@ produces a verification error
 ```
 because at the dereference of `s` it cannot be proven that `s` is non-null, because the default for the type in the formal parameter declaration is now `nullable`.
 
-## **[Nullness Problem Set](https://www.openjml.io/tutorial/exercises/NullnessEx.html)**
+## **[Exercises](https://www.openjml.io/tutorial/exercises/NullnessEx.html)**
+
+Follow the link in the above heading to work on the exercises on this topic.

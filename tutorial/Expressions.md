@@ -135,6 +135,7 @@ The implementation of this expression in JML tools is in progress. Don't count o
 
 TODO - what about \let
 
-## **[JML Expressions Problem Set](https://www.openjml.org/tutorial/exercises/JmlExprEx.html)**
+## **[Exercises](https://www.openjml.org/tutorial/exercises/JmlExprEx.html)**
 
+Follow the link in the above heading to work on the exercises on this topic.
 

@@ -97,7 +97,9 @@ In the following example, both the code and specs are computed with Java math,
 {% include_relative T_arithmetic5.java %}
 ```
 
-## **[Arithmetic Problem Set](https://www.openjml.org/tutorial/exercises/ArithmeticEx.html)**
+## **[Exercises](https://www.openjml.org/tutorial/exercises/ArithmeticEx.html)**
+
+Follow the link in the above heading to work on the exercises on this topic.
 
 ## Footnotes
 
