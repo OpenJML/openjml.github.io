@@ -17,5 +17,5 @@ Note also that the assertion in the `test()` method does not have a possibility 
 
 ## Footnotes
 
-[^1]: An equivalent way to make the arguments and the fields nullable by default would be to use a modifier on the class as a whole, such as `nullable_by_default`, or to use the OpenJML option `--nullable-by-default` when running OpenJML. These would have the same issues as the options discussed in the text.
+[^1]: An equivalent way to make the arguments and the fields nullable by default would be to use a modifier on the class as a whole, such as `nullable_by_default`, or to use the OpenJML option `--nullable-by-default` when running OpenJML.
 
