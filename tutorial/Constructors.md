@@ -36,3 +36,6 @@ TODO- say more about the whole initialization process and initializer specs.
 
 Follow the link in the above heading to work on the exercises on this topic.
 
+## Resources
++ [T_constructors1 file](T_constructors1.java)
++ [T_constructors2 file](T_constructors2.java)

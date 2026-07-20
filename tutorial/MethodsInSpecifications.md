@@ -155,3 +155,10 @@ being created. Java's `String` and `Integer` are two examples of immutable class
 ## **[Exercises](https://www.openjml.org/tutorial/exercises/CallingMethodsEx.html)**
 
 Follow the link in the above heading to work on the exercises on this topic.
+
+## Resources
++ [T_PureMethod1 file](T_PureMethod1.java)
++ [T_PureMethod2 file](T_PureMethod2.java)
++ [T_PureMethod3 file](T_PureMethod3.java)
++ [T_PureMethod4 file](T_PureMethod4.java)
++ [T_PureMethod5 file](T_PureMethod5.java)

@@ -56,3 +56,8 @@ syntactic sugar for the solution in terms of a model field.
 ## **[Exercises](https://www.openjml.org/tutorial/exercises/VisibilityEx.html)**
 
 Follow the link in the above heading to work on the exercises on this topic.
+
+## Resources
++ [T_Visibility1 file](T_Visibility1.java)
++ [T_Visibility2 file](T_Visibility2.java)
++ [T_Visibility3 file](T_Visibility3.java)

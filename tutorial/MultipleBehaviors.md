@@ -113,3 +113,9 @@ also
 
 Follow the link in the above heading to work on the exercises on this topic.
 
+## Resources
++ [T_MultipleBehaviors1 file](T_MultipleBehaviors1.java)
++ [T_MultipleBehaviors2 file](T_MultipleBehaviors2.java)
++ [T_MultipleBehaviors3 file](T_MultipleBehaviors3.java)
++ [T_MultipleBehaviors4 file](T_MultipleBehaviors4.java)
++ [T_MultipleBehaviors5 file](T_MultipleBehaviors5.java)

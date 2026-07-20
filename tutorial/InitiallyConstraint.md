@@ -74,3 +74,9 @@ Further detail on invariants is given in the next lesson which is all about [inv
 
 Follow the link in the above heading to work on the exercises on this topic.
 
+## Resources
++ [T_initially1 file](T_initially1.java)
++ [T_initially2 file](T_initially2.java)
++ [T_constraint file](T_constraint.java)
++ [Invariants tutorial](Invariants)
+

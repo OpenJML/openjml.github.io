@@ -98,3 +98,11 @@ advanced topic discussed [here](JavaErrorsAndExceptions).
 ## **[Exercises](https://www.openjml.org/tutorial/exercises/SpecifyingExceptionsEx.html)**
 
 Follow the link in the above heading to work on the exercises on this topic.
+## Resources
++ [T_Exception1 file](T_Exception1.java)
++ [T_SpecifyingExceptionsNone file](T_SpecifyingExceptionsNone.java)
++ [T_Exception1a file](T_Exception1a.java)
++ [T_Exception2 file](T_Exception2.java)
++ [T_Exception3 file](T_Exception3.java)
++ [T_Exception4 file](T_Exception4.java)
++ [T_Exception4a file](T_Exception4a.java)

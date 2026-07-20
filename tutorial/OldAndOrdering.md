@@ -57,3 +57,7 @@ In the following, the value of `g` is determined in the pre-state of a call to `
 Follow the link in the above heading to work on the exercises on this topic.
 
 
+## Resources
++ [T_order1 file](T_order1.java)
++ [T_order2 file](T_order2.java)
++ [T_Old file](T_Old.java)

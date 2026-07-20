@@ -93,3 +93,8 @@ The converse, if the `ensures` predicate is true then the method terminates norm
 ## **[Exercises](https://www.openjml.org/tutorial/exercises/PostCondEx.html)**
 
 Follow the link in the above heading to work on the exercises on this topic.
+## Resources
++ [T_ensures1 file](T_ensures1.java)
++ [T_ensures1a file](T_ensures1a.java)
++ [T_ensures2 file](T_ensures2.java)
++ [T_ensures3 file](T_ensures3.java)
