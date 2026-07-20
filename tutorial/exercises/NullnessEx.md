@@ -38,5 +38,4 @@ public class ObjPair {
 
 ## **Resources:**
 + [Question 1 Java](ObjPair.java)
-+ [Question 2 Java](.java)
 + [All exercises](https://www.openjml.org/tutorial/exercises/exercises)
