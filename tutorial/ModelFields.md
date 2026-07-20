@@ -104,6 +104,9 @@ The interface and the `T_NullableListImpl` class both verify without any errors.
 Java's syntax for type annotations applied to fully-qualified type names is a bit unexpected. One writes
 `java.lang.@NonNull String` (rather than the incorrect `@NonNull java.lang.String`).
 
-## Exercises
+## **[Exercises](https://www.openjml.org/tutorial/exercises/ModelFieldsEx.html)**
 
-As an exercise, change the specification of `Polygon` above to enforce the invariant that the longest side should always have a strictly positive value. (Note that `1/2` is 0 in Java.) You may need to use `assume` statements, as the prover that openjml uses cannot prove some facts about division (due to fundamental limitations on logic). Check your work by using openjml to verify the correctness of the result.
+## Resources
++ [Polygon file](Polygon.java)
++ [Polygon3 file](Polygon3.java)
++ [NullableList file](NullableList.java) and the implementation [T_NullableListImpl](T_NullableListImpl.java)

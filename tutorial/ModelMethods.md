@@ -58,3 +58,10 @@ Alternately, one might have `sides()` read a datagroup `numsides`. As long as `n
 A _helper_ method is one that does not assume that the object's invariants hold (cf. [the lesson on invariants](Invariants)), nor does it 
 ensure that they hold after returning. Methods used in invariant clauses need to be `helper` methods because otherwise there would be 
 unending recursive calls to check if the invariants are all true. The disadvantage of being a helper method is that sometimes additional pre- or postconditions are needed to assume or assert properties that are otherwise part of the object's invariants.
+
+## **[Exercises](https://www.openjml.org/tutorial/exercises/ModelMethodsEx.html)**
+
+Follow the link in the above heading to work on the exercises on this topic.
+
+## Resources
++ [PolygonMM file](PolygonMM.java)
