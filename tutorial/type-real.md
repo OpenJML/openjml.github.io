@@ -39,3 +39,10 @@ Just like for `\bigint`, many of the methods in `java.lang.Math` have been speci
 ```
 {% include_relative Real.java %}
 ```
+
+## **[Exercises](https://www.openjml.org/tutorial/exercises/type-realEx.html)
+
+Follow the link in the above heading to work on the exercises on this topic.
+
+## Resources
++ [Real file](Real.java)
