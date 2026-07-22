@@ -8,6 +8,8 @@ Or, in the body of a method, one may want to record some value or perform some c
 checking the Java implementation, but not have that variable or computation be part of the Java implementation or 
 compiled into the Java class (and thus not be executed when running the code).
 
+This can be particularly helpful if the ghost computation is easier to understand than some complicated (and hopefully faster) algorithm or data structure, especially when the ghost computation can be used to check the computation that the code performs at runtime.
+
 JML provides `ghost` declarations and various JML-only statements for this purpose:
 
 * Field declarations can be modified with the `ghost` keyword and placed in a JML comment. Such fields are in scope for
@@ -19,7 +21,7 @@ specifications but not in Java code.
 ```
 `set` statements may also include pure method calls.
 
-The values of `ghost` variables may then be used in subsequent JML `assert` statements, for example.
+The values of `ghost` variables may then be used in subsequent JML `assert` (and `assume`) statements. These ghost variables and ghost computations can be used to prove that some step taken in algorithm or data structure design is justified. Alternatively, they may be used to point out to the reader some properties of the code written (such as its time efficiency or the equivalence of some sophisticated data structure to a straightforward one), without incurring a (time or space) penalty at runtime. Furthermore, ghost variables may be used to make stating assertions (or assumptions) easier.
 
 JML also has `model` fields and `represents` specification that can be used to help specify classes and interfaces. These are also specification-only constructs. (See the section on [model fields and datagroups](ModelFields).)
 
