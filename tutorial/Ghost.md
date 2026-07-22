@@ -29,7 +29,9 @@ An example can be seen in the following class declaration.
 {% include_relative T_Ghost.java %}
 ```
 
-JML also has `model` fields and `represents` specification that can be used to help specify classes and interfaces. These are also specification-only constructs. (See the section on [model fields and datagroups](ModelFields).)
+In the above example, the ghost field `mean` is not present in the implementation, so it does not use any space at runtime (except during runtime assertion checking). It is used in the postcondition of the `average()` method to explain that what is returned is the average of the values of the fields `a` and `b`. 
+
+JML also has `model` fields and `represents` specification that can be used to help specify classes and interfaces. These are also specification-only constructs. (See the section on [model fields and datagroups](ModelFields).) For example, the ghost field `mean` in the above example could have been declared as a model field with a represents clause giving its value as the average of `a` and `b`. 
 
 ## **[Exercises](https://www.openjml.org/tutorial/exercises/GhostEx.html)**
 
