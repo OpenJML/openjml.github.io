@@ -23,8 +23,17 @@ specifications but not in Java code.
 
 The values of `ghost` variables may then be used in subsequent JML `assert` (and `assume`) statements. These ghost variables and ghost computations can be used to prove that some step taken in algorithm or data structure design is justified. Alternatively, they may be used to point out to the reader some properties of the code written (such as its time efficiency or the equivalence of some sophisticated data structure to a straightforward one), without incurring a (time or space) penalty at runtime. Furthermore, ghost variables may be used to make stating assertions (or assumptions) easier.
 
+An example can be seen in the following class declaration.
+
+```
+{% include_relative T_Ghost.java %}
+```
+
 JML also has `model` fields and `represents` specification that can be used to help specify classes and interfaces. These are also specification-only constructs. (See the section on [model fields and datagroups](ModelFields).)
 
 ## **[Exercises](https://www.openjml.org/tutorial/exercises/GhostEx.html)**
 
 Follow the link in the above heading to work on the exercises on this topic.
+
+## Resources
++[T_Ghost file](T_Ghost.java)
