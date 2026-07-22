@@ -1,10 +1,11 @@
-// openjml --esc IntPair.java
-public class IntPair {
+// openjml --esc IntPairAns.java
+public class IntPairAns {
 
     private /*@ spec_public @*/ final int lesser, greater;
     private /*@ spec_public @*/ final boolean increasing;
 
-    // ADD DECLARATIONS OF GHOST FIELDS first AND second;
+    //@ public ghost final int first;
+    //@ public ghost final int second;
 
     //@ public invariant lesser <= greater;
     //@ public invariant lesser <= first && lesser <= second;
@@ -13,9 +14,9 @@ public class IntPair {
     //@ public invariant !increasing ==> (second == lesser && first == greater);
 
     //@ ensures first == fv && second == sv;
-    public IntPair(int fv, int sv) {
-        // ADD SET STATEMENT FOR GHOST FIELD first
-        // ADD SET STATEMENT FOR GHOST FIELD second
+    public IntPairAns(int fv, int sv) {
+        //@ set first = fv;
+        //@ set second = sv;
         increasing = (fv <= sv);
         if (increasing) {
             lesser = fv;
