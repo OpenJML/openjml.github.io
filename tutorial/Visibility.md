@@ -6,7 +6,7 @@ Java distinguishes four categories of visibility of declarations: public, protec
 For example, within a class, all names, even private ones, declared in that class are visible.
 But names private to one class are not visible outside that class.
 
-Specifications have a visibility also. Typically a method specification has the same
+Specifications have a visibility also. By default a method specification has the same
 visibility as the method declaration. That way a client seeing the method declaration
 can see its specification also. But if that client is not permitted to see names
 with more restricted visibility, then those names should not appear in the specifications either.
@@ -33,12 +33,11 @@ which now verifies without error.
 There is a similar modifier, `spec_protected`, that declares that a declared name has
 protected visibility for specification purposes.
 
-But this solution leads easily to simply declaring all names as `spec_public`, which 
-obviates the goal of having hidden an implementation in the first place. If an 
-implementation is hidden in private declarations, exposed to a client only through
-public methods, then we need a specification idiom that respects that.
-
-That is one purpose of model fields, which are presented in a [subsequent lesson](ModelFields).
+But this solution leads easily to simply declaring all names as `spec_public`; 
+however, that may not make the specification easy to understand for the reader (especially if the private fields have been optimized for algorithmic reasons). 
+In cases where the data structure is complex or not easily understood by a client, then it may be best to only allows clients access to the data through public methods. So, we need a specification idiom that respects that,
+which is one purpose of model fields,
+which are presented in a [subsequent lesson](ModelFields)[^1].
 But here we'll repeat our example using a model field.
 
 ```
@@ -61,3 +60,7 @@ Follow the link in the above heading to work on the exercises on this topic.
 + [T_Visibility1 file](T_Visibility1.java)
 + [T_Visibility2 file](T_Visibility2.java)
 + [T_Visibility3 file](T_Visibility3.java)
+
+## Footnotes
+
+[^1]: In fact, JML's `spec_public` modifier is defined as a shorthand for various model fields, as explained in the text above, so in theory it is possible to change the private fields of a class with that was initially specified using `spec_public` private fields into one with model fields, but that is not necessarily easy. Another concern is that a specification that uses `spec_public` private fields may bias the implementation towards using that set of private fields.
