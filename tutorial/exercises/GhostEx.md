@@ -11,6 +11,9 @@ title: JML Tutorial - Exercises - Visibility
 {% include_relative IntPair.java %}
 ```
 
+## **Question 2 (Advanced)**
+**In the class `IntPair`, the fields `lesser`, `greater`, and `increasing` are all declared as `spec_public`. See if you can eliminate all uses of `spec_public` in a version of `IntPair` by using `model` fields and `private represents` clauses, while declaring the fields `lesser`, `greater`, and `increasing` to all be just `private` (and not `spec_public`). Hint: you will need to use invariants, but all the invariants can be public.**
+
 **Learning Objectives:**
 + Understand how to use ghost fields and computations in specifications
 + Understand when to use ghost fields and computations.
