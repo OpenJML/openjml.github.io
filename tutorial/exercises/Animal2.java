@@ -14,7 +14,7 @@ public class Animal2 implements Gendered,
         _gen = g.equals("female");
     }
 
-    public /*@ pure @*/ boolean isFemale() 
+    public /*@ spec_pure @*/ boolean isFemale() 
     { return _gen; }
 
     public void setAge(int a) {
