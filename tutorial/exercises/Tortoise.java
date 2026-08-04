@@ -10,9 +10,14 @@ public class Tortoise extends Animal2 {
     }
     
     /*@ also
-      @   requires 151<=a && a<=400;    
+      @   requires age <= a && 151<=a && a<=400;    
       @   assignable age;
       @   ensures age == a;          @*/
     public void setAge(int a)
-    { if (0 <= a) { _age = a; } }
+    {
+        if (a < _age) { return; }
+        //@ assert age <= a;
+        _age = a;
+        //@ assert age == a;
+    }
 }
