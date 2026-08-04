@@ -1,3 +1,4 @@
+// openjml --esc Animal2.java
 public class Animal2 implements Gendered,
            NormalSetAge, ExceptionalSetAge {
     protected boolean _gen; //@ in gender;

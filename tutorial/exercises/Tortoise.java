@@ -1,3 +1,4 @@
+// openjml --esc Tortoise.java
 public class Tortoise extends Animal2 {
     protected int _age; //@ in age;
     //@ protected represents age = _age;
@@ -16,8 +17,12 @@ public class Tortoise extends Animal2 {
     public void setAge(int a)
     {
         if (a < _age) { return; }
-        //@ assert age <= a;
         _age = a;
-        //@ assert age == a;
+    }
+
+    public static void test() {
+        Tortoise2 t2 = new Tortoise2("female");
+        t2.setAge(20);
+        t2.setAge(10);
     }
 }
