@@ -5,11 +5,12 @@ title: JML Tutorial - Exercises - Inheriting Specifications
 ## [Inheriting Specifications Tutorial](https://www.openjml.org/tutorial/InheritingSpecifications)
 
 ## **Question 1**
-1. Yes, in JML all subclasses are automatically behavioral subtypes. However, note that `PositivePoint` cannot be correctly implemented with these added invariants, due to the impossibility of implementing the `setX` and `setY` methods correctly.
 
-2. No, these inherited implementations of `setX` and `setY` are not correct, since they may be used with the specification given in `Point`, which allows a negative number to be used as an argument, which would violate the invariants of `PositivePoint`. If one tries to add preconditions to these methods (requiring that the argument be positive) as another specification case for such a method, then the problem is that in JML such preconditions are disjoined (with `||`) to the existing precondition, showing that clients that use those methods may continue to use them as if the receivers were points. However, since the specification case inherited from `Point` allows a negative argument for these methods, and ensures that such an argument becomes the new coordinate, it is impossible to correctly implement such a method. This shows that one must plan ahead for subtyping in such cases (e.g., by allowing an exception to be thrown in the specification of the supertype).
+a. Yes, in JML all subclasses are automatically behavioral subtypes. However, note that `PositivePoint` cannot be correctly implemented with these added invariants, due to the impossibility of implementing the `setX` and `setY` methods correctly.
 
-3. Java code that would demonstrate the problem is as follows.
+b. No, these inherited implementations of `setX` and `setY` are not correct, since they may be used with the specification given in `Point`, which allows a negative number to be used as an argument, which would violate the invariants of `PositivePoint`. If one tries to add preconditions to these methods (requiring that the argument be positive) as another specification case for such a method, then the problem is that in JML such preconditions are disjoined (with `||`) to the existing precondition, showing that clients that use those methods may continue to use them as if the receivers were points. However, since the specification case inherited from `Point` allows a negative argument for these methods, and ensures that such an argument becomes the new coordinate, it is impossible to correctly implement such a method. This shows that one must plan ahead for subtyping in such cases (e.g., by allowing an exception to be thrown in the specification of the supertype).
+
+c. Java code that would demonstrate the problem is as follows.
 
 ```
         PositivePoint pp = new PositivePoint(3,4);

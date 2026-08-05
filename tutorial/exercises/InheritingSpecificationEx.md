@@ -60,9 +60,11 @@ public class PositivePoint extends Point {
 
 **The `PositivePoint` class restricts the `x` and `y` coordinates to be positive; note the invariants and the precondition on the constructor. This raises the following questions.**
 
-1. **Is `PositivePoint` a behavioral subtype of `Point` as specified?**
-2. **Are the inherited implementations of the methods `setX` and `setY` correct with respect to these new invariants in `PositivePoint`?**
-3. **If the inherited implementations of the methods `setX` and `setY` are not correct, what Java code would demonstrate the problem?**
+a. **Is `PositivePoint` a behavioral subtype of `Point` as specified?**
+
+b. **Are the inherited implementations of the methods `setX` and `setY` correct with respect to these new invariants in `PositivePoint`?**
+
+c. **If the inherited implementations of the methods `setX` and `setY` are not correct, what Java code would demonstrate the problem?**
 
 ## **Question 2**
 **Specify an interface `NormalSetAge` that includes a new method `setAge`. The interface `NormalSetAge` must extend the interface `Age` shown in the following. The added `setAge` method should take an integer that is nonnegative, no less than the current value of `age`, and no greater than 150, and it must make the model field `age` be that number. Hint: the model field `age` will be inherited, since it is declared as an `instance` field.**
