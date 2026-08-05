@@ -1,4 +1,4 @@
-public class Human extends Animal2 {
+public class Human extends Animal {
     //@ public model boolean discount; //@ in age;
     protected boolean _discount = false; //@ in discount;
     //@ protected represents discount = _discount;
@@ -9,8 +9,7 @@ public class Human extends Animal2 {
       @   ensures discount;   @*/
     public void setAge(int a) {
 	super.setAge(a);
-        //@ assert (\old(age) <= a) ==> age == a;
-	if (65 <= a) { _discount = true; }
+ 	if (65 <= a) { _discount = true; }
     }
 
     //@ requires g.equals("female")||g.equals("male");
