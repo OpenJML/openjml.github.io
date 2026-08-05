@@ -1,3 +1,4 @@
+// openjml --esc Human.java
 public class Human extends Animal {
     //@ public model boolean discount; //@ in age;
     protected boolean _discount = false; //@ in discount;

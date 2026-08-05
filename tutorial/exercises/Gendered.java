@@ -1,3 +1,4 @@
+// openjml --esc Gendered.java
 public interface Gendered {
     //@ model instance String gender;
 
