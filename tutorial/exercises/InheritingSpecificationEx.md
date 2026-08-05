@@ -6,6 +6,7 @@ title: JML Tutorial - Exercises - Inheriting Specifications
 
 ## **Question 1**
 **Consider the following class, `Point`.**
+
 ```
 public class Point {
     protected /*@ spec_public @*/ int x, y;
@@ -57,12 +58,11 @@ public class PositivePoint extends Point {
 }
 ```
 
-**The `PositivePoint` class restricts the `x` and `y` coordinates to be positive; note the invariants and the precondition on the constructor. This raises severeal questions:**
+**The `PositivePoint` class restricts the `x` and `y` coordinates to be positive; note the invariants and the precondition on the constructor. This raises the following questions.**
 
 1. **Is `PositivePoint` a behavioral subtype of `Point` as specified?**
 2. **Are the inherited implementations of the methods `setX` and `setY` correct with respect to these new invariants in `PositivePoint`?**
 3. **If the inherited implementations of the methods `setX` and `setY` are not correct, what Java code would demonstrate the problem?**
-
 
 ## **Question 2**
 **Specify an interface `NormalSetAge` that includes a new method `setAge`. The interface `NormalSetAge` must extend the interface `Age` shown in the following. The added `setAge` method should take an integer that is nonnegative, no less than the current value of `age`, and no greater than 150, and it must make the model field `age` be that number. Hint: the model field `age` will be inherited, since it is declared as an `instance` field.**
@@ -81,7 +81,7 @@ public class PositivePoint extends Point {
 **Specify and correctly implement a class, call it `Animal` that implements the interfaces `Gendered`, `NormalSetAge`, and `ExceptionalSetAge`. You will need to implement a constructor that takes a `String` argument that determines the gender of the new object, but starts the age at 0. You may assume that animals are either male or female. Hints: think about the precondition of the constructor. Use a protected field `_gen` to represent the model field `gender` that is inherited from the (specification of the) interface `Gendered`. Note that each model field names a data group, and when a concrete field is used to represent that data group, then it must be added into that data group using an `in` annotation in JML. Being in a data group allows the representing field to be assigned when the data group is allowed to be assigned by the specification. Similarly, add a protected model field `_age` that is used to represent the inherited model field `age`. Making these concrete fields protected allows them to be inherited by subclasses of Animal. Since they are protected, the represents clauses that are used must also be protected.**
 
 ## **Question 6**
-**Specify and implement a class `Human` as a subclass of `Animal`. A `Human` should have a Boolean-valued public model field `discount` that is represented by some protected concrete (instance) field. The `setAge` method should have an additional specification case that makes `discount` be `true` when the age used as an argument to `setAge` is 65 or greater. Hint: use a call to `super` in your implmenetation of `setAge`.**
+**Specify and implement a class `Human` as a subclass of `Animal`. A `Human` should have a Boolean-valued public model field `discount` that is represented by some protected concrete (instance) field. The `setAge` method should have an additional specification case that makes `discount` be `true` when the age used as an argument to `setAge` is 65 or greater. Hint: use a call to `super` in your implementation of `setAge`.**
 
 **Learning Objectives:**
 + Understand what behavioral subtyping is.
@@ -92,7 +92,8 @@ public class PositivePoint extends Point {
 ## **[Answer Key](InheritingSpecificationsExKey.md)**
 
 ## Resources
-+ [Point file](https://www.openjml.org/tutorial/exercises/Point.java)
-+ [PositivePoint file](https://www.openjml.org/tutorial/exercises/PositivePoint.java)
++ [Point file](Point.java)
++ [PositivePoint file](PositivePoint.java)
 + [Age file](Age.java)
-+ [All exercises](https://www.openjml.org/tutorial/exercises/exercises)
++ [All exercises](exercises)
+
