@@ -70,7 +70,7 @@ c. **If the inherited implementations of the methods `setX` and `setY` are not c
 **Specify an interface `NormalSetAge` that includes a new method `setAge`. The interface `NormalSetAge` must extend the interface `Age` shown in the following. The added `setAge` method should take an integer that is nonnegative, no less than the current value of `age`, and no greater than 150, and it must make the model field `age` be that number. Hint: the model field `age` will be inherited, since it is declared as an `instance` field.**
 
 ```
-%{ include_relative Age.java %}
+{% include_relative Age.java %}
 ```
 
 ## **Question 3**
