@@ -1,5 +1,5 @@
 // openjml --esc Tortoise.java
-public class Tortoise extends Animal2 {
+public class Tortoise extends Animal {
     protected int _age; //@ in age;
     //@ protected represents age = _age;
 
@@ -18,11 +18,5 @@ public class Tortoise extends Animal2 {
     {
         if (a < _age) { return; }
         _age = a;
-    }
-
-    public static void test() {
-        Tortoise2 t2 = new Tortoise2("female");
-        t2.setAge(20);
-        t2.setAge(10);
     }
 }
