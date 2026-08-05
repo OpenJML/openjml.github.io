@@ -85,6 +85,9 @@ c. **If the inherited implementations of the methods `setX` and `setY` are not c
 ## **Question 6**
 **Specify and implement a class `Human` as a subclass of `Animal`. A `Human` should have a Boolean-valued public model field `discount` that is represented by some protected concrete (instance) field. The `setAge` method should have an additional specification case that makes `discount` be `true` when the age used as an argument to `setAge` is 65 or greater. Hint: use a call to `super` in your implementation of `setAge`.**
 
+## **Question 7**
+**Specify and implement a class `Tortoise` as a subclass of `Animal`. A `Tortoise` should be able to live to age 400, so add an extra specification to the method `setAge` to allow that. Be sure that your class verifies.**
+
 **Learning Objectives:**
 + Understand what behavioral subtyping is.
 + Be able to write a represents clause to implement a model field.

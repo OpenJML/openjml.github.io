@@ -115,4 +115,33 @@ public class Human extends Animal {
 }
 ```
 
-This exercises shows that a subtype may add additional fields to a data group, in this case the model field `discount` was added to the data group `age`. In addition, each model field names a data group, and so the concrete field, `_discount` that represents that model field must be added to that data group, as `_discount` is added to the data group `discount`, which makes it implicitly part of the data group `age`, and so `_discount` becomes assignable in the `setAge` method.
+This exercise shows that a subtype may add additional fields to a data group, in this case the model field `discount` was added to the data group `age`. In addition, each model field names a data group, and so the concrete field, `_discount` that represents that model field must be added to that data group, as `_discount` is added to the data group `discount`, which makes it implicitly part of the data group `age`, and so `_discount` becomes assignable in the `setAge` method.
+
+## **Question 7**
+One solution is as follows.
+
+```
+public class Tortoise extends Animal {
+    protected int _age; //@ in age;
+    //@ protected represents age = _age;
+
+    //@ requires g.equals("female")||g.equals("male");
+    //@ ensures gender.equals(g) && age == 0;
+    public Tortoise(String g) {
+        super(g);
+        _age = 0;
+    }
+    
+    /*@ also
+      @   requires age <= a && 151<=a && a<=400;    
+      @   assignable age;
+      @   ensures age == a;          @*/
+    public void setAge(int a)
+    {
+        if (a < _age) { return; }
+        _age = a;
+    }
+}
+```
+
+This exercise shows that preconditions can be further weakened in a subtype, as is done in the `setAge` method. Note that the added specification case for `setAge` still does not preclude older animals, nor does the code.
