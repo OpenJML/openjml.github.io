@@ -145,3 +145,28 @@ public class Tortoise extends Animal {
 ```
 
 This exercise shows that preconditions can be further weakened in a subtype, as is done in the `setAge` method. Note that the added specification case for `setAge` still does not preclude older animals, nor does the code.
+
+## **Question 8**
+One way to specify an interface like `Gendered` but with an `equals` method that allows for other attributes (aside from the gender) to be taken into account is to say that when the genders are differnt, then the `equals` method must return false. This has the advantage of allowing other attributes of an object to be considered, while requiring comparison of the genders.  This is shown in the following.
+
+```
+public interface GenderedWithEquals {
+    //@ model instance String gender;
+
+    //@ ensures \result == gender.equals("female");
+    /*@ spec_pure @*/ boolean isFemale();
+
+    /*@ also
+      @    ensures (obj instanceof GenderedWithEquals)
+      @             ==> (!gender.equals(((GenderedWithEquals)obj).gender)
+      @                   ==> !\result);
+      @*/
+    public /*@ pure @*/ 
+    boolean equals(/*@ nullable @*/ Object obj);
+}
+```
+
+Note that, in Java, the `equals` method takes a possibly null `Object` argument. The specification ensures that when the argument has the type `GenderedWithEquals`, then it returns false when the genders are not equal.
+However, this cannot be strengthened to say that when the genders are equal, then the method must return `true`, because doing that would prohibit considering other attributes, such as the object's age.
+
+Also recall that Java's `instanceof` operator returns false if its left-hand argument is null. Thus, when `obj instanceof GenderedWithEquals` is true, we know that `obj` must not be null, and so a cast will work.
