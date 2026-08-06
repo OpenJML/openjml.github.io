@@ -69,9 +69,9 @@ example code; just add the appropriate path to the `openjml` command.
   * [Specifying Loops](Loops)
   * [Ghost variables and computations](Ghost)
 
-* Inheritance
-  * [Inheriting Specifications](InheritingSpecifications)
+* Abstraction and Inheritance
   * [Abstractions using Model Fields and Datagroups](ModelFields)
+  * [Inheriting Specifications](InheritingSpecifications)
   * [Abstractions using Model Methods](ModelMethods)
 
 * [Built-in mathematical types for specifications](BuiltinTypes)
