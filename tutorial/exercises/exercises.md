@@ -45,9 +45,9 @@ the following links to access the exercises for the JML Tutorial.
   * [Specifying Loops](LoopsEx)
   * [Ghost variables and computations](GhostEx)
 
-* Inheritance
-  * [Inheriting Specifications](InheritingSpecificationsEx)
+* Abstraction and Inheritance
   * [Abstractions using Model Fields and Datagroups](ModelFieldsEx)
+  * [Inheriting Specifications](InheritingSpecificationsEx)
   * [Abstractions using Model Methods](ModelMethodsEx)
 
 * [Built-in mathematical types for specifications](BuiltinTypesEx)
