@@ -87,7 +87,7 @@ The following example specifies singly-linked lists (as in Lisp) with the null v
 Each node in such a list (i.e., each object of type `T_NullableList`)
 is modeled as a non-null object (the field `elem`) together with a possibly null list (the field `tail`).
 The two model instance fields are used to specify the methods in the interface.
-The null value is used to represent the empty list, hence the static method `isEmpty` returns true if its argument is a null reference.
+The `null` value is used to represent the empty list; hence the static method `isEmpty` returns true if its argument is a null reference.
 
 In the implementation of this interface, in the class `T_NullableListImpl` shown below, there is a constructor, which is needed to ensure that the model field `elem` (represented by the field `car`)
 is initialized to a non-null value.
