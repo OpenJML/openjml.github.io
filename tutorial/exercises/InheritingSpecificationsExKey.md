@@ -43,7 +43,7 @@ public interface ExceptionalSetAge extends Age {
 }
 ```
 
-There is a reason we wanted to have `age` be assignable. First, the default assignable clause for a method is `assignable \everything`, which is too broad to be useful as a method specification. But more importantly, if we used `assignable \nothing` then when combined with the specification in `NormalSetAge` JML would take the intersection of nothing (i.e., the empty set of locations) and the data group `age`, which is again the empty set, so the combination would not be allowed to assign to any field, even in the case where the normal precondition is satisfied. On the other hand, when allowing `age` to be assigned, one must prevent it from being changed in the exceptional case, so the postcondition used is `\old(age) == age`, which prohibits the value of that field from changing in that case. Thus the assignable clause, which allows the model field `age` to be changed, allows us to plan for (one or more types that are) subtypes of _both_ interfaces.
+There is a reason we wanted to have `age` be assignable. First, the default assignable clause for a method is `assignable \everything`, which is too broad to be useful as a method specification. But more importantly, if we used `assignable \nothing` then when combined with the specification in `NormalSetAge` JML would take the intersection of nothing (i.e., the empty set of locations) and the datagroup `age`, which is again the empty set, so the combination would not be allowed to assign to any field, even in the case where the normal precondition is satisfied. On the other hand, when allowing `age` to be assigned, one must prevent it from being changed in the exceptional case, so the postcondition used is `\old(age) == age`, which prohibits the value of that field from changing in that case. Thus the assignable clause, which allows the model field `age` to be changed, allows us to plan for (one or more types that are) subtypes of _both_ interfaces.
 
 ## **Question 4**
 One solution to this is as follows.  
@@ -115,7 +115,7 @@ public class Human extends Animal {
 }
 ```
 
-This exercise shows that a subtype may add additional fields to a data group, in this case the model field `discount` was added to the data group `age`. In addition, each model field names a data group, and so the concrete field, `_discount` that represents that model field must be added to that data group, as `_discount` is added to the data group `discount`, which makes it implicitly part of the data group `age`, and so `_discount` becomes assignable in the `setAge` method.
+This exercise shows that a subtype may add additional fields to a datagroup, in this case the model field `discount` was added to the datagroup `age`. In addition, each model field names a datagroup, and so the concrete field, `_discount` that represents that model field must be added to that datagroup, as `_discount` is added to the datagroup `discount`, which makes it implicitly part of the datagroup `age`, and so `_discount` becomes assignable in the `setAge` method.
 
 ## **Question 7**
 One solution is as follows.
