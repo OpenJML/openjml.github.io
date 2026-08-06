@@ -87,10 +87,14 @@ public class Money {
 
 **Learning Objectives:**
 + Gain more experience writing frame conditions and using the `assignable` clause
-+ Understand how to use the `\old` designator 
++ Understand how to use `\old` in JML expressions
 + Understand the importance of denoting when memory locations have been modified
 
-## **[Answer Key](FrameCondExKey.md)**
+## Resources
 + [Question 1 Java](FrameCondEx1.java)
 + [Question 2 Java](Money.java)
+
+## **[Answer Key](FrameCondExKey.md)**
 ## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**
+
+
