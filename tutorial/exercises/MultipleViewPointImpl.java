@@ -12,8 +12,8 @@ public class MultipleViewPointImpl implements MultipleViewPoint {
 
     //@ private invariant !Double.isNaN(_y);
     //@ private invariant !Math.isNegativeZero(_x);
-    //@ private invariant _y != Double.NEGATIVE_INFINITY;
     //@ private invariant _y*_y < Double.POSITIVE_INFINITY;
+    //@ private invariant _y != Double.NEGATIVE_INFINITY;
 
     /*@ axiom (\forall double a; !Double.isNaN(a);
       @                          a*a >= 0 && !Math.isNegativeZero(a*a)); @*/
@@ -26,7 +26,9 @@ public class MultipleViewPointImpl implements MultipleViewPoint {
       @                          a != Double.POSITIVE_INFINITY);
       @*/
     //@ axiom (\forall double a,b; !Double.isNaN(b); a*a + b*b >= 0);
-    //@ axiom _x*_x + _y*_y >= 0;
+    //@ axiom !Double.isNaN(_x*_x + _y*_y);
+    //@ axiom Math.isPositiveZero(_x*_x + _y*_y) || _x*_x +_y*_y > 0;
+
     /*@ axiom (\forall double a; !Double.isNaN(a) && Math.isPositiveZero(a);
       @                          a >= 0); @*/
     //@ axiom (\forall double a; !Double.isNaN(a) && a >= 0; !Double.isNaN(Math.sqrt(a)));
@@ -42,19 +44,42 @@ public class MultipleViewPointImpl implements MultipleViewPoint {
     //@ private represents radius = Math.sqrt(_x*_x + _y*_y);
     //@ private represents angle = Math.atan2(_y,_x);
 
-    //@ requires !Double.isNaN(xv) && xv*xv < Double.POSITIVE_INFINITY;
-    //@ requires xv != Double.NEGATIVE_INFINITY;
-    //@ requires !Double.isNaN(yv) && yv*yv < Double.POSITIVE_INFINITY;
-    //@ requires yv != Double.NEGATIVE_INFINITY;
-    //@ ensures !Double.isNaN(x) && !Double.isNaN(y);
-    //@ ensures x == xv && y == yv;
+    /*@ public normal_behavior
+      @   requires !Double.isNaN(xv) && xv*xv < Double.POSITIVE_INFINITY;
+      @   requires xv != Double.NEGATIVE_INFINITY;
+      @   requires !Double.isNaN(yv) && yv*yv < Double.POSITIVE_INFINITY;
+      @   requires yv != Double.NEGATIVE_INFINITY;
+      @   ensures !Double.isNaN(x) && !Double.isNaN(y);
+      @ also private normal_behavior
+      @   requires !Double.isNaN(xv) && !Double.isNaN(yv);
+      @   requires Math.isNegativeZero(xv);
+      @   ensures Math.isPositiveZero(_x);
+      @ also private normal_behavior
+      @   requires !Double.isNaN(xv) && !Double.isNaN(yv);
+      @   requires Math.isNegativeZero(yv);
+      @   ensures Math.isPositiveZero(_y);
+      @ also private normal_behavior
+      @   requires !Double.isNaN(xv) && !Double.isNaN(yv);
+      @   requires xv != Double.NEGATIVE_INFINITY;
+      @   requires yv != Double.NEGATIVE_INFINITY;
+      @   requires !Math.isNegativeZero(xv) && !Math.isNegativeZero(yv);
+      @   ensures !Double.isNaN(_x) && !Double.isNaN(_y);
+      @   ensures _x == xv && _y == yv;
+      @*/
     public MultipleViewPointImpl(double xv, double yv) {
         if (Double.compare(xv, -0.0) == 0) { _x = 0.0; } else {_x = xv; }
         //@ assume !Math.isNegativeZero(_x);
+        //@ assume !Double.isNaN(_x);
+        //@ assume _x != Double.NEGATIVE_INFINITY;
+        //@ assume _x*_x < Double.POSITIVE_INFINITY;
         if (Double.compare(yv, -0.0) == 0) { _y = 0.0; } else {_y = yv; }
         //@ assume !Math.isNegativeZero(_y);
-        //@ assert !Double.isNaN(radius);
-        //@ assert !Double.isNaN(angle);        
+        //@ assume !Double.isNaN(_y);
+        //@ assume _y != Double.NEGATIVE_INFINITY;
+        //@ assume _y*_y < Double.POSITIVE_INFINITY;
+        //@ assume y*y < Double.POSITIVE_INFINITY;
+        //@ assume !Double.isNaN(radius);
+        //@ assume !Double.isNaN(angle);        
     }
 
     public double x() {
