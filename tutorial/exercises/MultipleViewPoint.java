@@ -1,6 +1,6 @@
 // openjml --esc MultipleViewPoint.java
 public interface MultipleViewPoint {
-    public final double EPS = 0.1e-9;
+    public final double EPS = 2.0E-6; // from Math's spec of sqrt
     //@ public model instance double x;
     //@ public model instance double y;
     //@ public model instance double radius;

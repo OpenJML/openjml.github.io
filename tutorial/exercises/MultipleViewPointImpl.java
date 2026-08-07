@@ -3,7 +3,17 @@ public class MultipleViewPointImpl implements MultipleViewPoint {
     private final double _x; //@ in x; //@ in radius; //@ in angle;
     //@ private represents x = _x;
     private final double _y; //@ in y; //@ in radius; //@ in angle;
-    //@ private represents y = _y; 
+    //@ private represents y = _y;
+
+    //@ private invariant !Double.isNaN(_x);
+    //@ private invariant !Math.isNegativeZero(_x);
+    //@ private invariant _x*_x < Double.POSITIVE_INFINITY;
+    //@ private invariant _x != Double.NEGATIVE_INFINITY;
+
+    //@ private invariant !Double.isNaN(_y);
+    //@ private invariant !Math.isNegativeZero(_x);
+    //@ private invariant _y != Double.NEGATIVE_INFINITY;
+    //@ private invariant _y*_y < Double.POSITIVE_INFINITY;
 
     /*@ axiom (\forall double a; !Double.isNaN(a);
       @                          a*a >= 0 && !Math.isNegativeZero(a*a)); @*/
@@ -22,6 +32,13 @@ public class MultipleViewPointImpl implements MultipleViewPoint {
     //@ axiom (\forall double a; !Double.isNaN(a) && a >= 0; !Double.isNaN(Math.sqrt(a)));
     /*@ axiom (\forall double a,b; !Double.isNaN(a) && !Double.isNaN(b);
       @                            !Double.isNaN(Math.atan2(a,b))); @*/
+    //@ axiom (\forall double a; !Double.isNaN(a) && a >= 0; !Double.isNaN(Math.sqrt(a)));
+    //@ private invariant !Double.isNaN(_x) && _x >= 0 ==> Math.isPositiveZero(_x) || _x > 0;
+    //@ private invariant _y >= 0 ==> (Math.isPositiveZero(_y) || _y > 0);
+
+    //@ axiom !Double.isNaN(_x*_x + _y*_y);
+    //@ private invariant (_x*_x + _y*_y) > 0 || Math.isPositiveZero(_x*_x + _y*_y);
+    //@ axiom (\forall double a; !Double.isNaN(a); Math.sqrt(a) >= 0);
     //@ private represents radius = Math.sqrt(_x*_x + _y*_y);
     //@ private represents angle = Math.atan2(_y,_x);
 
@@ -32,12 +49,12 @@ public class MultipleViewPointImpl implements MultipleViewPoint {
     //@ ensures !Double.isNaN(x) && !Double.isNaN(y);
     //@ ensures x == xv && y == yv;
     public MultipleViewPointImpl(double xv, double yv) {
-        if (xv == -0.0) { _x = 0.0; } else {_x = xv; }
+        if (Double.compare(xv, -0.0) == 0) { _x = 0.0; } else {_x = xv; }
         //@ assume !Math.isNegativeZero(_x);
-        if (yv == -0.0) { _y = 0.0; } else {_y = yv; }
+        if (Double.compare(yv, -0.0) == 0) { _y = 0.0; } else {_y = yv; }
         //@ assume !Math.isNegativeZero(_y);
-        //@ assume !Double.isNaN(radius);
-        //@ assume !Double.isNaN(angle);        
+        //@ assert !Double.isNaN(radius);
+        //@ assert !Double.isNaN(angle);        
     }
 
     public double x() {
