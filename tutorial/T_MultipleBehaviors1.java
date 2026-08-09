@@ -1,15 +1,15 @@
 // openjml --esc T_MultipleBehaviors1.java
 public class T_MultipleBehaviors1 {
-  //@  requires c >= a && c >= b;
+  //@  requires a <= c && b <= c;
   //@  ensures \result == c;
   //@ also
-  //@  requires b >= a && b >= c;
+  //@  requires a <= b && c <= b;
   //@  ensures \result == b;
   //@ also
-  //@  requires a >= b && a >= c;
+  //@  requires b <= a && c <= a;
   //@  ensures \result == a;
   //@ pure
   public int max(int a, int b, int c) {
-    return a >= b ? ( c >=  a ? c : a) : (c >= b ? c : b);
+    return a >= b ? ( c >= a ? c : a) : (c >= b ? c : b);
   }
 }

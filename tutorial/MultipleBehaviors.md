@@ -5,26 +5,28 @@ title: JML Tutorial - Multiple Method Behaviors
 ## Multiple Behaviors
 
 So far our method specifications have been simple sequences of clauses: pre-, frame- and post-conditions.
-But as methods become more complex it is helpful to separate the method specification into multiple 
- _specification cases_, which can be specified as different _behaviors_.
+But, as method behaviors become more complex, it is helpful to separate the method specification into multiple _specification cases_, which can be specified as different _behaviors_ in JML.
 
-Each behavior is a simple sequence of clauses, with its own preconditions, postconditions, etc.
-The specification can consist of multiple behaviors, connected by the keyword `also`.
+Each behavior is a simple sequence of clauses, with its own preconditions, postconditions, and frame, etc.
+That is, specification can consist of multiple behaviors, each called a "specification case," connected by the keyword `also`.
 For example,
 ```
 {% include_relative T_MultipleBehaviors1.java %}
 ```
 The specification here is a bit more verbose than the code, but it separates out the cases a bit more readably than the code does.
-Furthermore, by writing the goal of the method in two different ways, an erroneous exchange of 'a' for 'b' or '<' for '>' is readily caught by OpenJML.
+Furthermore, by writing the goal of the method in two different ways, an erroneous exchange of 'a' for 'b' or '<=' for '>=' is readily caught by OpenJML.
 
 There are a few points to note:
+
 * There is no order to the behaviors; they can be written in any order that is understandable.
 * Every behavior applies on its own and must hold by itself --- there is no if-then-else relationship or ordering among them. If a behavior's preconditions hold,
-then its postconditions must hold, independent of what any other behavior says.
-* The effective precondition for each behavior is the conjunction (with `&&`) of the preconditions for that behavior. The effective precondition for the combination of multiple behaviors is the disjunction (with `|`) of the effective preconditions of the individual behaviors. Consequently, at the point where such a method is called, at least one, but by no means necessarily all, of the behaviors must have an effective precondition that is true.
+then its frame and postconditions must hold, independent of what any other behavior says.
+* The effective precondition for each behavior is the conjunction (with `&&`) of the preconditions for that behavior. The effective precondition for the combination of multiple behaviors is the disjunction (with `||`) of the effective preconditions of the individual behaviors. Consequently, at the point where such a method is called, at least one, but by no means necessarily all, of the behaviors must have an effective precondition that is true.
+* When a precondition holds, the corresponding frame condition given in that specification case must hold. (If it did not, then reasoning about using a specification case with that precondition would be invalid.) Therefore, if two preconditions both hold, then the effective frame condition is the intersection of those two frame conditions (for such a pre-state). It is best to use only one `assignable` clause for each specification case, as described in [the tutorial about frame conditions](FrameConditions).
 
-In our example, if `a`, `b`, and `c` are all equal, then the precondiition (`requires` clause) of each of the three behaviors is true.
-So the postconditions of each of the behaviors must also be true.  Fortunately they all agree in that case.
+In our example, if `a`, `b`, and `c` are all equal, then the precondiition (`requires` clause) of all three behaviors is true.
+So the postconditions of each of these behaviors must also be true.  Fortunately they all agree in that case.
+(In addition, since the method is pure, each specification case has an implicit frame condition of `assignable \nothing`, and so they all satisfy that frame condition.)
 
 As an experiment, this example introduces a mistake in one behavior:
 ```
@@ -34,8 +36,7 @@ which yields this result
 ```
 {% include_relative T_MultipleBehaviors2.out %}
 ```
-The verification failure message points to the first behavior's postcondition, on line 4, which narrows our debugging to the relationship between
-that behavior and the code. A little inspection shows a typo at the end of the first behavior's precondition, on line 3.
+The verification failure message points to the first specification case's postcondition, on line 4, which narrows our debugging to the relationship between that specification case and the code. A little inspection shows a typo at the end of the first specifiction case's precondition, on line 3.
 
 ## Separating Normal from Exceptional Behaviors
 
@@ -43,14 +44,15 @@ A very common use of multiple behaviors is to separate normal execution from exc
 ```
 {% include_relative T_MultipleBehaviors3.java %}
 ```
-The code in this example does some parameter validation checks. If the checks fail an exception is thrown.
+The code in this example does some parameter validation checks. If the checks fail, then an exception is thrown.
 The method could go on to do something useful, but for this example, it just returns.
-There are then two behaviors. 
-* In the normal case the arguments satisfy the checks and the method just returns normally;
+There are thus two behaviors. 
+* The first specification case is the normal case,
+where the arguments satisfy the checks and the method just returns normally;
 that is the first behavior --- the ensures postcondition is `true` (which could be omitted entirely), which just states that
 the method is allowed (but not required) to return normally; the signals postcondition is false, which states that under
 these preconditions, the method is _not_ allowed to throw an exception.
-* The second behavior is the exceptional case. Here one or the other of the argument validation checks fails. In this case, the postcondition is `ensures false`, which means that the method is _not_ allowed to return normally; the default, omitted, `signals true` clause says that an exception is allowed; the `signals_only` clause says that if there is an exception it must be an `IllegalArgumentException` (the only one listed).
+* The second behavior is the exceptional case. Here one or the other of the argument validation checks fails. In this case, the postcondition is `ensures false`, which means that the method is _not_ allowed to return normally; the default, omitted, `signals (Exception x) true` clause says that an exception is allowed; the `signals_only` clause says that if there is an exception it must be an `IllegalArgumentException` (the only one listed).
 
 We could even separate out two kinds of exceptions:
 ```
