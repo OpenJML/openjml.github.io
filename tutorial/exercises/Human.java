@@ -9,6 +9,7 @@ public class Human extends Animal {
       @   assignable age;
       @   ensures discount;   @*/
     public void setAge(int a) {
+        if (a < _age) { return; }
 	super.setAge(a);
  	if (65 <= a) { _discount = true; }
     }
