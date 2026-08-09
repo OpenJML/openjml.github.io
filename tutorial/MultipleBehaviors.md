@@ -13,7 +13,7 @@ For example,
 ```
 {% include_relative T_MultipleBehaviors1.java %}
 ```
-The specification here is a bit more verbose than the code, but it separates out the cases a bit more readably than the code does.
+The specification here is a bit more verbose than the code, but it separates out the cases in a more readable manner than the code.
 Furthermore, by writing the goal of the method in two different ways, an erroneous exchange of 'a' for 'b' or '<=' for '>=' is readily caught by OpenJML.
 
 There are a few points to note:
@@ -36,7 +36,7 @@ which yields this result
 ```
 {% include_relative T_MultipleBehaviors2.out %}
 ```
-The verification failure message points to the first specification case's postcondition, on line 4, which narrows our debugging to the relationship between that specification case and the code. A little inspection shows a typo at the end of the first specifiction case's precondition, on line 3.
+The verification failure message points to the first specification case's postcondition, on line 4, which narrows our debugging to the relationship between that specification case and the code. A little inspection shows a typo at the end of the first specification case's precondition, on line 3.
 
 ## Separating Normal from Exceptional Behaviors
 
