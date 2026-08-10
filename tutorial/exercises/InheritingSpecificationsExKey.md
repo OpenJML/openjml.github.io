@@ -20,13 +20,14 @@ c. Java code that would demonstrate the problem is as follows.
 The call `pp.setX(-3)` satisfies the precondition specified for `setX` in `Point`, but either the postcondition of that specification (for `setX` in `Point`) or the (first) invariant in `PositivePoint` must be violated in the code for `setX`.
 
 ## **Question 2**
-One solution to this exercise is as follows. Since the `setAge` method is an added method, its specification does not need to start with `also`. However, this interface inherits the model field `age` from the super-interface `Age`.
+One solution to this exercise is as follows. Since the `setAge` method is an added method, its specification does not need to start with `also`. However, this interface inherits the model field `age` from the super-interface `Age`. This solution uses `normal_behavior` to emphasize that when the precondition is true, no exception can be thrown. This behavior is implicitly `public` because the method is public (and the specification is also in an interface).
 
 ```
 public interface NormalSetAge extends Age {
-    /*@  requires 0 <= a && a <= 150;
-      @  assignable age;
-      @  ensures age == a;    @*/
+    /*@ normal_behavior
+      @   requires 0 <= a && age <= a <= 150;
+      @   assignable age;
+      @   ensures age == a;    @*/
     public void setAge(int a);
 }
 ```
@@ -36,9 +37,11 @@ One solution to this exercise is as follows, which leaves the inherited model fi
 
 ```
 public interface ExceptionalSetAge extends Age {
-    /*@   requires a < age;
+    /*@ exceptional_behavior
+      @   requires a < age;
       @   assignable \nothing;
-      @   ensures \old(age) == age; @*/
+      @   signals_only IllegalArgumentException;
+      @*/
     void setAge(int a); 
 }
 ```
@@ -85,7 +88,7 @@ public class Human extends Animal {
 }
 ```
 
-Note how the protected model field is represented using a protected represents clause. Also note that the additional specification case for the method `setAge` begins with `also` and makes a super call to the superclass's `setAge` method.
+Note how the protected model field is represented using a protected represents clause. Also note that the additional specification case for the method `setAge` begins with `also` and makes a super call to the superclass's `setAge` method. When that super call throws an exception, then the code given will pass along the exception to the caller of the method.
 
 ## **Question 6**
 One solution is the following class.
@@ -136,13 +139,15 @@ public class Tortoise extends Animal {
       @   ensures age == a;          @*/
     public void setAge(int a)
     {
-        if (a < _age) { return; }
+        if (a < _age) { throw new IllegalArgumentException(); }
         _age = a;
     }
 }
 ```
 
 This exercise shows that preconditions can be further weakened in a subtype, as is done in the `setAge` method. Note that the added specification case for `setAge` still does not preclude older animals, nor does the code.
+
+Note that the method setAge cannot simply be inherited, because the precondition of the method `setAge` in the class `Animal` has a different precondition, and that precondition must be weakened in the implementation in `Tortoise`.
 
 ## **Question 8**
 One way to specify an interface like `Gendered` but with an `equals` method that allows for other attributes (aside from the gender) to be taken into account is to say that when the genders are differnt, then the `equals` method must return false. This has the advantage of allowing other attributes of an object to be considered, while requiring comparison of the genders.  This is shown in the following.
@@ -168,3 +173,70 @@ Note that, in Java, the `equals` method takes a possibly null `Object` argument.
 However, this cannot be strengthened to say that when the genders are equal, then the method must return `true`, because doing that would prohibit considering other attributes, such as the object's age.
 
 Also recall that Java's `instanceof` operator returns false if its left-hand argument is null. Thus, when `obj instanceof GenderedWithEquals` is true, we know that `obj` must not be null, and so a cast will work.
+
+## **Question 9**
+One solution is the following.
+
+```
+public interface ExceptionalSetAge2 extends Age {
+    /*@ normal_behavior
+      @   requires a < age;
+      @   assignable \nothing;
+      @   ensures \old(age) == age; @*/
+    void setAge(int a); 
+}
+```
+
+## **Question 10**
+A class that is similar to `Animal`, called `Animal2` below, inherits from the aabove interface `ExceptionalSetAge2`. Notice that in the implementation of `setAge` obeys both specifications of the method `setAge`.
+
+```
+public class Animal2 implements Gendered,
+           NormalSetAge, ExceptionalSetAge2 {
+    protected boolean _gen; //@ in gender;
+    /*@ protected represents gender
+      @           = (_gen ? "female" : "male"); 
+      @*/
+
+    protected int _age = 0; //@ in age;
+    //@ protected represents age = _age;
+    
+    //@ requires g.equals("female")||g.equals("male");
+    //@ ensures gender.equals(g) && age == 0;
+    public Animal2(String g) 
+    { _gen = g.equals("female"); }
+
+    public /*@ spec_pure @*/ boolean isFemale() 
+    { return _gen; }
+
+    public void setAge(int a) {
+        if (a < _age) { return; }
+        if (_age <= a && a <= 150) { _age = a; }
+    }
+}
+
+A class like `Human` that inherits from the `Animal2` class above is the following.
+
+```
+public class Human2 extends Animal2 {
+    //@ public model boolean discount; //@ in age;
+    protected boolean _discount = false; //@ in discount;
+    //@ protected represents discount = _discount;
+
+    /*@ also
+      @   requires age <= a && 65 <= a && a <= 150;
+      @   assignable age;
+      @   ensures discount;   @*/
+    public void setAge(int a) {
+        if (a < _age) { return; }
+	super.setAge(a);
+ 	if (65 <= a) { _discount = true; }
+    }
+
+    //@ requires g.equals("female")||g.equals("male");
+    //@ ensures gender.equals(g);
+    public Human2(String g) {
+        super(g);
+    }
+}
+```

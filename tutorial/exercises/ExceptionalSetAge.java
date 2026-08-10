@@ -1,6 +1,6 @@
 // openjml --esc ExceptionalSetAge.java
 public interface ExceptionalSetAge extends Age {
-    /*@ public exceptional_behavior
+    /*@ exceptional_behavior
       @   requires a < age;
       @   assignable \nothing;
       @   signals_only IllegalArgumentException;

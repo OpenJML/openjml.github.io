@@ -16,7 +16,7 @@ public class Tortoise extends Animal {
       @   ensures age == a;          @*/
     public void setAge(int a)
     {
-        if (a < _age) { return; }
+        if (a < _age) { throw new IllegalArgumentException(); }
         _age = a;
     }
 }
