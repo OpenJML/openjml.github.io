@@ -218,6 +218,7 @@ public class Animal2 implements Gendered,
         _age = a;
     }
 }
+```
 
 A class like `Human` that inherits from the `Animal2` class above is the following.
 
