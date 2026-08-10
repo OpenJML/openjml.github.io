@@ -18,6 +18,7 @@ public class Animal implements Gendered,
     { return _gen; }
 
     public void setAge(int a) {
-        if (_age <= a && a <= 150) { _age = a; }
+        if (a < _age) { throw new IllegalArgumentException(); }
+        _age = a;
     }
 }
