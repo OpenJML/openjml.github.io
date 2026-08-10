@@ -150,7 +150,7 @@ This exercise shows that preconditions can be further weakened in a subtype, as 
 Note that the method setAge cannot simply be inherited, because the precondition of the method `setAge` in the class `Animal` has a different precondition, and that precondition must be weakened in the implementation in `Tortoise`.
 
 ## **Question 8**
-One way to specify an interface like `Gendered` but with an `equals` method that allows for other attributes (aside from the gender) to be taken into account is to say that when the genders are differnt, then the `equals` method must return false. This has the advantage of allowing other attributes of an object to be considered, while requiring comparison of the genders.  This is shown in the following.
+One way to specify an interface like `Gendered` but with an `equals` method that allows for other attributes (aside from the gender) to be taken into account is to say that when the genders are different, then the `equals` method must return false. This has the advantage of allowing other attributes of an object to be considered, while requiring comparison of the genders.  This is shown in the following.
 
 ```
 public interface GenderedWithEquals {
@@ -174,6 +174,8 @@ However, this cannot be strengthened to say that when the genders are equal, the
 
 Also recall that Java's `instanceof` operator returns false if its left-hand argument is null. Thus, when `obj instanceof GenderedWithEquals` is true, we know that `obj` must not be null, and so a cast will work.
 
+## Advanced Exercises
+
 ## **Question 9**
 One solution is the following.
 
@@ -182,13 +184,15 @@ public interface ExceptionalSetAge2 extends Age {
     /*@ normal_behavior
       @   requires a < age;
       @   assignable \nothing;
-      @   ensures \old(age) == age; @*/
+      @*/
     void setAge(int a); 
 }
 ```
 
+Sine this behavior specification is in an interface, it has public visibility and thus does not need to be use the modifier `public`.  It would be possible to specify a postcondition (for example `age == \old(age)` would work), but the default of `true` suffices in this case, because of the specified frame. However, one should not specify the method as `pure`, because `pure` applies to the entire method and not just one specification case.
+
 ## **Question 10**
-A class that is similar to `Animal`, called `Animal2` below, inherits from the aabove interface `ExceptionalSetAge2`. Notice that in the implementation of `setAge` obeys both specifications of the method `setAge`.
+A class that is similar to `Animal`, called `Animal2` below, inherits from the above interface `ExceptionalSetAge2`. Notice that in the implementation of `setAge` obeys both specifications of the method `setAge`.
 
 ```
 public class Animal2 implements Gendered,
@@ -211,7 +215,7 @@ public class Animal2 implements Gendered,
 
     public void setAge(int a) {
         if (a < _age) { return; }
-        if (_age <= a && a <= 150) { _age = a; }
+        _age = a;
     }
 }
 
@@ -240,3 +244,5 @@ public class Human2 extends Animal2 {
     }
 }
 ```
+
+Notice that the implementation of `setAge` in `Human2` cannot just make a super call, as such a call `super.setAge(a)` would simply return to the code of `setAge` in `Human2`, whereas in the class `Human` that call would throw an exception. It is thus necessary to prevent an assignment to `_discount` (which is in the datagroup `age`) by returning when the argument `a` is strictly less than `_age`.

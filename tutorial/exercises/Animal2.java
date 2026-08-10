@@ -19,6 +19,6 @@ public class Animal2 implements Gendered,
 
     public void setAge(int a) {
         if (a < _age) { return; }
-        if (_age <= a && a <= 150) { _age = a; }
+        _age = a;
     }
 }
