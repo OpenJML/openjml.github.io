@@ -23,7 +23,7 @@ Now the abstract `sides()` method has an implementation. In addition:
 * The method `sides()` in class `Square` inherits its specification from its counterpart in `T_Polygon`
 * The keyword `also` at the beginning of the specification of `sides()` in `Square` is a visual indicator that there are additional specifications in parent classes
 or interfaces (much like the annotation `@Override` does in Java).
-* Due to inheritance of specifications, the method `sides()` in `Square` is specified by two *behaviors* (in the sense of the discussion in the [lesson on multiple behaviors](MultipleBehaviors)), and it must satisfy each of its behaviors. (Thus it is best that these two specifications not contradict each other.)
+* Due to inheritance of specifications, the method `sides()` in `Square` is specified by two *behaviors* (in the sense of the discussion in the [lesson on multiple behaviors](MultipleBehaviors)), and it must satisfy each of its behaviors. (Thus it is best that these two specifications not contradict each other; if the two specifications contradict each other, it will be impossible to implement them both correctly.)
 * The instance methods in `T_Polygon` have no implementation
 (because they are abstract methods of an interface),
 so there is no body to verify.
@@ -31,11 +31,11 @@ However, due to specification inheritance, their specifications will be verified
 as is done with `sides()`.
 
 When the methods of `T_Polygon` are called in some client class, the client class only knows the properties based on the (static) type of the reference it has.
-For example, when the client only has a reference to an object of static type `T_Polygon`, then it only knows about the specification of `T_Polygon` as a way to reason about that object's behavior. Therefore, verifying the following test:
+For example, when the client only has a reference to an object of static type `T_Polygon`, then it only knows about the specification of `T_Polygon` as a way to reason about that object's behavior. Therefore, verifying the following test (except for the second assertion in the method `test`).
 ```
 {% include_relative T_PolyTest.java %}
 ```
-produces
+Running OpenJML's ESC checker on the above produces the following.
 ```
 {% include_relative T_PolyTest.out %}
 ```
