@@ -189,7 +189,7 @@ public interface ExceptionalSetAge2 extends Age {
 }
 ```
 
-Sine this behavior specification is in an interface, it has public visibility and thus does not need to be use the modifier `public`.  It would be possible to specify a postcondition (for example `age == \old(age)` would work), but the default of `true` suffices in this case, because of the specified frame. However, one should not specify the method as `pure`, because `pure` applies to the entire method and not just one specification case.
+Since this behavior specification is in an interface, it has public visibility and thus does not need to be use the modifier `public` (although that is allowed).  It would also be possible to specify a postcondition (for example `age == \old(age)` would work), but the default of `true` suffices in this case, because of the specified frame. However, one should not specify the method as `pure`, because `pure` applies to the entire method and not just one specification case.
 
 ## **Question 10**
 A class that is similar to `Animal`, called `Animal2` below, inherits from the above interface `ExceptionalSetAge2`. Notice that in the implementation of `setAge` obeys both specifications of the method `setAge`.
