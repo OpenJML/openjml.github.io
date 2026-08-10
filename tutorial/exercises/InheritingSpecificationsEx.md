@@ -98,7 +98,7 @@ The following two exercises delve into deeper aspects of specification inheritan
 **Specify a version of the interface `ExceptionalSetAge`, call it `ExceptionalSetAge2` that instead of throwing an exception when the argument is strictly less than `age`, the `setAge` method should have a normal behavior that returns without assigning anything.**
 
 ## **Question 10**
-**Specify and correctly implement versions of the classes `Animal` and `Human` that inherit from `ExceptionalSetAge2`.
+**Specify and correctly implement versions of the classes `Animal` and `Human` that inherit from `ExceptionalSetAge2`.**
 
 **Learning Objectives:**
 + Understand what behavioral subtyping is.
