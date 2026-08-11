@@ -8,8 +8,6 @@ public interface PolygonMM {
 
   //@ model instance \datagroup allSides;
 
-  //@ public invariant numSides() >= 3;
-
   //@ public normal_behavior
   //@   reads allSides;
   //@ spec_pure helper
@@ -25,6 +23,11 @@ public interface PolygonMM {
 }
 
 class Square implements PolygonMM {
+  //@ also public normal_behavior
+  //@  reads \nothing;
+  //@  ensures \result == 4;
+  //@ spec_pure helper
+  public int numSides() { return 4; }
 
   private int _side; //@ in allSides;
 
@@ -50,12 +53,6 @@ class Square implements PolygonMM {
   public void half() { _side = _side/2; }
 
   //@ also public normal_behavior
-  //@  reads \nothing;
-  //@  ensures \result == 4;
-  //@ spec_pure helper
-  public int numSides() { return 4; }
-
-  //@ also public normal_behavior
   //@  requires 0 <= side();
   //@  ensures \result == side();
   //@ spec_pure helper
@@ -63,30 +60,58 @@ class Square implements PolygonMM {
 }
 
 class Triangle implements PolygonMM {
-  public int side1; //@ in allSides;
-  public int side2; //@ in allSides;
-  public int side3; //@ in allSides;
+    private int _side1; //@ in allSides;
+    private int _side2; //@ in allSides;
+    private int _side3; //@ in allSides;
 
-  //@ public invariant side1 <= longestSide() & side2 <= longestSide() & side3 <= longestSide();
-  //@ public invariant side1 == longestSide() | side2 == longestSide() | side3 == longestSide();
+  //@  public normal_behavior
+  //@   reads allSides;
+  //@ also
+  //@  private normal_behavior
+  //@   reads _side1;
+  //@   ensures \result == _side1;
+  //@ spec_pure helper
+  public int side1() { return _side1; }
 
-  //@ ensures this.side1 == s1 & this.side2 == s2 & this.side3 == s3;
-  public Triangle(int s1, int s2, int s3) { side1 = s1; side2 = s2; side3 = s3; }
+  //@  public normal_behavior
+  //@   reads allSides;
+  //@ also
+  //@  private normal_behavior
+  //@   reads _side2;
+  //@   ensures \result == _side2;
+  //@ spec_pure helper
+  public int side2() { return _side2; }
+
+  //@  public normal_behavior
+  //@   reads allSides;
+  //@ also
+  //@  private normal_behavior
+  //@   reads _side3;
+  //@   ensures \result == _side3;
+  //@ spec_pure helper
+  public int side3() { return _side3; }
+
+  //@ public invariant side1() <= longestSide() & side2() <= longestSide() & side3() <= longestSide();
+  //@ public invariant side1() == longestSide() | side2() == longestSide() | side3() == longestSide();
+
+  //@ ensures side1() == s1 & side2() == s2 & side3() == s3;
+  public Triangle(int s1, int s2, int s3) {
+    _side1 = s1; _side2 = s2; _side3 = s3;
+  }
 
   //@ also public normal_behavior
-  //@  ensures side1 <= \result && side2 <= \result && side3 <= \result;
-  //@  ensures side1 == \result || side2 == \result || side3 == \result;
+  //@  ensures side1() <= \result && side2() <= \result && side3() <= \result;
+  //@  ensures side1() == \result || side2() == \result || side3() == \result;
   //@ spec_pure helper
-  public int longestSide() { return Math.max(side1, Math.max(side2, side3)); }
+  public int longestSide() { return Math.max(_side1, Math.max(_side2, _side3)); }
 
   //@ also public normal_behavior
   //@   reads \nothing;
   //@   ensures \result == 3;
   //@ spec_pure helper
   public int numSides() { return 3; }
-
   
-  public void half() { side1 /= 2; side2 /= 2; side3 /= 2; }
+  public void half() { _side1 /= 2; _side2 /= 2; _side3 /= 2; }
 }
   
 class Test {

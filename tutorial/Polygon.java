@@ -21,14 +21,18 @@ public interface Polygon {
 }
 
 class Square implements Polygon {
+  //@ public represents numSides = 4;
+
   //@ public model int side; //@ in longestSide;
   private int _side; //@ in side;
   //@ private represents side = _side;
 
-  //@ public represents numSides = 4;
   //@ public represents longestSide = side;
     
-  //@ ensures side == s && numSides == 4;
+  // //@ public invariant 0 <= side;
+
+  //@ requires 0 <= s;
+  //@ ensures side == s;
   public Square(int s) { _side = s; }
 
   // specification inherited
@@ -43,11 +47,13 @@ class Square implements Polygon {
 
 class Triangle implements Polygon {
   //@ public represents numSides = 3;
-  //@ public model int side1, side2, side3; //@ in allSides;
+  //@ public model int side1; //@ in allSides;
   private int _side1; //@ in side1; //@ in longestSide;
   //@ private represents side1 = _side1;
+  //@ public model int side2; //@ in allSides;
   private int _side2; //@ in side2; //@ in longestSide;
   //@ private represents side2 = _side2;
+  //@ public model int side3; //@ in allSides;
   private int _side3; //@ in side3; //@ in longestSide;
   //@ private represents side3 = _side3;
 
@@ -56,7 +62,8 @@ class Triangle implements Polygon {
   //@ public invariant side1 <= longestSide() & side2 <= longestSide() & side3 <= longestSide();
   //@ public invariant side1 == longestSide() | side2 == longestSide() | side3 == longestSide();
 
-  //@ ensures this.side1 == s1 & this.side2 == s2 & this.side3 == s3 && numSides == 3;
+  //@ ensures this.side1 == s1 & this.side2 == s2 & this.side3 == s3;
+
   public Triangle(int s1, int s2, int s3) {
       _side1 = s1; _side2 = s2; _side3 = s3;
   }
