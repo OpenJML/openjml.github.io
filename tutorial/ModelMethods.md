@@ -2,39 +2,38 @@
 title: JML Tutorial - Model methods
 ---
 
-The [previous lesson](ModelFields) described how to use model fields to specify an abstraction. Sometimes model methods can be used instead, though when
-model fields are applicable they generally are easier to use in specifications and easier to prove.
-This lesson alters the `Polygon` example of the previous lesson
-to use methods instead.
+The [previous lesson on model fields](ModelFields) described how to use model fields to specify an abstraction. Sometimes model methods can be used instead, though when
+model fields are applicable they generally are easier to use in specifications and easier to prove facts about in verification.
+This lesson alters [the `Polygon` example of the previous lesson](Polygon.java) (which used model fields) to use model methods instead.
 
 At the outset, note that methods used in specifications must be `spec_pure` ([see the section on calling methods in specifications](MethodsInSpecifications) for details), but can be either Java methods or JML methods. One uses
 a JML method if there is no Java method that accomplishes what is needed. A JML model method is declared just like a Java method except that
 * it is written in a JML annotation
 * it includes the `model` modifier
-* it need not have an implementation (and generally does not, except if compilation for runtime-assertion-checking is desired).
+* it need not have an implementation (and generally does not, unless  compilation for runtime-assertion-checking is desired).
 
-For example, if the example below did not declare `sides()` as a Java method, one could include in `PolygonMM` this declaration, along with its specifications:
+For example, if the `PolygonMM` class in the example below did not declare `sides()` as a Java method, one could instead add to that class the following declaration, along with its specifications:
 ```
 //@ model public int sides();
 ```
 
 ## using model methods
 
-Here is the [Polygon example](ModelFields), altered to use methods --- in this case the Java methods are already part of the `Polygon` interface. However, note that:
+The following is the [Polygon example](Polygon.java) from [the tutorial on model fields](ModelFields), altered to use methods --- in this case the Java methods are already part of the `Polygon` interface. However, note that:
 * The datagroup is still needed. When using model methods, one typically will declare standalone datagroups to use in their frame conditions.
-* Reads clauses are needed. They are discussed after the code listing.
-* If the methods are used within invariants, they typically need to be declared `helper` and they must not throw exceptions (thus they are specified using only a `public normal_behavior`).
+* Reads clauses are needed. They are discussed after the code listing below.
+* If the methods are used within invariants, they typically need to be declared `helper` and they must not throw exceptions (thus they should be specified using only a `public normal_behavior`).
 * An abstract method used in modeling typically has no postcondition, or at least not one that fully dictates its value. It is used in proofs as an
 _uninterpreted function_, whose value is given by invariants and concrete implementations and the pre- and postconditions in which it is used.
 
 ```
 {% include_relative PolygonMM.java %}
 ```
-which produces this output:
+
+When the `PolygonMM` class is checked using OpenJML's ESC, it produces the following output:
 ```
 {% include_relative PolygonMM.out %}
 ```
-
 
 ## reads clauses
 
