@@ -4,7 +4,7 @@ public class IntStackAsArray implements IntStack {
     //@ public model \datagroup size; //@ in state;
 
     private int _size; //@ in size;
-    private int[] elems; //@ in state;
+    private int elems[]; //@ in state; //@ maps elems[*] \into state;
 
     //@ private invariant 0 <= _size <= MAX_SIZE;
     //@ private invariant elems.length == MAX_SIZE;
@@ -24,6 +24,11 @@ public class IntStackAsArray implements IntStack {
         return _size;
     }
 
+    //@ also
+    //@  private normal_behavior
+    //@   requires 0 <= n < _size;
+    //@   reads elems[n];
+    //@   ensures \result == elems[n];
     public int nthElement(int n) {
         //@ assert elems.length == MAX_SIZE;
         //@ assert n < _size;
@@ -35,15 +40,16 @@ public class IntStackAsArray implements IntStack {
         return elems[_size-1];
     }
 
-    //@ also
-    //@  private normal_behavior
-    //@   assignable elems[_size];
+    // //@ also
+    // //@  private normal_behavior
+    // //@   assignable _size, elems[_size];
     public void push(int i) {
         elems[_size] = i;
         _size += 1;
     }
 
     //@ also
+    //@  requires 0 < size();
     //@  assignable size;
     public void pop() {
         //@ assert 0 < _size;
