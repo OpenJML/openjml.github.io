@@ -12,9 +12,9 @@ a JML method if there is no Java method that accomplishes what is needed. A JML 
 * it includes the `model` modifier
 * it need not have an implementation (and generally does not, unless  compilation for runtime-assertion-checking is desired).
 
-For example, if the `PolygonMM` class in the example below did not declare `sides()` as a Java method, one could instead add to that class the following declaration, along with its specifications:
+For example, if the `PolygonMM` class in the example below did not declare `numSides()` as a Java method, one could instead add to that class the following declaration, along with its specifications:
 ```
-//@ model public int sides();
+//@ model public int numSides();
 ```
 
 ## using model methods
@@ -37,10 +37,10 @@ When the `PolygonMM` class is checked using OpenJML's ESC, it produces the follo
 
 ## reads clauses
 
-When specifying a method like `half()` that modifies the program state, it is the frame condition (the `assigns` clause) that tells what part of the program state is modified. Any particular (model) field or array element can be checked to see if it is part of the changed state. If not, the verification system knows that
+When specifying a method like `half()` that modifies the program state, it is the frame condition (the `assignable` clause) that tells what part of the program state is modified. Any particular (model) field or array element can be checked to see if it is part of the changed state. If not, the verification system knows that
 that field was not changed by the method call.
 
-The example code above uses model methods instead of model fields. So in the `test()` routine, how is it known that `polygon.sides()` does not change
+The example code above uses model methods instead of model fields. So in the `test()` routine, how is it known that `polygon.numSides()` does not change
 value upon the call of `twice()` and that `polygon.longestSide()` does change? The answer is the `reads` clause; this clause states what fields a method
 _reads_ or _depends on_. The content of the reads clause is a datagroup (and thus may be a model field).
 
@@ -48,9 +48,9 @@ Note that `half()` assigns to `allSides` and `longestSide()` reads `allSides`. S
 We have to look at the postconditions of on `longestSide` to see what the new value might be.
 Note that these methods are called on a `PolygonMM` instance, so nothing is known in `test()` about the behavior of derived classes.
 
-On the other hand, `sides()`, in this example, does not depend on any part of the heap, according to the `reads \nothing` clause, so its output value will not be changed by `half()`.
-Alternately, one might have `sides()` read a datagroup `numsides`. As long as `numsides` and `allSides` are disjoint, changes to `allSides` will still not change the result of 
-`sides()`.
+On the other hand, `numSides()`, in this example, does not depend on any part of the heap, according to the `reads \nothing` clause, so its output value will not be changed by `half()`.
+Alternately, one might have `numSides()` read a datagroup `nosides`. As long as `nosides` and `allSides` are disjoint, changes to `allSides` will still not change the result of 
+`numSides()`.
 
 ## helper methods
 
