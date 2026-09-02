@@ -19,7 +19,7 @@ public interface IntStack {
 
     //@ reads size, elems;
     //@ requires 0 < size();
-    //@ ensures \result == \old(nthElement(size()-1));
+    //@ ensures \result == nthElement(size()-1);
     //@ spec_pure
     public int top();
 
