@@ -2,7 +2,7 @@
 public class IntStackAsArray implements IntStack {
 
     private int _size; //@ in size;
-    private int _elems[]; //@ in elems;
+    private int _elems[]; //@ in elems; //@ maps _elems[*] \into elems;
 
     //@ private invariant 0 <= _size <= MAX_SIZE;
     //@ private invariant _elems.length == MAX_SIZE;
@@ -26,7 +26,7 @@ public class IntStackAsArray implements IntStack {
     //@ also
     //@  private normal_behavior
     //@   requires 0 <= n < _size;
-    //@   reads _elems;
+    //@   reads _elems, _elems[n];
     //@   ensures \result == _elems[n];
     public int nthElement(int n) {
         //@ assert _elems.length == MAX_SIZE;
