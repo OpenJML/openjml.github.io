@@ -2,6 +2,6 @@ PostCondEx1a.java:7: verify: The prover cannot establish an assertion (Postcondi
      return num*2;
      ^
 PostCondEx1a.java:5: verify: Associated declaration: PostCondEx1a.java:7:
-//@ ensures \result > num;
-    ^
+ //@ ensures num < \result;
+     ^
 2 verification failures
