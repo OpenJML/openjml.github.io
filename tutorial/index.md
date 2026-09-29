@@ -29,7 +29,7 @@ Also note that there are additional standalone examples in a sibling page under 
 **Tutorial Material** All of the examples in this tutorial are part of the OpenJML installation
 zip file, in the top-level `tutorial` folder. For example, the `T_ensures1`
 example is present as the `T_ensures1.java` file. From within the tutorial
-folder, you can run the example using `../openjml -esc T_ensures1.java`.
+folder, you can run the example using `../openjml --esc T_ensures1.java`.
 Examples that produce output (e.g., error messages) have a corresponding `.out`
 file containing the expected output.
 The command-line to run the example is shown in the first line of the

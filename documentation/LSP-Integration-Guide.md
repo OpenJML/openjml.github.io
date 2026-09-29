@@ -105,7 +105,7 @@ The launcher sets these if not already present in the environment:
 |---|---|---|
 | `OPENJML_INSTALL` | Directory containing `openjml-lsp` script | Root of the OpenJML installation |
 | `OPENJML_SPECS` | `$OPENJML_INSTALL/specs` | Path to bundled JML specification files |
-| `OPENJML_SOLVERS` | `$OPENJML_INSTALL` | Directory containing SMT solver binaries |
+| `SMT_SOLVER_DIR` | `$OPENJML_INSTALL/Solvers-<os>` | Directory containing the SMT solver executables (used by jSMTLIB) |
 | `OPENJML_LSP_LOG` | fixed value (cf. "Error Handling and Logging") | Destination file for server log messages |
 
 The default values of the environment variables are sufficient in nearly all circumstances.
@@ -355,10 +355,10 @@ If multiple projects are configured, each project's `ProjectConfig` carries its 
 `ClientSettings` values serve as defaults for any project that omits a field.
 
 The SMT solvers path is not configurable at runtime. It is fixed at JVM startup
-from `OPENJML_SOLVERS` (set by the launcher script), falling back to
-`OPENJML_INSTALL`. Client integrators cannot override it via `initializationOptions`
-or `workspace/didChangeConfiguration`; set `OPENJML_SOLVERS` before launching the
-server if a non-default location is required.
+from `SMT_SOLVER_DIR`, which the launcher script sets to the installation's
+`Solvers-<os>` folder unless it is already set. Client integrators cannot override it via
+`initializationOptions` or `workspace/didChangeConfiguration`; set `SMT_SOLVER_DIR`
+before launching the server if a non-default location is required.
 
 ### Tool Options
 
