@@ -4,6 +4,8 @@ public class T_initially2 {
   public int width;
   public int length;
 
+  //@ public initially 0 < width < length;
+
   //@ requires 0 < width < length;
   //@ ensures this.width == width && this.length == length;
   public T_initially2(int width, int length) {
@@ -15,7 +17,4 @@ public class T_initially2 {
   public T_initially2() {
     this(0,0);
   }
-
-  //@ public initially 0 < width < length;
-
 }

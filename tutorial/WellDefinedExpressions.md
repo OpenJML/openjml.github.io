@@ -24,7 +24,7 @@ The output here deserves some explanation:
 
 The rules for well-definedness of a JML expression build up from the leaves of the expression tree, with any compound expression requiring that each of its sub-expressions be well-defined. Note that even before OpenJML begins its work, an expression must not have any parse or type-checking errors. The following describes when particular kinds of expressions are well-defined:
 
-* Literals (`true`, `false`, `null`, numbers and literal strings) are all well-defined,
+* Literals (`true`, `false`, `null`, numbers, character literals, and literal strings) are all well-defined,
 * Correctly resolved identifiers are well-defined,
 * A field access expression such as `o.f` is well-defined if the object (`o`) is well-defined and `o != null` (and the expression is well-typed, that is, `f` is a field of the static type of `o`),
 * `a.length` is well-defined if `a` is a well-defined array that is not null,
@@ -63,7 +63,7 @@ then the following messages happen:
 {% include_relative T_WellDefined3.out %}
 ```
 
-Finally well-definedness is a requirement for JML expressions, not Java expressions. But similar Java expressions would just throw exceptions, so OpenJML gives slightly different verification messages:
+Finally, well-definedness is a requirement for JML expressions, not Java expressions. But similar Java expressions would just throw exceptions, so OpenJML gives slightly different verification messages:
 ```
 {% include_relative T_WellDefined4.java %}
 ```
@@ -72,4 +72,12 @@ gives
 {% include_relative T_WellDefined4.out %}
 ```
 
-## **[Well-defined Expressions](https://www.openjml.org/tutorial/exercises/WellDefinedEx.html)**
+## **[Exercises](https://www.openjml.org/tutorial/exercises/WellDefinedEx.html)**
+
+Follow the link in the above heading to work on the exercises on this topic.
+
+## Resources
++ [T_WellDefined1 file](T_WellDefined1.java)
++ [T_WellDefined2 file](T_WellDefined2.java)
++ [T_WellDefined3 file](T_WellDefined3.java)
++ [T_WellDefined4 file](T_WellDefined4.java)

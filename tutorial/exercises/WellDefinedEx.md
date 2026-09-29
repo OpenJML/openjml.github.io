@@ -26,4 +26,7 @@ public int search(int[] a, int key) {
 + Understand the importance of placement of JML specifications 
 
 ## **[Answer Key](WellDefinedExKey.md)**
-## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**
+
+## **Resources:**
++ [Question 1 Java](WellDefinedExample1.java)
++ [All exercises](https://www.openjml.org/tutorial/exercises/exercises)

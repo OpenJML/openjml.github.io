@@ -37,6 +37,9 @@ public class MyBox {
   //@   assigns size;
   //@ helper // does not assume or establish the invariant; may set size to anything
   final public void changeSizeH() {
+      java.util.Random r = new java.util.Random();
+      int sz = r.nextInt(-10,10);
+      size = sz;
   }
 
   public static void test1(MyBox b) {

@@ -41,6 +41,16 @@ example code; just add the appropriate path to the `openjml` command.
   * [Execution](Execution)
   * [Syntax](Syntax)
 
+* [Basic Method Body Specifications](SpecStatements)
+  * [Assert statements (assert and check)](AssertStatement)
+  * [Assume statements](AssumeStatement)
+
+* JML Expressions
+  * [JML Expressions](Expressions)
+  * [Well-defined Expressions](WellDefinedExpressions)
+  * [Arithmetic](ArithmeticModes)
+  * [Null and non-null](Nullness)
+
 * Simple Method Specifications
   * [Preconditions](Preconditions)
   * [Postconditions](Postconditions)
@@ -50,26 +60,19 @@ example code; just add the appropriate path to the `openjml` command.
   * [Method Specifications: old clauses and clause ordering](OldAndOrdering)
   * [Multiple Method Behaviors](MultipleBehaviors)
   * [Minimizing replicated specifications --- initially, constraint, invariant clauses](InitiallyConstraint)
+  * [Invariant Clauses](Invariants)
   * [Specifying Constructors](Constructors)
   * [Using Method Calls in Specifications](MethodsInSpecifications)
   * [Visibility](Visibility)
-* JML Expressions
-  * [JML Expressions](Expressions)
-  * [Well-defined Expressions](WellDefinedExpressions)
-  * [Arithmetic](ArithmeticModes)
-  * [Null and non-null](Nullness)
-* [Method Body Specifications](SpecStatements)
-  * [Assert statements](AssertStatement)
-  * [Assume statements](AssumeStatement)
+
+* More Method Body Specifications
   * [Specifying Loops](Loops)
   * [Ghost variables and computations](Ghost)
 
-* Inheritance
+* Inheritance and Abstraction
   * [Inheriting Specifications](InheritingSpecifications)
   * [Abstractions using Model Fields and Datagroups](ModelFields)
   * [Abstractions using Model Methods](ModelMethods)
-
-* [Object Invariants](Invariants)
 
 * [Built-in mathematical types for specifications](BuiltinTypes)
   * [\bigint](type-bigint)

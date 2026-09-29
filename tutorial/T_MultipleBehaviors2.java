@@ -1,12 +1,12 @@
 // openjml --esc T_MultipleBehaviors2.java
 public class T_MultipleBehaviors2 {
-  //@  requires c >= a && c >= a;
+  //@  requires a <= c && a <= c;
   //@  ensures \result == c;
   //@ also
-  //@  requires b >= a && b >= c;
+  //@  requires a <= b && c <= b;
   //@  ensures \result == b;
   //@ also
-  //@  requires a >= b && a >= c;
+  //@  requires b <= a && c <= a;
   //@  ensures \result == a;
   //@ pure
   public int max(int a, int b, int c) {

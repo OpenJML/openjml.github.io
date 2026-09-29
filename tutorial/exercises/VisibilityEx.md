@@ -35,10 +35,34 @@ public class VisibilityExample1 {
 }
 ```
 
+## **Question 2**
+**The following has a visibility error. Fix it by giving the `represents` clause and appropriate visibility.**
+
+```
+public class Counter {
+    //@ public model int count;
+    private int _count = 0; //@ in count;
+
+    //@ represents count = _count;
+
+    //@ requires count < Integer.MAX_VALUE;
+    //@ assignable count;
+    //@ ensures count == \old(count+1);
+    public void inc() {
+        _count++;
+    }
+}
+```
+
 **Learning Objectives:**
 + Understand how visibility works with JML specifications
-+ Understand how to use the `spec_public` modifier 
++ Understand how to use the `spec_public` modifier
++ Understand the rule for visibility of `represents` clauses
 + Gain more experience with using the `assigns` clause
+
+## Resources
++ [VisibilityExample1 file](VisibilityExample1.java)
++ [Counter file](Counter.java)
 
 ## **[Answer Key](VisibilityExKey.md)**
 ## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**

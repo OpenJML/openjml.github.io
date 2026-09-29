@@ -1,0 +1,24 @@
+// openjml --esc Animal.java
+public class Animal implements Gendered,
+           NormalSetAge, ExceptionalSetAge {
+    protected boolean _gen; //@ in gender;
+    /*@ protected represents gender
+      @           = (_gen ? "female" : "male"); 
+      @*/
+
+    protected int _age = 0; //@ in age;
+    //@ protected represents age = _age;
+    
+    //@ requires g.equals("female")||g.equals("male");
+    //@ ensures gender.equals(g) && age == 0;
+    public Animal(String g) 
+    { _gen = g.equals("female"); }
+
+    public /*@ spec_pure @*/ boolean isFemale() 
+    { return _gen; }
+
+    public void setAge(int a) {
+        if (a < _age) { throw new IllegalArgumentException(); }
+        _age = a;
+    }
+}

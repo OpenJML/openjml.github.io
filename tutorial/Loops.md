@@ -155,4 +155,16 @@ which produces
 Good programming style avoids loop conditions with side effects. Nevertheless, such constructs are legal Java.
 However, writing workable specifications for such programs is tricky, reflecting the fact that understanding and writing correct programs using conditions with side-effects is tricky.
 
-## **[Specifying Loops Problem Set](https://www.openjml.org/tutorial/exercises/SpecifyingLoopsEx.html)**
+## **[Exercises](https://www.openjml.org/tutorial/exercises/SpecifyingLoopsEx.html)**
+
+Follow the link in the above heading to work on the exercises on this topic.
+
+## Resources
++ [T_forloop file](T_forloop.java)
++ [T_foreach file](T_foreach.java)
++ [T_whileloop file](T_whileloop.java)
++ [T_dowhile file](T_dowhile.java)
++ [T_LoopInitError file](T_LoopInitError.java)
++ [T_LoopBodyError file](T_LoopBodyError.java)
++ [T_LoopDecreasesError file](T_LoopDecreasesError.java)
++ [T_LoopNegativeError file](T_LoopNegativeError.java)

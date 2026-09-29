@@ -69,5 +69,11 @@ but if the OpenJML proof engine can prove them,
 then they should be replaced with `assert` statements
 or removed altogether before a verification is considered sound.
 
-## **[Assume Statements Problem Set](https://www.openjml.org/tutorial/exercises/AssumeEx.html)**
+## **[Exercises](https://www.openjml.org/tutorial/exercises/AssumeEx.html)**
 
+Follow the link in the above heading to work on the exercises on this topic.
+
+## Resources
++ [T_assume1 file](T_assume1.java)
++ [T_assume2 file](T_assume2.java)
++ [T_assume3 file](T_assume3.java)

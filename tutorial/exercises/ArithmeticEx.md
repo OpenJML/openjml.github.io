@@ -45,4 +45,9 @@ public int updatePlayerHealth(int dmg) {
 + Understand how to write specifications that reflect the requirements and outputs wanted  
 
 ## **[Answer Key](ArithmeticExKey.md)**
-## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**
+
+## **Resources:**
++ [Arithmetic Exercises](ArithmeticEx.md)
++ [Question 1 Java](ArithmeticExample1.java)
++ [Question 2 Java](ArithmeticExample2.java)
++ [All exercises](https://www.openjml.org/tutorial/exercises/exercises)

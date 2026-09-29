@@ -95,5 +95,12 @@ for the following statement satisfying the asserted predicate.
 A `check` statement should be used to find subsequent errors that result
 from such predicates (i.e., those that might be false).
 
+## **[Exercises](https://www.openjml.org/tutorial/exercises/AssertEx.html)**
 
-## **[Assert Statements Problem Set](https://www.openjml.org/tutorial/exercises/AssertEx.html)**
+Follow the link in the above heading to work on the exercises on this topic.
+
+## Resources
++ [T_assert1 file](T_assert1.java)
++ [T_assert2 file](T_assert2.java)
++ [T_assert3 file](T_assert3.java)
++ [T_assert4 file](T_assert4.java)

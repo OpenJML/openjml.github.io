@@ -4,7 +4,8 @@ title: JML Tutorial - Frame Conditions
 
 The [previous lesson](MethodCalls) described the verification process when 
 there are multiple methods that call each other. But that lesson left out
-an important consideration: how to specify side-effects of methods.
+an important consideration: how to specify the effects of methods
+("effects" are often called "side-effects"), which are changes to storage that exists before a method is called and outlives the method call.
 
 Consider this example:
 ```
@@ -23,23 +24,24 @@ post-state, the state after the method has completed.
 Also, why the comparison to `Integer.MAX_VALUE` in the preconditions? That is to avoid warnings about arithmetic overflow. We'll get to that topic [later](ArithmeticModes).
 
 Now to the point of this lesson. The two increment methods verify, but 
-what is happening in the test method?
-First we assume some values for `counter1` and `counter2`. This is just to give
-a concrete starting point.
-After calling `increment1`, the value of `counter1` has increased by 1; 
-the postcondition of `increment1` says just that and the first assert
+what is happening in the `test()` method?
+First we assume some values for `counter1` and `counter2`; this is just to make the assertions more concrete and easier to state.
+After calling `increment1()`, the value of `counter1` has increased by 1; 
+the postcondition of `increment1()` says just that and the first assert
 statement is readily proved. 
 
 But the second assert statement is not verified. Why not? `increment1()` does not change
-`counter2`. The problem is that the specification of `increment1()` does not say
+`counter2`; however, the problem is that the specification of `increment1()` does not say
 that `counter2` is unchanged. One solution would be to add an additional 
 ensures clause that states that `counter2 == \old(counter2)`. This specification
-verifies as correct.
+would also verify.
 
-But adding such postconditions is not a practical solution. We can't add to `increment1()`'s specification a clause stating that every visible variable is unchanged.
+However, adding such postconditions is not a practical specification technique. We can't add to `increment1()`'s specification a clause stating that every variable that is visible to a caller is unchanged (in part because some of those locations will not be visible to the method `increment1()`).
 Instead we use a *frame condition* whose purpose is to state which memory
-locations a method might have modified. There are a variety of names for
-the frame clause: traditionally it is `assignable`, but `assigns` and `writes` are also permitted.
+locations a method _might_ assign during its execution. 
+There are a variety of names for such a frame clause:
+JML traditionally uses the keyword `assignable`,
+but `assigns`, and `writes` are also permitted.
 Note that `modifies` is also an
 (implemented) synonym, but in some tools it has a slightly different meaning,
 so its use is not recommended.
@@ -47,14 +49,16 @@ so its use is not recommended.
 An explicit  frame condition states which memory locations might be changed by the method at hand. Anything not mentioned is assumed to be unchanged. In fact, a method
 is not allowed to *assign* to a memory location (even with the same value) unless it is listed in the frame condition --- this makes the check for violations of the frame condition, whether by tool or by eye, independent of the values computed.
 
-If there is no explicit frame condition clause in a method's specification (case), then a default is used, namely `assigns \everything;`--- which means exactly that: after a call of this method, any memory location in the state might have been written to and might be changed. It is very difficult to prove anything about a program that includes a call to a method with such a frame condition. Thus *you must include a frame condition for any method that is called within a program*.
+## Names for Frame Condition Clauses
+
+If there is no explicit frame condition clause in a method's specification (case), then a default is used, namely `assignable \everything;`--- which means exactly that: after a call of this method, any memory location in the state might have been written to and might be changed. It is very difficult to prove anything about a program that includes a call to a method with such a frame condition. Thus *you must include a frame condition for any method that is called within a program*.
 
 In our example above, before we added a frame clause, the effective frame
-clause was `assigns \everything`. Then in method `test` the call of
+clause was `assignable \everything`. Then in method `test` the call of
 `increment1` is specified as potentially changing every memory location, 
 including `counter2` in this example.
 
-You can also write `assigns \nothing`, which means no memory locations 
+You can also write `assignable \nothing`, which means no memory locations 
 may be assigned to.
 
 So now our example looks like this:
@@ -62,6 +66,8 @@ So now our example looks like this:
 {% include_relative T_frame3.java %}
 ```
 which successfully verifies.
+
+## Memory Location Details
 
 A few more details about the memory locations in a frame condition:
 * One does not need to list variables that are local to the body of a method;
@@ -71,15 +77,11 @@ program state outside of the method.
 just like for the `requires` and `ensures` clauses. The formal arguments 
 themselves cannot be changed by a method, but if they are references to objects,
 then the fields of those objects might be written to by the method. So a method `m(MyType q)`
-might have a frame condition `assigns q.f;` if `f` is a field of `MyType`
+might have a frame condition `assignable q.f;` if `f` is a field of `MyType`
 that is written to in the body of `m`.
-* If a method has no external effects other than its return value, you can specify a frame condition `assigns \nothing;`
-* `q.*` for an expression `q` means all fields of q
-* `a[i]` for expressions `a` and `i` means the particular array element `a[i]` (where the values of `a` and `i` are interpreted in the method's pre-state)
-* `a[*]` for array expression `a` means all elements of that array
-* `a[i..j]` for expressions `a`, `i`, and `j` means the stated range of array elements, from `i` to `j` inclusive.
+* If a method has no external effects other than its return value, you can specify a frame condition `assignable \nothing;`.
 
-A shorthand way to say that a method `assigns \nothing;` is to designate it `pure`, as in
+A shorthand way to say that a method `assignable \nothing;` is to designate it `pure`, as in
 ```
 //@ requires ...
 //@ ensures ...
@@ -88,7 +90,17 @@ public void m() { ... }
 ```
 though there are a few other details to purity --- see the [lesson on pure](MethodsInSpecifications).
 
+There are also several abbreviations for mentioning sets of locations in specifications:
+* `q.*` for an expression `q`, means all fields of q
+* `a[i]` for expressions `a` and `i`, means the particular array element `a[i]` (where the values of `a` and `i` are interpreted in the method's pre-state)
+* `a[*]` for array expression `a`, means all elements of that array
+* `a[i..j]` for expressions `a`, `i`, and `j`, means the stated range of array elements, from `i` to `j` inclusive.
+
+## Evaluation of Expressions is in the Pre-State
+
 There are two other points to know about frame conditions. First, where a frame condition clause includes expressions, such as the indices of array expressions, those expressions are evaluated in the pre-state, not the post-state. This allows callers of the method to understand the potential side-effects of the method before calling it.
+
+## Multiple Frame Conditions in a Specification
 
 Second, a frame condition is a method specification clause like `requires` and `ensures`. A method specification may contain more than one such clause.
 However, note that each clause is considered individually. That is, each clause
@@ -96,30 +108,35 @@ by itself lists the memory locations that may be written to by the method.
 As each frame condition clause must be valid on its own, the effect of multiple iframe clauses is the same as one clause with the _intersection_ of the sets of locations given by the separate clauses.
 For example,
 ```
-assigns i,j;
-assigns i,k;
+assignable i,j;
+assignable i,k;
 ```
 is the same as
 ```
-assigns i;
+assignable i;
 ```
 and
 ```
-assigns i;
-assigns j;
+assignable i;
+assignable j;
 ```
 is the same as
 ```
-assigns \nothing;
+assignable \nothing;
 ```
 Admittedly,  it would be much more convenient and perhaps more intuitive if the
-result of mutiple assigns clauses was the *union* of their contents, but that is
-not the case, for historical reasons. The advice is then to
-*have only one frame condition clause per specification (case)*, even if that
+result of multiple assignable clauses was the *union* of their contents,
+but that is not the case, for historical reasons. The advice is thus to
+*use only one frame condition per specification (case)*, even if that
 means the clause has a long list. (All the method specifications in the
 tutorial lessons so far have just one specification case; a subsequent lesson
 presents [multiple specification cases](MultipleBehaviors).)
 
 
-## **[Frame Conditions Problem Set](https://www.openjml.org/tutorial/exercises/FrameCondEx.html)**
+## **[Exercises](https://www.openjml.org/tutorial/exercises/FrameCondEx.html)**
 
+Follow the link in the above heading to work on the exercises on this topic.
+
+## Resources
++ [T_frame1 file](T_frame1.java)
++ [T_frame3 file](T_frame3.java)

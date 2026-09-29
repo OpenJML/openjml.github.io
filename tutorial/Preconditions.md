@@ -63,6 +63,10 @@ In the literature, it is often said that (P,Q) _refines_ (P',Q')
 when (P,Q) is stronger than (P',Q').
 Thus the strongest specification is also the _most refined_ specification and permits no more correct implementations than the specifications it refines.
 
-## **[Precondition Exercises](https://www.openjml.org/tutorial/exercises/PreCondEx.html)**
+## **[Exercises](https://www.openjml.org/tutorial/exercises/PreCondEx.html)**
 
-Follow the link in the above heading to work on the exercises that deal with preconditions.
+Follow the link in the above heading to work on the exercises on this topic.
+## Resources
++ [T_requires1 file](T_requires1.java)
++ [T_requires2 file](T_requires2.java)
++ [T_requires3 file](T_requires3.java)

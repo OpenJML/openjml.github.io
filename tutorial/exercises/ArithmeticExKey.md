@@ -112,9 +112,3 @@ public int updatePlayerHealth(int dmg) {
  ```
 **Learning Objective:** 
 The goal of this exercise is to see if the student understands how they need to account for OpenJML testing all possible inputs that conform to the preconditions. While the exercises focuses on using the correct opteration we want to show the student how not using the correct operation would cause error. Given the preconditions and the code in part (a) the student needs to recognize that since OpenJML will test negative values for `dmg` it will cause overflow warnings because with the code it returns `playerHealth + dmg`. Additionally, in part (b) we want to see if the student understands how the original precondition can still be used to have the same result if the code makes sense with the input OpenJML passes in. At this point in the students studies they have seen numerous examples of potential overflow errors and how to handle them, so this should be an easier exercise.
-
-## **Resources:**
-+ [Arithmetic Exercises](ArithmeticEx.md)
-+ [Question 1 Java](ArithmeticExample1.java)
-+ [Question 2 Java](ArithmeticExample2.java)
-+ [All exercises](https://www.openjml.org/tutorial/exercises/exercises)
