@@ -1,0 +1,15 @@
+# Store text files with LF line endings and check them out with LF on every platform, so that
+# expected-output files (e.g. tutorial .out files) compare equal wherever they are regenerated.
+* text=auto eol=lf
+
+# Windows batch files need CRLF
+*.bat text eol=crlf
+
+# Never convert these
+*.jar binary
+*.pdf binary
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
+*.zip binary
