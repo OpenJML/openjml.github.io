@@ -1,0 +1,10 @@
+ObjPair.java:17: verify: The prover cannot establish an assertion (Precondition: ObjPair.java:7:) in method test
+        ObjPair op = new ObjPair(null, seven);
+                     ^
+ObjPair.java:7: verify: Associated declaration: ObjPair.java:17:
+    public ObjPair(Object f, Object s) {
+           ^
+ObjPair.java:17: verify: Precondition conjunct is false: null != null
+        ObjPair op = new ObjPair(null, seven);
+                                 ^
+3 verification failures

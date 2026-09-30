@@ -1,0 +1,7 @@
+ScreenPoint.java:36: verify: The prover cannot establish an assertion (Assert) in method test
+        //@ assert 0 <= p.x < MAX_SIZE;
+            ^
+ScreenPoint.java:38: verify: The prover cannot establish an assertion (Assert) in method test
+        //@ assert 0 <= p.y < MAX_SIZE;
+            ^
+2 verification failures

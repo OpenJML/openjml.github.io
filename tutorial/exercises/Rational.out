@@ -1,0 +1,7 @@
+Rational.java:23: verify: The prover cannot establish an assertion (Postcondition: Rational.java:16:) in method equals
+        return n == oth.n && d == oth.d;
+        ^
+Rational.java:16: verify: Associated declaration: Rational.java:23:
+    //@   ensures \result <==> d * oth.n == n * oth.d;
+          ^
+2 verification failures

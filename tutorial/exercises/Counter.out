@@ -1,0 +1,4 @@
+Counter.java:6: error: An identifier with private visibility may not be used in a represents clause with package visibility
+    //@ represents count = _count;
+                           ^
+1 error

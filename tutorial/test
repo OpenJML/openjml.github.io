@@ -3,20 +3,47 @@
 J=`(cd ../../OpenJML/OpenJMLsrc; pwd)`
 PATH=$J:$PATH
 X=0 
+
+## Each example, .check script and exercise is stopped after $TIMEOUT seconds (default 300)
+## and then reported as a failure.
+TIMEOUT=${TIMEOUT:-300}
+## Runs the command in its own process group; after $TIMEOUT seconds stops the whole group
+## (so also the java and solver processes it started) and exits with 124.
+run_with_timeout() {
+  perl -e '
+    my $t = shift;
+    my $pid = fork;
+    if ($pid == 0) { setpgrp(0, 0); exec @ARGV; exit 127; }
+    local $SIG{ALRM} = sub { kill "TERM", -$pid; sleep 2; kill "KILL", -$pid; waitpid($pid, 0); exit 124; };
+    alarm $t;
+    waitpid($pid, 0);
+    exit(($? & 127) ? 128 + ($? & 127) : $? >> 8);
+  ' "$TIMEOUT" "$@"
+}
+## Temporary logs are removed even if the run is interrupted
+trap 'rm -f "$log" "$logt" "$logx"' EXIT
+## './test --exercises' checks only the exercises
+if [ "$1" = "--exercises" ]; then EXERCISES_ONLY=1; shift; fi
 files="$@"
-if [ -z "$files" ]; then files=`ls *.java *.check` ; fi
+if [ -n "$EXERCISES_ONLY" ]; then files=""; elif [ -z "$files" ]; then files=`ls *.java *.check` ; fi
 for f in $files ; do
   logt=$(mktemp logtXXXXXXXX )
   log=$(mktemp logXXXXXXXX )
   h=`echo $f | sed -e 's/java/check/'`;
   if [ -e $h -a "$f" != "$h" ]; then continue; fi
-  if [ -e $h ]; then echo $f; source $f || X=1; continue; fi
+  if [ -e $h ]; then
+    echo $f
+    run_with_timeout bash $f; e=$?
+    if [ $e -eq 124 ]; then X=1; echo "TIMEOUT after $TIMEOUT s: " $f; elif [ $e -ne 0 ]; then X=1; fi
+    continue
+  fi
   o=`echo $f | sed -e 's/java/out/'`;
   c=`cat $f | head -1 | sed -e 'sx//[ ]*xx' | sed -e s/\\$@/$f/ | grep -v '##'`
   if [ "$c" != "" ]; then 
     echo EXEC "$c"
-    bash -c "$c --specs-path ../../Specs/specs" > $logt  2>&1
+    run_with_timeout bash -c "$c --specs-path ../../Specs/specs" > $logt  2>&1
     e=$?
+    if [ $e -eq 124 ]; then X=1; echo "TIMEOUT after $TIMEOUT s: " $f; rm -rf $log $logt; continue; fi
     grep -v "Note:" $logt > $log
     if [ -e $o ]; then 
 	if [ $e -eq "0" ]; then 
@@ -54,12 +81,16 @@ if [ -z "$1" ]; then
 echo CHECKING EXERCISES
 cd exercises
 for f in *.java ; do 
-  logx=$(mktemp logxXXXXXXXX )
+  logx=$(mktemp "$PWD/logxXXXXXXXX")
   echo Checking $f
   h=`echo $f | sed -e 's/java/out/'`
-  openjml --esc $f > $logx
-  E=$?
-  if [ -e "$h" ]; then 
+  ## OpenJML's 'Not implemented' notes (each with its two continuation lines) are left out:
+  ## they name files by absolute path
+  run_with_timeout openjml --esc $f | awk '/: Note: /{skip=2; next} skip>0{skip--; next} {print}' > $logx
+  E=${PIPESTATUS[0]}
+  if [ $E -eq 124 ]; then
+    X=1; echo "TIMEOUT after $TIMEOUT s - $f FAILED"
+  elif [ -e "$h" ]; then 
     diff $logx $h || { X=1; echo $f FAILED; mv $logx $f.actual; }
   elif [ "$E" != "0" ]; then
     X=1; echo "Exit code $E - $f FAILED" ; mv $logx $f.actual

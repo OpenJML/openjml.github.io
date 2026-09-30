@@ -1,0 +1,7 @@
+FrameCondEx1.java:37: verify: The prover cannot establish an assertion (Assert) in method test
+        //@ assert fc12.x == 1;
+            ^
+FrameCondEx1.java:36: verify: The prover cannot establish an assertion (Assert) in method test
+        //@ assert fc12.maxValue == 2;
+            ^
+2 verification failures

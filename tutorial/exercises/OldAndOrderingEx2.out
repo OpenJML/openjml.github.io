@@ -1,0 +1,4 @@
+OldAndOrderingEx2.java:8: verify: The prover cannot establish an assertion (UndefinedDivideByZero) in method OldAndOrderingEx2
+    //@ requires n % div == 0;
+                   ^
+1 verification failure

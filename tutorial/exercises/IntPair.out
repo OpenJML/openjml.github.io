@@ -1,0 +1,56 @@
+IntPair.java:10: error: cannot find symbol
+    //@ public invariant lesser <= first && lesser <= second;
+                                   ^
+  symbol:   variable first
+  location: class IntPair
+IntPair.java:10: error: cannot find symbol
+    //@ public invariant lesser <= first && lesser <= second;
+                                                      ^
+  symbol:   variable second
+  location: class IntPair
+IntPair.java:12: error: cannot find symbol
+    //@ public invariant increasing ==> (first == lesser && second == greater);
+                                         ^
+  symbol:   variable first
+  location: class IntPair
+IntPair.java:12: error: cannot find symbol
+    //@ public invariant increasing ==> (first == lesser && second == greater);
+                                                            ^
+  symbol:   variable second
+  location: class IntPair
+IntPair.java:13: error: cannot find symbol
+    //@ public invariant !increasing ==> (second == lesser && first == greater);
+                                          ^
+  symbol:   variable second
+  location: class IntPair
+IntPair.java:13: error: cannot find symbol
+    //@ public invariant !increasing ==> (second == lesser && first == greater);
+                                                              ^
+  symbol:   variable first
+  location: class IntPair
+IntPair.java:15: error: cannot find symbol
+    //@ ensures first == fv && second == sv;
+                ^
+  symbol:   variable first
+  location: class IntPair
+IntPair.java:15: error: cannot find symbol
+    //@ ensures first == fv && second == sv;
+                               ^
+  symbol:   variable second
+  location: class IntPair
+IntPair.java:29: error: cannot find symbol
+    //@ ensures \result <= first && \result <= second;
+                           ^
+  symbol:   variable first
+  location: class IntPair
+IntPair.java:29: error: cannot find symbol
+    //@ ensures \result <= first && \result <= second;
+                                               ^
+  symbol:   variable second
+  location: class IntPair
+IntPair.java:35: error: cannot find symbol
+    //@ ensures \result == first;
+                           ^
+  symbol:   variable first
+  location: class IntPair
+11 errors

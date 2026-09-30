@@ -1,0 +1,4 @@
+MultMethodBehaviorEx1.java:8: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method mean: overflow in int divide
+        return sum/totalNum;
+                  ^
+1 verification failure

@@ -1,0 +1,10 @@
+IntMax.java:18: verify: The prover cannot establish an assertion (Assert) in method testMax
+        //@ assert m3 == 11;
+            ^
+IntMax.java:16: verify: The prover cannot establish an assertion (Assert) in method testMax
+        //@ assert m2 == 9;
+            ^
+IntMax.java:14: verify: The prover cannot establish an assertion (Assert) in method testMax
+        //@ assert m1 == 7;
+            ^
+3 verification failures

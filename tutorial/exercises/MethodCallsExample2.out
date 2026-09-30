@@ -1,4 +1,28 @@
-MethodCallsExample2.java:14: verify: The prover cannot establish an assertion (Assert) in method enoughMaterial
-		//@ assert (area > materialSqFt);
-		    ^
-1 verification failure
+MethodCallsExample2.java:16: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method areaOfRectangle: int multiply out of range
+        int A = w*h;
+                 ^
+MethodCallsExample2.java:17: verify: The prover cannot establish an assertion (Postcondition: MethodCallsExample2.java:13:) in method areaOfRectangle
+        return A;
+        ^
+MethodCallsExample2.java:13: verify: Associated declaration: MethodCallsExample2.java:17:
+    //@ ensures \result == w*h;
+        ^
+MethodCallsExample2.java:17: verify: The prover cannot establish an assertion (Postcondition: MethodCallsExample2.java:10:) in method areaOfRectangle
+        return A;
+        ^
+MethodCallsExample2.java:10: verify: Associated declaration: MethodCallsExample2.java:17:
+    //@ ensures 0 < \result;
+        ^
+MethodCallsExample2.java:17: verify: The prover cannot establish an assertion (Postcondition: MethodCallsExample2.java:12:) in method areaOfRectangle
+        return A;
+        ^
+MethodCallsExample2.java:12: verify: Associated declaration: MethodCallsExample2.java:17:
+    //@ ensures h <= \result;
+        ^
+MethodCallsExample2.java:17: verify: The prover cannot establish an assertion (Postcondition: MethodCallsExample2.java:11:) in method areaOfRectangle
+        return A;
+        ^
+MethodCallsExample2.java:11: verify: Associated declaration: MethodCallsExample2.java:17:
+    //@ ensures w <= \result;
+        ^
+9 verification failures

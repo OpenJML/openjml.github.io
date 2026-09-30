@@ -1,0 +1,7 @@
+Log.java:7: verify: The prover cannot establish an assertion (Postcondition: Log.java:6:) in method add
+    public void add(String s) {
+                ^
+Log.java:6: verify: Associated declaration: Log.java:7:
+    //@ ensures text == \old(text + s);
+        ^
+2 verification failures

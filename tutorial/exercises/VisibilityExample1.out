@@ -1,0 +1,19 @@
+VisibilityExample1.java:8: error: An identifier with private visibility may not be used in a requires clause with public visibility
+	//@ requires 0 < playerHealth;
+	                 ^
+VisibilityExample1.java:18: error: An identifier with private visibility may not be used in a requires clause with public visibility
+	//@ requires 0 < playerHealth;
+	                 ^
+VisibilityExample1.java:19: error: An identifier with private visibility may not be used in a requires clause with public visibility
+	//@ requires playerHealth + hp < MAXHEALTH;
+	             ^
+VisibilityExample1.java:19: error: An identifier with private visibility may not be used in a requires clause with public visibility
+	//@ requires playerHealth + hp < MAXHEALTH;
+	                                 ^
+VisibilityExample1.java:20: error: An identifier with private visibility may not be used in a ensures clause with public visibility
+	//@ ensures playerHealth <= MAXHEALTH;
+	            ^
+VisibilityExample1.java:20: error: An identifier with private visibility may not be used in a ensures clause with public visibility
+	//@ ensures playerHealth <= MAXHEALTH;
+	                            ^
+6 errors

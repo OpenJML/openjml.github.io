@@ -1,0 +1,4 @@
+Inches.java:21: verify: The prover cannot establish an assertion (Assert) in method test
+        //@ assert 0.0 <= i.measure;
+            ^
+1 verification failure
