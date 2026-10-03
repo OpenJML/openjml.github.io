@@ -5,23 +5,23 @@ title: JML Tutorial - Exercises - Assert Statements
 ## [Assert Statements Tutorial](https://www.openjml.org/tutorial/AssertStatement)
 
 ## **Question 1**
-**Given the code below, write specifications to verify the function max, including the assert statements where indicated. See [the tutorial on visibility](https://openjml.org/tutorial/Visibility.html) for the meaning of the `spec_public` annotation, which is not important for this exercise.**
+**Given the code below, write specifications to verify the method `max3` in the class below, including the assert statements where indicated. See [the tutorial on visibility](https://openjml.org/tutorial/Visibility.html) for the meaning of the `spec_public` annotation, which is not important for this exercise.**
 ```Java
 public class AssertExample1 {
 
     private /*@ spec_public @*/ int max;
 
-    public void max(int a, int b, int c) {
+    public void max3(int a, int b, int c) {
         if (a >= b && a >= c) {
             max = a;
-            // first assert
+            // first assert here
         } else if (b >= a && b >= c) {
             max = b;
-            // second assert
+            // second assert here
         } else {
             max = c;
         }
-        // third assert
+        // third assert here
     }
 
 }
