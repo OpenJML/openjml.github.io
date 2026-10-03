@@ -32,27 +32,25 @@ public class AssertExample1 {
 + Understand the relationship between `assert` statements and postconditions 
 
 ## **Question 2**
-**Given the function below, write the strongest[^1] assert statements that will pass at the places indicated.**
+**Given the method below, write the strongest[^1] assert statements that will pass at the places indicated.**
 
 [^1]: An assert statement `assert P;` is stronger than assert statement `assert Q;` when the predicate `P` is stronger than the predicate `Q` (that is, when `P` implies `Q`). See [the tutorial section on preconditions](https://www.openjml.org/tutorial/Preconditions.html) for more about the strength of predicates.
 
 ```Java
-//@ requires num > 0;
 public boolean primeChecker(int num) {
-	boolean isPrime;
+        //@ assume num > 0;
+	boolean flag = true;
 	for (int i = 2; i <= num / 2; i++) {
-		//@ assume i > 0;
+                //@ assume i > 0;
+                // first assert here
 		if (num % i == 0) {
-			//first assertion here
-			isPrime = false;
-			//second assertion here 
-			return isPrime;
+			flag = false;
+			// second assert here
+			return flag;
 		}
 	}
-	
-	isPrime = true;
-	//third assertion here
-	return isPrime;
+	// third assert here
+	return flag;
 }
 ```
 **Learning Objectives:** 
@@ -63,6 +61,6 @@ public boolean primeChecker(int num) {
 
 ## Resources
 + [Java code for question 1](AssertExample1.java)
-+ [Java code for question 2](JMLExprExample1.java)
++ [Java code for question 2](AssertExample2.java)
 
 ## Footnotes
