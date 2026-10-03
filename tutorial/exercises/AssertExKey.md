@@ -68,28 +68,9 @@ public boolean primeChecker(int num) {
 
 The method `primeChecker` checks if a number passed in is prime, and returns `true` just when it is. The `assume` statements are needed to check this code without being warned about: possible division by zero and the fact that the loop body maintains the value of `isPrime` when it loops another time (see [the section on specifying loops](https://openjml.org/tutorial/Loops.html) for more about this).  (It might indeed be better to avoid using the variable `isPrime` completely; do you see how to do that?)
 
-For the assertions, we know that the method will stop and return `false` if it finds that `num` is evenly divisible by an integer between 2 and the `num/2`. Thus, if the function runs through the entire for-loop, it returns `true`, since then `num` must be prime. So, we can assert that the function will set `isPrime` to `false` if `num % i == 0`, and we can also assert that `isPrime` will be set to true if the function runs through the for-loop without stopping. So we can write the following:
+For the assertions, we know that the method will stop and return `false` if it finds that `num` is evenly divisible by an integer between 2 and the `num/2`. Thus, if the function runs through the entire for-loop, it returns `true`, since then `num` must be prime. So, we can assert that the function will set `isPrime` to `false` if `num % i == 0`, and we can also assert that `isPrime` will still be `true` if the function runs through the for-loop without stopping.
 
-```Java
-//@ requires num > 0;
-//@ ensures \result <==> !(\exists int i; i >= 2; num % i == 0);
-public boolean primeChecker(int num) {
-	boolean isPrime;
-	for (int i = 2; i <= num / 2; i++) {
-		//@ assume i > 0;
-		if (num % i == 0) {
-			//@ assert num % i == 0;
-			isPrime = false;
-			//@ assert isPrime == false;
-			return isPrime;
-		}
-	}
-	
-	isPrime = true;
-	//@ assert isPrime == true;
-	return isPrime;
-}
-```
+It is possible to summarize the effects of this code in several different ways. See [the section on postconditions](https://openjml.org/tutorial/PostConditions.html) for a way to summarize the code in a postcondition. You might also want to return to this example after learning how to [specify loops](https://openjml.org/tutorial/Loops.html).
 
 ## **Resources:**
 + [Assert Statements Exercises](AssertEx.md)
