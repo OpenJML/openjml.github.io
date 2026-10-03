@@ -98,5 +98,8 @@ The most common use of conditional JML annotations is the first example: to turn
 non-executable annotations during runtime-assertion checking but leave
 them in place for static checking.
 
+## **[Exercises](https://www.openjml.org/tutorial/exercises/SyntaxEx.html)**
+
+Follow the link in the above heading to work on the exercises for this lesson.
 
 
