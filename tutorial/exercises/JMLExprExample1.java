@@ -2,20 +2,26 @@
 public class JMLExprExample1 {
     
 //@ requires num > 0;
+// write a postcondition for the method below
 public boolean primeChecker(int num) {
-	boolean flag;
-	for (int i = 2; i <= num / 2; i++) {
-		//@ assume i > 0;
+	boolean flag = true;
+        int i;
+	for (i = 2; i < num/2; i++) {
+                //@ assume flag && 2 <= i;
 		if (num % i == 0) {
 			flag = false;
 			//@ assert num % i == 0;
-			//@ assert flag == false;
+			flag = false;
 			return flag;
 		}
+                //@ assert flag;
 	}
-
-	flag = true;
-	//@ assert flag == true;
+        //@ assume flag && 2 <= i;
+        if (num % i == 0) {
+            flag = false;
+            return flag;
+        }
+        //@ assert flag;
 	return flag;
 }
 

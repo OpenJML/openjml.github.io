@@ -5,7 +5,7 @@ title: JML Tutorial - Exercises - JML Expressions
 ## [JML Expressions Tutorial](https://www.openjml.org/tutorial/Expressions)
 
 ## **Question 1**
-**Take a look at the following function that checks if the number passed is prime. We've seen this code before, but now that you've read about JML Expressions, what can now be ensured about the function?**
+**Look again at the `primeChecker` method below. This method checks if its argument is prime. Using a quantified expression, either `\exists` or `\forall`, write an expression that says that `\result` is true just when there are no integers between 2 and `num/2` inclusive that evenly divide the argument `num`. (This expression could be used as a [postcondition](https://openjml.org/tutorial/Postconditions.html) for the method.)**
 ```Java
 //@ requires num > 0;
 public boolean primeChecker(int num) {

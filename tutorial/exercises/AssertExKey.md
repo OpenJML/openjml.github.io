@@ -31,38 +31,36 @@ public class AssertExample1 {
 }
 ```
 
-**Answer and Explanation:**
 First, let’s understand what the code is doing. The method `max3` takes in three integer numbers `a`, `b`, and `c`, then compares each integer against the other two. When comparing the integers the `>=` operator is used, since we were not told that each integer would be distinct from the others. We are not given any definite pre or postconditions that need to be met, but we are told to write the appropriate assert statements where indicated. Remember that `assert` is used when a condition is expected to "hold at a point within the body of a method."
 
-An equivalent to the third `assert` (at the end of the method body) would be a postcondition, which could be as shown in the ensures clause of `max3` above. Also, both the assert and the postcondition can be included, but once there is a postcondition, the third assert becomes redundant.
+An equivalent to the third `assert` (at the end of the method body) would be a [postcondition](https://openjml.org/tutorial/Postconditions.html), which could be as shown in the ensures clause of `max3` above. Although both the assert and the postcondition can be included, once there is a postcondition, the third assert becomes redundant.
 
 Note that in JML, one cannot use `\result` (see [the tutorial section on postconditions](https://openjml.org/tutorial/Postconditions.html)) in a postcondition for a method that is `void`, like `max3` in this exercise. If you know about `\result` already, think of the field `max` as holding the result of the method's computation.
 
 Furthermore, since the field `max` is declared outside the method as `private` but the field is used in a public specification there would be a visibility problem in JML (see [the tutorial section on visibility](https://openjml.org/tutorial/Visibility.html) for details). This is the reason that the field `max` is declared to be `spec_public`.
 
 ## **Question 2**
-**Given the function below, write the strongest assert statements that will pass at the places indicated.**
+One way to write these assertions is as in the following.
+
 ```Java
-//@ requires num > 0;
 public boolean primeChecker(int num) {
-	boolean isPrime;
+	boolean flag = true;
 	for (int i = 2; i <= num / 2; i++) {
 		//@ assume i > 0;
 		if (num % i == 0) {
-			//first assertion here
-			isPrime = false;
-			//second assertion here 
-			return isPrime;
+			flag = false;
+			//@ assert num % i == 0;
+			return flag;
 		}
 	}
-	
-	isPrime = true;
-	//third assertion here
-	return isPrime;
+	//@ assert flag == true;
+	return flag;
 }
 ```
-**Answer and Explanation:**
-The function above checks if a number passed in is prime or not, and returns `flag =  true` if it is, and `flag = false` if it's not. We are already given some specifications needed to run this program without any warnings. However, we are asked to determine and include any assertions that can be made. We know that the function will stop and return `flag = false` if it finds that `num` is divisible by anything other than one and itself. If the function runs through the entire for-loop without finding that `num` is divisible by anything other than one and itself, it returns `flag = true` - in other words it has concluded that `num` is a prime number. So, we can assert that the function will set `flag` to false if `num % i == 0`, and we can also assert that `flag` will be set to true if the function runs through the for-loop without stopping. So we can write the following:
+
+The method `primeChecker` checks if a number passed in is prime, and returns `true` just when it is. The `assume` statement is needed to check this code without being warned about a possible division by 0.
+
+For the assertions, we know that the method will stop and return `false` if it finds that `num` is evenly divisible by an integer between 2 and the `num/2`. Thus, if the function runs through the entire for-loop, it returns `true`, since then `num` must be prime. So, we can assert that the function will set `flag` to `false` if `num % i == 0`, and we can also assert that `flag` will be set to true if the function runs through the for-loop without stopping. So we can write the following:
 ```Java
 //@ requires num > 0;
 //@ ensures \result <==> !(\exists int i; i >= 2; num % i == 0);

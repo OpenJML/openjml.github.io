@@ -5,30 +5,9 @@ title: JML Tutorial - Exercises - JML Expressions
 ## [JML Expressions Tutorial](https://www.openjml.org/tutorial/Expressions)
 
 ## **Question 1**
-**Take a look at the following function that checks if the number passed is prime. We've seen this code before, but now that you've read about JML Expressions, what can now be ensured about the function?**
-```Java
-//@ requires num > 0;
-public boolean primeChecker(int num) {
-	boolean flag;
-	for (int i = 2; i <= num / 2; i++) {
-		//@ assume i > 0;
-		if (num % i == 0) {
-			flag = false; 
-			//@ assert num % i == 0;
-			//@ assert flag == false;
-			return flag;
-		}
-	}
-		
-	flag = true;
-	//@ assert flag == true;
-	return flag;
-}
-```
-**Asnwer and Explanation:**
-First we need to see if we understand what the function is doing. The function runs from 2 to `num/2` since we know that `num` will always be divisible by one. Therefore, we don't want to call a false negative on the number passed in because it is divisible by one. However, note that we only loop up to `num/2` because a number is never divisible by more than half of itself. For example, let's say we want to find the factors of 12, we have 1 and 12, 2 and 6, and 3 and 4, notice that the greatest factor other than the number itself is 6, which is half of 12 and no other factor is greater than this factor.
+First we need to see if we understand what the method is doing. The loop runs from 2 to `num/2` since according to the definition of *prime*, one is not a prime factor (as all integers are divisible by one). Only looping up to `num/2` is a valid optimizaion, because a number is never divisible by more than half of itself.
 
-So, we can `ensure` that the result of the function will be equivalent to the negation of whether a value exists for `i` that proves `num % i == 0`. We can write this as seen below:
+So, we can be sure that the method only returns true when no value (between 2 and `num/2`) exists for `i` that proves `num % i == 0`. We can write this as in the `ensures` clause, as below:
 ```Java
 //@ requires num > 0;
 //@ ensures \result <==> !(\exists int i; i >= 2; num % i == 0);
