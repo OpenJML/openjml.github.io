@@ -1,0 +1,20 @@
+MinMaxExample.java:25: warning: Not implemented for static checking: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \max
+    //@ ensures \result == (\max int m; 0 <= m < a.length; a[m]);
+                            ^
+MinMaxExample.java:39: verify: The prover cannot establish an assertion (Postcondition: MinMaxExample.java:25:) in method maxOfPosArray
+        return val;
+        ^
+MinMaxExample.java:25: verify: Associated declaration: MinMaxExample.java:39:
+    //@ ensures \result == (\max int m; 0 <= m < a.length; a[m]);
+        ^
+MinMaxExample.java:6: warning: Not implemented for static checking: Not yet supported feature in converting BasicPrograms to SMTLIB: JML Quantified expression using \min
+    //@ ensures \result == (\min int m; 0 <= m < a.length; a[m]);
+                            ^
+MinMaxExample.java:20: verify: The prover cannot establish an assertion (Postcondition: MinMaxExample.java:6:) in method minOfPosArray
+        return val;
+        ^
+MinMaxExample.java:6: verify: Associated declaration: MinMaxExample.java:20:
+    //@ ensures \result == (\min int m; 0 <= m < a.length; a[m]);
+        ^
+2 warnings
+4 verification failures
