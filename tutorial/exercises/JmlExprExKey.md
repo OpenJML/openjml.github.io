@@ -31,7 +31,7 @@ First we need to see if we understand what the function is doing. The function r
 So, we can `ensure` that the result of the function will be equivalent to the negation of whether a value exists for `i` that proves `num % i == 0`. We can write this as seen below:
 ```Java
 //@ requires num > 0;
-//@ ensures \result <==> !(\exist int i; i >= 2; num % i == 0);
+//@ ensures \result <==> !(\exists int i; i >= 2; num % i == 0);
 public boolean primeChecker(int num) {
 	boolean flag;
 	for (int i = 2; i <= num / 2; i++) {
