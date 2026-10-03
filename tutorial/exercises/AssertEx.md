@@ -39,18 +39,23 @@ public class AssertExample1 {
 ```Java
 public boolean primeChecker(int num) {
         //@ assume num > 0;
-	boolean flag = true;
-	for (int i = 2; i <= num / 2; i++) {
-                //@ assume i > 0;
-                // first assert here
+	boolean isPrime = true;
+        int i;
+	for (i = 2; i < num/2; i++) {
+                //@ assume isPrime && 2 <= i;
 		if (num % i == 0) {
-			flag = false;
-			// second assert here
-			return flag;
+			// first assert here
+			isPrime = false;
+			return isPrime;
 		}
 	}
-	// third assert here
-	return flag;
+        //@ assume isPrime && 2 <= i;
+        if (num % i == 0) {
+            isPrime = false;
+            return isPrime;
+        }
+	// second assert here
+	return isPrime;
 }
 ```
 **Learning Objectives:** 
