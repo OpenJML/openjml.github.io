@@ -13,6 +13,10 @@ title: JML Tutorial -- Exercises
 In addition to the links at the end of each tutorial page, one can also use
 the following links to access the exercises for the JML Tutorial.
 
+* Introductory Exercises
+  * [Installation](InstallationEx)
+  * [Syntax](SyntaxEx)
+
 * [Basic Method Body Specifications](SpecStatementsEx)
   * [Assert statements](AssertStatementEx)
   * [Assume statements](AssumeStatementEx)
