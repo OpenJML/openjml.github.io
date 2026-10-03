@@ -59,6 +59,6 @@ public boolean primeChecker(int num) {
 
 ## Resources
 + [Java code containing max](AssertExample1.java)
-+ [Java code containing primeChecker](JmlExprExample1.java)
++ [Java code containing primeChecker](JMLExprExample1.java)
 
 ## Footnotes
