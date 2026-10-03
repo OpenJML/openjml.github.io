@@ -1,9 +1,10 @@
 // openjml --esc AssertExample1Ans.java
 public class AssertExample1Ans {
 
-    public void max(int a, int b, int c) {
-        int max;
+    private /*@ spec_public @*/ int max;
 
+    //@ ensures max >= a && max >= b && max >= c;
+    public void max(int a, int b, int c) {
         if (a >= b && a >= c) {
             max = a;
             // first assert

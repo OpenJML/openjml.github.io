@@ -7,6 +7,7 @@ title: JML Tutorial - Exercises - Assert Statements
 ## **Question 1**
 One way to write assertions that verify is as follows.
 ```Java
+//@ ensures \result >= a && \result >= b && \result >= c;
 public void max(int a, int b, int c) {
     int max;
 
@@ -29,23 +30,7 @@ public void max(int a, int b, int c) {
 **Asnwer and Explanation:**
 First, let’s understand what the code is doing. The function takes in three integer numbers `a`, `b`, and `c`, the function then compares each integer against the other two. Note that when comparing the integers the `>=` operator is used, since we were not told that each integer would be distinct from the others. We are not given any definite pre or postconditions that need to be met, but we are told to write the appropriate assert statements where indicated. Remember that `assert` is used when a condition is expected to "hold at a point within the body of a method."
 
-So what can we assert in the function above? We know that since we are checking if the values are `>=` to each other, one value will be set to `max` no matter what. Therefore, we can assert the following:
-```Java
-public void max(int a, int b, int c) {
-	int max;
-		
-	if(a >= b && a >= c) {
-		max = a;
-	//@ assert max >= a;
-	}else if(b >= a && b >= c) {
-		max = b;
-	//@ assert max >= a && max >= b;
-	}else {
-		max = c;
-	}				
-	//@ assert max >= a && max >= b && max >= c;
-}
-```
+An equivalent to the `assert` at the end of the method body would be a postcondition, which could be as shown.
 Given these assert statements, we can now write a postcondition for the function which basically is ensuring what we are asserting at the end of our function. 
 
 ```Java

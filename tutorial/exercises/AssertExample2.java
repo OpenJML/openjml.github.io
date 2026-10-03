@@ -2,7 +2,7 @@ public class AssertExample2 {
 
     public int fastmod8_Bad(int num) {
         int i = num & 7;
-        //@ assert i == (num % 8);
+        //@ assert i == (num % 8);   // ERROR: may be false when num < 0!
         return i;
     }
     
