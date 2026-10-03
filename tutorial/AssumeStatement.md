@@ -15,7 +15,8 @@ Like an `assert` statement, a JML  `assume` statement may be used in the
 body of a method. The effect of an `assume` statement is to instruct
 the verification engine to assume, *without proof*, that the given 
 predicate is true. Such statements can be used to introduce
-facts that are too difficult for the proof engine to prove.
+facts that are too difficult for the proof engine to prove
+(for example, since OpenJML uses SMT solvers for its proofs, this would include facts about multiplication or division).
 They can also be used to temporarily summarize the effect of preceding code 
 for the purpose of attempting to prove later code; then one goes back later
 to work with the preceding code until the assumption is successfully 
