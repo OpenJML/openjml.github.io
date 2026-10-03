@@ -7,51 +7,36 @@ title: JML Tutorial - Exercises - Assert Statements
 ## **Question 1**
 One way to write assertions that verify is as follows.
 ```Java
-//@ ensures \result >= a && \result >= b && \result >= c;
-public void max(int a, int b, int c) {
-    int max;
+public class AssertExample1 {
 
-    if (a >= b && a >= c) {
-        max = a;
-        // first assert
-        //@ assert max >= a && max >= c;
-    } else if (b >= a && b >= c) {
-        max = b;
-        // second assert
-        //@ assert max >= a && max >= b;
-    } else {
-        max = c;
+    private /*@ spec_public @*/ int max;
+
+    //@ ensures max >= a && max >= b && max >= c;
+    public void max(int a, int b, int c) {
+        if (a >= b && a >= c) {
+            max = a;
+            // first assert
+            //@ assert max >= a && max >= c;
+        } else if (b >= a && b >= c) {
+            max = b;
+            // second assert
+            //@ assert max >= a && max >= b;
+        } else {
+            max = c;
+        }
+        // third assert
+        //@ assert max >= a && max >= b && max >= c;
     }
-    // third assert
-    //@ assert max >= a && max >= b && max >= c;
+
 }
 ```
 
 **Asnwer and Explanation:**
 First, let’s understand what the code is doing. The function takes in three integer numbers `a`, `b`, and `c`, the function then compares each integer against the other two. Note that when comparing the integers the `>=` operator is used, since we were not told that each integer would be distinct from the others. We are not given any definite pre or postconditions that need to be met, but we are told to write the appropriate assert statements where indicated. Remember that `assert` is used when a condition is expected to "hold at a point within the body of a method."
 
-An equivalent to the `assert` at the end of the method body would be a postcondition, which could be as shown.
-Given these assert statements, we can now write a postcondition for the function which basically is ensuring what we are asserting at the end of our function. 
+An equivalent to the `assert` at the end of the method body would be a postcondition, which could be as shown above. Also, both the assert and the postcondition can be included, but once there is a postcondition, the last assert becomes redundant.
 
-```Java
-//@ ensures \result >= a && \result >= b && \result >= c;
-public void max(int a, int b, int c) {
-	int max;
-		
-	if(a >= b && a >= c) {
-		max = a;
-	//@ assert max >= a;
-	}else if(b >= a && b >= c) {
-		max = b;
-	//@ assert max >= a && max >= b;
-	}else {
-		max = c;
-	}				
-	//@ assert max >= a && max >= b && max >= c;
-}
-```
-**Learning Objective:**
-The goal of this exercise is to see if the student can identify how assert can be used in practice, and how logically it can be written in different ways. In the exercise the student can see that no matter what, the program WILL return whatever it determines to be the max value. But the student can make sure that the program returns a value that makes sense. There are no preconditions for this program, and since the student is not told that the values can't all be the same they can begin to make some assertions after the if statement. We want to see if the student can identify what can be asserted.
+Note that in JML, one cannot use `\result` (see [the tutorial section on postconditions](https://openjml.org/tutorial/Posconditions.html)) in a postcondition for a method that is `void`, like `max` in this exercise. This is the reason that the field `max` is declared outside the method. Since it is used in a public specification (see [the tutorial section on visibility](https://openjml.org/tutorial/Visibility.html) for details) the field is declared to be `spec_public`.
 
 ## **Question 2**
 **Given the function below, write the strongest assert statements that will pass at the places indicated.**
