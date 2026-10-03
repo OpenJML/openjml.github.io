@@ -1,4 +1,4 @@
-T_PureMethod4.java:12: verify: The prover cannot establish an assertion (Assert) in method test
-    //@ assert k >= 0 ==> abs(k) >= k;
-        ^
-1 verification failure
+T_PureMethod4.java:10: error: <identifier> expected
+y
+ ^
+1 error

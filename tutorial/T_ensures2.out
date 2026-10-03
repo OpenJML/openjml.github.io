@@ -1,5 +1,5 @@
 T_ensures2.java:19: verify: The prover cannot establish an assertion (Postcondition: T_ensures2.java:4:) in method max
-            if (b > c) return b;
+            if (b > c) return b;   // ERROR: see text!
                        ^
 T_ensures2.java:4: verify: Associated declaration: T_ensures2.java:19:
   //@ ensures \result >= a & \result >= b & \result >= c & \result >= d;

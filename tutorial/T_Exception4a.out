@@ -1,10 +1,10 @@
-T_Exception4a.java:11: verify: The prover cannot establish an assertion (PossiblyTooLargeIndex) in method value
-        return a[i];
+T_Exception4a.java:11: verify: The prover cannot establish an assertion (PossiblyNullDeReference) in method value
+        return a[i];   // ERROR: a may be null!
                 ^
 T_Exception4a.java:11: verify: The prover cannot establish an assertion (PossiblyNegativeIndex) in method value
-        return a[i];
+        return a[i];   // ERROR: a may be null!
                 ^
-T_Exception4a.java:11: verify: The prover cannot establish an assertion (PossiblyNullDeReference) in method value
-        return a[i];
+T_Exception4a.java:11: verify: The prover cannot establish an assertion (PossiblyTooLargeIndex) in method value
+        return a[i];   // ERROR: a may be null!
                 ^
 3 verification failures

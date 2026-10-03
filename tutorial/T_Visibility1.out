@@ -1,4 +1,4 @@
 T_Visibility1.java:5: error: An identifier with private visibility may not be used in a ensures clause with public visibility
-    //@ ensures \result == _value;
+    //@ ensures \result == _value; // ERROR: can't use _value in public spec.
                            ^
 1 error

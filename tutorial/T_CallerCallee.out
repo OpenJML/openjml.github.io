@@ -8,8 +8,8 @@ Completed proof of T_CallerCallee.caller1() with prover z3-5.1.0 - no warnings
 Starting proof of T_CallerCallee.caller2() with prover z3-5.1.0
 Method assertions are INVALID
 T_CallerCallee.java:12: verify: The prover cannot establish an assertion (Precondition: T_CallerCallee.java:26:) in method caller2
-     boolean b1 = lessThanDouble(-1, -2);
-                                ^
+    boolean b1 = lessThanDouble(-1, -2);  // ERROR: may violate precondition!
+                               ^
 T_CallerCallee.java:26: verify: Associated declaration: T_CallerCallee.java:12:
   public boolean lessThanDouble(int x, int y) {
                  ^
@@ -20,8 +20,8 @@ Completed proof of T_CallerCallee.caller2() with prover z3-5.1.0 - with warnings
 Starting proof of T_CallerCallee.caller3() with prover z3-5.1.0
 Method assertions are INVALID
 T_CallerCallee.java:16: verify: The prover cannot establish an assertion (Precondition: T_CallerCallee.java:26:) in method caller3
-     boolean b2 = lessThanDouble(2, 2);
-                                ^
+    boolean b2 = lessThanDouble(2, 2);   // ERROR: may violate precondition!
+                               ^
 T_CallerCallee.java:26: verify: Associated declaration: T_CallerCallee.java:16:
   public boolean lessThanDouble(int x, int y) {
                  ^
@@ -32,7 +32,7 @@ Completed proof of T_CallerCallee.caller3() with prover z3-5.1.0 - with warnings
 Starting proof of T_CallerCallee.caller4() with prover z3-5.1.0
 Method assertions are INVALID
 T_CallerCallee.java:21: verify: The prover cannot establish an assertion (Assert) in method caller4
-     //@ assert b == true;
+     //@ assert b == true;   // ERROR: may be false!
          ^
 Completed proof of T_CallerCallee.caller4() with prover z3-5.1.0 - with warnings
 Starting proof of T_CallerCallee.lessThanDouble(int,int) with prover z3-5.1.0

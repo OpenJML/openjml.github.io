@@ -1,10 +1,10 @@
-T_show4.java:8: verify: Show statement expression i has value 1807
+T_show4.java:8: verify: Show statement expression i has value 11807
     //@ show i, data.length;
              ^
-T_show4.java:8: verify: Show statement expression data.length has value 1806
+T_show4.java:8: verify: Show statement expression data.length has value 11807
     //@ show i, data.length;
                 ^
 T_show4.java:9: verify: The prover cannot establish an assertion (PossiblyTooLargeIndex) in method data
-    int r = data[i];
+    int r = data[i];  // ERROR: i might be too large!
                 ^
 3 verification failures

@@ -1,8 +1,8 @@
 T_halt3.java:7: verify: The prover cannot establish an assertion (Assert) in method m
-      //@ assert i < 10;
+      //@ assert i < 10;   // ERROR: may be false!
           ^
 T_halt3.java:12: verify: The prover cannot establish an assertion (Postcondition: T_halt3.java:4:) in method m
-    return i;
+    return i;   // ERROR: may violate postcondition!
     ^
 T_halt3.java:4: verify: Associated declaration: T_halt3.java:12:
   //@ ensures \result == 0;

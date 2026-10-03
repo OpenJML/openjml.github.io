@@ -1,4 +1,4 @@
-T_LoopNegativeError.java:8: verify: The prover cannot establish an assertion (LoopDecreasesNonNegative) in method setToRamp
-    //@ decreases -i;
+T_LoopNegativeError.java:9: verify: The prover cannot establish an assertion (LoopDecreasesNonNegative) in method setToRamp
+    //@ decreases -i;    // ERROR: decreases must be nonnegative!
         ^
 1 verification failure

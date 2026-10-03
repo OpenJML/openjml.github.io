@@ -12,7 +12,7 @@ T_split1.java:17: verify: Show statement expression i has value 1
     //@ show p,i;
                ^
 T_split1.java:18: verify: The prover cannot establish an assertion (Postcondition: T_split1.java:4:) in method m
-    return i;
+    return i;  // ERROR: ensures clause not satisfied!
     ^
 T_split1.java:4: verify: Associated declaration: T_split1.java:18:
   //@ ensures i == 2;
@@ -30,7 +30,7 @@ T_split1.java:17: verify: Show statement expression i has value 1
     //@ show p,i;
                ^
 T_split1.java:18: verify: The prover cannot establish an assertion (Postcondition: T_split1.java:4:) in method m
-    return i;
+    return i;  // ERROR: ensures clause not satisfied!
     ^
 T_split1.java:4: verify: Associated declaration: T_split1.java:18:
   //@ ensures i == 2;
@@ -45,7 +45,7 @@ T_split1.java:17: verify: Show statement expression i has value 0
     //@ show p,i;
                ^
 T_split1.java:18: verify: The prover cannot establish an assertion (Postcondition: T_split1.java:4:) in method m
-    return i;
+    return i;  // ERROR: ensures clause not satisfied!
     ^
 T_split1.java:4: verify: Associated declaration: T_split1.java:18:
   //@ ensures i == 2;

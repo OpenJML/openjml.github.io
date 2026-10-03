@@ -1,4 +1,4 @@
 T_Exception2.java:13: verify: The prover cannot establish an assertion (PossiblyNullDeReference) in method value
-        return v.value;
+        return v.value;   // ERROR: v may be null!
                 ^
 1 verification failure

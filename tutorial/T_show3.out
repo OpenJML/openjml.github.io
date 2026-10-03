@@ -1,4 +1,4 @@
 T_show3.java:8: verify: The prover cannot establish an assertion (PossiblyTooLargeIndex) in method data
-    int r = data[i];
+    int r = data[i];   // ERROR: i might be too large!
                 ^
 1 verification failure

@@ -1,4 +1,4 @@
 T_LoopInitError.java:5: verify: The prover cannot establish an assertion (LoopInvariantBeforeLoop) in method setToRamp
-    //@ maintaining 0 < i <= a.length;
+    //@ maintaining 0 < i <= a.length;  // ERROR: false when i is 0!
         ^
 1 verification failure

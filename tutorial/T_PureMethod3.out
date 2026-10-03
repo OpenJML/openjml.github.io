@@ -1,4 +1,4 @@
 T_PureMethod3.java:20: error: Pure methods may not assign to any fields: count in T_PureMethod3.Counter.count()
-    //@ assigns count;
+    //@ assigns count;             // ERROR: pure methods can't assign fields!
                 ^
 1 error

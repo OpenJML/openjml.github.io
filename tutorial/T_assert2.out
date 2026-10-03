@@ -1,4 +1,4 @@
 T_assert2.java:12: verify: The prover cannot establish an assertion (Assert) in method example
-    //@ assert neg < 0;
+    //@ assert neg < 0;  // ERROR: may be false!
         ^
 1 verification failure

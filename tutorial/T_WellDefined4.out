@@ -1,4 +1,4 @@
 T_WellDefined4.java:5: verify: The prover cannot establish an assertion (PossiblyNullDeReference) in method example
-    o.f = 0; // a Java statement
+    o.f = 0; // a Java statement  // ERROR: o could be null!
      ^
 1 verification failure

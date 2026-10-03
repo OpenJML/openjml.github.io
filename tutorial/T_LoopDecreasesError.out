@@ -1,4 +1,4 @@
 T_LoopDecreasesError.java:8: verify: The prover cannot establish an assertion (LoopDecreases) in method setToRamp
-    //@ decreases i;
+    //@ decreases i;   // ERROR: i isn't decreasing!
         ^
 1 verification failure
