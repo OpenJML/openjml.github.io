@@ -35,17 +35,16 @@ precedence than `&&` and `||`, so `p && q ==> r || s` means
 Thus `p && q == r || s` means `(p && (q == r)) || s`, whereas
 `p && q <==> r || s` means `(p && q) <==> (r || s)`.
 Also `<==>` is left associative, so `p <==> q <==>r` means `(p <==> q) <==> r`), 
-though (a) the meaning is the same as if it were right associative and (b) 
+though: (a) the meaning is the same as if it were right associative and (b) 
 expressions that rely on associativity of `<==>` may be confusing and so perhaps should be avoided.
 * `<=!=>` (inequivalence): this operator is simply the negation of `<==>`
-and has the same precedence as `<==>`.  `<=!=>` is also left associative; that is, `p <=!=> q <==> r` means `(p <=!=> q) <==> r`, though again, expressions relying on associativity of `<=!=>` and `<==>` may be confusing and so perhaps should be avoided.
+and has the same precedence as `<==>`. The operator `<=!=>` is also left associative; that is, `p <=!=> q <==> r` means `(p <=!=> q) <==> r`, though again, expressions relying on associativity of `<=!=>` and `<==>` may be confusing and so perhaps should be avoided.
 
 Another important addition to JML is the *chaining* of relational operators.
 That is, instead of writing `i <= j && j < k`,
 one can write `i <= j < k`.
 Similarly, `i > j > k` means `i > j & j > k`.
-`<` and `<=` can be chained together and `>` and`>=` can be chained together,
-but the two groups cannot be mixed.
+The operators `<` and `<=` can each be chained together, but only separately, as but the two groups cannot be mixed, so combinations involving both `>` and`>=` are illegal. 
 Furthermore, `==` does not chain and in fact has a lower precedence than the 
 relational operators; thus `a < b == c < d` means `(a < b) == (c < d)` in both Java and JML. These chained operations are particularly convenient for writing
 ranges of indices. For example, for an array `a` one might constrain an index variable `i` as `0 <= i < a.length`.
@@ -97,7 +96,7 @@ The `\max` and `\min` quantifiers have the same form as the quantified expressio
 * `(\max int i; 0 <= i < a.length; a[i])`
 * `(\min int i; 0 <= i < a.length; a[i])`
 
-#### As a shorthand notation
+#### **As a shorthand notation**
 
 A first point to note is that these are each equivalent to a choose expression with a pair of forall and exists subexpressions inside.
 That is, `x == (\max ...; R; v)` where `x` has a numeric type `T`,
@@ -107,11 +106,11 @@ is equivalent to
 
 {% include_relative MinMaxExample.java %}
 
-#### Well-definedness
+#### **Well-definedness**
 
 A second point is that the quantified expression `(\min T x; R; V)` and `(\max T x; R; V)` are not well-defined if the range is empty (that is, when the range predicate, `R`, is false). 
 
-#### Type and arithmetic mode
+#### **Type and arithmetic mode**
 
 A third point is that the type of a quantified expression `(\min T x; R; V)` or `(\max T x; R; V)` is the same as the type of the value term (`V`). However the value term itself is evaluated in bigint-math mode and only when the max or min has been determined is the result cast back to the final type.
 
