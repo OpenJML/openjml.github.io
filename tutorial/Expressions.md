@@ -101,8 +101,8 @@ The `\max` and `\min` quantifiers have the same form as the quantified expressio
 A first point to note is that these are each equivalent to a choose expression with a pair of forall and exists subexpressions inside.
 That is, `x == (\max ...; R; v)` where `x` has a numeric type `T`,
 is equivalent to 
-`(\choose T v; (\exists T x; R; x == v); (\forall T x; R; x <= v))`. That is, the value of the `\max` expression is one of the elements being considered and is at least as large as all of them. Similarly, the value of `x == (\min ...; R; v)` is equivalent to
-`(\choose T v; (\exists T x ; R; x == v); (\forall T x ; R; v <= x))`, where `T` is again the type of `x`. That is, the value of the `\min` expression is a number that is one of the elements being considered and is no bigger than all of them. This can be see in the example below.
+`(\choose T v; (\exists T x; R; x == v) && (\forall T x; R; x <= v); v)`. That is, the value of the `\max` expression is one of the elements being considered and is at least as large as all of them. Similarly, the value of `x == (\min ...; R; v)` is equivalent to
+`(\choose T v; (\exists T x ; R; x == v) && (\forall T x ; R; v <= x); v)`, where `T` is again the type of `x`. That is, the value of the `\min` expression is a number that is one of the elements being considered and is no bigger than all of them. This can be see in the example below.
 
 {% include_relative MinMaxExample.java %}
 
