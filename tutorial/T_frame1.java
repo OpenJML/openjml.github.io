@@ -20,7 +20,7 @@ public class T_frame1 {
     //@ assume counter1 == 0 && counter2 == 0;
     increment1();
     //@ assert counter1 == 1;
-    //@ assert counter2 == 0;
+    //@ assert counter2 == 0;   // ERROR: see text!
   }
 }
   

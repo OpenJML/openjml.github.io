@@ -14,7 +14,7 @@ public class T_constraint {
     count++;
   }
 
-  public void m2() {
+  public void m2() { // ERROR: may violate constraint!
   }
 
   public static void m3() {

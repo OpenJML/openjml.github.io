@@ -2,6 +2,6 @@
 public class T_Rac1 {
 
   public static void main(String... args) {
-    //@ assert args.length == 1;
+    //@ assert args.length == 1;   // ERROR: assertion may be false!
   }
 }

@@ -2,7 +2,7 @@
 public class T_Nullness1 {
   //@ pure
   public static boolean has(String s, char c) {
-    return s.indexOf(c) != -1;
+    return s.indexOf(c) != -1;  // note: implicitly s is not null
   }
 
   static /*@ pure nullable */ String make(int i) {
@@ -11,7 +11,7 @@ public class T_Nullness1 {
   }
 
   public static void test(/*@ nullable */ String ss) {
-    boolean b = has(ss,'a');
+    boolean b = has(ss,'a');  // ERROR: may violate implicit precondition!
     b = has(make(2), 'a');
   }
 }

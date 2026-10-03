@@ -16,7 +16,7 @@ public class T_ensures2 {
             if (b > c) return b;
             else       return c;
         } else {
-            if (b > c) return b;
+            if (b > c) return b;   // ERROR: see text!
             else       return d;
         }
     }

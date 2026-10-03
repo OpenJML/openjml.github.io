@@ -7,8 +7,8 @@ public class T_PureMethod4 {
   public static int abs(int i) {
     return i >= 0 ? i : -i;
   }
-
+y
   public void test(int k) {
-    //@ assert k >= 0 ==> abs(k) >= k;
+    //@ assert k >= 0 ==> abs(k) >= k; // ERROR: postcondition doesn't prove it!
   }
 }

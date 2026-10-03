@@ -6,7 +6,7 @@ public class T_show4 {
   //@ requires i >= 0;
   public int data(int i) {
     //@ show i, data.length;
-    int r = data[i];
+    int r = data[i];  // ERROR: i might be too large!
     return r;
   }
 }

@@ -7,6 +7,6 @@ public class T_RacOutput {
   }
 
   public static void checkArgs(int len) {
-    //@ assert len == 1;
+    //@ assert len == 1;   // ERROR: len is not necessarily 1!
   }
 }

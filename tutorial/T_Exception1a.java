@@ -10,6 +10,6 @@ public class T_Exception1a {
     //@ ensures \result == v.value;
     //@ signals (NullPointerException e) v == null;
     public int value(V v) {
-        return v.value;
+        return v.value;   // ERROR: possible null pointer dereference!
     }
 }

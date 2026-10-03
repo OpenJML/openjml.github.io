@@ -5,7 +5,7 @@ public class T_LoopDecreasesError {
     //@ maintaining 0 <= i <= a.length;
     //@ maintaining (\forall int k; 0 <= k < i; a[k] == k);
     //@ loop_writes i, a[*];
-    //@ decreases i;
+    //@ decreases i;   // ERROR: i isn't decreasing!
     for (int i = 0; i < a.length; i++) {
         a[i] = i;
     }

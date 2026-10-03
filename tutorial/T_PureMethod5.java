@@ -11,10 +11,10 @@ public class T_PureMethod5 {
   }
 
   public void test1() {
-    //@ assert elementAt(0) == 0;
+    //@ assert elementAt(0) == 0;  // ERROR: assertion may be false!
   }
 
   public void test2() {
-    //@ assert elementAt(-1) == 0;
+    //@ assert elementAt(-1) == 0;   // ERROR: violates precondition!
   }
 }

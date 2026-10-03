@@ -7,7 +7,7 @@ public class T_Feasibility3 {
     //@ show i, j;
     if (i != j) {
       // Should never get here!
-      //@ unreachable
+      //@ unreachable   // ERROR: not true!
     }
   }
 

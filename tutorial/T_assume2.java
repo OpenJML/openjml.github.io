@@ -2,6 +2,6 @@
 public class T_assume2 {
   //@ requires i > 0;
   public void example(int i) {
-    //@ assert false; // Blatant verification failure
+    //@ assert false; // ERROR: Blatant verification failure!
   }
 }

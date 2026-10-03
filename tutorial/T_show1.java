@@ -7,6 +7,6 @@ public class T_show1 {
     if (b > maxSoFar) maxSoFar = b;
     if (c > maxSoFar) maxSoFar = c;
     if (d > maxSoFar) maxSoFar = c;
-    return maxSoFar;
+    return maxSoFar;   // ERROR: postcondition is not necessarily satisifed!
   }
 }

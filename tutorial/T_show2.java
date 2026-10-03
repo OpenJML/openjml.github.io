@@ -8,6 +8,6 @@ public class T_show2 {
     if (c > maxSoFar) maxSoFar = c;
     if (d > maxSoFar) maxSoFar = c;
     //@ show a, b, c, d, maxSoFar;
-    return maxSoFar;
+    return maxSoFar;   // ERROR: postcondition not necessarily satisified!
   }
 }

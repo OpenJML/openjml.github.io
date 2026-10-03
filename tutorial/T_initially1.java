@@ -8,7 +8,7 @@ public class T_initially1 {
 
   //@ ensures this.width == width && this.length == length;
   public T_initially1(int width, int length) {
-    this.width = width;
+    this.width = width;   // ERROR: can fail initially clause!
     this.length = length;
   }
 

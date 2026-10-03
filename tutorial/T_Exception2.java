@@ -10,6 +10,6 @@ public class T_Exception2 {
     //@ ensures \result == v.value;
     //@ signals (Exception e) false;
     public int value(V v) {
-        return v.value;
+        return v.value;   // ERROR: v may be null!
     }
 }

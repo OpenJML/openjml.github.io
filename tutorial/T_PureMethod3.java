@@ -17,7 +17,7 @@ public class T_PureMethod3 {
     }
 
     //@ requires count < maxCount;
-    //@ assigns count;
+    //@ assigns count;             // ERROR: pure methods can't assign fields!
     //@ ensures count == \old(count+1);
     //@ spec_pure
     public void count() { ++count; }

@@ -2,7 +2,7 @@
 public class T_LoopInitError {
 
   public void setToRamp(int[] a) {
-    //@ maintaining 0 < i <= a.length;
+    //@ maintaining 0 < i <= a.length;  // ERROR: false when i is 0!
     //@ maintaining (\forall int k; 0 <= k < i; a[k] == k);
     //@ loop_writes i, a[*];
     //@ decreases a.length -i;

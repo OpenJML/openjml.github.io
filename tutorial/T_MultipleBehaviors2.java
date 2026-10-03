@@ -10,6 +10,6 @@ public class T_MultipleBehaviors2 {
   //@  ensures \result == a;
   //@ pure
   public int max(int a, int b, int c) {
-    return a >= b ? ( c >=  a ? c : a) : (c >= b ? c : b);
+    return a >= b ? ( c >=  a ? c : a) : (c >= b ? c : b);  // ERROR: see text
   }
 }

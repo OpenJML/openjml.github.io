@@ -9,16 +9,16 @@ public class T_CallerCallee {
   }
 
   public void caller2() {
-     boolean b1 = lessThanDouble(-1, -2);
+    boolean b1 = lessThanDouble(-1, -2);  // ERROR: may violate precondition!
   }
 
   public void caller3() {
-     boolean b2 = lessThanDouble(2, 2);
+    boolean b2 = lessThanDouble(2, 2);   // ERROR: may violate precondition!
   }
 
   public void caller4() {
      boolean b = lessThanDouble(4,2);
-     //@ assert b == true;
+     //@ assert b == true;   // ERROR: may be false!
   }
 
   //@ requires x > y && y >= 0;

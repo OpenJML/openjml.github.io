@@ -15,6 +15,6 @@ public class T_initially2 {
 
   //@ ensures this.width == 0 && this.length == 0;
   public T_initially2() {
-    this(0,0);
+    this(0,0);   // ERROR: precondition fails!
   }
 }

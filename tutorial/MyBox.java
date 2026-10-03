@@ -16,7 +16,7 @@ public class MyBox {
 
   //@ assigns size;
   public void shrink() {
-    size = size - 10; // FAILS to establish invariant on exit
+    size = size - 10; // ERROR: doesn't establish invariant on exit
   }
 
   //@ public normal_behavior
@@ -52,13 +52,13 @@ public class MyBox {
     //@ check b.size >= 0;
     b.changeSizeH();
     //@ check b.sizeH() == b.size;
-    //@ check b.sizeH() >= 0; // FAILS -- changeSizeH does not assume nor is required to establish the invariant
-                               //          so the assertion may fail
+    //@ check b.sizeH() >= 0; // ERROR: changeSizeH does not assume nor is required to establish the invariant
+                               //       so the assertion may fail
     b.size = 0;
   }
   public static void test4(MyBox b) {
     b.changeSizeH();
-    //@ assert b.size() >= 0; // FAILS -- invariants not necessarily true, so size() is not allowed to be called
+    //@ assert b.size() >= 0; // ERROR: invariants may not hold, so size() can't be called
     b.size = 0;
   }
 }

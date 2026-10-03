@@ -15,6 +15,6 @@ public class T_split1 {
     } else {
     }
     //@ show p,i;
-    return i;
+    return i;  // ERROR: ensures clause not satisfied!
   }
 }

@@ -9,6 +9,6 @@ public class T_assert2 {
     } else {
       neg = i;
     }
-    //@ assert neg < 0;
+    //@ assert neg < 0;  // ERROR: may be false!
   }
 }

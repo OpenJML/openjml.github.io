@@ -3,6 +3,6 @@
 public class T_NullnessDefault2 {
 
   public void test(String s) {
-    int h = s.hashCode();
+    int h = s.hashCode();   // ERROR: s may be null!
   }
 }

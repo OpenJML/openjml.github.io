@@ -11,7 +11,7 @@ public class T_Exception1b {
     //@ signals (NullPointerException e) v == null;
     //@ signals_only \nothing;
     public int value(V v) {
-        if (v == null) throw new NullPointerException();
+        if (v == null) throw new NullPointerException();   // ERROR: violation!
         return v.value;
     }
 }

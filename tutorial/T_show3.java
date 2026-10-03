@@ -5,7 +5,7 @@ public class T_show3 {
   private int[] data = new int[10];
   //@ requires i >= 0;
   public int data(int i) {
-    int r = data[i];
+    int r = data[i];   // ERROR: i might be too large!
     //@ show i, r;
     return r;
   }
