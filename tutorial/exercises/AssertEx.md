@@ -5,21 +5,25 @@ title: JML Tutorial - Exercises - Assert Statements
 ## [Assert Statements Tutorial](https://www.openjml.org/tutorial/AssertStatement)
 
 ## **Question 1**
-**Given the code below, write the assertions needed to verify the function, including the assert statements where indicated.**
+**Given the code below, write specifications to verify the function max, including the assert statements where indicated. See [the tutorial on visibility](https://openjml.org/tutorial/Visibility.html) for the meaning of the `spec_public` annotation, which is not important for this exercise.**
 ```Java
-public void max(int a, int b, int c) {
-	int max;
-	
-	if(a >= b && a >= c) {
- 	    max = a;
-	    //first assert
-	}else if(b >= a && b >= c) {
-	    max = b;
-	    //second assert
-	}else {
-	    max = c;
-	}				
-	//third assert
+public class AssertExample1 {
+
+    private /*@ spec_public @*/ int max;
+
+    public void max(int a, int b, int c) {
+        if (a >= b && a >= c) {
+            max = a;
+            // first assert
+        } else if (b >= a && b >= c) {
+            max = b;
+            // second assert
+        } else {
+            max = c;
+        }
+        // third assert
+    }
+
 }
 ```
 
@@ -58,7 +62,7 @@ public boolean primeChecker(int num) {
 ## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**
 
 ## Resources
-+ [Java code containing max](AssertExample1.java)
-+ [Java code containing primeChecker](JMLExprExample1.java)
++ [Java code for question 1](AssertExample1.java)
++ [Java code for question 2](JMLExprExample1.java)
 
 ## Footnotes
