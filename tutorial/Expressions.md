@@ -96,6 +96,8 @@ The `\max` and `\min` quantifiers have the same form as the quantified expressio
 * `(\max int i; 0 <= i < a.length; a[i])`
 * `(\min int i; 0 <= i < a.length; a[i])`
 
+The implementation of these two expressions in OpenJML is in progress. Don’t count on them working yet.
+
 #### **As a shorthand notation**
 
 A first point to note is that these are each equivalent to a choose expression with a pair of forall and exists subexpressions inside.
@@ -104,7 +106,45 @@ is equivalent to
 `(\choose T v; (\exists T x; R; x == v) && (\forall T x; R; x <= v); v)`. That is, the value of the `\max` expression is one of the elements being considered and is at least as large as all of them. Similarly, the value of `x == (\min ...; R; v)` is equivalent to
 `(\choose T v; (\exists T x ; R; x == v) && (\forall T x ; R; v <= x); v)`, where `T` is again the type of `x`. That is, the value of the `\min` expression is a number that is one of the elements being considered and is no bigger than all of them. This can be see in the example below.
 
-{% include_relative MinMaxExample.java %}
+```Java
+    //@ requires 0 < a.length;
+    //@ requires (\forall int i; 0 <= i < a.length; 0 < a[i]);
+    //@ ensures \result == (\min int m; 0 <= m < a.length; a[m]);
+    //@ spec_pure
+    public int minOfPosArray (int[] a) {
+        int val = a[0];
+        int k;
+        for (k = 0; k < a.length; k++) {
+            //@ assume 0 <= k < a.length;
+            if (a[k] < val) {
+                val = a[k];
+            }
+        }
+        //@ assume k == a.length;
+        //@ assume (\forall int m; 0 <= m < k; val <= a[m]);
+        //@ assume (\exists int n; 0 <= n < a.length; val == a[n]);
+        return val;
+    }
+
+    //@ requires 0 < a.length;
+    //@ requires (\forall int i; 0 <= i < a.length; 0 < a[i]);
+    //@ ensures \result == (\max int m; 0 <= m < a.length; a[m]);
+    //@ spec_pure
+    public int maxOfPosArray (int[] a) {
+        int val = a[0];
+        int k;
+        for (k = 0; k < a.length; k++) {
+            //@ assume 0 <= k < a.length;
+            if (val < a[k]) {
+                val = a[k];
+            }
+        }
+        //@ assume k == a.length;
+        //@ assume (\forall int m; 0 <= m < k; a[m] <= val);
+        //@ assume (\exists int n; 0 <= n < a.length; val == a[n]);
+        return val;
+    }
+```
 
 #### **Well-definedness**
 
@@ -116,25 +156,25 @@ A third point is that the type of a quantified expression `(\min T x; R; V)` or 
 
 ### sum and product
 
-The `\sum` and `\product` quantifiers add up or multiply together all the values of the value term for which the range term is true. For example, the sum or product of all the elements in an array `a` would be expressed as
-* `(\sum int i; 0 <= i < a.length; a[i])`
+The `\sum` and `\product` quantifiers add up or multiply together all the values of the value term for which the range term is true. For example, the sum and product of all the elements in an array `a` could be expressed as:
+* `(\sum int i; 0 <= i < a.length; a[i])` and
 * `(\product int i; 0 <= i < a.length; a[i])`
 
 The type of these operations is `\bigint` simply because overflow is a distinct possibility. The result can always be cast to a desired final type, at which point the final value is checked that it is actually in range for the desired type.
 
 If the range predicate is empty (i.e., false) then the sum is 0 and the product is 1. So these expressions are well-defined even when the range predicate is empty.
 
-The implementation of these two expressions in JML tools is in progress. Don't count on them working yet.
+The implementation of these two expressions in OpenJML is in progress. Don't count on them working yet.
 
 ### num_of
 
 A final quantified expression is `\num_of` which counts the number of times the boolean value term is true when the range term is also true. For example,
-`(\numof int i; 0 <= i < a.length; a[i] == 0)` counts the number of elements of the array `a` that are 0. Quite obviously
+`(\numof int i; 0 <= i < a.length; a[i] == 0)` counts the number of elements of the array `a` that are 0. Obviously,
 `(\num_of ...; R; V)` is equivalent to `(\sum ... ; R && V; 1)`. The type of a `\num_of` expression is `\bigint` and it can be cast to a desired final type; if the range is empty the value of the expression is 0.
 
-The implementation of this expression in JML tools is in progress. Don't count on it working yet.
+The implementation of this expression in OpenJML is in progress. Don't count on it working yet.
 
-TODO - what about \let
+TODO - what about `\let`?
 
 ## **[Exercises](https://www.openjml.org/tutorial/exercises/JmlExprEx.html)**
 
