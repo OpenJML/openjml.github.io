@@ -3,24 +3,24 @@ public class AssertExample2Ans {
     
 public boolean primeChecker(int num) {
         //@ assume num > 0;
-	boolean flag = true;
+	boolean isPrime = true;
         int i;
 	for (i = 2; i < num/2; i++) {
-                //@ assume flag && 2 <= i;
+                //@ assume isPrime && 2 <= i;
 		if (num % i == 0) {
 			//@ assert num % i == 0;
-			flag = false;
-			return flag;
+			isPrime = false;
+			return isPrime;
 		}
-                //@ assert flag;
+                //@ assert isPrime;
 	}
-        //@ assume flag && 2 <= i;
+        //@ assume isPrime && 2 <= i;
         if (num % i == 0) {
-            flag = false;
-            return flag;
+            isPrime = false;
+            return isPrime;
         }
-        //@ assert flag;
-	return flag;
+        //@ assert isPrime;
+	return isPrime;
 }
 
 }
