@@ -102,6 +102,4 @@ The goal of this exercise is to see if the student can identify what assertions 
 
 ## **Resources:**
 + [Assert Statements Exercises](AssertEx.md)
-+ [Question 1 Java](AssertExample1.java)
-+ [Question 2 Java](AssertExample2.java)
 + [All exercises](https://www.openjml.org/tutorial/exercises/exercises)
