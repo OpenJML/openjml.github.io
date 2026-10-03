@@ -1,4 +1,4 @@
-// openjml --check T_Old.java
+// openjml --esc --timeout=120 T_Old.java
 public class T_Old {
 
   //@ requires x > 0 && y > 0;
