@@ -180,3 +180,5 @@ TODO - what about `\let`?
 
 Follow the link in the above heading to work on the exercises on this topic.
 
+## Resources
++ [Java file contining the `min` and `max` methods](MinMaxExample.java)
