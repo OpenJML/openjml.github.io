@@ -70,7 +70,7 @@ The method `primeChecker` checks if a number passed in is prime, and returns `tr
 
 For the assertions, we know that the method will stop and return `false` if it finds that `num` is evenly divisible by an integer between 2 and the `num/2`. Thus, if the function runs through the entire for-loop, it returns `true`, since then `num` must be prime. So, we can assert that the function will set `isPrime` to `false` if `num % i == 0`, and we can also assert that `isPrime` will still be `true` if the function runs through the for-loop without stopping.
 
-It is possible to summarize the effects of this code in several different ways. See [the section on postconditions](https://openjml.org/tutorial/PostConditions.html) for a way to summarize the code in a postcondition. You might also want to return to this example after learning how to [specify loops](https://openjml.org/tutorial/Loops.html).
+It is possible to summarize the effects of this code in several different ways. See [the section on postconditions](https://openjml.org/tutorial/Postconditions.html) for a way to summarize the code in a postcondition. You might also want to return to this example after learning how to [specify loops](https://openjml.org/tutorial/Loops.html).
 
 ## **Resources:**
 + [Assert Statements Exercises](AssertEx.md)
