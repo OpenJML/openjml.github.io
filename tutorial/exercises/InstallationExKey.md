@@ -25,6 +25,6 @@ TestOpenJML.java:6: verify: The prover cannot establish an assertion (Assert) in
 ```
 
 ## **Resources:**
-+ [Installation Exercises](installationEx)
++ [Installation Exercises](InstallationEx)
 + [Question 2 Java](TestOpenJML.java)
 + [All exercises](https://www.openjml.org/tutorial/exercises/exercises)
