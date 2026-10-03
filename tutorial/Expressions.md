@@ -2,10 +2,9 @@
 title: JML Tutorial - JML Expressions
 ---
 
-The lessons on pre- and post-conditions (and those on assert and assume
-statements) all show examples of *expressions* used in JML clauses.
+The lessons on [assert](AssertStatement) and [assume](AssumeStatement) (as well as coming lessons on [preconditions](Preconditions) and [postconditions](Postconditions)) all show examples of *expressions* used in JML clauses.
 As expressions are a building block for nearly all other JML constructs, 
-we include a couple lessons at this point to introduce JML expressions.
+we include lessons here to introduce JML expressions.
 
 JML expressions look very much  like Java expressions.
 Indeed, the JML expression syntax includes all of the Java expression
@@ -23,24 +22,23 @@ static reasoning, however, execution efficiency does not matter.
 In static reasoning, `&` and `|` are simpler to reason about, but 
 `&&` and `||` are often needed because of [well-definedness considerations](WellDefinedExpressions).
 
-But JML also adds to Java some new operators and expression syntax. The new operators are these:
+JML also adds to Java some new operators and expression syntax. The new operators are these:
 
 * `==>` (implication): this binary operator takes two boolean operands, e.g., `p` and `q`; `p ==> q` is read as "p implies q" and means the same as logical implication, that is, the same as "not p or q". 
-The implication operator is short-circuiting. That is, the value and well-definedness of the right-hand-side is immaterial, unless the left-hand-side is true. In other words, `p ==> q` is precisely equivalent to `!p || q`.
+The implication operator is short-circuiting. That is, the value and well-definedness of the right-hand-side is not evaluated, unless the left-hand-side is true. In other words, `p ==> q` is precisely equivalent to `!p || q`.
 The implication operator has lower 
 precedence than `&&` and `||`, so `p && q ==> r || s` means
 `(p && q) ==> (r || s)`. `==>` is *right* associative, so that
 `p ==> q ==> r` means `p ==> (q ==> r)`, which is the same as `(p && q) ==> r`.
 * `<==>` (equivalence): this is also a binary operation between boolean values.
-`p <==> q` means the same as `p == q`, except that `<==>` has lower precedence than `&&` and `||`, whereas `==` has higher precedence. 
+`p <==> q` means the same as `p == q`, except that `<==>` has lower precedence than `&&` and `||` and `==>`, whereas `==` has higher precedence. 
 Thus `p && q == r || s` means `(p && (q == r)) || s`, whereas
 `p && q <==> r || s` means `(p && q) <==> (r || s)`.
 Also `<==>` is left associative, so `p <==> q <==>r` means `(p <==> q) <==> r`), 
 though (a) the meaning is the same as if it were right associative and (b) 
 expressions that rely on associativity of `<==>` may be confusing and so perhaps should be avoided.
 * `<=!=>` (inequivalence): this operator is simply the negation of `<==>`
-and has the same precedence as `<==>`.  `<=!=>` is left associative:
-`p <=!=> q <==> r` is `(p <=!=> q) <==> r`, though again, expressions relying on associativity of `<=!=>` and `<==>` tend to be confusing and so perhaps should be avoided.
+and has the same precedence as `<==>`.  `<=!=>` is also left associative; that is, `p <=!=> q <==> r` means `(p <=!=> q) <==> r`, though again, expressions relying on associativity of `<=!=>` and `<==>` may be confusing and so perhaps should be avoided.
 
 Another important addition to JML is the *chaining* of relational operators.
 That is, instead of writing `i <= j && j < k`,
@@ -49,7 +47,7 @@ Similarly, `i > j > k` means `i > j & j > k`.
 `<` and `<=` can be chained together and `>` and`>=` can be chained together,
 but the two groups cannot be mixed.
 Furthermore, `==` does not chain and in fact has a lower precedence than the 
-relational operators: `a < b == c < d` means `(a < b) == (c < d)` in both Java and JML. These chained operations are particularly convenient for writing
+relational operators; thus `a < b == c < d` means `(a < b) == (c < d)` in both Java and JML. These chained operations are particularly convenient for writing
 ranges of indices. For example, for an array `a` one might constrain an index variable `i` as `0 <= i < a.length`.
 
 In addition quantified expressions are described below and two other advanced operators are presented in Advanced topics lessons:
@@ -57,21 +55,18 @@ In addition quantified expressions are described below and two other advanced op
 * `<#` `<#=` [Reasoning about locks](Locks)
 
 Finally, there are many keywords that designate either singleton values (e.g. `\result`) or function-like operations (e.g., `\typeof(...)`. These will be 
-explained as needed in future lessons, although one, `\result`, you have already seen. All JML keywords used within expressions begin with a backslash, so they
-cannot conflict with Java identifiers.
-
-For example the expression `0 <= \result < a.length` says that the result of the method (`\result`) is a legal index into the array `a`.
+explained as needed in future lessons. For example the expression `0 <= \result < a.length` says that the result of the method (`\result`) is a legal index into the array `a`. All JML keywords used within expressions begin with a backslash, so they do not conflict with Java identifiers.
 
 Of course, these JML operators and functions (and all other JML syntax) can only be used within JML annotations, not in Java code.
 
 ## Quantified expressions {#QuantifiedExpressions}
 
-A general point about all these quantified expressions is that any numeric subexpressions are evaluated in [bigint-math mode](ArithmeticModes) so that there is no concern about overflow in evaluating the expression. Furthermore, arithmetic mode operators (that change the mode of a subexpression) are not allowed within a quantified expression. On the other hand, the result of a quantified expression may be cast to a desired type, since that cast will operate when the expression's computation is complete.
+A general point about all these quantified expressions is that any numeric subexpressions are evaluated in [bigint-math mode](ArithmeticModes) so that there is no concern about overflow in evaluating the expression. Furthermore, arithmetic mode operators (that change the mode of a subexpression) are not allowed within a quantified expression. On the other hand, the result of a quantified expression may be cast to a desired type, since that cast will operate when the value of the quantified expression is known.
 
 ### forall and exists
 
 Quantified expressions are common in logic and are just as necessary in JML to express properties over collections of objects.
-The two most common expressions are universal and existential quantification. Here are some common examples:
+The two most common expressions are universal and existential quantification. The following are some common examples involving arrays:
 * `(\forall int i; 0 <= i < a.length; a[i] == 2*i)`
 * `(\exists int i; 0 <= i < a.length; a[i] == 0)`
 
@@ -89,29 +84,36 @@ These expressions are very commonly used in reasoning about loops, arrays, seque
 ### choose
 
 The `\choose` predicate is similar to the `\exists` predicate. Whereas `(\exists ...\; R; V)` is true if there is some index for which `R && V` is true,
-`\choose` can return that value (as the value of the expression). For example, the value of `(\choose int i; 0 <= i < a.length; a[i] == 0)` is an `int` for which the range and predicate are true, that is in this example, for which the array element is 0. The type of the expression is always the type of the declaration of the declared local variable, as that quantified variable's value is returned as the value of the expression when the predicate (`a[i] == 0` in this example) is true.
+`\choose` can return that value (as the value of the expression). For example, the value of `(\choose int i; 0 <= i < a.length; a[i] == 0)` is an `int` for which the range and predicate are true, that is in this example, an index (`i`) of array `a` that is 0. The type of the expression is always the type of the declaration of the declared local variable (`i` in the example), as that quantified variable's value is returned as the value of the expression when the range (`0 <= i < a.length`) and the predicate (`a[i] == 0` in this example) are true.
 
 If there is more than one such value (in our example more than one such index), the result of the expression might be any one of them, but it will always the same one for a semantically identical expression.
 But the fact that the value could be any one satisfying the predicate means that an assertion that uses that value must hold for all cases in which the predicate is true. For example in the expression `P(\choose int i; 0 <= i < a.length; a[i] == 0)`, the value of the overall expression should not depend on the value chosen for `i`.
 
-If `R && V` is false, that is there is no such index, then the expression is not [well-defined](WellDefinedExpressions). Thus, to make sure that a `\choose` predicate is always well-defined, one should make sure that the conjunction of the range expression and the value expression (i.e., `R && V`) is never false.
+If `R && V` is false, (in our example, if there is no such index), then the expression is not [well-defined](WellDefinedExpressions). Thus, to make sure that a `\choose` predicate is always well-defined, one should make sure that the conjunction of the range expression and the value expression (i.e., `R && V`) is never false (which is equivalent to the same expression, with `\choose` replaced by `\exists` being true).
  
 ### max and min
 
-The `\max` and `\min` predicates have the same form except that the value term must be numeric, so that the concepts of "maximum" and "minimum" are meaningful. You might ask, for example, for the maximum and minimum values of an array:
+The `\max` and `\min` quantifiers have the same form as the quantified expressions above, except that the value term must be numeric, so that the concepts of "maximum" and "minimum" are meaningful. You might ask, for example, for the maximum and minimum values of an array:
 * `(\max int i; 0 <= i < a.length; a[i])`
 * `(\min int i; 0 <= i < a.length; a[i])`
+
+#### As a shorthand notation
 
 A first point to note is that these are each equivalent to a choose expression with a pair of forall and exists subexpressions inside.
 That is, `x == (\max ...; R; v)` where `x` has a numeric type `T`,
 is equivalent to 
-`(\choose T v; (\forall ... ; R; x <= v) && (\exists ... ; R; x == v); v)`. That is, the value of the `\max` expression is a number that is at least as large as all the elements being considered and is equal to at least one of them. Similarly, the value of `x == (\min ...; R; v)` is equivalent to
-`(\choose T v; (\forall ... ; R; v <= x) && (\exists ... ; R; x == v); v)`, where `T` is again the type of `x`. That is, the value of the `\min` expression is a number that is no bigger than all the elements being considered and is equal to at least one of them.
+`(\choose T v; (\exists T x; R; x == v); (\forall T x; R; x <= v))`. That is, the value of the `\max` expression is one of the elements being considered and is at least as large as all of them. Similarly, the value of `x == (\min ...; R; v)` is equivalent to
+`(\choose T v; (\exists T x ; R; x == v); (\forall T x ; R; v <= x))`, where `T` is again the type of `x`. That is, the value of the `\min` expression is a number that is one of the elements being considered and is no bigger than all of them. This can be see in the example below.
 
-A second point is that these expressions are not well-defined if the range is empty (that is, when the range predicate is false). 
+{% include_relative MinMaxExample.java %}
 
-A third point is that the type of the expression is the same as the type of the value term. However the value term itself is evaluated in bigint-math mode
-and only when the max or min has been determined is the result cast back to the final type.
+#### Well-definedness
+
+A second point is that the quantified expression `(\min T x; R; V)` and `(\max T x; R; V)` are not well-defined if the range is empty (that is, when the range predicate, `R`, is false). 
+
+#### Type and arithmetic mode
+
+A third point is that the type of a quantified expression `(\min T x; R; V)` or `(\max T x; R; V)` is the same as the type of the value term (`V`). However the value term itself is evaluated in bigint-math mode and only when the max or min has been determined is the result cast back to the final type.
 
 ### sum and product
 
