@@ -24,7 +24,7 @@ public class TestOpenJML {
 + Install OpenJML
 + Be able to tell if the installation is working.
 
-## **[Answer Key](InstallationExKey.md)**
+## **[Answer Key](InstallationExKey)**
 ## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**
 
 ## Resources

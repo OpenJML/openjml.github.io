@@ -13,9 +13,9 @@ file or place it on your system PATH.
 * OpenJML is a modified version of the OpenJDK `javac`. It is a standalone, 
 encapsulated executable; no installation of Java is needed to run it.
 
-## **[Installation Exercises](https://www.openjml.org/tutorial/exercises/InstallationEx.html)**
+## **[Exercises](https://www.openjml.org/tutorial/exercises/InstallationEx.html)**
 
-Follow the link in the above heading to work on the exercises that deal with installing OpenJML.
+Follow the link in the above heading to work on the exercises for this lesson.
 
 ## Resources
 + [Instructions for running openjml and for executing the tutorial's examples](Execution)
