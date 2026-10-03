@@ -40,27 +40,36 @@ Note that in JML, one cannot use `\result` (see [the tutorial section on postcon
 Furthermore, since the field `max` is declared outside the method as `private` but the field is used in a public specification there would be a visibility problem in JML (see [the tutorial section on visibility](https://openjml.org/tutorial/Visibility.html) for details). This is the reason that the field `max` is declared to be `spec_public`.
 
 ## **Question 2**
-One way to write these assertions is as in the following.
+One way to write these assertions is the following.
 
 ```Java
 public boolean primeChecker(int num) {
-	boolean flag = true;
-	for (int i = 2; i <= num / 2; i++) {
-		//@ assume i > 0;
+        //@ assume num > 0;
+	boolean isPrime = true;
+        int i;
+	for (i = 2; i < num/2; i++) {
+                //@ assume isPrime && 2 <= i;
 		if (num % i == 0) {
-			flag = false;
 			//@ assert num % i == 0;
-			return flag;
+			isPrime = false;
+			return isPrime;
 		}
+                //@ assert isPrime;
 	}
-	//@ assert flag == true;
-	return flag;
+        //@ assume isPrime && 2 <= i;
+        if (num % i == 0) {
+            isPrime = false;
+            return isPrime;
+        }
+        //@ assert isPrime;
+	return isPrime;
 }
 ```
 
-The method `primeChecker` checks if a number passed in is prime, and returns `true` just when it is. The `assume` statement is needed to check this code without being warned about a possible division by 0.
+The method `primeChecker` checks if a number passed in is prime, and returns `true` just when it is. The `assume` statements are needed to check this code without being warned about: possible division by zero and the fact that the loop body maintains the value of `isPrime` when it loops another time (see [the section on specifying loops](https://openjml.org/tutorial/Loops.html) for more about this).  (It might indeed be better to avoid using the variable `isPrime` completely; do you see how to do that?)
 
-For the assertions, we know that the method will stop and return `false` if it finds that `num` is evenly divisible by an integer between 2 and the `num/2`. Thus, if the function runs through the entire for-loop, it returns `true`, since then `num` must be prime. So, we can assert that the function will set `flag` to `false` if `num % i == 0`, and we can also assert that `flag` will be set to true if the function runs through the for-loop without stopping. So we can write the following:
+For the assertions, we know that the method will stop and return `false` if it finds that `num` is evenly divisible by an integer between 2 and the `num/2`. Thus, if the function runs through the entire for-loop, it returns `true`, since then `num` must be prime. So, we can assert that the function will set `isPrime` to `false` if `num % i == 0`, and we can also assert that `isPrime` will be set to true if the function runs through the for-loop without stopping. So we can write the following:
+
 ```Java
 //@ requires num > 0;
 //@ ensures \result <==> !(\exists int i; i >= 2; num % i == 0);
@@ -81,9 +90,6 @@ public boolean primeChecker(int num) {
 	return isPrime;
 }
 ```
-
-**Learning Objective:** 
-The goal of this exercise is to see if the student can identify what assertions can be made at certain points in the code. To avoid confusion the student is told where in the code the assert is meant to me added. This exercise also checks that the student understand that we cannot assert false because this will cause an error in OpenJML, which is why we assert that the variable flag can be false.
 
 ## **Resources:**
 + [Assert Statements Exercises](AssertEx.md)
