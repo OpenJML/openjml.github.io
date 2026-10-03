@@ -5,23 +5,24 @@ title: JML Tutorial - Exercises - Assert Statements
 ## [Assert Statements Tutorial](https://www.openjml.org/tutorial/AssertStatement)
 
 ## **Question 1**
-**Given the code below determine the any specifications needed to verify the function, as well as the assert statements where indicated.**
+**Given the code below, write the assertions needed to verify the function, including the assert statements where indicated.**
 ```Java
 public void max(int a, int b, int c) {
 	int max;
 	
 	if(a >= b && a >= c) {
-		max = a;
-	//first assert
+ 	    max = a;
+	    //first assert
 	}else if(b >= a && b >= c) {
-		max = b;
-	//second assert
+	    max = b;
+	    //second assert
 	}else {
-		max = c;
+	    max = c;
 	}				
 	//third assert
 }
 ```
+
 **Learning Objectives:** 
 + Understand how `assert` can be used
 + Understand the relationship between `assert` statements and postconditions 
@@ -29,7 +30,7 @@ public void max(int a, int b, int c) {
 ## **Question 2**
 **Given the function below, write the strongest[^1] assert statements that will pass at the places indicated.**
 
-[^1] An assert statement `assert P;` is stronger
+[^1]: An assert statement `assert P;` is stronger
 than assert statement `assert Q;` when the predicate `P` is stronger than the predicate `Q` (that is, when `P` implies `Q`).
 See (the tutorial section on preconditions)[https://www.openjml.org/tutorial/Preconditions] for more about the strength of predicates.
 
@@ -57,5 +58,9 @@ public boolean primeChecker(int num) {
 
 ## **[Answer Key](AssertExKey.md)**
 ## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**
+
+## Resources
++ [Java code containing max](AssertExample1.java)
++ [Java code containing primeChecker](JmlExprExample1.java)
 
 ## Footnotes
