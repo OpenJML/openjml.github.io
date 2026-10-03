@@ -36,7 +36,7 @@ First, let’s understand what the code is doing. The method `max3` takes in thr
 
 An equivalent to the third `assert` (at the end of the method body) would be a postcondition, which could be as shown in the ensures clause of `max3` above. Also, both the assert and the postcondition can be included, but once there is a postcondition, the third assert becomes redundant.
 
-Note that in JML, one cannot use `\result` (see [the tutorial section on postconditions](https://openjml.org/tutorial/Posconditions.html)) in a postcondition for a method that is `void`, like `max3` in this exercise. If you know about `\result` already, think of the field `max` as holding the result of the method's computation.
+Note that in JML, one cannot use `\result` (see [the tutorial section on postconditions](https://openjml.org/tutorial/Postconditions.html)) in a postcondition for a method that is `void`, like `max3` in this exercise. If you know about `\result` already, think of the field `max` as holding the result of the method's computation.
 
 Furthermore, since the field `max` is declared outside the method as `private` but the field is used in a public specification there would be a visibility problem in JML (see [the tutorial section on visibility](https://openjml.org/tutorial/Visibility.html) for details). This is the reason that the field `max` is declared to be `spec_public`.
 
