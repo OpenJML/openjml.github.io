@@ -1,4 +1,4 @@
-// openjml --esc JMLExprExample1Ans.java
+// openjml --check JMLExprExample1Ans.java
 public class JMLExprExample1Ans {
     
 //@ requires num > 0;
