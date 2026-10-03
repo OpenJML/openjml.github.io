@@ -23,7 +23,7 @@ public boolean primeChecker(int num) {
             isPrime = false;
             return isPrime;
         }
-        // //@ assert !(\exists int j; 2 <= j && j <= num/2; num % j == 0);
+        //@ assert !(\exists int j; 2 <= j && j <= num/2; num % j == 0);
         //@ assert isPrime;
 	return isPrime;
 }
