@@ -1,5 +1,5 @@
-// openjml --esc AssumeExample1.java
-public class AssumeExample1 {
+// openjml --esc AssumeExample1Ans.java
+public class AssumeExample1Ans {
     //@ requires a != null;
     //@ ensures \result.length == a.length;
     public int[] reverseArray(int[] a) {
@@ -7,8 +7,8 @@ public class AssumeExample1 {
         int[] b = new int[len];
         
         for (int i = 0; i < a.length; i++) {
-            // first assume here (or both combined)
-            // second assume here
+            //@ assume 0 <= i < a.length;
+            //@ assume 0 <= len-1 < a.length;
             b[len - 1] = a[i];
             len--;			
         }
