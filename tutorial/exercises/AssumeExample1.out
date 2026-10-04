@@ -1,0 +1,13 @@
+AssumeExample1.java:11: verify: The prover cannot establish an assertion (PossiblyTooLargeIndex) in method reverseArray
+            b[len-1] = a[i];
+             ^
+AssumeExample1.java:11: verify: The prover cannot establish an assertion (PossiblyNegativeIndex) in method reverseArray
+            b[len-1] = a[i];
+             ^
+AssumeExample1.java:11: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method reverseArray: underflow in int difference
+            b[len-1] = a[i];
+                 ^
+AssumeExample1.java:11: verify: The prover cannot establish an assertion (PossiblyNegativeIndex) in method reverseArray
+            b[len-1] = a[i];
+                        ^
+4 verification failures
