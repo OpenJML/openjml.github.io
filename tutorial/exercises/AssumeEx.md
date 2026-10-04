@@ -5,25 +5,22 @@ title: JML Tutorial - Exercises - Assume Statements
 ## [Assume Statements Tutorial](https://www.openjml.org/tutorial/AssumeStatement)
 
 ## **Question 1**
-**Given the method below, write assume statements (or a single assume statement) that are (is) needed to verify the method, where the comments indicate.** (Note that sometimes it is helpful to write two separate `assume` or `assert` statements, to make debugging easier, instead of combining them with a conjunction such as `&` or `&&`).
+**Given the code below, write assume statements (or a single assume statement) needed to verify the code, where the comments indicate.** (Sometimes it is helpful to write two separate `assume` or `assert` statements, to make debugging easier, instead of combining them with a conjunction such as `&` or `&&`).
 ```Java
-public class AssumeExample1 {
-    //@ requires a != null;
-    //@ ensures \result.length == a.length;
     public int[] reverseArray(int[] a) {
+        //@ assume 0 < a.length;
         int len = a.length;
         int[] b = new int[len];
         
         for (int i = 0; i < a.length; i++) {
             // first assume here (or both combined)
             // second assume here
-            b[len - 1] = a[i];
+            b[len-1] = a[i];
             len--;			
         }
         //@ assert b.length == a.length;
         return b;
     }
-}
 ```
 **Learning Objectives:** 
 + Understand how `assume` can be used for loops
