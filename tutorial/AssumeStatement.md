@@ -16,11 +16,11 @@ body of a method. The effect of an `assume` statement is to instruct
 the verification engine to assume, *without proof*, that the given 
 predicate is true. Such statements can be used to introduce
 facts that are too difficult for the proof engine to prove
-(for example, since OpenJML uses SMT solvers for its proofs this would include facts about multiplication or division).
-They can also be used to temporarily summarize the effect of preceding code 
+(for example, as OpenJML uses SMT solvers for its proofs, such statements might include theorems involving multiplication or division).
+Assume statements can also be used to temporarily summarize the effect of preceding code 
 for the purpose of attempting to prove later code; then one goes back later
 to work with the preceding code until the assumption is successfully 
-proven and the `assume` statement can be removed.
+proven and the `assume` statement can be removed (or replaced with an `assert` statement).
 
 For example, consider the following code:
 ```
@@ -37,7 +37,7 @@ Do you see why the assumptions in the example are not always true?
 This is the danger of `assume` statements; while they
 can be very helpful in developing a proof,
 if the given predicate is not always true,
-then it will be possible to prove invalid specifications or implementations.
+then one can prove _invalid_ specifications or _incorrect_ implementations.
 You can even see that in the example above: if the array `a` does not
 contain any elements, then the `assume` statements will be
 false; thus the postcondition is incorrect.
@@ -61,7 +61,7 @@ is also silently assumed at its location in the body.
 {% include_relative  T_assume3.java %}
 ```
 Now OpenJML issues no verification errors. The effect is just like 
-the situation in logic where once a contradiction is assumed, anything,
+the situation in logic where, once a contradiction is assumed, anything,
 even false statements, can be proven.
 
 Thus, to emphasize the point: `assume` statements can be very helpful in the course of developing 
