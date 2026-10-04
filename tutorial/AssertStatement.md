@@ -5,7 +5,7 @@ title: JML Tutorial - Assert statements (assert and check)
 ## Assert Statements
 
 A JML `assert` statement states a condition that is expected to hold at the 
-point (where the statement appears) within the body of a method.
+point where the statement appears within the body of a method.
 Such statements are not part of a method's interface 
 specification, but they can help debug the execution of a method
 or show where a proof is not working. For example, an assert statement
@@ -62,16 +62,16 @@ produces similar output:
 
 ## Check statement
 
-The `check` statement (e.g. `check neg < 0;`) is similar to the `assert` statement.
-It also effects a test of whether the given predicate is always true.
+The `check` statement (e.g., `check neg < 0;`) is similar to an `assert` statement.
+It also tests whether the given predicate is always true.
 However, the two statements differ in their effect on the subsequent logic
 of the program:
 
 * A `check` statement tests the predicate but makes no assumption about whether the
 predicate is subsequently true or false. A `check` statement essentially says,
-"just check whether the given predicate is true or false".
+"just check whether the given predicate is true here".
 * An `assert` predicate tests the predicate and then _assumes that it is subsequently true_.
-An `assert` statement essentially says, this predicate is supposed to be true, so please test it
+An `assert` statement essentially says, this predicate is supposed to be true, so please test it,
 and assume it to be true for analyzing subsequent code.
 
 For example,
