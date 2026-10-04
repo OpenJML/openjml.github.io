@@ -7,7 +7,7 @@ title: JML Tutorial - Exercises - Assert Statements
 ## **Question 1**
 One way to write assertions that verify is as follows.
 ```Java
-public class AssertExample1 {
+public class AssertExample1Ans {
 
     private /*@ spec_public @*/ int max;
 
@@ -15,16 +15,16 @@ public class AssertExample1 {
     public void max3(int a, int b, int c) {
         if (a >= b && a >= c) {
             max = a;
-            // first assert
+            // first assert here
             //@ assert max >= a && max >= c;
         } else if (b >= a && b >= c) {
             max = b;
-            // second assert
+            // second assert here
             //@ assert max >= a && max >= b;
         } else {
             max = c;
         }
-        // third assert
+        // third assert here
         //@ assert max >= a && max >= b && max >= c;
     }
 
@@ -66,7 +66,7 @@ public boolean primeChecker(int num) {
 }
 ```
 
-The method `primeChecker` checks if a number passed in is prime, and returns `true` just when it is. The `assume` statements are needed to check this code without being warned about: possible division by zero and the fact that the loop body maintains the value of `isPrime` when it loops another time (see [the section on specifying loops](https://openjml.org/tutorial/Loops.html) for more about this).  (It might indeed be better to avoid using the variable `isPrime` completely; do you see how to do that?)
+The method `primeChecker` checks if a number passed in is prime, and returns `true` just when it is. The `assume` statements are needed to check this code without being warned about: possible division by zero and that the loop body possibly not maintaining the value of `isPrime` when it loops another time (see [the section on specifying loops](https://openjml.org/tutorial/Loops.html) for more about loop invariants).  This is the reason for some of the assume statements; do you see why they are valid? (On the other hand, it might indeed be better to avoid using the variable `isPrime` completely; do you see how to do that?)
 
 For the assertions, we know that the method will stop and return `false` if it finds that `num` is evenly divisible by an integer between 2 and the `num/2`. Thus, if the function runs through the entire for-loop and the following if-statement, it returns `true`, since then `num` must be prime. So, we can assert that the function will set `isPrime` to `false` if `num % i == 0` (for some integer `i` between 2 and `num/2`, inclusive), and we can also assert that `isPrime` will still be `true` if the function runs through the for-loop and the following if-statement without returning.
 
