@@ -9,6 +9,6 @@ public class T_assert3 {
     } else {
       neg = i;
     }
-    assert neg < 0; // A Java assert statement (but interpreted by JML) // ERROR
+    assert neg < 0; // A Java assert (interpreted by JML) // ERROR: may be false!
   }
 }
