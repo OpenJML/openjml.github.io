@@ -5,24 +5,25 @@ title: JML Tutorial - Exercises - Assume Statements
 ## [Assume Statements Tutorial](https://www.openjml.org/tutorial/AssumeStatement)
 
 ## **Question 1**
-**Given the function below, determine the specifications needed to verify the function, as well as including the assume statements where indicated.**
+One way to write assume statements that make the code verify is as follows.
 ```Java
-public int[] reverseArray(int[] a) {
-	int len = a.length;
-	int[] b = new int[len];
-
-	for (int i = 0; i < a.length; i++) {
-		//first assume 
-		//second assume
-		b[len - 1] = a[i];
-		len--;			
-	}
-	//@ assert b.length == a.length;
-	return b;
-}
+    public int[] reverseArray(int[] a) {
+        //@ assume a != null
+        int len = a.length;
+        int[] b = new int[len];
+        
+        for (int i = 0; i < a.length; i++) {
+            //@ assume 0 <= i < a.length;
+            //@ assume 0 <= len-1 < a.length;
+            b[(len-i)-1] = a[i];
+            len--;			
+        }
+        //@ assert b.length == a.length;
+        return b;
+    }
 ```
-**Asnwer and Explanation:**
-The function above stores the length of array `a` and creates a new integer array `b`. Then a for-loop runs for `i < a.length`, and within the for-loop `b[len - 1] = a[i]`. This will set the last index of `b` to the first element in `a`. After the value of `b` is set at `len-1`, `len` is decremented by 1. This will cause a lot of warnings if we do not specify that both `i` and `(len-1)` are in the valid range of zero to `a.length`. So we need to include this as an assumption anytime we have a loop and need to ensure that we are not going out of bounds. Note that there are better ways of handling loops which we will see in the "[Specifying Loops](https://www.openjml.org/tutorial/Loops)" tutorial, but for now we will handle loops using the `assume` clause. 
+
+The `reserseArray` method stores the length of array `a` and creates a new integer array `b`. Then a for-loop runs from 0 up to `a.length`, and within the for-loop each element of `a` is copied into the appropriate place in `b`. This will set the last index of `b` to the first element in `a`. After the value of `b` is set at `len-1`, `len` is decremented by 1. This will cause a lot of warnings if we do not specify that both `i` and `(len-i)-1` are in the valid range of zero to `a.length`. So we need to include this as an assumption anytime we have a loop and need to ensure that we are not going out of bounds. Note that there are better ways of handling loops which we will see in the "[Specifying Loops](https://www.openjml.org/tutorial/Loops)" tutorial, but for now we will handle loops using the `assume` clause. 
 ```java
 //@ ensures \result.length == a.length;
 public int[] reverseArray(int[] a) {
