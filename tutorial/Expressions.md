@@ -80,10 +80,10 @@ Quantified expressions are commonly used in reasoning about loops, arrays, seque
 
 ### choose
 
-The `\choose` predicate is similar to the `\exists` predicate. Whereas `(\exists ...\; R; V)` is true if there is some index for which `R && V` is true,
-`\choose` can return that value (as the value of the expression). For example, the value of `(\choose int i; 0 <= i < a.length && a[i] == 0; i)` is some `int` for which the range predicate is true, that is in this example, an index (`i`) of array `a` that is 0. The type of the expression is always the type of value expression, which is based on the type of the declared local variable (`i` in the example).
+The `\choose` predicate is similar to the `\exists` predicate. Whereas `(\exists ...\; R; V)` is true if there is some value of the quantified variable for which `R && V` is true,
+`\choose` can return that value (as the value of the expression). For example, the value of `(\choose int i; 0 <= i < a.length && a[i] == 0; i)` is some `int` for which the range predicate is true; in this example, that is a legal index (`i`) of array `a` holding the element 0. The type of the expression is always the type of value expression, which is based on the type of the declared local variable (`i` in the example).
 
-If there is more than one such value (in our example more than one such index `i`), then the result of the expression might be any one of them, but it will always the same one for a semantically identical expression.
+If there is more than one such value (in our example, more than one such index `i`), then the result of the expression might be any one of them, but it will always the same one for a semantically identical expression.
 But the fact that the value could be any one satisfying the predicate means that an assertion that uses that value must hold for all cases in which the predicate is true. For example in the expression `P(\choose int i; 0 <= i < a.length && a[i] == 0; i)`, the value of the overall expression should not depend on the value chosen for `i`.
 
 If `R` is false, (in our example, if there is no index `i` such that `0 <= i < a.length && a[i] == 0`), then the expression is not [well-defined](WellDefinedExpressions). Thus, to make sure that a `\choose` predicate is always well-defined, one should make sure that the range expression is never false.
@@ -150,7 +150,7 @@ A second point is that the quantified expression `(\min T x; R; V)` and `(\max T
 
 #### **Type and arithmetic mode**
 
-A third point is that the type of a quantified expression `(\min T x; R; V)` or `(\max T x; R; V)` is the same as the type of the value term (`V`). However the value term itself is evaluated in bigint-math mode and only when the max or min has been determined is the result cast back to the final type.
+A third point is that the type of a quantified expression `(\min T x; R; V)` or `(\max T x; R; V)` is the same as the type of the value term (`V`). However the value term itself is evaluated mathematically (in [bigint-math mode](ArithmeticModes)), although the result can be cast to another type if desired.
 
 ### sum and product
 
@@ -158,7 +158,7 @@ The `\sum` and `\product` quantifiers add up or multiply together all the values
 * `(\sum int i; 0 <= i < a.length; a[i])` and
 * `(\product int i; 0 <= i < a.length; a[i])`
 
-The type of these operations is `\bigint` simply because overflow is a distinct possibility. The result can always be cast to a desired final type, at which point the final value is checked that it is actually in range for the desired type.
+The type of these expressions is a mathematical type (that is, if integer-valued it is evaluated in [bigint-math mode](ArithmeticModes)), because overflow is a distinct possibility. However, the result could always be cast to a desired final type if desired.
 
 If the range predicate is empty (i.e., false) then the sum is 0 and the product is 1. So these expressions are well-defined even when the range predicate is empty.
 
@@ -167,8 +167,8 @@ The implementation of these two expressions in OpenJML is in progress. Don't cou
 ### num_of
 
 A final quantified expression is `\num_of` which counts the number of times the boolean value term is true when the range term is also true. For example,
-`(\numof int i; 0 <= i < a.length; a[i] == 0)` counts the number of elements of the array `a` that are 0. Obviously,
-`(\num_of ...; R; V)` is equivalent to `(\sum ... ; R && V; 1)`. The type of a `\num_of` expression is `\bigint` and it can be cast to a desired final type; if the range is empty the value of the expression is 0.
+`(\numof int i; 0 <= i < a.length; a[i] == 0)` counts the number of elements of the array `a` that are 0. The expression
+`(\num_of ...; R; V)` is equivalent to `(\sum ... ; R && V; 1)`. Thus the type of a `\num_of` expression is `\bigint`.  If the range is empty, then the value of the expression is 0.
 
 The implementation of this expression in OpenJML is in progress. Don't count on it working yet.
 
