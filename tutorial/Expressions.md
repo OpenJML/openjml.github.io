@@ -44,7 +44,7 @@ Another important addition to JML is the *chaining* of relational operators.
 That is, instead of writing `i <= j && j < k`,
 one can write `i <= j < k`.
 Similarly, `i > j > k` means `i > j & j > k`.
-The operators `<` and `<=` can each be chained together, but only separately, as but the two groups cannot be mixed, so combinations involving both `>` and`>=` are illegal. 
+The operators `<` and `<=` can each be chained together, as can the operators `>` and `>=`. However, the two groups cannot be mixed, so combinations involving both `<` and`>` are illegal. 
 Furthermore, `==` does not chain and in fact has a lower precedence than the 
 relational operators; thus `a < b == c < d` means `(a < b) == (c < d)` in both Java and JML. These chained operations are particularly convenient for writing
 ranges of indices. For example, for an array `a` one might constrain an index variable `i` as `0 <= i < a.length`.
