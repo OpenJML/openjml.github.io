@@ -8,7 +8,7 @@ we include lessons here to introduce JML expressions.
 
 JML expressions look very much  like Java expressions.
 Indeed, the JML expression syntax includes all of the Java expression
-syntax, with this exception: JML expressions are not allowed to have
+syntax, with this exception: JML expressions are _not_ allowed to have
 side-effects. So the `++`, `--`, and _op_`=` (e.g., `+=`) operators are
 not allowed in JML expressions. The meaning of Java operators in 
 JML is also unchanged, except for two matters discussed in later lessons:
@@ -22,7 +22,7 @@ static reasoning, however, execution efficiency does not matter.
 In static reasoning, `&` and `|` are simpler to reason about, but 
 `&&` and `||` are often needed because of [well-definedness considerations](WellDefinedExpressions).
 
-JML also adds to Java some new operators and expression syntax. The new operators are these:
+JML also adds to Java some operators and some expression syntax that are new. The new operators are these:
 
 * `==>` (implication): this binary operator takes two boolean operands, e.g., `p` and `q`; `p ==> q` is read as "p implies q" and means the same as logical implication, that is, the same as "not p or q". 
 The implication operator is short-circuiting. That is, the value and well-definedness of the right-hand-side is not evaluated, unless the left-hand-side is true. In other words, `p ==> q` is precisely equivalent to `!p || q`.
@@ -44,23 +44,21 @@ Another important addition to JML is the *chaining* of relational operators.
 That is, instead of writing `i <= j && j < k`,
 one can write `i <= j < k`.
 Similarly, `i > j > k` means `i > j & j > k`.
-The operators `<` and `<=` can each be chained together, as can the operators `>` and `>=`. However, the two groups cannot be mixed, so combinations involving both `<` and`>` are illegal. 
-Furthermore, `==` does not chain and in fact has a lower precedence than the 
-relational operators; thus `a < b == c < d` means `(a < b) == (c < d)` in both Java and JML. These chained operations are particularly convenient for writing
-ranges of indices. For example, for an array `a` one might constrain an index variable `i` as `0 <= i < a.length`.
+The operators `<` and `<=` can each be chained together, as can the operators `>` and `>=`. However, the two groups cannot be mixed, so combinations involving both `<` and`>` are illegal. Another example is that `a <= b >= c` is illegal in JML. Furthermore, `==` does not chain and in fact has a lower precedence than the 
+relational operators; thus `a < b == c < d` means `(a < b) == (c < d)` in both Java and JML.  On the other hand, chained operations are particularly convenient for writing ranges of indices. For example, for an array `a` one might constrain an index variable `i` by writing `0 <= i < a.length`.
 
-In addition quantified expressions are described below and two other advanced operators are presented in Advanced topics lessons:
+In addition quantified expressions are described [below](#QuantifiedExpressions) and two other advanced operators are presented separately in advanced topics lessons:
 * `<:` [Reasoning about types](TYPE)
 * `<#` `<#=` [Reasoning about locks](Locks)
 
-Finally, there are many keywords that designate either singleton values (e.g. `\result`) or function-like operations (e.g., `\typeof(...)`. These will be 
-explained as needed in future lessons. For example the expression `0 <= \result < a.length` says that the result of the method (`\result`) is a legal index into the array `a`. All JML keywords used within expressions begin with a backslash, so they do not conflict with Java identifiers.
+Finally, there are many keywords that designate either singleton values (e.g., `\result`) or function-like operations (e.g., `\typeof(...)`. These will be 
+explained as needed in future lessons. For example the expression `0 <= \result < a.length` says that the result of the current method (named `\result`) is a legal index into the array `a`. All JML keywords used within expressions begin with a backslash, so they do not conflict with Java identifiers.
 
 Of course, these JML operators and functions (and all other JML syntax) can only be used within JML annotations, not in Java code.
 
 ## Quantified expressions {#QuantifiedExpressions}
 
-A general point about all these quantified expressions is that any numeric subexpressions are evaluated in [bigint-math mode](ArithmeticModes) so that there is no concern about overflow in evaluating the expression. Furthermore, arithmetic mode operators (that change the mode of a subexpression) are not allowed within a quantified expression. On the other hand, the result of a quantified expression may be cast to a desired type, since that cast will operate when the value of the quantified expression is known.
+A general point about all of the quantified expressions described below is that all of their numeric subexpressions are evaluated in [bigint-math mode](ArithmeticModes) so that there is no concern about overflow in evaluating the expression. Furthermore, arithmetic mode operators (that change the mode of a subexpression) are not allowed *within* a quantified expression; however the overall result of a quantified expression may be cast to a desired type, since that cast will operate after the mathematical value of the quantified expression is known.
 
 ### forall and exists
 
@@ -181,4 +179,4 @@ TODO - what about `\let`?
 Follow the link in the above heading to work on the exercises on this topic.
 
 ## Resources
-+ [Java file contining the `min` and `max` methods](MinMaxExample.java)
++ [Java file containing the `min` and `max` methods](MinMaxExample.java)
