@@ -45,25 +45,25 @@ That is, instead of writing `i <= j && j < k`,
 one can write `i <= j < k`.
 Similarly, `i > j > k` means `i > j & j > k`.
 The operators `<` and `<=` can each be chained together, as can the operators `>` and `>=`. However, the two groups cannot be mixed, so combinations involving both `<` and`>` are illegal. Another example is that `a <= b >= c` is illegal in JML. Furthermore, `==` does not chain and in fact has a lower precedence than the 
-relational operators; thus `a < b == c < d` means `(a < b) == (c < d)` in both Java and JML.  On the other hand, chained operations are particularly convenient for writing ranges of indices. For example, for an array `a` one might constrain an index variable `i` by writing `0 <= i < a.length`.
+relational operators; thus `a < b == c < d` means `(a < b) == (c < d)` in both Java and JML.  On the other hand, chained operations are particularly convenient for writing ranges of indices; as an example, one might constrain the index `i` into an array `arr` by writing `0 <= i < arr.length`.
 
 In addition quantified expressions are described [below](#QuantifiedExpressions) and two other advanced operators are presented separately in advanced topics lessons:
 * `<:` [Reasoning about types](TYPE)
 * `<#` `<#=` [Reasoning about locks](Locks)
 
 Finally, there are many keywords that designate either singleton values (e.g., `\result`) or function-like operations (e.g., `\typeof(...)`. These will be 
-explained as needed in future lessons. For example the expression `0 <= \result < a.length` says that the result of the current method (named `\result`) is a legal index into the array `a`. All JML keywords used within expressions begin with a backslash, so they do not conflict with Java identifiers.
+explained as needed in future lessons. All JML keywords used within expressions begin with a backslash, so they do not conflict with Java identifiers. For example the expression `0 <= \result < ary.length` says that the result of the current method (named `\result`) is a legal index into the array `ary`. 
 
 Of course, these JML operators and functions (and all other JML syntax) can only be used within JML annotations, not in Java code.
 
 ## Quantified expressions {#QuantifiedExpressions}
 
-A general point about all of the quantified expressions described below is that all of their numeric subexpressions are evaluated in [bigint-math mode](ArithmeticModes) so that there is no concern about overflow in evaluating the expression. Furthermore, arithmetic mode operators (that change the mode of a subexpression) are not allowed *within* a quantified expression; however the overall result of a quantified expression may be cast to a desired type, since that cast will operate after the mathematical value of the quantified expression is known.
+A general point about all of the quantified expressions in JML is that their numeric subexpressions are evaluated mathematically (i.e., in [bigint-math mode](ArithmeticModes)), so that there is no concern about overflow in evaluating the expression. Furthermore, arithmetic mode operators (that change the mode of a subexpression) are not allowed *within* a quantified expression; however the overall result of a quantified expression may be cast to a desired type, since that cast will operate after the mathematical value of the quantified expression is known.
 
 ### forall and exists
 
-Quantified expressions are common in logic and are just as necessary in JML to express properties over collections of objects.
-The two most common expressions are universal and existential quantification. The following are some common examples involving arrays:
+Quantified expressions are common in logic (and are just as necessary in JML) to express properties over collections of objects.
+The two most common quantified expressions are universal and existential quantification. The following are some common examples involving arrays:
 * `(\forall int i; 0 <= i < a.length; a[i] == 2*i)`
 * `(\exists int i; 0 <= i < a.length; a[i] == 0)`
 
@@ -74,19 +74,19 @@ The second states that for _some_ index within the array, the value at that inde
 
 However separating `R` and `V` makes it easier to have an efficient implementation for runtime-assertion-checking. Note that if the range predicate is false (for example if the array `a` has length 0 in `(\forall int i; 0 <= i < a.length; V)`, then, as in logic, a forall expression will be true, but the exists expression `(\forall int i; 0 <= i < a.length; V)` will be false.
 
-Although it is good practice, and avoids possible confusion about the scope of the declared variable, JML's syntax does not require one to use parentheses around quantified expressions. Without parentheses, the scope of the declared variable extends as far to the right as possible.
+The scope of the declared variable extends as far to the right as possible. Thus, it is good practice, and avoids possible confusion about the scope of the declared variable, if one puts parentheses around the entire quantified expression; however, such parentheses are not required by JML.
 
-These expressions are very commonly used in reasoning about loops, arrays, sequences and sets. For example, to say that every element of a set `s` (where the elements have type `T`) has the property `P` one could write the following expression: `(\forall T e; e \in s; P(e))`.
+Quantified expressions are commonly used in reasoning about loops, arrays, sequences and sets. For example, to say that every element of a set `s` (where the elements have type `T`) has the property `P` one could write the following expression: `(\forall T e; e \in s; P(e))`.
 
 ### choose
 
 The `\choose` predicate is similar to the `\exists` predicate. Whereas `(\exists ...\; R; V)` is true if there is some index for which `R && V` is true,
-`\choose` can return that value (as the value of the expression). For example, the value of `(\choose int i; 0 <= i < a.length; a[i] == 0)` is an `int` for which the range and predicate are true, that is in this example, an index (`i`) of array `a` that is 0. The type of the expression is always the type of the declaration of the declared local variable (`i` in the example), as that quantified variable's value is returned as the value of the expression when the range (`0 <= i < a.length`) and the predicate (`a[i] == 0` in this example) are true.
+`\choose` can return that value (as the value of the expression). For example, the value of `(\choose int i; 0 <= i < a.length && a[i] == 0; i)` is some `int` for which the range predicate is true, that is in this example, an index (`i`) of array `a` that is 0. The type of the expression is always the type of value expression, which is based on the type of the declared local variable (`i` in the example).
 
-If there is more than one such value (in our example more than one such index), the result of the expression might be any one of them, but it will always the same one for a semantically identical expression.
-But the fact that the value could be any one satisfying the predicate means that an assertion that uses that value must hold for all cases in which the predicate is true. For example in the expression `P(\choose int i; 0 <= i < a.length; a[i] == 0)`, the value of the overall expression should not depend on the value chosen for `i`.
+If there is more than one such value (in our example more than one such index `i`), then the result of the expression might be any one of them, but it will always the same one for a semantically identical expression.
+But the fact that the value could be any one satisfying the predicate means that an assertion that uses that value must hold for all cases in which the predicate is true. For example in the expression `P(\choose int i; 0 <= i < a.length && a[i] == 0; i)`, the value of the overall expression should not depend on the value chosen for `i`.
 
-If `R && V` is false, (in our example, if there is no such index), then the expression is not [well-defined](WellDefinedExpressions). Thus, to make sure that a `\choose` predicate is always well-defined, one should make sure that the conjunction of the range expression and the value expression (i.e., `R && V`) is never false (which is equivalent to the same expression, with `\choose` replaced by `\exists` being true).
+If `R` is false, (in our example, if there is no index `i` such that `0 <= i < a.length && a[i] == 0`), then the expression is not [well-defined](WellDefinedExpressions). Thus, to make sure that a `\choose` predicate is always well-defined, one should make sure that the range expression is never false.
  
 ### max and min
 
