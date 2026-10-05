@@ -1,0 +1,16 @@
+AssumeExample2.java:23: verify: The prover cannot establish an assertion (Assert) in method sortFindMax
+        //@ assert (\forall int k; 0 < k < a.length; a[k-1] <= a[k]);
+            ^
+AssumeExample2.java:22: verify: The prover cannot establish an assertion (Assert) in method sortFindMax
+        //@ assert (\exists int m; 0 < m < a.length; a[m] <= max);
+            ^
+AssumeExample2.java:20: verify: The prover cannot establish an assertion (PossiblyNegativeIndex) in method sortFindMax
+        max = a[a.length-1];
+               ^
+AssumeExample2.java:11: verify: The prover cannot establish an assertion (PossiblyNegativeIndex) in method sortFindMax
+                if (a[i] > a[j]) {
+                     ^
+AssumeExample2.java:11: verify: The prover cannot establish an assertion (PossiblyNegativeIndex) in method sortFindMax
+                if (a[i] > a[j]) {
+                            ^
+5 verification failures
