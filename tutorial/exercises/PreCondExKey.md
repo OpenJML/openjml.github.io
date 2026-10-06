@@ -48,7 +48,7 @@ Or equivalently the following.
 requires !(Double.isNaN(balance) || Double.isNaN(price));
 ```
 
-However, in our preferred solution below, we use separate requires clauses stating that each double argument must not be NaN. One advantage to using two separate requires clauses, is that verification error messages for calls to the method that could pass NaN to either arugment will be easier to understand.
+However, in our preferred solution below, we use separate requires clauses stating that each double argument must not be NaN. One advantage to using two separate requires clauses, is that verification error messages for calls to the method that could pass NaN to either argument will be easier to understand.
 
 ```Java
     //@ requires !Double.isNaN(balance);
