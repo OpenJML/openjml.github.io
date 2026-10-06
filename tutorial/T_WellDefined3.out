@@ -1,4 +1,4 @@
 T_WellDefined3.java:5: verify: The prover cannot establish an assertion (UndefinedNullDeReference) in method example
-    //@ assert o.f == o.f;
+    //@ assert o.f == o.f;   // ERROR: o could be null!
                 ^
 1 verification failure
