@@ -22,11 +22,11 @@ but also ensure that their bank account does not dip below zero dollars (as spec
 What specifications can we write to ensure that the result is never negative? (Although it may be best not to use doubles for amounts of money, this example does illustrate a point about preconditions and doubles that is more generally applicable.)**
 
 ```Java
-//@ ensures \result >= 0.0;
-public double bankUpdate(double bankAccount, double price, int n) {
-		bankAccount = bankAccount - (price*n);
-		return bankAccount;   // ERROR: may be NaN!
-}
+    //@ ensures \result >= 0.0;
+    public double bankUpdate(double bankAccount, double price, int n) {
+	bankAccount = bankAccount - (price*n);
+	return bankAccount;   // ERROR: may be NaN!
+    }
 ```
 
 
