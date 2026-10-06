@@ -1,4 +1,4 @@
-PreCondEx2.java:7: verify: The prover cannot establish an assertion (Assert) in method purchase
+PreCondEx2Wrong.java:12: verify: The prover cannot establish an assertion (Assert) in method purchase
         //@ assert 0.0 <= balance <= oldBalance;   // ERROR: may fail!
             ^
 1 verification failure

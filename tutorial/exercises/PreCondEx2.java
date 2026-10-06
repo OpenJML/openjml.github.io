@@ -1,9 +1,10 @@
 // openjml --esc PreCondEx2.java
 public class PreCondEx2 {
 
-    //@ ensures \result >= 0.0;
-    public double bankUpdate(double bankAccount, double price, int n) {
-	bankAccount = bankAccount - (price*n);
-	return bankAccount;   // ERROR: may be NaN!
+    public double purchase(double balance, double price, int n) {
+        double oldBalance = balance;
+	balance = balance - (price*n);
+        //@ assert 0.0 <= balance <= oldBalance;   // ERROR: may fail!
+	return balance;
     }
 }
