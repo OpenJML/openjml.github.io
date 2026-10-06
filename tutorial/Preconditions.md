@@ -27,11 +27,13 @@ If there are several requires clauses in a method specification, then they are i
 For example, in the following, the expression `a.length` in
 the third clause is undefined if `a` is null. Thus we also need the
 condition stated in the third requires clause, and it must be stated before the
-second clause. Reversing the order results in an error (when the arguments are nullable by default).
+second clause. 
 ```
 {% include_relative T_requires3.java %}
 ```
-For example, when the above is checked, the following verification error results.
+
+The order shown above results in a verification error (when the arguments are nullable by default).
+
 ```
 {% include_relative T_requires3.out %}
 ```
