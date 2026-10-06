@@ -37,7 +37,7 @@ c. that purchasing n items doesn't make the user's balance negative or increase.
 
 If all these requirements are met, the assertion in the code will pass.
 
-However, it is important to note that, since we are dealing with floating point numbers, the specification must require that the inputs passed into the function are not NaN (otherwise the assertion may fail). This can be done using the method `isNaN()` of the class `Double` which is used require that both the inputs `balance` and `price` are not NaN.
+However, it is important to note that, since we are dealing with floating point numbers, the specification must require that the arguments passed in are not NaN (otherwise the assertion may fail). This can be done using the method `isNaN()` of the class `Double` which is used require that both the inputs `balance` and `price` are not NaN.
 By requiring that the double arguments not be NaN, the specification operates in a more logical manner, and the user will get a verification error if they pass in a value that could be NaN. (OpenJML does not prohibit NaN arguments by default.) 
 In the following we use two requires clauses for these checks, but one could equivalently use one clause, such as the following.
 ```
