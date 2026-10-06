@@ -28,7 +28,7 @@ c. that purchasing n items doesn't make the user's bank account negative.
 If all these requirements are met, we can ensure that the user's bank account will not be below $0.00. 
 
 However, it is important to note that, since we are dealing with floating point numbers, the specification must require that the inputs passed into the function are not NaN. This can be done using the function `isNaN()` of the class Double which is used require that both the inputs `bankAccount` and `price` are not `NaN`.
-By doing the specification operates in a more logicla manner, and the user will get a verification error if they pass in a `NaN` value. OpenJML will not prohibit `NaN` inputs on its own, so it is important to include this requirement when working with floating point numbers to avoid potential errors.
+By requiring that the double arguments not be NaN, the specification operates in a more logical manner, and the user will get a verification error if they pass in a `NaN` value. OpenJML will not prohibit `NaN` inputs on its own, so it is important to include this requirement when working with floating point numbers to avoid potential errors.
 In the following we use two requires clauses for these checks, but one could equivalently use one clause, such as the following.
 ```
 requires !Double.isNaN(bankAccount) && !Double.isNaN(price);
