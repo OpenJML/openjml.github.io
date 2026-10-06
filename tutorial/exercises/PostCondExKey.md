@@ -4,23 +4,31 @@ title: JML Tutorial - Exercises - Answers to Postcondition Exercises
 ## [Postconditions Exercises](https://www.openjml.org/tutorial/exercises/PostCondEx)
 
 ## **Question 1**
-**(a)** This would fail to verify because when the value of `num` is zero, then the value returned (`num*2`) would not be strictly greater than `num`, as it would also be zero.
+(a) The method would fail to verify with the new precondition because when the value of `num` is zero, then the value returned (`num*2`) would not be strictly greater than `num`, as it would also be zero.
 
-To check this, observe that the output of running `openjml --esc` on the JML+Java in the exercise is as follows. The second error message, which says that OpenJML cannot verify the postcondition is failing for precisely this reason. You can check this by adding a `show` statement before the return statement in the body, which will show that the counterexample is happening when `num` is 0.
+To check this, observe ESC's output for this code is as follows. The second error message, which says that OpenJML cannot verify the postcondition is failing happends precisely because `num` may be 0. You can check this by adding a `show` statement before the return statement in the body, which will show that the counterexample is happening when `num` is 0.
 
 ```
 {% include_relative PostCondEx1a.out %}
 ```
 
-**(b)** 
-A simple fix to the postcondition is to change `<` to `<=`, which will allow the method to return 0 when the argument is 0. This directly addresses the problem noted above.
+(b)
+A simple fix to the postcondition is to change `<` to `<=`, which will allow the method to return 0 when the argument is 0. This directly addresses the problem noted above. Thus the code below verifies.
+
+```Java
+    //@ requires -1 < num < 100;
+    //@ ensures num <= \result;
+    public int multiplyByTwo(int num) {
+	return num*2;
+    }
+```
 
 ## **Question 2**
 A postcondition that can be used to make the code verify is `\result == num / 2`.
 (Any equivalent expression will do, including `2*\result == num`, 
 but the theorem provers, SMT solvers, used in OpenJML cannot reason about
 multiplication and division,
-so OpenJML will complain about that form of the postcondition.)
+so OpenJML may still complain.)
 
 ## **Question 3**
 
@@ -28,7 +36,7 @@ The answer to this question depends on the code you write. However, if you write
 ```Java
     return w*h;
 ```
-Then it is necessary to prevent integer overflow, so a precondition would be
+Then it is necessary to prevent integer overflow, so a suitable precondition could be
 ```
    w*h <= Integer.MAX_VALUE
 ```

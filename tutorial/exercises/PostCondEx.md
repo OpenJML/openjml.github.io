@@ -5,7 +5,7 @@ title: JML Tutorial - Exercises - Postconditions
 ## [Postconditions Tutorial](https://www.openjml.org/tutorial/Postconditions)
 
 ## **Question 1**
-**(a) Suppose that we want to change the precondition of the method `multiplyByTwo` below so that the argument (`num`) only has to be (strictly) greater than -1, that is the precondition would be `-1 < num < 100.
+**(a) Suppose that we want to change the precondition of the method `multiplyByTwo` below so that the argument (`num`) only has to be (strictly) greater than -1, that is the precondition would be changed to `-1 < num < 100.
 Why would this cause a verification error with the existing code?**
 
 ```Java
@@ -16,7 +16,7 @@ Why would this cause a verification error with the existing code?**
 }
 ```
 
-**(b) How you could fix the postcondition so that the existing code would verify with the precondition `-1 < num < 100`? Note that you are to only change the postcondition, not the code in the body of the method and you are to use the new precondition `-1 < num < 100`.**
+**(b) How you could fix the postcondition so that the existing code would verify with the new precondition `-1 < num < 100`? Note that you are to only change the postcondition, not the code in the body of the method and you are to use the new precondition `-1 < num < 100`.**
 
 ## **Question 2**
 
