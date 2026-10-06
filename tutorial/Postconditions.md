@@ -3,9 +3,9 @@ title: JML Tutorial - Postconditions (ensures clauses)
 ---
 
 A method's specification states _what_ the method does,
-but not _how_ it is done. The effect of a method is
+but not _how_ it is done. What a method does is
 stated in its _postcondition_, which is written in one (or more) 
-_ensures_ clause(s). 
+_ensures_ clause(s). Such postconditions are asserted as a method is returning.
 
 (Ensures clauses may be mixed in any order with its requires clauses, but good,
 and clearer, style suggests putting all requires clauses first and then
@@ -31,15 +31,7 @@ In fact, the same specification could be used with a different implementation:
 {% include_relative T_ensures1a.java %}
 ```
 
-Now how can we check that the implementation actually implements the specification? That is one purpose of the OpenJML tool.
-If we execute (cf. [Execution](Execution))
-`openjml --esc tutorial/T_ensures1.java`
-we find that the openjml tool completes with no error messages and a success
-error code, indicating that the implementation is verified with respect to
-the given specification.
-
-Similarly, `openjml --esc tutorial/T_ensures1a.java` indicates that this
-second example also verifies.
+Both of the above examples verify as correct with respect to the given specifications.
 
 Now consider a third example:
 
@@ -47,24 +39,25 @@ Now consider a third example:
 {% include_relative T_ensures2.java %}
 ```
 
+ESC produces the following output for the above code.
 
-Running `openjml --esc tutorial/T_ensures2.java` produces this output (and a non-zero exit code):
 ```
 {% include_relative T_ensures2.out %}
 ```
 
 The error message tells us that the specification and implementation are
-not consistent; in particular, the `ensures` clause on line 3 is not satisfied
+not consistent; in particular, the `ensures` clause on line 4 is not satisfied
 when the method exits on line 19. Some code inspection reveals that there
 is an error in the `if` condition on line 19: it should be `b > d` (as it is in example `T_ensures1.java` above).
-This is the kind of cut&paste error that can be easy to miss during code inspection.
+This is the kind of cut-and-paste error that can be easy to miss during code inspection.
 
 OpenJML is able to provide more debugging information than just the error
-message. Tutorial examples are given under the [Debugging](Debugging) topic.
+message. Tutorial examples are given under the [debugging](Debugging) topic.
 
 While in this case the error was in the implementation, the error might 
 instead be in the specification. In fact, it is possible that the 
-specification and implementation agree, but that they both differ from what the user intended.
+specification and implementation agree,
+but that they both differ from what the user intended.
 
 Another situation can be that the specification is not very specific.
 For example, the postcondition could simply be `ensures true;`, which is the
