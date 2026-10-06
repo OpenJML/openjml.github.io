@@ -25,7 +25,7 @@ Requiring that the array has at least one element guarantees that the expression
 Note that [in JML it is already implicit that the array argument `a` is not null](https://openjml.org/tutorial/Nullness), so there is no need to specify that.
 
 ## **Question 2**
-We know that the method takes three parameters, the current amount in the user's bank account, the price of an item, and the number of items to be purchased. To ensure the bank account is never negative, we require the following:
+We know that the method takes three parameters, the user's current balance, the price of an item, and the number of items to be purchased. To ensure the balance is never negative, we require the following:
 
 a. the user's current balance is non-negative;
 
@@ -33,21 +33,22 @@ b. the price is at least 0;
 
 c. the number of items is positive;
 
-c. that purchasing n items doesn't make the user's bank account negative.
+c. that purchasing n items doesn't make the user's balance negative.
 
 If all these requirements are met, the assertion in the code will pass.
 
-However, it is important to note that, since we are dealing with floating point numbers, the specification must require that the inputs passed into the function are not NaN (otherwise the assertion may fail). This can be done using the method `isNaN()` of the class `Double` which is used require that both the inputs `bankAccount` and `price` are not `NaN`.
-By requiring that the double arguments not be NaN, the specification operates in a more logical manner, and the user will get a verification error if they pass in a value that could be `NaN`. (OpenJML does not prohibit `NaN` inputs by default.) 
+However, it is important to note that, since we are dealing with floating point numbers, the specification must require that the inputs passed into the function are not NaN (otherwise the assertion may fail). This can be done using the method `isNaN()` of the class `Double` which is used require that both the inputs `balance` and `price` are not NaN.
+By requiring that the double arguments not be NaN, the specification operates in a more logical manner, and the user will get a verification error if they pass in a value that could be NaN. (OpenJML does not prohibit NaN arguments by default.) 
 In the following we use two requires clauses for these checks, but one could equivalently use one clause, such as the following.
 ```
-requires !Double.isNaN(bankAccount) && !Double.isNaN(price);
+requires !Double.isNaN(balance) && !Double.isNaN(price);
 ```
 Or equivalently the following.
 ```
-requires !(Double.isNaN(bankAccount) || Double.isNaN(price));
+requires !(Double.isNaN(balance) || Double.isNaN(price));
 ```
-(However, in our preferred solution below, we use separate requires clauses stating that each double argument must not be NaN. One advantage to using two separate requires clauses, is that verification error messages for calls to the method that could pass NaN to either arugment will be easier to understand.)
+
+However, in our preferred solution below, we use separate requires clauses stating that each double argument must not be NaN. One advantage to using two separate requires clauses, is that verification error messages for calls to the method that could pass NaN to either arugment will be easier to understand.
 
 ```Java
     //@ requires !Double.isNaN(balance);
@@ -64,7 +65,7 @@ requires !(Double.isNaN(bankAccount) || Double.isNaN(price));
     }
 ```
 
-Note that we use `0.0 <= bankAccount` because accounts may have a zero balance, and that would suffice to purchase an item that is free.  The preconditions requiring the price to be non-negative and the quantity to be positive, together with the precondition `(price*n) <= bankAccount` do, however, require that the account has enough to purchase the given number of items.
+Note that we use `0.0 <= balance` because a balance might be zero, and that would suffice to purchase an item that is free.  The preconditions requiring the price to be non-negative and the quantity to be positive, together with the precondition `(price*n) <= balance` do, however, require that the balance is sufficient to purchase the given number of items.
 
 **Incorrect Version 2:**
 
@@ -84,7 +85,7 @@ An incorrect solution is as follows.
     }
 ```
 
-The above specification doesn't require `(price*n) <= bankAccount`, so the account might not have enough money to purchase the given number of items at the given price. Trying to verify this results in the following output.
+The above specification doesn't require `(price*n) <= balance`, so the balance might not be enough to purchase the given number of items at the given price. Trying to verify this results in the following output.
 
 ```
 {% include_relative PreCondEx2Wrong.out %}
@@ -107,7 +108,7 @@ Another incorrect answer is as follows.
     }
 ```
 
-Since this specification does not require `0.0 <= price` and `0 < n`, the result of (price*n) could be negative, which would actually add money to the account balance.
+Since this specification does not require `0.0 <= price` and `0 < n`, the result of (price*n) could be negative, which would actually add money to the balance.
 
 The following are some additional questions to think about.
 
