@@ -88,7 +88,7 @@ For example one could write the following:
 and then the array `nna` will be known to have all its elements be non-null.
 )
 
-An example that initializes a non-null array of non-null strings is shwon in the constructor of the following.
+An example that initializes a non-null array of non-null strings is shown in the constructor of the following.  (See the section on [loops](Loops) for how to avoid using assumptions in the loop shown. See the section on [visibility](Visibility) for the meaning of the `spec_public` annotation.)
 
 ```
 {% include_relative T_NonNullArrayInit.java %}
