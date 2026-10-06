@@ -33,11 +33,11 @@ In the following we use two requires clauses for these checks, but one could equ
 ```
 requires !Double.isNaN(bankAccount) && !Double.isNaN(price);
 ```
-or one could use a logically equivalent form such as
+Equivalently, one could write the following instead.
 ```
 requires !(Double.isNaN(bankAccount) || Double.isNaN(price));
 ```
-(In our preferred solution below, we use seqparate requires clauses stating that these arguments must not be NaN. One advantage to using two separate requires clauses, is that verification error messages for calls to the method that attempt to pass NaN to either arugment will be easier to understand.)
+(However, in our preferred solution below, we use seqparate requires clauses stating that each double argument must not be NaN. One advantage to using two separate requires clauses, is that verification error messages for calls to the method that attempt to pass NaN to either arugment will be easier to understand.)
 
 ```Java
     //@ requires !Double.isNaN(bankAccount);
