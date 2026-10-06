@@ -11,7 +11,7 @@ A simple answer is equivalent to the following.
 ```
 
 Requiring that the array has at least one argument guarantees that the expression `a[0]` is well-defined.
-Note that [in JML it is already implicit that the array argument `a` is not null](Nullness), so there is no need to specify that.
+Note that [in JML it is already implicit that the array argument `a` is not null](https://openjml.org/tutorial/Nullness), so there is no need to specify that.
 
 (Any logically equivalent form of the precondition expression would work,
 such as `a.length > 0`. However, we think it good style to follow Rustan Leino's idea of writing such expressions with the smallest quantity on the left, so the equivalent expression `1 <= a.length` would be preferred.)
