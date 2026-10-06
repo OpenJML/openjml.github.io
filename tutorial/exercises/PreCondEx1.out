@@ -1,0 +1,4 @@
+PreCondEx1.java:6: verify: The prover cannot establish an assertion (PossiblyTooLargeIndex) in method element0
+        return a[0];   // ERROR: a[0] may not be defined!
+                ^
+1 verification failure

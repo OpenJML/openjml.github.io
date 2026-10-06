@@ -11,10 +11,10 @@ A simple answer is equivalent to the following.
 ```
 
 Requiring that the array has at least one argument guarantees that the expression `a[0]` is well-defined.
-Note that in JML it is already implicit that the array argument `a` is not null, so there is no need to specify that.
+Note that [in JML it is already implicit that the array argument `a` is not null](Nullness), so there is no need to specify that.
 
 (Any logically equivalent form of the precondition expression would work,
-such as `a.length > 0`. However, we think it good style to follow Rustan Leino's idea of writing such expressions with the smallest quantity on the left, so the expression `1 <= a.length` would be equally good.)
+such as `a.length > 0`. However, we think it good style to follow Rustan Leino's idea of writing such expressions with the smallest quantity on the left, so the equivalent expression `1 <= a.length` would be preferred.)
 
 
 ## **Question 2**
@@ -37,21 +37,19 @@ or one could use a logically equivalent form such as
 ```
 requires !(Double.isNaN(bankAccount) || Double.isNaN(price));
 ```
-
-(There is one advantage to using two separate requires clauses, however, which is that error messages for calls to the method that attempt to pass NaN to either arugment will be easier to understand when separate requires clauses are used.
-Thus our preferred solution is equivalent to the following.)
+(In our preferred solution below, we use seqparate requires clauses stating that these arguments must not be NaN. One advantage to using two separate requires clauses, is that verification error messages for calls to the method that attempt to pass NaN to either arugment will be easier to understand.)
 
 ```Java
-//@ requires !Double.isNaN(bankAccount);
-//@ requires bankAccount > 0.0;
-//@ requires !Double.isNaN(price);
-//@ requires price >= 0.0;
-//@ requires (price*n) <= bankAccount;
-//@ ensures \result >= 0.0;
-public double bankUpdate(double bankAccount, double price, int n) {
+    //@ requires !Double.isNaN(bankAccount);
+    //@ requires bankAccount > 0.0;
+    //@ requires !Double.isNaN(price);
+    //@ requires price >= 0.0;
+    //@ requires (price*n) <= bankAccount;
+    //@ ensures \result >= 0.0;
+    public double bankUpdate(double bankAccount, double price, int n) {
 	bankAccount = bankAccount - (price*n);
 	return bankAccount;
-}
+    }
 ```
 
 **Incorrect Version 2:**

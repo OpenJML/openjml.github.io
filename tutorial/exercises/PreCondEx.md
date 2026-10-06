@@ -8,10 +8,10 @@ title: JML Tutorial - Exercises - Preconditions
 **What precondition would be needed for the following code in the method below to verify? If you can simplify your precondition while still making the code verify, do that.**
 
 ```Java
-//@ ensures \result == a[0];
-public int element0(int a[]) {
-   return a[0];
-}
+    //@ ensures \result == a[0];
+    public int element0(int a[]) {
+        return a[0];   // ERROR: a[0] may not be defined!
+    }
 ```
 
 ## **Question 2**
@@ -19,13 +19,13 @@ public int element0(int a[]) {
 **The method below will update a user's bank account after making a purchase of a certain number of items.
 The goal of this function is to return the new balance in the user's account,
 but also ensure that their bank account does not dip below zero dollars (as specified in the ensures clause).
-What specifications can we write to ensure that the result is never negative?**
+What specifications can we write to ensure that the result is never negative? (Although it may be best not to use doubles for amounts of money, this example does illustrate a point about preconditions and doubles that is more generally applicable.)**
 
 ```Java
 //@ ensures \result >= 0.0;
 public double bankUpdate(double bankAccount, double price, int n) {
 		bankAccount = bankAccount - (price*n);
-		return bankAccount;
+		return bankAccount;   // ERROR: may be NaN!
 }
 ```
 
@@ -45,3 +45,8 @@ public double bankUpdate(double bankAccount, double price, int n) {
 
 ## **[Answer Key](PreCondExKey.md)**
 ## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**
+
+## Resources
++ [Java code for question 1](PreCondEx1.java)
++ [Java code for question 2](PreCondEx2.java)
+

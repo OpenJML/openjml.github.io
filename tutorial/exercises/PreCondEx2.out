@@ -1,0 +1,7 @@
+PreCondEx2.java:7: verify: The prover cannot establish an assertion (Postcondition: PreCondEx2.java:4:) in method bankUpdate
+	return bankAccount;
+	^
+PreCondEx2.java:4: verify: Associated declaration: PreCondEx2.java:7:
+    //@ ensures \result >= 0.0;
+        ^
+2 verification failures
