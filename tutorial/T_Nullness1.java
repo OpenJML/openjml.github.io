@@ -11,7 +11,7 @@ public class T_Nullness1 {
   }
 
   public static void test(/*@ nullable */ String ss) {
-    boolean b = has(ss,'a');  // ERROR: may violate implicit precondition!
-    b = has(make(2), 'a');
+    boolean b = has(ss,'a');  // ERROR: may fail implicit precondition of has!
+    b = has(make(2), 'a');   // ERROR: result of make may be null!
   }
 }
