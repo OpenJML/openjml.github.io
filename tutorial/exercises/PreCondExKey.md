@@ -108,14 +108,14 @@ Another incorrect answer is as follows.
     }
 ```
 
-Since this specification does not require `0.0 <= price` and `0 < n`, the result of (price*n) could be negative, which would actually add money to the balance.
+Since this specification does not require `0.0 <= price` and `0 < n`, the result of (price*n) could be negative, which would add money to the balance, causing the assertion to fail.
+
+### More Questions
 
 The following are some additional questions to think about.
 
-Why is it okay to specify that the price may be $0.00?
-
-What would happen if the assertion in the body of the method were written as
-
+1. Why is it okay to specify that the price may be $0.00?
+2. What would happen if the assertion in the body of the method were written as
 ```
         //@ assert 0.0 <= balance;
 ```
