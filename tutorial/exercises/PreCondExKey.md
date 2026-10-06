@@ -33,7 +33,7 @@ b. the price is at least 0;
 
 c. the number of items is positive;
 
-c. that purchasing n items doesn't make the user's balance negative.
+c. that purchasing n items doesn't make the user's balance negative or increase.
 
 If all these requirements are met, the assertion in the code will pass.
 
