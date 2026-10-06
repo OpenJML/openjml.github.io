@@ -3,12 +3,12 @@ title: JML Tutorial - Nullable and non-null values and types
 ---
 
 Whether references to objects are null or not is a highly important property in Java programs and in most other programming languages,
-to the point that some languages are including non-nullness as a property of the type of a variable.
+to the point that some languages including non-nullness as part of the type of a variable.
 
 Like Java, JML allows you to specify whether or not the values of a type are allowed to be null. In fact, JML makes it the default that a value of reference type is never null.
 In Java `nullable` and `non_null` are *type annotations* (since Java 8), 
 which are annotations on types rather than on declarations.
-The switch to type annotations for nullness changes the syntax of JML in ways that might be surprising or at least unfamiliar to long-time JML users.
+The switch to type annotations for nullness changes the syntax of JML in ways that might be surprising to long-time JML users.
 
 ## Simple uses of non-null and nullable
 
@@ -20,21 +20,23 @@ At the simplest level, declarations of a variable may include the modifiers `non
 
 (Note that these annotations refer to whether the _reference_ to an object can be `null`, not to whether the string is empty, which sometimes is referred to as a "null string." An empty string would be found using a non-null reference, since the string object must exist for it to be empty.)
 
-A `nullable` declaration means that a variable, such as `s`, might be null (This must be taken into account when using that variable or verifying programs that use it.)
-On the other hand, a `non_null` declaration means that a variable, such as `ss` should never be null. For example, when `ss` is initialized or is the target of an assignment, the value it is given must be provably not null. But thereafter the values can be assumed to be non-null.
-This is the default in JML; that is, if there is no modifier, a variable is assumed to be non-null.
+A `nullable` declaration means that the declared variable, such as `s` in the first example, might be null (This must be taken into account when using that variable or verifying programs that use it.)
+On the other hand, a `non_null` declaration means that the declared variable, such as `ss` in the second example should never be null. For example, when `ss` is initialized or is the target of an assignment, the value it is given must be provably not null. But thereafter the values can be assumed to be non-null.
+This is the default in JML; that is, if a declaration has no modifier, then the variable being declared is assumed to be non-null.
 
 Instead of these modifiers, one can equivalently use the Java type annotations `@NonNull` or `@Nullable` (if one imports the package `org.jmlspecs.annotation`).
 
 The above modifiers are applicable to local declarations, field declarations, formal parameter declarations, and method return type declarations.
 
-Here is an example. The following code
+Here is an example. In the following code
 ```
 {% include_relative T_Nullness1.java %}
 ```
-produces no errors for method `has`, because `s` is by default non-null, nor for method `make`, because the return value of `make` is allowed to be null. But it 
-does issue verification errors for both statements in `test` because both `ss` and the result of `make` may be null and the argument of `has`
+method `has` verifies, because `s` is by default non-null, as does method `make`, because the return value of `make` is allowed to be null. But 
+both statements in `test` have verification errors, because both `ss` and the result of `make` may be null and the argument of `has`
 is not allowed to be null.
+
+The following shows the output of running OpenJML's ESC on the above example.
 
 ```
 {% include_relative T_Nullness1.out %}
@@ -48,25 +50,26 @@ The proper understanding of
 ```
 is that the modifier applies to the type `String`, not to `ss` directly. That is `ss` has type `@NonNull String`.
 In fact, as a type annotation, `non_null` can be applied to any use of the type: along with the declarations mentioned above, that includes type names in cast expressions, in instanceof expressions, in type parameters, even as a modifier of a type variable --- in short, anywhere a type name is allowed, it may be modified with a type annotation. 
-However, type annotations on types in the extends and implements clauses of a class declaration are meaningless and ignored (except on generic type arguments).
+However, type annotations on types in the extends and implements clauses of a class declaration are meaningless and ignored; on the other hand types in such clauses do have meaning for generic type arguments.
 
-As an example, consider the methods in `T_Maybe` shown below.
+As an example of the normal use of these type modifiers, 
+consider the methods in `T_Maybe` shown below.
 
 ```
 {% include_relative T_Maybe.java %}
 ```
-The method `fetch` specifies that the argument object `o` must not be null and simply returns it, effectively casting the argument to a non-null `Object` type (with JML checking that the argument is indeed non-null).
+The method `fetch` specifies that the argument object `o` must not be null and simply returns it, effectively casting the argument to a non-null `Object` type (with JML checking that the argument is indeed non-null at the call site).
 
 The method `isNull` allows its argument to be null and returns `true` just when it is null.
 
 
 ## Type annotations and arrays
 
-Applying annotations to arrays also requires some peculiar Java syntax. The difficulty is that one must distinguish between non-null array references and non-null array elements. Java stipulates that
+Applying annotations to arrays results in some peculiar Java syntax. The difficulty is that one must distinguish between non-null array references and non-null array elements. Thus in JML
 ```
 @NonNull String @Nullable [] s;
 ```
-declares `s` to have the type *possibly null array of non-null String values*. That is the `@NonNull` (or equivalently `/*@ non_null */`) goes with the `String` (elements) and the `@Nullable` goes with the array (`s` itself).
+declares `s` to have the type *possibly null array of non-null String values*. That is the `@NonNull` (or equivalently `/*@ non_null */`) modifier goes with the type `String` (i.e., with the elements of the array) and the `@Nullable` goes with the array (`s` itself).
 
 ## Nullness defaults for arrays
 
@@ -85,7 +88,11 @@ For example one could write the following:
 and then the array `nna` will be known to have all its elements be non-null.
 )
 
-TODO - more needs to be said here
+An example that initializes a non-null array of non-null strings is shwon in the constructor of the following.
+
+```
+{% include_relative T_NonNullArrayInit.java %}
+```
 
 ## Changing the default
 
