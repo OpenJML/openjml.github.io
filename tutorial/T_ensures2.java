@@ -2,7 +2,7 @@
 public class T_ensures2 {
   //@ ensures \result == a | \result == b | \result == c | \result == d;
   //@ ensures \result >= a & \result >= b & \result >= c & \result >= d;
-  public int max(int a, int b, int c, int d) {
+  public int max4(int a, int b, int c, int d) {
     if (a > b) {
         if (c > d) {
             if (a > c) return a;
