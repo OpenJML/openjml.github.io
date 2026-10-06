@@ -4,6 +4,6 @@ public class PreCondEx2 {
     //@ ensures \result >= 0.0;
     public double bankUpdate(double bankAccount, double price, int n) {
 	bankAccount = bankAccount - (price*n);
-	return bankAccount;
+	return bankAccount;   // ERROR: may be NaN!
     }
 }

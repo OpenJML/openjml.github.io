@@ -1,5 +1,5 @@
 PreCondEx2.java:7: verify: The prover cannot establish an assertion (Postcondition: PreCondEx2.java:4:) in method bankUpdate
-	return bankAccount;
+	return bankAccount;   // ERROR: may be NaN!
 	^
 PreCondEx2.java:4: verify: Associated declaration: PreCondEx2.java:7:
     //@ ensures \result >= 0.0;
