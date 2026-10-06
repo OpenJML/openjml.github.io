@@ -64,6 +64,6 @@ The answer can vary, but one possible specification and implementation is the fo
     }
 ```
 
-(Currently, in OpenJML 21.0.26.a, the requires clauses are not needed, but it is always good practice to rule out NaN, so that the postcondition has a chance of being true.)
+(Currently, in OpenJML 21.0.28, the requires clauses are not needed for the above to verify, but if one of the arguments is NaN, then the postcondition should be false. So it is always good practice to rule out NaN, as otherwise the implementation cannot be correct.)
 
-Notice that the specification above only requires that the result be approximately equal to the expected value. Since floating point arithmetic is only an approximation of real arithmetic, it is best to never compare floating point numbers for equality using `==` (or `!=`).
+Notice that the specification above only requires that the result be approximately equal to the expected value, although the approximation might vary. Since floating point arithmetic is only an approximation of real arithmetic, it is best to never compare floating point numbers for equality using `==` (or `!=`).
