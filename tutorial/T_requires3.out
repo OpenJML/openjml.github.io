@@ -1,4 +1,4 @@
-T_requires3.java:4: verify: The prover cannot establish an assertion (UndefinedNullDeReference) in method getElement
-  //@ requires 0 <= index < a.length;
-                             ^
+T_requires3.java:5: verify: The prover cannot establish an assertion (UndefinedNullDeReference) in method getElement
+  //@ requires index < a.length;   // ERROR: a may be null!
+                        ^
 1 verification failure
