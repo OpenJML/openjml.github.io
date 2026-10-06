@@ -9,6 +9,14 @@ A simple answer is equivalent to the following.
 ```
 //@ requires 0 < a.length;
 ```
+This requires clause can be seen in the following code.
+```Java
+    //@ requires 0 < a.length;
+    //@ ensures \result == a[0];
+    public int element0(int a[]) {
+        return a[0];
+    }
+```
 
 Requiring that the array has at least one argument guarantees that the expression `a[0]` is well-defined.
 Note that [in JML it is already implicit that the array argument `a` is not null](https://openjml.org/tutorial/Nullness), so there is no need to specify that.
