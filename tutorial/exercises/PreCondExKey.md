@@ -112,7 +112,7 @@ Since this specification does not require `0.0 <= price` and `0 < n`, the result
 
 ### More Questions
 
-The following are some additional questions to think about.
+The following are some additional questions to think about with respect to what should be specified in such an example.
 
 1. Why is it okay to specify that the price may be $0.00?
 2. What would happen if the assertion in the body of the method were written as
