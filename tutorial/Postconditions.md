@@ -62,7 +62,8 @@ but that they both differ from what the user intended.
 Another situation can be that the specification is not very specific.
 For example, the postcondition could simply be `ensures true;`, which is the
 default if no `ensures` clause is given. In this case the implementation
-trivially satisfies the specification, no matter what the implementation does.
+trivially satisfies the specification,
+no matter what the implementation does to make the final state of an execution.
 However, while no problem arises in verifying the method, it would not be
 possible to verify _uses_ of the method in some calling method (unless it
 indeed did not matter what the method does). We will return to this 
