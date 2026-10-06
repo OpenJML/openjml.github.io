@@ -16,7 +16,7 @@ public int element0(int a[]) {
 
 ## **Question 2**
 
-**The function below will update a user's bank account after making a purchase of a certain number of items.
+**The method below will update a user's bank account after making a purchase of a certain number of items.
 The goal of this function is to return the new balance in the user's account,
 but also ensure that their bank account does not dip below zero dollars (as specified in the ensures clause).
 What specifications can we write to ensure that the result is never negative?**
@@ -32,11 +32,11 @@ public double bankUpdate(double bankAccount, double price, int n) {
 
 ## **Question 3**
 
-** What precondition would be used in the strongest possible simple specification? What would a suitable be postcondition be?**
+**What precondition would be used in the strongest possible simple specification? What would a suitable be postcondition be?**
 
 ## **Question 4**
 
-** What precondition would be used in the weakest possible simple specification? What would a suitable postcondition be?**
+**What precondition would be used in the weakest possible simple specification? What would a suitable postcondition be?**
 
 **Learning Objectives:** 
 + Gain more experience writing preconditions 
