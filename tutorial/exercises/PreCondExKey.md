@@ -9,6 +9,10 @@ A simple answer is equivalent to the following.
 ```
 //@ requires 0 < a.length;
 ```
+
+(Any logically equivalent form of the precondition expression would work,
+such as `a.length > 0`. However, we think it good style to follow Rustan Leino's idea of writing such expressions with the smallest quantity on the left, so the equivalent expression `1 <= a.length` would be preferred.)
+
 This requires clause can be seen in the following code.
 ```Java
     //@ requires 0 < a.length;
@@ -20,10 +24,6 @@ This requires clause can be seen in the following code.
 
 Requiring that the array has at least one argument guarantees that the expression `a[0]` is well-defined.
 Note that [in JML it is already implicit that the array argument `a` is not null](https://openjml.org/tutorial/Nullness), so there is no need to specify that.
-
-(Any logically equivalent form of the precondition expression would work,
-such as `a.length > 0`. However, we think it good style to follow Rustan Leino's idea of writing such expressions with the smallest quantity on the left, so the equivalent expression `1 <= a.length` would be preferred.)
-
 
 ## **Question 2**
 We know that the method takes three parameters, the current amount in the user's bank account, the price of an item, and the number of items to be purchased. To ensure the bank account is never negative, we require the following:
