@@ -1,26 +1,26 @@
 ---
-title: JML Tutorial - Method Specifications: old clauses and clause ordering
+title: JML Tutorial - Method Specifications, old clauses and clause ordering
 ---
 
 We have introduced a few kinds of method specification clauses so far. In fact there are many more, though most are not widely used:
 * Precondition clauses
-  * [`recommends`](Recommends)
-  * [`requires`](Preconditions)
-  * [`old`](#old-clause)
+  * [recommends](Recommends)
+  * [requires](Preconditions)
+  * [old](#old-clause)
 * Frame conditions
-  * `reads` (`accessible`)
-  * [`assignable` (`assigns`, `writes`)](FrameConditions)
-  * `captures`
-  * `callable`
+  * reads (accessible)
+  * [assignable (or assigns or writes)](FrameConditions)
+  * captures
+  * callable
 * Postconditions
-  * [`ensures`](Postconditions)
-  * [`signals`](SpecifyingExceptions)
-  * [`signals_only`](SpecifyingExceptions)
-  * `diverges`
-  * `duration`
-  * `working_space`
+  * [ensures](Postconditions)
+  * [signals](SpecifyingExceptions)
+  * [signals_only](SpecifyingExceptions)
+  * diverges
+  * duration
+  * working_space
 * Termination
-  * `measured_by`
+  * measured_by
 
 Some of these have been already discussed; others are discussed in later lessons; and others are omitted from the tutorial because they are too advanced or too ill-defined -- see the JML Reference Manual for details on those. The `old` clause is presented below. Those clauses discussed in this tutorial are clickable hyperlinks in the above list.
 
