@@ -6,7 +6,7 @@ title: JML Tutorial - Exercises - Frame Conditions
 
 ## **Question 1**
 Adding a frame condition that says that maxValue can be assigned in the method `determineMax()` and one that says that `xGretaterThanY()` has no effects (or is pure), allows the program to be verified, as in the following.
-```
+```Java
 public class FrameCondEx1 {
     private /*@ spec_public @*/ int maxValue;
     private /*@ spec_public @*/ int x;
@@ -23,7 +23,8 @@ public class FrameCondEx1 {
     //@ ensures x == maxValue || y == maxValue;
     //@ ensures x <= maxValue && y <= maxValue;
     public void determineMax() {
-        if (xGreaterThanY()) {
+        boolean xgty = xGreaterThanY();
+        if (xgty) {
             maxValue = x;
         } else {
             maxValue = y;
@@ -31,35 +32,28 @@ public class FrameCondEx1 {
     }
 
     //@ ensures \result <==> (x > y);
-    //@ pure
+    //@ spec_pure
     public boolean xGreaterThanY() {
         return x > y;
     }
 
     public void test() {
-        FrameCondEx1 fca12 = new FrameCondEx1(1,2);
+        FrameCondEx1 fc12 = new FrameCondEx1(1,2);
         //@ assert fc12.x == 1;
         //@ assert fc12.y == 2;
-        fca12.determineMax();
+        fc12.determineMax();
         //@ assert fc12.maxValue == 2;
         //@ assert fc12.x == 1;
         //@ assert fc12.y == 2;
     }
 }
-
 ```
+
 **Explanation:**
 The problem, as one can see by running ESC on the code in the exercise (which gives the following output)
 ```
-FrameCondEx1.java:36: verify: The prover cannot establish an assertion (Assert) in method test
-        //@ assert fc12.x == 1;
-            ^
-FrameCondEx1.java:35: verify: The prover cannot establish an assertion (Assert) in method test
-        //@ assert fc12.maxValue == 2;
-            ^
-2 verification failures
+{% include_relative FrameCondEx1.out %}
 ```
-
 is that the specification of `determineMax()` does not prevent that method from changing either `x` or `y`.
 So one should add to the specification of `determineMax()` the following frame condition.
 ```
@@ -70,12 +64,12 @@ So one should add to the specification of `determineMax()` the following frame c
 However, if one only makes that change, then call of `xGreaterThanY()` in `determineMax` also causes several verification errors, including the following.
 
 ```
-FrameCondEx1.java:24: warning: Method xGreaterThanY() has 'assignable \everything', making its caller likely impossible to verify
+FrameCondEx1.java:27: warning: Method xGreaterThanY() has 'assignable \everything', making its caller likely impossible to verify
     //@ ensures \result <==> (x > y);
         ^
 ```
 
-The trouble is that the verification of the call to `xGreaterThanY()` assumes that it does not change the class's fields. However, since JML does verification method by method, the specification of `xGreaterThanY()` needs to say that, thus the `xGreaterThanY()` method needs to be declared as `assignable \nothing` or `pure`.
+The trouble is that the verification of the call to `xGreaterThanY()` assumes that it does not change the class's fields. However, since JML does verification method by method, the specification of `xGreaterThanY()` needs to say that, thus the `xGreaterThanY()` method needs to be declared as `assignable \nothing` or `pure` (but we prefer `spec_pure`, see [the discussion about using methods in specifications](https://www.openjml.org/tutorial/MethodsInSpecifications.html) for why).
 
 ## **Question 2**
 The following class does verify.

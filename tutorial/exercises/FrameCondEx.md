@@ -11,7 +11,7 @@ title: JML Tutorial - Exercises - Frame Conditions
 ```
 
 ## **Question 2**
-**The following class does not verify. What frame conditions and code changes need to be made so that it will verify?**
+**The following class does not verify. What frame conditions and code changes need to be made so that it will verify? (Note that the `equals` method must remain `spec_pure` if it is to be used in other specifications.)**
 ```Java
 {% include_relative Money.java %}
 ```

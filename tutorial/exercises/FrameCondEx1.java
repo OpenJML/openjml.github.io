@@ -12,6 +12,7 @@ public class FrameCondEx1 {
     }
     
     //@ ensures maxValue == x || maxValue == y;
+    //@ assignable maxValue;
     //@ ensures x <= maxValue;
     //@ ensures y <= maxValue;
     public void determineMax() {

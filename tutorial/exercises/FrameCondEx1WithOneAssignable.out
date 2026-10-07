@@ -1,0 +1,14 @@
+FrameCondEx1WithOneAssignable.java:27: warning: Method xGreaterThanY() has 'assignable \everything', making its caller likely impossible to verify
+    //@ ensures \result <==> (x > y);
+        ^
+FrameCondEx1WithOneAssignable.java:19: warning: Associated declaration: FrameCondEx1WithOneAssignable.java:27:
+        boolean xgty = xGreaterThanY();
+                                    ^
+FrameCondEx1WithOneAssignable.java:19: verify: The prover cannot establish an assertion (Assignable: FrameCondEx1WithOneAssignable.java:15:) in method determineMax: \everything
+        boolean xgty = xGreaterThanY();
+                                    ^
+FrameCondEx1WithOneAssignable.java:15: verify: Associated declaration: FrameCondEx1WithOneAssignable.java:19:
+    //@ assignable maxValue;
+        ^
+2 warnings
+2 verification failures
