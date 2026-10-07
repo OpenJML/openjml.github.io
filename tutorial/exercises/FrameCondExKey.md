@@ -107,10 +107,13 @@ public class Money {
 
 **Explanation:**
 The above solution adds a frame condition to the method `normalize()`, which limits the fields that can be changed to just the `dollars` and `cents` of the receiver (`this`); this change allows calls to `normalize` to be verified.
-However, since the `equals` method must remain `spec_pure` it cannot call `normalize` (on either the receiver or on `m`).
-Thus the code and specifications of `equals` have been changed to require that the objects being compared are already normalized.
-Since the `equals` method is `spec_pure`, one must remove its calls to the non-pure method `normalize()`, since those have effects. (With this change, the precondition `this != m` is no longer needed for the `equals` method. However, since the method cannot normalize the argument `m` before making the comparison, `m` is also required to be normalized before calling `equals`. A better solution might be to enforce an invariant that `cents < 100` for all `Money` objects;
-see [the tutorial section on invariants](https://www.openjml.org/tutorial/InitiallyConstraint.html).
+However, since the `equals` method must remain `spec_pure` it cannot call `normalize` (on either the receiver or on `m`), as those calls may have effects.
+Thus its calls to the non-pure method `normalize()` must be removed.
+It therefore is sensible to change the specification of `equals` to require that the objects being compared are already normalized.
+(With this change, the precondition `this != m` is no longer needed for the `equals` method.)
+Instead of requiring both object to already be normalized, 
+a better solution might be to enforce an invariant (that `cents < 100` for all `Money` objects);
+see [the tutorial section on invariants](https://www.openjml.org/tutorial/InitiallyConstraint.html for more about this.
 
 ## **Resources:**
 + [Frame Conditions Exercises](FrameCondEx)
