@@ -51,19 +51,19 @@ public class FrameCondEx1 {
 
 **Explanation:**
 The problem, as one can see by running ESC on the code in the exercise (which gives the following output)
-```
+```Java
 {% include_relative FrameCondEx1.out %}
 ```
 is that the specification of `determineMax()` does not prevent that method from changing either `x` or `y`.
 So one should add to the specification of `determineMax()` the following frame condition.
-```
+```Java
     //@ assignable maxValue;
 ```
 (or a synonym, such as `assigns maxValue`).
 
 However, if one only makes that change, then call of `xGreaterThanY()` in `determineMax` also causes several verification errors, including the following.
 
-```
+```Java
 FrameCondEx1.java:27: warning: Method xGreaterThanY() has 'assignable \everything', making its caller likely impossible to verify
     //@ ensures \result <==> (x > y);
         ^
