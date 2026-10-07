@@ -5,7 +5,7 @@ title: JML Tutorial - Exercises - Frame Conditions
 ## [Frame Conditions Tutorial](https://www.openjml.org/tutorial/FrameConditions)
 
 ## **Question 1**
-**The class `FrameCondEx1` puts in `maxValue` the maximum of the fields `x` and `y`. However, the code is unable to be verified; determine what specifications are needed to verify the program. 
+**The class `FrameCondEx1` puts in `maxValue` the maximum of the fields `x` and `y`. However, the code is unable to be verified; determine what specifications are needed to verify the program.**
 ```Java
 {% include_relative FrameCondEx1.java %}
 ```
