@@ -2,7 +2,7 @@
 title: JML Tutorial - Specifying Exceptions
 ---
 
-JML can specify exception execution paths just as well as normal execution paths.
+JML can specify exception execution paths as well as normal execution paths.
 A normal execution has associated postconditions --- `ensures` clauses.
 OpenJML verifies that if the method exits normally,
 then the postcondition must be true.
@@ -56,15 +56,13 @@ as the following example shows.
 
 In order to say that a particular type of exception is never thrown,
 use a `signals` clause (for that exception type) with a `false` predicate.
-Then the `signals` clause means --- if an exception is thrown then `false` --- which is equivalent to saying
-"if false is true, then throwing such an exception is correct",
-thus equivalently: "such an exception may not be thrown".
+Then the `signals` clause means --- if an exception is thrown then `false` --- which is equivalent to specifying that such an exception may not be thrown.
 
 For example, the following specifies that no exceptions can be thrown by the method `value`, due to the `signals` clause that uses the overall type `Exception` as the exception type and which specifies that an exception may only be thrown when `false` is true.
 ```
 {% include_relative T_Exception2.java %}
 ```
-But trying to verify this example produces a verification failure:
+But trying to verify this example produces a verification failure (since declarations in the class are nullable by default):
 ```
 {% include_relative T_Exception2.out %}
 ```
@@ -72,7 +70,7 @@ as it should. We can guard against an exception by requiring that the method alw
 ```
 {% include_relative T_Exception3.java %}
 ```
-which now verifies again.
+which now verifies.
 
 Exceptional postcondition clauses can be stated in any order;
 there is no meaning to one being before the other as all must be satisfied.
@@ -93,7 +91,7 @@ which gives this result
 ```
 The three verification failure messages may occur in any order.
 This balance between verification failures and exception specifications is an
-advanced topic discussed [here](JavaErrorsAndExceptions).
+[advanced topic](JavaErrorsAndExceptions).
 
 ## **[Exercises](https://www.openjml.org/tutorial/exercises/SpecifyingExceptionsEx.html)**
 
