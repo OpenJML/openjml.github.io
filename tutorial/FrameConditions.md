@@ -5,9 +5,11 @@ title: JML Tutorial - Frame Conditions
 The [previous lesson](MethodCalls) described the verification process when 
 there are multiple methods that call each other. But that lesson left out
 an important consideration: how to specify the effects of methods
-("effects" are often called "side-effects"), which are changes to storage that exists before a method is called and outlives the method call.
+(these effects are often called "side-effects"), 
+which are changes to storage that exists before a method is called
+and outlives the method call.
 
-Consider this example:
+Consider the following example:
 ```
 {% include_relative T_frame1.java %}
 ```
@@ -16,16 +18,18 @@ which produces
 {% include_relative T_frame1.out %}
 ```
 Note first a new bit of syntax: the `\old` designator. The `increment` methods make a change in state: the value of `counter1` or `counter2` is different after
-the method than before it is called and we need a way to refer to their values before and after. The `\old` syntax means to evaluate the enclosed expression
-in the pre-state, that is, the state at the beginning of the method's execution.
-`counter1` without the `\old` designator means the value of `counter1` in the
-post-state, the state after the method has completed.
+the method than before it is called and we need a way to refer to their values before and after the call. 
+The `\old(E)` syntax evaluates the enclosed expression (`E`)
+in the call's pre-state, that is, the state at the beginning 
+of the method's execution.
+Using `counter1` without the `\old` designator means the value of `counter1` 
+in the call's post-state, that is, the state after the call has completed.
 
-Also, why the comparison to `Integer.MAX_VALUE` in the preconditions? That is to avoid warnings about arithmetic overflow. We'll get to that topic [later](ArithmeticModes).
+Also, why the comparison to `Integer.MAX_VALUE` in the preconditions? That is to avoid [warnings about arithmetic overflow](ArithmeticModes).
 
 Now to the point of this lesson. The two increment methods verify, but 
 what is happening in the `test()` method?
-First we assume some values for `counter1` and `counter2`; this is just to make the assertions more concrete and easier to state.
+First the code initializes `counter1` and `counter2`, which makes the test more  concrete.
 After calling `increment1()`, the value of `counter1` has increased by 1; 
 the postcondition of `increment1()` says just that and the first assert
 statement is readily proved. 
@@ -46,7 +50,7 @@ Note that `modifies` is also an
 (implemented) synonym, but in some tools it has a slightly different meaning,
 so its use is not recommended.
 
-An explicit  frame condition states which memory locations might be changed by the method at hand. Anything not mentioned is assumed to be unchanged. In fact, a method
+A method's frame condition states which memory locations might be changed by that method's execution. Anything not mentioned is assumed to be unchanged. In fact, a method
 is not allowed to *assign* to a memory location (even with the same value) unless it is listed in the frame condition --- this makes the check for violations of the frame condition, whether by tool or by eye, independent of the values computed.
 
 ## Names for Frame Condition Clauses
