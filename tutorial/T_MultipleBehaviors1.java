@@ -9,7 +9,7 @@ public class T_MultipleBehaviors1 {
   //@  requires b <= a && c <= a;
   //@  ensures \result == a;
   //@ pure
-  public int max(int a, int b, int c) {
+  public int max3(int a, int b, int c) {
     return a >= b ? ( c >= a ? c : a) : (c >= b ? c : b);
   }
 }
