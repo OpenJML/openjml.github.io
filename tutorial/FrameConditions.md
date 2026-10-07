@@ -134,7 +134,7 @@ One might think that it would be more convenient if the
 result of multiple assignable clauses was the *union* of their contents,
 but that is not the case, for historical reasons and
 to make reasoning about inheritance of specifications,
-which can involve [multiple specification cases](MultipleBehaviors) able to count on what is not assignable by a method without knowing about the specifications of subtypes.[^1] The advice is thus to
+which can involve [multiple specification cases](MultipleBehaviors), able to count on what is not assignable by a method without knowing about the specifications of subtypes.[^1] The advice is thus to
 *use only one frame condition per specification (case)*, even if that
 means the clause has a long list. 
 
