@@ -33,8 +33,8 @@ public class FrameCondEx1 {
         //@ assert fc12.x == 1;
         //@ assert fc12.y == 2;
         fc12.determineMax();
-        //@ assert fc12.maxValue == 2;
-        //@ assert fc12.x == 1;
+        //@ assert fc12.maxValue == 2;   // ERROR: may fail!
+        //@ assert fc12.x == 1;    // ERROR: may fail!
         //@ assert fc12.y == 2;
     }
 }
