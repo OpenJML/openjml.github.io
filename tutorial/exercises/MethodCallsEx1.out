@@ -1,7 +1,7 @@
-MethodCallsEx1.java:4: error: missing method body, or declare abstract
-    public double averageMeasures(int x, int y);
-                  ^
-MethodCallsEx1.java:6: error: missing method body, or declare abstract
-    public boolean isNonNegative(int i);
-                   ^
+MethodCallsEx1.java:7: error: missing return statement
+    }
+    ^
+MethodCallsEx1.java:12: error: missing return statement
+    }
+    ^
 2 errors
