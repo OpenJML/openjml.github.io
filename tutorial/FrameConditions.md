@@ -129,13 +129,14 @@ is the same as
 ```
 assignable \nothing;
 ```
-Admittedly,  it would be much more convenient and perhaps more intuitive if the
+
+One might think that it would be more convenient if the
 result of multiple assignable clauses was the *union* of their contents,
-but that is not the case, for historical reasons. The advice is thus to
+but that is not the case, for historical reasons and
+to make reasoning about inheritance of specifications,
+which can involve [multiple specification cases](MultipleBehaviors) able to count on what is not assignable by a method without knowing about the specifications of subtypes.[^1] The advice is thus to
 *use only one frame condition per specification (case)*, even if that
-means the clause has a long list. (All the method specifications in the
-tutorial lessons so far have just one specification case; on the other hand, 
-a subsequent lesson presents [multiple specification cases](MultipleBehaviors).)
+means the clause has a long list. 
 
 ## **[Exercises](https://www.openjml.org/tutorial/exercises/FrameCondEx.html)**
 
@@ -144,3 +145,7 @@ Follow the link in the above heading to work on the exercises on this topic.
 ## Resources
 + [T_frame1 file](T_frame1.java)
 + [T_frame3 file](T_frame3.java)
+
+## Footnotes
+
+[^1]: Reasoning that can ignore subtypes is called "supertype abstraction", see Gary T. Leavens and David A. Naumann, "Behavioral Subtyping, Specification Inheritance, and Modular Reasoning", in ACM Transactions on Programming Languages and Systems, vol. 37, num. 4 (August), 2015, pp. 13:1-13:88, http://doi.acm.org/10.1145/2766446.
