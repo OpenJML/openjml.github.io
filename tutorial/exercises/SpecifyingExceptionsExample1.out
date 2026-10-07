@@ -1,0 +1,7 @@
+SpecifyingExceptionsExample1.java:7: verify: The prover cannot establish an assertion (PossiblyTooLargeIndex) in method elementAtIndex
+		return arr[index];   // ERROR: index may be out of bounds!
+		          ^
+SpecifyingExceptionsExample1.java:7: verify: The prover cannot establish an assertion (PossiblyNegativeIndex) in method elementAtIndex
+		return arr[index];   // ERROR: index may be out of bounds!
+		          ^
+2 verification failures

@@ -7,10 +7,11 @@ title: JML Tutorial - Exercises - Specifying Exceptions
 ## **Question 1**
 **Are any additional specifications needed to verify the method below? If so, write them and check that your answer verifies with OpenJML. (Do not change the code or the signals clause in the specification.)**
 ```Java
-//@ signals (Exception e) false;
-public int elementAtIndex(int[] arr, int index) {
-      return arr[index];
-}
+    //@ ensures \result == arr[index];
+    //@ signals (Exception e) false;
+    public int elementAtIndex(int[] arr, int index) {
+        return arr[index];   // ERROR: index may be out of bounds!
+    }
 ```
 
 ## **Question 2**
@@ -36,3 +37,7 @@ public int elementAtIndex(int[] arr, int index) {
 
 ## **[Answer Key](SpecifyingExceptionsExKey.md)**
 ## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**
+
+## Resources
++ [Code for question 1](SpecifyingExceptionsExample1.java)
++ [Code for question 2](SpecifyingExceptionsExample2.java)
