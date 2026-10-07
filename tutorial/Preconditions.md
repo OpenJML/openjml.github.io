@@ -9,7 +9,7 @@ Such restrictions are called *preconditions* and are written with one (or more) 
 
 For example, a method to compute an integer square root requires its
 input to be non-negative:
-```
+```Java
 {% include_relative T_requires1.java %}
 ```
 
@@ -19,7 +19,7 @@ or that an index is in range for an array (`0 <= i < a.length`).
 Note that the default in JML is that arguments are automatically considered to be non-null (`a != null`) unless the specification indicates otherwise; see [Null and non-null](Nullness), thus it is not usually necessary to state which arguments are non-null in JML specifications.
 
 A method's specifications may include more than one requires clause. For example, in the following, the two requires clauses must both hold. (Sometimes this separation is useful to isolate what predicate is failing for a particular call.)
-```
+```Java
 {% include_relative T_requires2.java %}
 ```
 
@@ -28,13 +28,13 @@ For example, in the following, the expression `a.length` in
 the third clause is undefined if `a` is null. Thus we also need the
 condition stated in the third requires clause, and it must be stated before the
 second clause. 
-```
+```Java
 {% include_relative T_requires3.java %}
 ```
 
 The order shown above results in a verification error (when the arguments are nullable by default).
 
-```
+```Java
 {% include_relative T_requires3.out %}
 ```
 

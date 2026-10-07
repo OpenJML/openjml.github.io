@@ -13,7 +13,7 @@ all ensures clauses.)
 
 Consider this example of a method that computes the maximum of four int values.
 
-```
+```Java
 {% include_relative T_ensures1.java %}
 ```
 
@@ -27,7 +27,7 @@ by the keyword `\result`.
 The body of the function computes this result. Note that the specification
 states the properties of the result but does not state how it is computed.
 In fact, the same specification could be used with a different implementation:
-```
+```Java
 {% include_relative T_ensures1a.java %}
 ```
 
@@ -35,13 +35,13 @@ Both of the above examples verify as correct with respect to the given specifica
 
 Now consider a third example:
 
-```
+```Java
 {% include_relative T_ensures2.java %}
 ```
 
 ESC produces the following output for the above code.
 
-```
+```Java
 {% include_relative T_ensures2.out %}
 ```
 
@@ -73,7 +73,7 @@ Sometimes you may wish to refer to the value returned by a method in the postcon
 This value is referenced as `\result`. Like all JML keywords in expression, `\result` begins with a backslash so it will not conflict with a Java identifier.
  `\result` may only be used in `ensures` clauses of method specifications for
  methods that return values (and not for constructors). Here is a simple example:
-```
+```Java
 {% include_relative T_ensures3.java %}
 ```
 Two final points:
@@ -87,6 +87,7 @@ The converse, if the `ensures` predicate is true then the method terminates norm
 ## **[Exercises](https://www.openjml.org/tutorial/exercises/PostCondEx.html)**
 
 Follow the link in the above heading to work on the exercises on this topic.
+
 ## Resources
 + [T_ensures1 file](T_ensures1.java)
 + [T_ensures1a file](T_ensures1a.java)
