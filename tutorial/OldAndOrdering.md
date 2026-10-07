@@ -22,14 +22,14 @@ We have introduced a few kinds of method specification clauses so far. In fact t
 * Termination clauses
   * measured_by
 
-Some of these have been already discussed; others are discussed in later lessons; and others are omitted from the tutorial because they are too advanced or too ill-defined -- see the JML Reference Manual for details on those. The `old` clause is presented below. Those clauses discussed in this tutorial are clickable hyperlinks in the above list.
+Some of these have been already discussed; others are discussed in later lessons; and others are omitted from the tutorial because they are too advanced or too ill-defined -- see the JML Reference Manual for details on those. The `old` clause is presented [below](#old-clause). Clauses discussed in this tutorial are clickable hyperlinks in the above list.
 
 ## Ordering of clauses
 
 There is no pre-defined order to the clauses within a single specification case (the same applies to [multiple specification cases](MultipleBehaviors)).
 However, a specification is more readable (by people familiar with JML) if the clauses generally follow the order above, with preconditions first, then frame conditions, followed by postconditions.
 
-There is some meaning to the ordering within the precondition group and within the postcondition group: earlier clauses enforce conditions that are needed for later clauses to be well-defined; but ordering only matters within the each kinds of clause; that is, ordering matters within the set of preconditions (`requires` clauses) and separately within the set of postconditions (`ensures` clauses). For example, when the following is checked with ESC
+There is some meaning to the ordering within the precondition group and within the postcondition group: earlier clauses can enforce conditions that are needed for later clauses to be well-defined; but ordering only matters within the each kinds of clause; that is, ordering matters within the precondition clauses and separately within the postcondition clauses (`ensures` clauses). For example, when the following is checked with ESC
 ```
 {% include_relative T_order1.java %}
 ```
@@ -45,8 +45,8 @@ In the above example, the first requires clause might not be well-defined becaus
 
 ## old clause
 
-The `old` clause is a means to compute a value (in the pre-state) that is used elsewhere in the specification.
-It is a means to factor out common subexpressions, to compute something in the pre-state that is used in the postconditions, or to simply make the specification more readable.
+The `old` clause can compute a value (in the pre-state) that is used elsewhere in the specification.
+It can thus be used to factor out common subexpressions, to compute something in the pre-state that is used in the postconditions, or to simply make the specification more readable.
 In the following, the value of `g` is determined in the pre-state of a call to `GCD3`, and that value is used again in other that method's preconditions and in its postcondition.
 ```
 {% include_relative T_Old.java %}
