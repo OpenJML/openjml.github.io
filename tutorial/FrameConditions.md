@@ -103,7 +103,7 @@ There are also several abbreviations for mentioning sets of locations in specifi
 
 ## Evaluation of Expressions is in the Pre-State
 
-There are two other points to know about frame conditions. First, where a frame condition clause includes expressions, such as the indices of array expressions, those expressions are evaluated in the call's pre-state, not its post-state. This allows callers of the method to understand the potential effects of a method before calling it.
+When a frame condition includes expressions, such as the indices of array expressions, those expressions are evaluated in the call's pre-state, not its post-state. This allows callers of the method to understand the potential effects of a method before calling it.
 
 ## Multiple Frame Conditions in a Specification
 
