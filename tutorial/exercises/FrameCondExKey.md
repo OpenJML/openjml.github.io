@@ -72,7 +72,7 @@ FrameCondEx1.java:27: warning: Method xGreaterThanY() has 'assignable \everythin
 The trouble is that the verification of the call to `xGreaterThanY()` assumes that it does not change the class's fields. However, since JML does verification method by method, the specification of `xGreaterThanY()` needs to say that, thus the `xGreaterThanY()` method needs to be declared as `assignable \nothing` or `pure` (but we prefer `spec_pure`, see [the discussion about using methods in specifications](https://www.openjml.org/tutorial/MethodsInSpecifications.html) for why).
 
 ## **Question 2**
-The following class does verify.
+The following is one rewriting that does verify.
 ```Java
 public class Money {
     private /*@ spec_public @*/ int dollars, cents;
@@ -85,15 +85,14 @@ public class Money {
     }
 
     //@ requires this != m;
-    //@ requires dollars + cents/100 <= Integer.MAX_VALUE;
-    //@ requires m.dollars + m.cents/100 <= Integer.MAX_VALUE;
+    //@ requires cents < 100;
+    //@ requires m.cents < 100;
     /*@ ensures \result <==> (this.dollars == m.dollars
       @                        && this.cents == m.cents); @*/
-    public /*@ pure @*/ boolean equals(Money m) {
+    public /*@ spec_pure @*/ boolean equals(Money m) {
         return this.dollars == m.dollars && this.cents == m.cents;
     }
         
-
     //@ requires dollars + cents/100 <= Integer.MAX_VALUE;
     //@ assignable dollars, cents;
     //@ ensures cents < 100;
@@ -104,16 +103,14 @@ public class Money {
         }
     }
 }
-
 ```
 
 **Explanation:**
-The above solution adds a frame condition to the method `normalize()`, which limits the fields that can be changed to just the `dollars` and `cents` of the receiver (`this`).
-This solution also declares the `equals` method to be `pure` (which is equivalent to `assignable \nothing`). And thus to verify it must removes the calls to the non-pure method `normalize()`, since those have effects. (With this change, the precondition `this != m` is no longer needed for the `equals` method, but the method cannot normalize the `Money` objects before making the comparison. One might require that the `Money` objects being compared be normalized before calling `equals` but a better solution might be to enforce an invariant that `cents < 100` for all `Money` objects;
+The above solution adds a frame condition to the method `normalize()`, which limits the fields that can be changed to just the `dollars` and `cents` of the receiver (`this`); this change allows calls to `normalize` to be verified.
+However, since the `equals` method must remain `spec_pure` it cannot call `normalize` (on either the receiver or on `m`).
+Thus the code and specifications of `equals` have been changed to require that the objects being compared are already normalized.
+This solution also declares the `equals` method to be `spec_pure`; thus to verify it one must removes the calls to the non-pure method `normalize()`, since those have effects. (With this change, the precondition `this != m` is no longer needed for the `equals` method. However, since the method cannot normalize the argument `m` before making the comparison, `m` is also required to be normalized before calling `equals`. A better solution might be to enforce an invariant that `cents < 100` for all `Money` objects;
 see [the tutorial section on invariants](https://www.openjml.org/tutorial/InitiallyConstraint.html).
-
-**Learning Objective:** 
-The goal of this exercise is to see if the student understands how to use frame clauses. We want to make sure that the student understands that we need to specify any occurrence of memory locations is being modified. 
 
 ## **Resources:**
 + [Frame Conditions Exercises](FrameCondEx)
