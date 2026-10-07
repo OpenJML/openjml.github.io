@@ -148,4 +148,4 @@ Follow the link in the above heading to work on the exercises on this topic.
 
 ## Footnotes
 
-[^1]: Reasoning that can ignore subtypes is called "supertype abstraction", see Gary T. Leavens and David A. Naumann, "Behavioral Subtyping, Specification Inheritance, and Modular Reasoning", in ACM Transactions on Programming Languages and Systems, vol. 37, num. 4 (August), 2015, pp. 13:1-13:88, http://doi.acm.org/10.1145/2766446.
+[^1]: Reasoning that can ignore subtypes is called "supertype abstraction", see Gary T. Leavens and David A. Naumann, "Behavioral Subtyping, Specification Inheritance, and Modular Reasoning", in _ACM Transactions on Programming Languages and Systems_, vol. 37, num. 4 (August), 2015, pp. 13:1-13:88, http://doi.acm.org/10.1145/2766446.
