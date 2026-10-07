@@ -5,7 +5,7 @@ title: JML Tutorial - Exercises - Frame Conditions
 ## [Frame Conditions Tutorial](https://www.openjml.org/tutorial/FrameConditions)
 
 ## **Question 1**
-Adding a frame condition that says that maxValue can be assigned in the method `determineMax()` and one that says that `xGretaterThanY()` has no effects (or is pure), allows the program to be verified, as in the following.
+Adding a frame condition that says that maxValue can be assigned in the method `determineMax()` and one that says that `xGretaterThanY()` has no effects (or is `spec_pure` or `pure`), allows the program to be verified, as in the following. (Note that constructors cannot be `spec_pure` since they can only be called when constructing objects, hence the constructor below can only be `pure`.)
 ```Java
 public class FrameCondEx1 {
     private /*@ spec_public @*/ int maxValue;
