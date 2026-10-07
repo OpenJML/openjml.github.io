@@ -17,7 +17,8 @@ public class T_frame1 {
   }
   
   public void test() {
-    //@ assume counter1 == 0 && counter2 == 0;
+    counter1 = 0;
+    counter2 = 0;
     increment1();
     //@ assert counter1 == 1;
     //@ assert counter2 == 0;   // ERROR: see text!
