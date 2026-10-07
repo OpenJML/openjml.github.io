@@ -11,12 +11,12 @@ in the array argument `arr`. This method will execute without problems, unless `
 
 The simplest addition to the specification to allow the code to be verified is to restrict `index` to be a legal index into the array,
 using the following requires clause.
-```
+```Java
 //@ requires 0 <= index < arr.length;
 ```
 One can also specify an ensures clause. although the function does verify without that being specified (since the default ensures clause is `ensures true`, which is trivially satisfied by the code).
 A stronger ensures clause that also verifies would be the following.
-```
+```Java
 //@ ensures \result == arr[index];
 ```
 
@@ -50,7 +50,7 @@ For the `getHash` method:
 ```
 
 (c) A signals clause that could be added to the method would be the following.
-```
+```Java
     //@ signals (IllegalArgumentException) tableSize == 0;
 ```
 which says that if an `IllegalArgumentException` is thrown, then the value of the argument `tableSize` must have been 0.
