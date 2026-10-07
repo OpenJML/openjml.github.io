@@ -14,13 +14,12 @@ public class Money {
     //@ requires m.dollars + m.cents/100 <= Integer.MAX_VALUE;
     /*@ ensures \result <==> (this.dollars == m.dollars
       @                        && this.cents == m.cents); @*/
-    public /*@ pure @*/ boolean equals(Money m) {
+    public /*@ spec_pure @*/ boolean equals(Money m) {   // ERROR: see text!
         this.normalize();
         m.normalize();
         return this.dollars == m.dollars && this.cents == m.cents;
     }
         
-
     //@ requires dollars + cents/100 <= Integer.MAX_VALUE;
     //@ ensures cents < 100;
     public void normalize() {

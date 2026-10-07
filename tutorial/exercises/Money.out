@@ -1,35 +1,35 @@
-Money.java:24: warning: Method normalize() has 'assignable \everything', making its caller likely impossible to verify
+Money.java:23: warning: Method normalize() has 'assignable \everything', making its caller likely impossible to verify
     //@ requires dollars + cents/100 <= Integer.MAX_VALUE;
         ^
-Money.java:18: warning: Associated declaration: Money.java:24:
+Money.java:18: warning: Associated declaration: Money.java:23:
         this.normalize();
                       ^
-Money.java:24: warning: Method normalize() has 'assignable \everything', making its caller likely impossible to verify
+Money.java:23: warning: Method normalize() has 'assignable \everything', making its caller likely impossible to verify
     //@ requires dollars + cents/100 <= Integer.MAX_VALUE;
         ^
-Money.java:19: warning: Associated declaration: Money.java:24:
+Money.java:19: warning: Associated declaration: Money.java:23:
         m.normalize();
                    ^
 Money.java:18: verify: The prover cannot establish an assertion (Assignable: Money.java:17:) in method equals: \everything
         this.normalize();
                       ^
 Money.java:17: verify: Associated declaration: Money.java:18:
-    public /*@ pure @*/ boolean equals(Money m) {
+    public /*@ spec_pure @*/ boolean equals(Money m) {   // ERROR: see text!
                ^
-Money.java:19: verify: The prover cannot establish an assertion (Precondition: Money.java:26:) in method equals
+Money.java:19: verify: The prover cannot establish an assertion (Precondition: Money.java:25:) in method equals
         m.normalize();
                    ^
-Money.java:26: verify: Associated declaration: Money.java:19:
+Money.java:25: verify: Associated declaration: Money.java:19:
     public void normalize() {
                 ^
-Money.java:24: verify: Precondition conjunct is false: dollars + cents / 100 <= Integer.MAX_VALUE
+Money.java:23: verify: Precondition conjunct is false: dollars + cents / 100 <= Integer.MAX_VALUE
     //@ requires dollars + cents/100 <= Integer.MAX_VALUE;
                                      ^
 Money.java:19: verify: The prover cannot establish an assertion (Assignable: Money.java:17:) in method equals: \everything
         m.normalize();
                    ^
 Money.java:17: verify: Associated declaration: Money.java:19:
-    public /*@ pure @*/ boolean equals(Money m) {
+    public /*@ spec_pure @*/ boolean equals(Money m) {   // ERROR: see text!
                ^
 4 warnings
 7 verification failures

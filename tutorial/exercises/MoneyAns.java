@@ -10,15 +10,14 @@ public class MoneyAns {
     }
 
     //@ requires this != m;
-    //@ requires dollars + cents/100 <= Integer.MAX_VALUE;
-    //@ requires m.dollars + m.cents/100 <= Integer.MAX_VALUE;
+    //@ requires cents < 100;
+    //@ requires m.cents < 100;
     /*@ ensures \result <==> (this.dollars == m.dollars
       @                        && this.cents == m.cents); @*/
-    public /*@ pure @*/ boolean equals(MoneyAns m) {
+    public /*@ spec_pure @*/ boolean equals(MoneyAns m) {
         return this.dollars == m.dollars && this.cents == m.cents;
     }
         
-
     //@ requires dollars + cents/100 <= Integer.MAX_VALUE;
     //@ assignable dollars, cents;
     //@ ensures cents < 100;
