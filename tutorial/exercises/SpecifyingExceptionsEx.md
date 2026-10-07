@@ -22,13 +22,13 @@ title: JML Tutorial - Exercises - Specifying Exceptions
 (c) What would be the strongest predicate that could used in a `signals` clause added to the spcification so that the code would still verify?
 (Check your answer using OpenJML.)**
 ```Java
-   //@ signals_only \nothing;
-   public int getHash(String str, int tableSize) {
-       if (tableSize == 0) {
-           throw new IllegalArgumentException();
-       }
-       return str.length() % tableSize;
-   }
+    //@ signals_only \nothing;
+    public int getHash(String str, int tableSize) {
+        if(tableSize == 0) {
+            throw new IllegalArgumentException();   // ERROR: throws exception!
+        }
+	return str.length() % tableSize;
+    }
 ```
 
 **Learning Objectives:**
