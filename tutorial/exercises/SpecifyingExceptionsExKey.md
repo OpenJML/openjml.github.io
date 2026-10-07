@@ -14,11 +14,21 @@ using the following requires clause.
 ```
 //@ requires 0 <= index < arr.length;
 ```
-
 One can also specify an ensures clause. although the function does verify without that being specified (since the default ensures clause is `ensures true`, which is trivially satisfied by the code).
 A stronger ensures clause that also verifies would be the following.
 ```
 //@ ensures \result == arr[index];
+```
+
+The result of including both of these clauses is as follows.
+
+```Java
+    //@ requires 0 <= index < arr.length;
+    //@ ensures \result == arr[index];
+    //@ signals (Exception e) false;
+    public int elementAtIndex(int[] arr, int index) {
+        return arr[index];
+    }
 ```
 
 ## **Question 2**
@@ -44,6 +54,19 @@ For the `getHash` method:
     //@ signals (IllegalArgumentException) tableSize == 0;
 ```
 which says that if an `IllegalArgumentException` is thrown, then the value of the argument `tableSize` must have been 0.
+
+The result of including both of these specifications is the following, which does verify.
+
+```Java
+    //@ signals_only IllegalArgumentException;
+    //@ signals (IllegalArgumentException) tableSize == 0;
+    public int getHash(String str, int tableSize) {
+        if(tableSize == 0) {
+            throw new IllegalArgumentException();
+        }
+	return str.length() % tableSize;
+    }
+```
 
 ## **Resources:**
 + [Specifying Exceptions Exercises](SpecifyingExceptionsEx.md)
