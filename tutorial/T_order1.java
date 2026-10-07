@@ -1,4 +1,4 @@
-// openjml --esc $@
+// openjml --esc T_order1.java
 //@ nullable_by_default // for the purpose of this example
 public class T_order1 {
 

@@ -1,3 +1,4 @@
-error: invalid flag: $@
-Usage: openjml <options> <source files>
-use --help for a list of possible options
+T_order1.java:5: verify: The prover cannot establish an assertion (UndefinedNullDeReference) in method m
+  //@ requires a.length > 10;  // ERROR: a might be null!
+                ^
+1 verification failure
