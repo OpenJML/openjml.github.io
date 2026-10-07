@@ -113,7 +113,7 @@ It therefore is sensible to change the specification of `equals` to require that
 (With this change, the precondition `this != m` is no longer needed for the `equals` method.)
 Instead of requiring both object to already be normalized, 
 a better solution might be to enforce an invariant (that `cents < 100` for all `Money` objects);
-see [the tutorial section on invariants](https://www.openjml.org/tutorial/InitiallyConstraint.html for more about this.
+see [the tutorial section on invariants](https://openjml.org/tutorial/Invariants.html) for more about this.
 
 ## **Resources:**
 + [Frame Conditions Exercises](FrameCondEx)
