@@ -1,0 +1,28 @@
+MethodCallsEx2.java:17: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method areaOfRectangle: int multiply out of range
+        int A = w*h;
+                 ^
+MethodCallsEx2.java:18: verify: The prover cannot establish an assertion (Postcondition: MethodCallsEx2.java:14:) in method areaOfRectangle
+        return A;
+        ^
+MethodCallsEx2.java:14: verify: Associated declaration: MethodCallsEx2.java:18:
+    //@ ensures \result == w*h;
+        ^
+MethodCallsEx2.java:18: verify: The prover cannot establish an assertion (Postcondition: MethodCallsEx2.java:13:) in method areaOfRectangle
+        return A;
+        ^
+MethodCallsEx2.java:13: verify: Associated declaration: MethodCallsEx2.java:18:
+    //@ ensures h <= \result;
+        ^
+MethodCallsEx2.java:18: verify: The prover cannot establish an assertion (Postcondition: MethodCallsEx2.java:11:) in method areaOfRectangle
+        return A;
+        ^
+MethodCallsEx2.java:11: verify: Associated declaration: MethodCallsEx2.java:18:
+    //@ ensures 0 < \result;
+        ^
+MethodCallsEx2.java:18: verify: The prover cannot establish an assertion (Postcondition: MethodCallsEx2.java:12:) in method areaOfRectangle
+        return A;
+        ^
+MethodCallsEx2.java:12: verify: Associated declaration: MethodCallsEx2.java:18:
+    //@ ensures w <= \result;
+        ^
+9 verification failures

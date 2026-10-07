@@ -8,12 +8,27 @@ title: JML Tutorial - Exercises - Verifying Method Calls
 **Answer and Explanation:**
 One solution that verifies as correct is the following.
 ```Java
-{% include_relative MethodCallsEx1.java %}
+    //@ requires 0 < x && 0 < y;
+    //@ requires x+y <= Integer.MAX_VALUE;
+    //@ ensures Math.abs(\result - ((x+y)/2.0)) < 1e-9;
+    //@ pure
+    public double averageMeasures(int x, int y) {
+        if (isNonNegative(x) && isNonNegative(y)) {
+            return (x+y)/2.0;
+        }
+        throw new IllegalArgumentException();
+    }
+
+    //@ ensures \result <==> 0 <= i;
+    //@ spec_pure
+    public boolean isNonNegative(int i) {
+        return 0 <= i;
+    }
 ```
 
 If one uses a standard computation for the average, like `(x+y)/2.0`, then it is important to avoid wrap-around of the Java integers used by making sure that the arguments `x` and `y` can be added together without such problems. This is the reason for the preconditions that say both arguments must be positive integers that their sum is no more than `Integer.MAX_VALUE`. Another possibility would be to require that both arguments are less than `Integer.MAX_VALUE/2`.
 
-The `isNonNegative` function has a straightforward postcondition. However, it is necessary to specify that it is `pure`, so that it does not have side effects when called.
+The `isNonNegative` function has a straightforward postcondition. However, it is necessary to specify that it is `spec_pure` (or `pure` see [the lesson on purity of methods](https://openjml.org/tutorial/MethodsInSpecifications.html)), so that it does not have side effects when called.
 
 ## **Question 2**
 **Answer and Explanation:**
@@ -29,7 +44,25 @@ c. Because the result may be negative when put into an `int` result, the result 
 Fixing these problems can be done by adding preconditions on `w` and `h` in `areaOfRectangle`, in particular the requirement that both `w` and `h` are positive (`0 < w && 0 < h`, so that the result of the multiplication will be mathematically positive) and a precondition that the product `w*h` fits into an `int` (`w*h <= Integer.MAX_VALUE`).
  
 ```Java
-{% include_relative MethodCallsEx2.java %}
+    //@ requires 0 < w && 0 < h && w*h <= Integer.MAX_VALUE;
+    //@ requires 0 < materialSqFt;
+    //@ ensures \result <==> (areaOfRectangle(w,h) < materialSqFt);
+    public boolean enoughMaterial(int materialSqFt, int w, int h) {
+        int area = areaOfRectangle(w, h);
+        return (area < materialSqFt);	
+    }
+
+    //@ requires 0 < w && 0 < h;
+    //@ requires w*h <= Integer.MAX_VALUE;
+    //@ ensures 0 < \result;
+    //@ ensures w <= \result;
+    //@ ensures h <= \result;
+    //@ ensures \result == w*h;
+    //@ spec_pure
+    public int areaOfRectangle(int w, int h) {
+        int A = w*h;
+        return A;
+    }	
 ```
 
 However, when one adds the preconditions shown above to `areaOfRectangle` then the call to that method in `enoughMaterial` may no longer satisfy `areaOfRectangle`'s precondition, so to get the program to verify, it is necessary to add a precondition to `enoughMaterial` to constrain the values of `w` and `h` (this is the first precondition of `enoughMaterial` above).

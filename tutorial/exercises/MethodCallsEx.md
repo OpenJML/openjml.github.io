@@ -38,3 +38,7 @@ public boolean isNonNegative(int i);
 
 ## **[Answer Key](MethodCallsExKey.md)**
 ## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**
+
+## Resources
++ [Code for question 1](MethodCallsEx1.java)
++ [Code for question 2](MethodCallsEx2.java)

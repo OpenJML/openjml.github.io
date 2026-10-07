@@ -1,6 +1,7 @@
-// openjml --esc MethodCallsEx2.java
-public class MethodCallsEx2 {
+// openjml --esc MethodCallsEx2Ans.java
+public class MethodCallsEx2Ans {
 
+    //@ requires 0 < w && 0 < h && w*h <= Integer.MAX_VALUE;
     //@ requires 0 < materialSqFt;
     //@ ensures \result <==> (areaOfRectangle(w,h) < materialSqFt);
     public boolean enoughMaterial(int materialSqFt, int w, int h) {
@@ -8,6 +9,8 @@ public class MethodCallsEx2 {
         return (area < materialSqFt);	
     }
 
+    //@ requires 0 < w && 0 < h;
+    //@ requires w*h <= Integer.MAX_VALUE;
     //@ ensures 0 < \result;
     //@ ensures w <= \result;
     //@ ensures h <= \result;
