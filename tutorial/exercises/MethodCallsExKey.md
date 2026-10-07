@@ -26,7 +26,7 @@ One solution that verifies as correct is the following.
     }
 ```
 
-If one uses a standard computation for the average, like `(x+y)/2.0`, then it is important to avoid wrap-around of the Java integers used by making sure that the arguments `x` and `y` can be added together without such problems. (See [the discussion about arithmetic modes](https://www.openjml.org/tutorial/ArithmeticModes.html) for more on this topic.) This is the reason for the preconditions that say both arguments must be positive integers that their sum is no more than `Integer.MAX_VALUE`. Another possibility would be to require that both arguments are less than `Integer.MAX_VALUE/2`.
+If one uses a standard computation for the average, like `(x+y)/2.0`, then it is important to avoid wrap-around of the Java integers used by making sure that the arguments `x` and `y` can be added together without such problems. (See [the discussion about arithmetic modes](https://openjml.org/tutorial/ArithmeticModes.html) for more on this topic.) This is the reason for the preconditions that say both arguments must be positive integers that their sum is no more than `Integer.MAX_VALUE`. Another possibility would be to require that both arguments are less than `Integer.MAX_VALUE/2`.
 
 The `isNonNegative` function has a straightforward postcondition. However, it is necessary to specify that it is `spec_pure` (or `pure` see [the lesson on purity of methods](https://openjml.org/tutorial/MethodsInSpecifications.html)), so that it does not have side effects when called.
 
