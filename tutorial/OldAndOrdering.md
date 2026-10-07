@@ -29,15 +29,15 @@ Some of these have been already discussed; others are discussed in later lessons
 There is no pre-defined order to the clauses within a single specification case (the same applies to [multiple specification cases](MultipleBehaviors)).
 However, a specification is more readable (by people familiar with JML) if the clauses generally follow the order above, with preconditions first, then frame conditions, followed by postconditions.
 
-There is some meaning to the ordering within the precondition group and within the postcondition group: earlier clauses can set conditions that are needed for later clauses to be well-defined; but ordering only matters within the each kinds of clause; that is ordering matters within the set of preconditions (`requires` clauses) and separately within the set of postconditions (`ensures` clauses). For example,
+There is some meaning to the ordering within the precondition group and within the postcondition group: earlier clauses enforce conditions that are needed for later clauses to be well-defined; but ordering only matters within the each kinds of clause; that is, ordering matters within the set of preconditions (`requires` clauses) and separately within the set of postconditions (`ensures` clauses). For example, when the following is checked with ESC
 ```
 {% include_relative T_order1.java %}
 ```
-yields
+the output is as follows.
 ```
 {% include_relative T_order1.out %}
 ```
-The first requires clause might not be well-defined because `a` might be null. However, if we reverse the order of the clauses, as in the following specification, then the method verifies.
+In the above example, the first requires clause might not be well-defined because `a` might be null. However, if we reverse the order of the clauses, as in the following specification, then the method verifies.
 ```
 {% include_relative T_order2.java %}
 ```
