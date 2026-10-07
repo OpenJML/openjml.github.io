@@ -74,15 +74,14 @@ which successfully verifies.
 ## Memory Location Details
 
 A few more details about the memory locations in a frame condition:
-* One does not need to list variables that are local to the body of a method;
-those are not visible in the specification and they are not part of the 
-program state outside of the method.
+* Local variables, i.e., variables declared in the body of a method,
+are not visible to callers (or in a method's specification), so they are not listed in a frame condition.
 * The formal arguments of the method are in scope for the frame condition,
-just like for the `requires` and `ensures` clauses. The formal arguments 
-themselves cannot be changed by a method, but if they are references to objects,
-then the fields of those objects might be written to by the method. So a method `m(MyType q)`
-might have a frame condition `assignable q.f;` if `f` is a field of `MyType`
-that is written to in the body of `m`.
+just like for the `requires` and `ensures` clauses.
+However, these formal arguments cannot be changed by a call (due to the way arguments are passed in Java), but if they are references to objects,
+then the fields of those objects could be written to by the method. 
+So a method `m(MyType q)` might have a frame condition `assignable q.f;` 
+if `f` is a field of `MyType` that is assigned in the body of `m`.
 * If a method has no external effects other than its return value, you can specify a frame condition `assignable \nothing;`.
 
 A shorthand way to say that a method `assignable \nothing;` is to designate it `pure`, as in
@@ -94,20 +93,22 @@ public void m() { ... }
 ```
 though there are a few other details to purity --- see the [lesson on pure](MethodsInSpecifications).
 
+## Abbreviations for Sets of Locations
+
 There are also several abbreviations for mentioning sets of locations in specifications:
-* `q.*` for an expression `q`, means all fields of q
+* `q.*` means all fields of the value of the expression `q`
 * `a[i]` for expressions `a` and `i`, means the particular array element `a[i]` (where the values of `a` and `i` are interpreted in the method's pre-state)
-* `a[*]` for array expression `a`, means all elements of that array
-* `a[i..j]` for expressions `a`, `i`, and `j`, means the stated range of array elements, from `i` to `j` inclusive.
+* `a[*]` for array expression `a`, means all elements of array `a`
+* `a[i..j]` for expressions `a`, `i`, and `j`, means the stated range of array elements, from `i` to `j` inclusive. Also `a[i ..]` means the same thing as `a[i .. a.length-1]`.
 
 ## Evaluation of Expressions is in the Pre-State
 
-There are two other points to know about frame conditions. First, where a frame condition clause includes expressions, such as the indices of array expressions, those expressions are evaluated in the pre-state, not the post-state. This allows callers of the method to understand the potential side-effects of the method before calling it.
+There are two other points to know about frame conditions. First, where a frame condition clause includes expressions, such as the indices of array expressions, those expressions are evaluated in the call's pre-state, not its post-state. This allows callers of the method to understand the potential effects of a method before calling it.
 
 ## Multiple Frame Conditions in a Specification
 
-Second, a frame condition is a method specification clause like `requires` and `ensures`. A method specification may contain more than one such clause.
-However, note that each clause is considered individually. That is, each clause
+A frame condition is a method specification clause like `requires` and `ensures`. Thus a method specification may contain more than one such clause.
+However, each clause is considered individually and thus each clause
 by itself lists the memory locations that may be written to by the method.
 As each frame condition clause must be valid on its own, the effect of multiple iframe clauses is the same as one clause with the _intersection_ of the sets of locations given by the separate clauses.
 For example,
@@ -133,9 +134,8 @@ result of multiple assignable clauses was the *union* of their contents,
 but that is not the case, for historical reasons. The advice is thus to
 *use only one frame condition per specification (case)*, even if that
 means the clause has a long list. (All the method specifications in the
-tutorial lessons so far have just one specification case; a subsequent lesson
-presents [multiple specification cases](MultipleBehaviors).)
-
+tutorial lessons so far have just one specification case; on the other hand, 
+a subsequent lesson presents [multiple specification cases](MultipleBehaviors).)
 
 ## **[Exercises](https://www.openjml.org/tutorial/exercises/FrameCondEx.html)**
 
