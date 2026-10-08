@@ -6,7 +6,7 @@ public class IntMaxAns {
       @   requires x <= y;
       @   ensures \result == y;
       @*/
-    //@ pure
+    //@ spec_pure
     public static int max(int x, int y) {
         if (y <= x) {
             return x;

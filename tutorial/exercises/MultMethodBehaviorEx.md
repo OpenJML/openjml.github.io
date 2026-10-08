@@ -5,38 +5,23 @@ title: JML Tutorial - Exercises - Multiple Method Behavior
 ## [Multiple Method Behavior Tutorial](https://www.openjml.org/tutorial/MultipleBehaviors)
 
 ## **Question 1**
-**Write the strongest specification for the code below that is needed to verify the function below? (Do not change the code, only write a specification.)**
+**Write the strongest specification for the code below that is needed to verify the method below? (Do not change the code, only write a specification.)**
 ```Java
-public int mean(int sum, int totalNum) {
-    if(totalNum == 0) {
-        throw new ArithmeticException();
+    public int mean(int sum, int totalNum) {
+        if(totalNum == 0) {
+            throw new ArithmeticException();
+        }
+        return sum/totalNum;  // ERROR: possible overflow!
     }
-    return sum/totalNum;
-}
 ```
 
-## **Question 2**
-**Consider the following class. Without changing the code, write a specification for the method `max` with multiple specification cases so that the method `testMax` verifies. (You should not change any of the code of either method.)**
-```Java
-public class IntMax {
-    //@ pure
-    public static int max(int x, int y) {
-        if (y <= x) {
-            return x;
-        } else {
-            return y;
-        }
-    }
+(The possible overflow would happen when `sum` is `Integer.MIN_VALUE` and `totalNum` is -1, since there is no positive equivalent to `Integer.MIN_VALUE` in the type `int`.)
 
-    public static void testMax() {
-        int m1 = max(5, 7);
-        //@ assert m1 == 7;
-        int m2 = max(9, 7);
-        //@ assert m2 == 9;
-        int m3 = max(11,11);
-        //@ assert m3 == 11;
-    }
-}
+## **Question 2**
+**Consider the following class. Without changing the code, write a specification for the method `max` with multiple specification cases so that the method `testMax` verifies. (Do not change any of the code of either method.)**
+
+```Java
+{% include_relative IntMax.java %}
 ```
 
 **Learning Objectives:**

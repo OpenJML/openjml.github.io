@@ -21,9 +21,9 @@ public int mean(int sum, int totalNum) {
     return sum/totalNum;
 }
 ```
-The function `mean()` takes in two integer variables `sum` and `totalNum` and returns the mean of the two (`sum/totalNum`).
+The function `mean()` takes in two integer variables `sum` and `totalNum` and in the normal case returns `sum/totalNum`. Since the normal precondition is that `totalNum` is strictly positive, no overflow is possible and division by zero is also impossible.
 
-The first specification case describes the "normal" behavior of the method (although it could be the second specification case instead). It says that the answer returned is `sum/totalNum`. Note that this case has a precondition, which is that `0 < totalNum`, and that this precondition prevents division by zero.
+The first specification case describes the "normal" behavior of the method (although it could be the second specification case instead).
 
 The second specification case (although it does not need to be second) describes what happens if the argument `totalNum` is zero, and says that if that is the case, then the method must throw an`ArithmeticException`.
 
@@ -33,7 +33,7 @@ Also note that in neither case is it necessary to constrain `sum` to be a legal 
 
 ## **Question 2**
 One possible answer is the following, which verifies the code of `testMax`.
-```
+```Java
 public class IntMax {
     /*@   requires y <= x;
       @   ensures \result == x;
@@ -41,7 +41,7 @@ public class IntMax {
       @   requires x <= y;
       @   ensures \result == y;
       @*/
-    //@ pure
+    //@ spec_pure
     public static int max(int x, int y) {
         if (y <= x) {
             return x;

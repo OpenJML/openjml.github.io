@@ -5,6 +5,6 @@ public class MultMethodBehaviorEx1 {
         if(totalNum == 0) {
             throw new ArithmeticException();
         }
-        return sum/totalNum;
+        return sum/totalNum;  // ERROR: possible overflow!
     }
 }
