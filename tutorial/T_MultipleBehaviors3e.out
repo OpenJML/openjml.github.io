@@ -1,0 +1,4 @@
+T_MultipleBehaviors3e.java:12: error: the type modifier/annotation is not permitted on a primitive type: int
+    public void inrange(/*@ nullable @*/ int[] a,   // ERROR: parsing problem!
+                            ^
+1 error

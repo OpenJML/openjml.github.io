@@ -3,7 +3,7 @@ public class T_MultipleBehaviors4 {
 
     //@  requires a != null;
     //@  requires 0 <= i <= j <= a.length;
-    //@  ensures true;
+    //   ensures clause omitted
     //@  signals (Exception e) false;
     //@ also
     //@  requires a == null || !(0 <= i <= j <= a.length);

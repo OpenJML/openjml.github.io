@@ -30,44 +30,45 @@ Fortunately they all agree in that case.
 (In addition, since the method is pure, each specification case has an implicit frame condition of `assignable \nothing`, and so they all satisfy that frame condition.)
 
 As an experiment, this example introduces a mistake in one behavior:
-```
+```Java
 {% include_relative T_MultipleBehaviors2.java %}
 ```
 which yields this result
-```
+```Java
 {% include_relative T_MultipleBehaviors2.out %}
 ```
 The verification failure message points to the first specification case's postcondition, on line 4, which narrows our debugging to the relationship between that specification case and the code. A little inspection shows a typo at the end of the first specification case's precondition, on line 3.
 
 ## Separating Normal from Exceptional Behaviors
 
-A very common use of multiple behaviors is to separate normal execution from exceptions. For example,
-```
+A very common use of multiple behaviors is to separate normal execution from exceptions. For example, in the following class, which for this example is nullable by default,
+```Java
 {% include_relative T_MultipleBehaviors3.java %}
 ```
-The code in this example does some parameter validation checks. If the checks fail, then an exception is thrown.
-The method could go on to do something useful, but for this example, it just returns.
-There are thus two behaviors. 
-* The first specification case is the normal case,
-where the arguments satisfy the checks and the method just returns normally;
+the code throws an `IllegalArgumentException` when the array argument (`a`) is null.
+
+The specification of `inrange` thus has two behaviors. 
+* The first specification case is the normal one,
+where the arguments satisfy the checks and the method returns normally;
 that is the first behavior --- the ensures postcondition is `true` (which could be omitted entirely), which just states that
-the method is allowed (but not required) to return normally; the signals postcondition is false, which states that under
-these preconditions, the method is _not_ allowed to throw an exception.
+the method is allowed (but not required) to return normally; the signals postcondition is false, which states that when the precondition is true,
+the method is _not_ allowed to throw an exception.
 * The second behavior is the exceptional case. Here one or the other of the argument validation checks fails. In this case, the postcondition is `ensures false`, which means that the method is _not_ allowed to return normally; the default, omitted, `signals (Exception x) true` clause says that an exception is allowed; the `signals_only` clause says that if there is an exception it must be an `IllegalArgumentException` (the only one listed).
 
-We could even separate out two kinds of exceptions:
-```
+One can even separate out two kinds of exceptions, as in the following (where the trivial ensures clause `ensures true;` is omitted).
+```Java
 {% include_relative T_MultipleBehaviors4.java %}
 ```
-Now the `signals_only` clause allows the two kinds of exceptions, although the specification does not say when each one is thrown. We could go to one more level of specification detail to stipulate that each exception is thrown just when the appropriate argument validation check fails. Try specifying that as an exercise. One could try separating the specification of when each exception should be thrown into two specification cases, but that raises the question: what if both specification cases have preconditions that are true (that is, what if both checks fail)? Should the specification state which exception is thrown in preference to the other? If it does specify that, then it is constraining the implementation, perhaps overly so. However, if it does not, and both preconditions hold, then the specification would say that the method must throw both exceptions, which is impossible. (So such a specification would be "unsatisfiable.")
+In the above specification, the `signals_only` clause allows the two kinds of exceptions, although the specification does not say when each one is thrown. We could go to one more level of specification detail to stipulate that each exception is thrown just when the appropriate argument validation check fails. Try specifying that as an exercise. 
+Separating the specification of when each exception should be thrown into two specification cases, however, raises the question: what if both specification cases have preconditions that are true (that is, what if both checks fail)? Should the specification state which exception is thrown in preference to the other? If it does specify that, then it is constraining the implementation too much? On the other hand, if the specification does not say which exception is thrown and if both preconditions hold, then the specification would say that the method must throw both exceptions, which is impossible. (So such a specification would be "unsatisfiable.")
 
 ## <a name="SpecializedBehaviors"></a>Specialized Behaviors
 
-The normal and exceptional behaviors illustrated in the previous section are very common, so much so that they have specialized syntax: `normal_behavior` and `exceptional_behavior`. We can rewrite the previous example as 
+The normal and exceptional behaviors illustrated in the previous section are very common, so much so that JML has a specialized syntax for each: `normal_behavior` and `exceptional_behavior`. We can thus rewrite the previous example as 
 ```
 {% include_relative T_MultipleBehaviors5.java %}
 ```
-The `normal_behavior` heading implies that no exception is allowed (which is equivalent to specifying `signals false`); the `exceptional_behavior` heading says that normal termination is not allowed (`ensures false`).
+The `normal_behavior` heading implies that no exception is allowed (which is equivalent to specifying `signals false;`) the `exceptional_behavior` heading says that normal termination is not allowed (which is equivalent to `ensures false;`).
 A behavior that is neither of these is a simple `behavior`, which is the default when there is no heading.
 
 One other point: in a class these behavior keywords need to have a specified visibility (declared by a visibility keyword); almost always, as in the example above, the visibility is the same as the method. However, the absence of a visibility modifier means `package` visibility, just as in Java the absence of a visibility modifier on the method declaration would give the method package visibility. On the other hand, if there is no specialized behavior keyword, then there is no place for the visibility keyword; in that case, the visibility default is the same as the visibility of the method.
@@ -77,18 +78,17 @@ One other point: in a class these behavior keywords need to have a specified vis
 To summarize, a method may have multiple specification cases. 
 * They are separated/connected by the `also` keyword. 
 * Each specification case consists of an optional heading followed by a series of method specification clauses
-* There are four styles of behavior headings. Here `V` is a visibility modifier: one of `public`, `protected`, `private`, or absent (meaning package visibility)
+* There are four styles of behavior headings. Here `V` is a visibility modifier: one of `public`, `protected`, `private`, or absent (meaning package visibility):
   * The most general: `V behavior`
   * Normal exit only: `V normal_behavior`
   * Exit by exception only: `V exceptional_behavior`
   * The most common: no behavior heading, which means `V behavior` with the visibility `V` being the same as the method's visibility.
 
-
 ## Nested Clause Groups
 
 We will just mention an advanced topic here: nested clauses groups within a method specification. For details see [the JML Reference Manual](https://www.openjml.org/documentation/JML_Reference_Manual.pdf).
 Here is an example:
-```
+```Java
   requires P1;
   assignable F1
   ensures Q1;
@@ -101,7 +101,7 @@ Here is an example:
   |}
 ```
 which is a less repetitious way of specifying a method than the equivalent:
-```
+```Java
   requires P1;
   requires P2;
   assignable F1;
