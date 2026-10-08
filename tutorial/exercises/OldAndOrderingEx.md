@@ -75,6 +75,8 @@ public class Quadratic {
 + Understand how to use `old` clauses to simplify a specification.
 
 ## **[Answer Key](OldAndOrderingExKey.md)**
-+ [Question 2 Java](OldAndOrderingEx1.java)
-+ [Question 3 Java](Quadratic.java)
 ## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**
+
+## Resources
++ [Question 2 Java code](OldAndOrderingEx2.java)
++ [Question 3 Java code](Quadratic.java)
