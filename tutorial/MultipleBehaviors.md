@@ -8,7 +8,7 @@ So far our method specifications have been simple sequences of clauses: pre-, fr
 But, as method behaviors become more complex, it is helpful to separate the method specification into multiple _specification cases_, which can be specified as different _behaviors_ in JML.
 
 Each behavior is a simple sequence of clauses, with its own preconditions, postconditions, and frame, etc.
-That is, specification can consist of multiple behaviors, each called a "specification case," connected by the keyword `also`.
+That is, a specification can consist of multiple behaviors, each called a "specification case," connected by the keyword `also`.
 For example,
 ```
 {% include_relative T_MultipleBehaviors1.java %}
@@ -21,10 +21,11 @@ There are a few points to note:
 * There is no order to the behaviors; they can be written in any order that is understandable.
 * Every behavior applies on its own and must hold by itself --- there is no if-then-else relationship or ordering among them. If a behavior's preconditions hold,
 then its frame and postconditions must hold, independent of what any other behavior says.
-* The effective precondition for each behavior is the conjunction (with `&&`) of the preconditions for that behavior. The effective precondition for the entire combination of all of the multiple behaviors is the disjunction (with `||`) of the effective preconditions of the individual behaviors. Consequently, at the point where such a method is called, at least one, but by no means necessarily all, of the behaviors must have an effective precondition that is true.
-* When a precondition holds, the corresponding frame condition given in that specification case must hold. (If it did not, then reasoning about using a specification case with that precondition would be invalid.) Therefore, if two preconditions both hold, then the effective frame condition is the intersection of those two frame conditions (for such a pre-state). So it is best to use only one `assignable` clause for each specification case, as described in [the tutorial about frame conditions](FrameConditions).
+* The effective precondition for each behavior is the conjunction (with `&&`) of the preconditions for that behavior (independent of any other behaviors). The effective precondition for the entire combination of all of the multiple behaviors is the disjunction (with `||`) of the effective preconditions of the individual behaviors. Consequently, at the point where such a method is called, at least one, but by no means necessarily all, of the behaviors must have an effective precondition that is true. Furthermore, at the point of the call, one may reason about the call using any particular behavior (although it is most useful to reason using a behavior with a true precondition).
+* When a precondition holds, the remainder of that specification case must be satisfied. This allows a caller to verify a call using any specification case that is convenient.
+* When a precondition of a specification case holds, the corresponding frame condition given in that specification case must hold. Therefore, if two preconditions both hold, then the effective frame condition is the *intersection* of those two frame conditions (for such a pre-state). So it is best to use only one `assignable` clause for each specification case, as described in [the tutorial about frame conditions](FrameConditions).
 
-In our example, if `a`, `b`, and `c` are all equal, then the precondiition (`requires` clause) of all three behaviors is true; in this case the postconditions of each of these behaviors must also be true.
+In our example, if `a`, `b`, and `c` are all equal, then the precondiition (`requires` clause) of all three behaviors is true; in this case the postconditions of all of these behaviors must also be true.
 Fortunately they all agree in that case.
 (In addition, since the method is pure, each specification case has an implicit frame condition of `assignable \nothing`, and so they all satisfy that frame condition.)
 
