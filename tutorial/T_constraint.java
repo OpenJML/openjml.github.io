@@ -14,9 +14,9 @@ public class T_constraint {
     count++;
   }
 
-  public void m2() { // ERROR: may violate constraint!
+  public void m2() {   // ERROR: violates constraint!
   }
 
-  public static void m3() {
+  public static void m3() {   // OK, a static method
   }
 }
