@@ -6,7 +6,7 @@ Sometimes certain properties must hold at the end of every constructor or method
 In that case, the specifications would repeat the same clauses;
 however, there is a danger that: (a) some such clauses may be forgotten, and (b) if a change is needed, it may not be correctly made in every place.
 
-So JML has a few features to coalesce such replicated clauses. These clauses are part of the _class_ declaration, but apply to every method or constructor derived from that class (or interface) as described below.
+So JML has a few features to coalesce such replicated clauses. These clauses are part of a _class or interface_ declaration, but apply to every method or constructor derived from that class or interface, as described below.
 
 ## Initially clauses
 
@@ -43,7 +43,7 @@ To fix this failure, we would have a to pick different sizes -- 1x2 perhaps.
 ## Constraint clauses
 
 Constraint clauses are postcondition clauses that apply to every non-constructor method. A non-static constraint clause applies only to non-static
-methods. The typical use of a constraint clause is to state some relationship between the pre-state and post-state of the method. 
+methods. The typical use of a constraint clause is to state some relationship between the pre-state and post-state of every method. 
 For example, a class may have a `count` field that counts how many times some method of the class has been called.
 Because it is a postcondition, a constraint clause may use the `\old` construct to refer to the pre-state of the method.
 
@@ -62,11 +62,7 @@ increment `count` because the non-static constraint does not apply to the static
 ## Invariants
 
 Invariants also are predicates that apply to every method, but they are more extensive and complex than constraints. An invariant is typically used to
-express a property that must be true for a data structure to be valid or self-consistent. For example, a class may have a `count` that must always be non-negative, or two arrays that must be the same length, or an array that must be sorted. Invariants are used to express properties like these.
-
-Since these are validity properties, 
-* a method may assume that the invariants are true in its pre-state
-* and must ensure that the invariants are still true (or true again) in its post-state
+express a property that must be true for a data structure to be valid or consistent. For example, a class may have a `count` that must always be non-negative, or two arrays that must be the same length, or an array that must be sorted. Invariants are often used to express properties like these.
 
 Further detail on invariants is given in the next lesson which is all about [invariants](Invariants).
 
