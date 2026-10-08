@@ -6,9 +6,10 @@ JML uses `invariant` clauses to specify properties of an object that should "alw
 and also the complexities of what "always" means.
 
 Since invariants are validity properties: 
-* a method may assume that the invariants are true in its pre-state
-* and must ensure that the invariants are still true (or true again) in its post-state.
-Thus one can think of an invariant as being simultaneously a precondition and a postcondition on all methods.  However, since an invariant like a precondition, the `\old` notation cannot be used in an invariant.
+* a method may assume that the invariants are true in its pre-state, and
+* a method must ensure that the invariants are still true (or true again) in its post-state, and
+* a constructor must ensure that the invariants are true in its post-state.
+Thus one can think of an invariant as being simultaneously a precondition and a postcondition on all methods.  However, since an invariant is like a precondition, the `\old` notation cannot be used in an invariant.
 
 ## Simple invariants
 
@@ -25,11 +26,13 @@ Here is a typical simple example:
 {% include_relative MyBox.java %}
 ```
 
-This example shows part of a simple class that has a `size` property. The specification records in its `invariant` clause that this `size` is always to be a non-negative integer.
-So the constructor makes sure that `size` is non-negative when a `MyBox` is created. In `doit()`, `size` is used to create an array. The call of 
+This example shows part of a simple class that has a `size` field. The specification records in its `invariant` clause that this `size` is always to be a non-negative integer.
+So the constructor guarantees (using a precondition) 
+that `size` is non-negative when a `MyBox` is created. 
+In `doit()`, `size` is used to create an array. The call of 
 `doit`() can assume that the invariants of `this` hold at the beginning of the call; consequently it does not need to check that `size` is non-negative before using its value as the length of the new array.
 
-On the other hand, `shrink()` is intended to make the `MyBox` smaller by reducing its size by 10. It dutifully specifies that it `assigns size;`.
+On the other hand, `shrink()` is intended to make the `MyBox` smaller by reducing its size by 10.  It correctly specifies that `size` is assignable.
 However, a verification attempt reports the following:
 ```
 {% include_relative MyBox.out %}
@@ -39,19 +42,19 @@ Here `InvariantExit` means that on exit from the method, the invariant cannot be
 ## helper methods
 
 Sometimes it is useful or simpler if a method does not need to assume or ensure the invariants. In such a case, the method can be declared a `helper` method.
-Consider the difference between `size()` and `sizeH()` in the code listing above.
+This is the difference between `size()` and `sizeH()` in the code listing above.
 
 `size()` is a conventional non-helper getter method. It assumes the invariant holds and returns the value of `size`. A client routine, such as `test1()`, can prove that 
 `mybox.size() >= 0` after creating a `MyBox` object. 
 
 `sizeH()` on the other hand is declared `helper`. It does not assume that `size` is non-negative. That does not matter here, but it would, for example if `doit()` were declared helper; in that case `doit()` would need a precondition that required `size >= 0`. `sizeH()` verifies OK, but when one uses it, one cannot be assured that the value of `mybox.sizeH()` is non-negative. Method `test2()` proves OK because, although `sizeH()` does not establish the invariant,
-it is `pure` so it does not change `size`, and consequently it is provable that the invariant still holds on exit from `test2()`. In `test3()` on the other hand, the program state has been changed by helper method `changeSizeH` to something that may not satisfy the invariant. It is OK to call `sizeH` because it
+it is `spec_pure` so it does not change `size`, and consequently it is provable that the invariant still holds on exit from `test2()`. In `test3()` on the other hand, the program state has been changed by helper method `changeSizeH` to something that may not satisfy the invariant. It is OK to call `sizeH` because it
 is helper and does not require the invariant. But then we don't know that the value of `sizeH()` satisfies the invariant either.
 
 If, as in `test4()`, we call `size()` instead of `sizeH()`, we find that there is a verification error because `size()` expects the invariants to hold 
 when in fact they may not.
 
-The cost of not having to have the invariants true on entrance to a method is that they may not be true on exit either, though one can always add them into the pre- and postconditions.
+The cost of not having to have the invariants true on entrance to a method is that they may not be true on entering or exiting the method, though one can always add them into the pre- or postconditions in the method's specification.
 
 ## Visibility of invariants
 
@@ -60,17 +63,19 @@ The cost of not having to have the invariants true on entrance to a method is th
 
 ## Invariants when calling methods
 
-Except in the case of helper methods, methods assume that their invariants are true in their pre-state. Thus when a method is called by some caller method, 
+Aside from helper methods, all other methods assume that their invariants are true in their pre-state. Thus when a method is called, 
 the caller is responsible to be sure that the callee's invariants are true before invoking the callee, just as the caller has to be sure that the callee's
 preconditions hold before invoking the callee.
 (This is what causes the verification failure of `test4()` in the class `MyBox` above.)
 
 In fact, the callee generally expects that the invariants of all of its formal parameters also hold.
 
-A callee may in fact rely on invariants of other classes. In that case, it must specify the invariants it relies on in its preconditions.
-This is especially the case when there is recursion or callbacks.
+In JML a method does not automatically assume the invariants of other classes,
+so if those invariants are needed, they should be specified in the method's preconditions.
 
-An example of such complications is shown in this code snippet.
+A method must restore its invariants before calling a method defined outside its class, since a callback could occur which would find the object in a state where its invariants might not hold.
+Thus, JML requires that an object's invariants be re-established before calling another method. This is shown in the following code snippet.
+
 ```
 public class SomeClass {
   //@ public invariant ...
@@ -82,10 +87,11 @@ public class SomeClass {
   }
 }
 ```
-When OpenJML attempts to verify `SomeClass.m`,
-which invalidates and then restores the invariant of `SomeClass` it finds that the call `o.dosomething` is made when the invariant is invalid.
-Thus `o.dosomething` might actually call a method of `SomeClass` on its argument,
-but that method would then be called in a state in which its invariant does not hold.
+
+When OpenJML attempts to verify the method `SomeClass.m`,
+it finds that the call `o.dosomething` could be made when the invariant (of `SomeClass`) is invalid.
+The problem is that `o.dosomething` might call a method of `SomeClass` on its argument (`this`),
+but that method would then be called in a state in which its assumed invariant does not hold.
 To prevent such situations, all invariants of `this` must be established before the call to `o.dosomething`.
 
 ```diff

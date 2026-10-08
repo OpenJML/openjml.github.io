@@ -1,7 +1,6 @@
 // openjml --esc MyBox.java
 public class MyBox {
-  //@ spec_public 
-  private int size;
+  private /*@ spec_public @*/ int size;
 
   //@ public invariant size >= 0;
 

@@ -1,0 +1,13 @@
+.\SomeClass.java:2: verify: The prover cannot establish an assertion (InvariantExit: .\SomeClass.java:4:) in method SomeClass
+public class SomeClass {
+       ^
+.\SomeClass.java:4: verify: Associated declaration: .\SomeClass.java:2:
+    //@ public invariant 0 < x;
+               ^
+.\SomeClass.java:2: verify: The prover cannot establish an assertion (InvariantEntrance: .\SomeClass.java:4:) in method m: (Caller: SomeClass.m(SomeOtherClass), Callee: SomeOtherClass.doSomething(SomeClass))
+public class SomeClass {
+       ^
+.\SomeClass.java:4: verify: Associated declaration: .\SomeClass.java:2:
+    //@ public invariant 0 < x;
+               ^
+4 verification failures

@@ -1,16 +1,16 @@
-MyBox.java:18: verify: The prover cannot establish an assertion (InvariantExit: MyBox.java:6:) in method shrink
+MyBox.java:17: verify: The prover cannot establish an assertion (InvariantExit: MyBox.java:5:) in method shrink
   public void shrink() {   // ERROR: doesn't establish invariant on exit!
               ^
-MyBox.java:6: verify: Associated declaration: MyBox.java:18:
+MyBox.java:5: verify: Associated declaration: MyBox.java:17:
   //@ public invariant size >= 0;
              ^
-MyBox.java:56: verify: The prover cannot establish an assertion (Assert) in method test3
+MyBox.java:55: verify: The prover cannot establish an assertion (Assert) in method test3
     //@ check b.sizeH() >= 0; // ERROR: sizeH may not establish the invariant!
         ^
-MyBox.java:61: verify: The prover cannot establish an assertion (InvariantEntrance: MyBox.java:6:) in method test4: (Caller: MyBox.test4(MyBox), Callee: MyBox.size())
+MyBox.java:60: verify: The prover cannot establish an assertion (InvariantEntrance: MyBox.java:5:) in method test4: (Caller: MyBox.test4(MyBox), Callee: MyBox.size())
     //@ assert b.size() >= 0; // ERROR: invariants may not hold, so size() can't be called!
                      ^
-MyBox.java:6: verify: Associated declaration: MyBox.java:61:
+MyBox.java:5: verify: Associated declaration: MyBox.java:60:
   //@ public invariant size >= 0;
              ^
 5 verification failures
