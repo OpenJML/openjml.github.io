@@ -18,7 +18,7 @@ must preserve these invariants. Constructors create objects that satisfy invaria
 A few points to keep in mind:
 * Invariants can be declared `static`, in which case they can name and apply to static fields. However, such static invariants apply to all methods, which must preserve them.
 * An invariant that is not declared to be `static` is an instance invariant, and these only apply to non-static methods.
-* Most invariants are declared `public`.  See [the discussion below about visibility](#visibility).
+* Most invariants are declared `public`.  See [the discussion below about visibility](#visibility-of-invariants).
 
 Here is a typical simple example:
 ```
