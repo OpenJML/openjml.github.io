@@ -15,27 +15,28 @@ public class MyBox {
   }
 
   //@ assigns size;
-  public void shrink() {
-    size = size - 10; // ERROR: doesn't establish invariant on exit
+  public void shrink() {   // ERROR: doesn't establish invariant on exit!
+    size = size - 10;
   }
 
   //@ public normal_behavior
   //@   ensures \result == size;
-  //@ pure
+  //@ spec_pure
   public int size() {
     return size;
   }
 
   //@ public normal_behavior
   //@   ensures \result == size;
-  //@ pure helper // does not assume the invariant
+  //@ spec_pure
+  //@ helper    // does not assume the invariant
   public int sizeH() {
     return size;
   }
 
   //@ public normal_behavior
   //@   assigns size;
-  //@ helper // does not assume or establish the invariant; may set size to anything
+  //@ helper // does not assume or establish the invariant
   final public void changeSizeH() {
       java.util.Random r = new java.util.Random();
       int sz = r.nextInt(-10,10);
@@ -52,13 +53,12 @@ public class MyBox {
     //@ check b.size >= 0;
     b.changeSizeH();
     //@ check b.sizeH() == b.size;
-    //@ check b.sizeH() >= 0; // ERROR: changeSizeH does not assume nor is required to establish the invariant
-                               //       so the assertion may fail
+    //@ check b.sizeH() >= 0; // ERROR: sizeH may not establish the invariant!
     b.size = 0;
   }
   public static void test4(MyBox b) {
     b.changeSizeH();
-    //@ assert b.size() >= 0; // ERROR: invariants may not hold, so size() can't be called
+    //@ assert b.size() >= 0; // ERROR: invariants may not hold, so size() can't be called!
     b.size = 0;
   }
 }
