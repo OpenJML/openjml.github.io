@@ -5,13 +5,20 @@ title: JML Tutorial - Invariants
 JML uses `invariant` clauses to specify properties of an object that should "always" hold. This lesson describes the straightforward uses of such invariants
 and also the complexities of what "always" means.
 
+Since invariants are validity properties: 
+* a method may assume that the invariants are true in its pre-state
+* and must ensure that the invariants are still true (or true again) in its post-state.
+Thus one can think of an invariant as being simultaneously a precondition and a postcondition on all methods.  However, since an invariant like a precondition, the `\old` notation cannot be used in an invariant.
+
 ## Simple invariants
 
 The basic idea of an invariant is this: an invariant describes a property that always holds of an object. Every method can assume the invariants hold and
-must preserve the invariants. Constructors create objects that satisfy invariants. In this sense, invariants are like pre- and postconditions common to every
-method (and like postconditions common to every constructor).
-* Invariants can be declared `static`, in which case they apply to static fields and methods. Such static invariants apply to all methods; however, non-static instance invariants only apply to non-static methods.
-* Most typically invariants are declared `public`.  See the discussion below about visibility.
+must preserve these invariants. Constructors create objects that satisfy invariants. In this sense, invariants enable induction on objects of the type, since constructors must establish them and methods must preserve them.
+
+A few points to keep in mind:
+* Invariants can be declared `static`, in which case they can name and apply to static fields. However, such static invariants apply to all methods, which must preserve them.
+* An invariant that is not declared to be `static` is an instance invariant, and these only apply to non-static methods.
+* Most invariants are declared `public`.  See [the discussion below about visibility](#visibility).
 
 Here is a typical simple example:
 ```
