@@ -1,0 +1,4 @@
+QuadraticAns.java:32: verify: Validity is unknown - no model available method QuadraticAns.roots -  (possible timeout): (error "line 10940 column 18: model is not available")
+    public double[] roots() {
+                    ^
+1 verification failure

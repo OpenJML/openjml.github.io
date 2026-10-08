@@ -8,7 +8,7 @@ title: JML Tutorial - Exercises - Old and Ordering of Clauses
 No, the order of frame condition clauses does not matter, as the effective frame condition is the intersection of the frames mentioned in all of the frame conditions (within a given specification case). See the last topic in the [Frame Conditions Tutorial](https://www.openjml.org/tutorial/FrameConditions) for more details.
 
 ## **Question 2**
-The problem is that to use the remainder (`%`) operator (in Java or JML) the second (right hand) argument must be non-zero.  So a solution to the exercise is to move the requires clause containing `0 < div` above the requires clause that uses `div` in the formula `n % div == 0`. In our solution below, we also put the requires clauses above the ensures clauses, but that is just a matter of style.
+The problem is that to use the remainder operator (`%` in Java and JML) the second (right hand) argument must be non-zero.  So a solution to the exercise is to move the requires clause containing `0 < div` above the requires clause that uses `div` in the formula `n % div == 0`. In our solution below, we also put the requires clauses above the ensures clauses, but that is just a matter of style.
 ```
 public class OldAndOrderingEx2 {
     private /*@ spec_public @*/ long number;
@@ -29,45 +29,64 @@ public class OldAndOrderingEx2 {
 The specification can be simplified by using several `old` clauses, as in the following.
 ```
 public class Quadratic {
-    /* factors are: (x + first) and (x + second) */
+    /** This class represents the quadratic formula
+        first*x^2 + second*x + third **/
     private /*@ spec_public @*/ double first;
     private /*@ spec_public @*/ double second;
+    private /*@ spec_public @*/ double third;
 
-    //@ requires !Double.isNaN(f);
-    //@ requires !Double.isNaN(s);
-    //@ requires 0.0 < (f+s)*(f+s) - 4.0 * (f*s);
-    /*@ ensures first == f && second == s; @*/
-    public Quadratic(double f, double s) {
-        first = f;
-        second = s;
+    //@ requires !Double.isNaN(a);
+    //@ requires !Double.isNaN(b);
+    //@ requires !Double.isNaN(c);
+    //@ requires 0.0 < a < Double.POSITIVE_INFINITY;
+    //@ requires 0.0 < (b*b) - 4.0 * (a*c) < Double.POSITIVE_INFINITY;
+    /*@ ensures first == a && second == b && third == c; @*/
+    public Quadratic(double a, double b, double c) {
+        first = a;
+        second = b;
+        third = c;
     }
 
-    //@ old double fps = first+second;
-    //@ old double discrim = fps*fps - 4.0 * (first*second);
-    //@ requires 0.0 < discrim;
+    //@ old double eps = 2E-6;
+    //@ old double a = first;
+    //@ old double b = second;
+    //@ old double c = third;
+    //@ old double b2 = b*b;
+    //@ old double discrim = b2 - 4.0*a*c;
+    //@ requires 0.0 < discrim < Double.POSITIVE_INFINITY;
     //@ ensures \result.length == 2;
-    //@ ensures Math.abs(\result[0] - (-fps + Math.sqrt(discrim) / 2.0)) < 0.1e-9;
-    //@ ensures Math.abs(\result[1] - (-fps - Math.sqrt(discrim) / 2.0)) < 0.1e-9;
+    //@ ensures Math.abs(\result[0] - (-b + Math.sqrt(discrim)) / (2.0*a)) < eps;
+    //@ ensures Math.abs(\result[1] - (-b - Math.sqrt(discrim)) / (2.0*a)) < eps;
     //@ pure
     public double[] roots() {
+        //@ assume 0.0 < first < Double.POSITIVE_INFINITY;
+        //@ assume second != Double.POSITIVE_INFINITY;
+        //@ assume second != Double.NEGATIVE_INFINITY;
+        //@ assume third != Double.POSITIVE_INFINITY;
+        //@ assume third != Double.NEGATIVE_INFINITY;
+        double eps = 2E-6;
+        double a = first;
+        double b = second;
+        double c = third;
+        double b2 = b*b;
+        double discrim = b2 - 4.0*a*c;
+        //@ assume 0.0 < discrim < Double.POSITIVE_INFINITY;
+
         double res[] = new double[2];
-        if (second > first) {
-            res[0] = -first;
-            res[1] = -second;
-        } else {
-            res[0] = -second;
-            res[1] = first;
-        }
+        res[0] = -b + Math.sqrt(-b + Math.sqrt(discrim) / (2.0*a));
+        //@ assume Math.abs(res[0] - (-b + Math.sqrt(discrim)) / (2.0*a)) < eps;
+        res[1] = -b - Math.sqrt(-b - discrim) / (2.0*a);
+        //@ assume Math.abs(res[1] - (-b - Math.sqrt(discrim)) / (2.0*a)) < eps;
         return res;
     }
 }
 ```
 
 **Explanation:**
-With the current OpenJML implementation, the above does not verify, because the version of the SMT solver that OpenJML uses cannot handle complex formulas involving real numbers.
-It is also not clear that the code in the method `roots()` is correct.
+With the current OpenJML implementation (21.0.28), verification of the above times out, due to limitations of the SMT solvers handling of complex formulas involving floating-point (or real) numbers.
+Furthermore, we have not independently verified that the code produces the correct approximations as results, so it could be that some of the formulas make the results inexact for some cases.
 
-Furthermore, the repeated preconditions about the discriminant being strictly positive could be better handled by an invariant. See [the tutorial section on invariants](https://www.openjml.org/tutorial/Invariants) for details.
+Furthermore, the repeated preconditions about the discriminant (`discrim` in the above) being strictly positive could be better handled by an invariant. See [the tutorial section on invariants](https://www.openjml.org/tutorial/Invariants) for details.
 
 ## **Resources:**
 + [Old and Ordering Exercises](OldAndOrderingEx)
