@@ -58,7 +58,7 @@ example code; just make sure that the appropriate path to the `openjml` command 
   * [Frame Conditions](FrameConditions)
   * [Method Specifications: old clauses and clause ordering](OldAndOrdering)
   * [Multiple Method Behaviors](MultipleBehaviors)
-  * [Minimizing replicated specifications --- initially, constraint, invariant clauses](InitiallyConstraint)
+  * [Minimizing replicated specifications --- initially and constraint clauses](InitiallyConstraint)
   * [Invariant Clauses](Invariants)
   * [Specifying Constructors](Constructors)
   * [Using Method Calls in Specifications](MethodsInSpecifications)
