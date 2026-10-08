@@ -14,7 +14,7 @@ public class MyBox {
     int[] ints = new int[size];
   }
 
-  //@ assigns size;
+  //@ assignable size;
   public void shrink() {   // ERROR: doesn't establish invariant on exit!
     size = size - 10;
   }
@@ -29,13 +29,13 @@ public class MyBox {
   //@ public normal_behavior
   //@   ensures \result == size;
   //@ spec_pure
-  //@ helper    // does not assume the invariant
+  //@ helper    // does not assume or establish the invariant
   public int sizeH() {
     return size;
   }
 
   //@ public normal_behavior
-  //@   assigns size;
+  //@   assignable size;
   //@ helper // does not assume or establish the invariant
   final public void changeSizeH() {
       java.util.Random r = new java.util.Random();
