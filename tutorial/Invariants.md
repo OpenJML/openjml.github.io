@@ -66,14 +66,21 @@ The cost of not having to have the invariants true on entrance to a method is th
 Aside from helper methods, all other methods assume that their invariants are true in their pre-state. Thus when a method is called, 
 the caller is responsible to be sure that the callee's invariants are true before invoking the callee, just as the caller has to be sure that the callee's
 preconditions hold before invoking the callee.
-(This is what causes the verification failure of `test4()` in the class `MyBox` above.)
+(This is what causes the verification failure of `test4()` in the class `MyBox` above.) Thus the callee generally expects that, in addition to the invariants of its own class, the invariants of all of its formal parameters also hold.
 
-In fact, the callee generally expects that the invariants of all of its formal parameters also hold.
+In JML verification of a method in a class does not automatically
+assume the invariants of other classes,
+so if those invariants are needed for verification,
+they should be specified in the method's preconditions.
+This is especially true when another class's state is accessed
+without calling its methods (e.g., when assigning to fields of another class).
+One can use the expression `\invariant_for(E)` to refer to the invariants of `E`.
+There is also an expression `\static_invariant_for(T)` that means the static invariant of a type `T`. See [the _JML Reference Manual_](https://www.openjml.org/documentation/JML_Reference_Manual.pdf) for details on these.
 
-In JML a method does not automatically assume the invariants of other classes,
-so if those invariants are needed, they should be specified in the method's preconditions.
-
-A method must restore its invariants before calling a method defined outside its class, since a callback could occur which would find the object in a state where its invariants might not hold.
+To be sure that invariants hold whenever a method is called, each non-helper method must restore its invariants before calling another method.
+This is necessary when calling a method in the same class
+(including recursive calls), since the called method will assume the invariant.
+For a call to a method in another class, consider that such a method might call back to the original method, which would then expect its invariants to hold.
 Thus, JML requires that an object's invariants be re-established before calling another method. This is shown in the following code snippet.
 
 ```
@@ -93,6 +100,7 @@ it finds that the call `o.dosomething` could be made when the invariant (of `Som
 The problem is that `o.dosomething` might call a method of `SomeClass` on its argument (`this`),
 but that method would then be called in a state in which its assumed invariant does not hold.
 To prevent such situations, all invariants of `this` must be established before the call to `o.dosomething`.
+A general way around this restriction is to declare a method to be a `helper` method, and then any invariants needed for verification can be added to the method's pre- and/or postconditions.
 
 ```diff
 ! Just which invariants are required to hold before a method call is a topic of research and discussion. OpenJML is experimenting with defaults that are both convenient and sound.
