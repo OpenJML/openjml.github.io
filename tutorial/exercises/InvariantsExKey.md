@@ -99,9 +99,7 @@ Although this code has two invariants, it would be equivalent to use one invaria
 
 The `assume` statement in the `equals` method is helping OpenJML's ESC by stating a fact about the integers, which could be proven, but which involves multiplication. Unfortunately the theory of arithmetic with multiplication is undecidable, so the SMT solvers that OpenJML uses (such as Z3) cannot prove such properties themselves.
 
-One could try to do the cross multiplication called for in the specification of `equals` directly in the code, but one would run into several problems. First, one (or both) of the products might cause an arithmetic overflow. (Note that the specifications work with mathematical integers, so that is not a problem of specification.) If one tries to avoid that by using the class `java.math.BigInteger` one discovers that the `multiply` method that is needed is not pure, so it cannot be used in an assertion or in a pure method, and we would like the `equals` method to be pure so it can be used in specifications.
-
-This exercise illustrates a second reason to use an invariant: to enable a more efficient algorithm than would otherwise be possible (in this case by using properties of the integers).
+One could try to do the cross multiplication called for in the specification of `equals` directly in the code, but one would run into several problems. First, one (or both) of the products might cause an arithmetic overflow. (Note that the specifications work with mathematical integers, so that is not a problem of specification.) If one tries to avoid that by using the class `java.math.BigInteger` one discovers that the `multiply` method that is needed is not pure, so it cannot be used in an assertion or in a pure method, and we would like the `equals` method to be pure so it can be used in specifications. Thus this exercise illustrates a second reason to use an invariant: to enable a more efficient algorithm than would otherwise be possible (in this case by using properties of the integers instead of computing with infinite precision integers).
 
 ## **Resources:**
 + [Invariant Clauses Exercises](InvariantsEx)
