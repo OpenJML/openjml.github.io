@@ -3,8 +3,8 @@ public class ScreenPointAns {
     public static final int MAX_SIZE = 2048;
     
     private /*@ spec_public @*/ int x, y;
-    //@ public invariant 0 <= x < MAX_SIZE;
-    //@ public invariant 0 <= y < MAX_SIZE;
+    //@ public invariant 0 <= x < MAX_SIZE;  // a key part of the solution
+    //@ public invariant 0 <= y < MAX_SIZE;  // a key part of the solution
 
     //@ requires 0 <= xv < MAX_SIZE;
     //@ requires 0 <= yv < MAX_SIZE;
@@ -14,14 +14,14 @@ public class ScreenPointAns {
         y = yv;
     }
 
-    //@ requires 0 <= x+mv < MAX_SIZE;
+    //@ requires 0 <= x+mv < MAX_SIZE;               // added
     //@ assignable x;
     //@ ensures x == \old(x+mv);
     public void moveRight(int mv) {
         x += mv;
     }
 
-    //@ requires 0 <= y+mv < MAX_SIZE;
+    //@ requires 0 <= y+mv < MAX_SIZE;               // added
     //@ assignable y;
     //@ ensures y == \old(y+mv);
     public void moveUp(int mv) {
@@ -34,13 +34,13 @@ public class ScreenPointAns {
         java.util.Random r = new java.util.Random();
         int mv = r.nextInt(-4096, 4096);
 
-        if (0 <= p.x + mv && p.x + mv < MAX_SIZE) {
+        if (0 <= p.x + mv && p.x + mv < MAX_SIZE) {  // added
             p.moveRight(mv);
             //@ assert 0 <= p.x < MAX_SIZE;
-        }
-        if (0 <= p.y + mv && p.y + mv < MAX_SIZE) {
+        }                                            // added
+        if (0 <= p.y + mv && p.y + mv < MAX_SIZE) {  // added
             p.moveUp(mv);
             //@ assert 0 <= p.y < MAX_SIZE;
-        }
+        }                                            // added
     }
 }

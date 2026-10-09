@@ -21,9 +21,8 @@ public class RationalAns {
         if (oth == null) {
             return false;
         }
-        /*@ assume (n == oth.n && d == oth.d && d != 0 && n%d == 0)
+        /*@ assume (n == oth.n && d == oth.d)
                    <==> (d*oth.n == n*oth.d); @*/
         return n == oth.n && d == oth.d;
     }
-        
 }
