@@ -75,12 +75,14 @@ they should be specified in the method's preconditions.
 This is especially true when another class's state is accessed
 without calling its methods (e.g., when assigning to fields of another class).
 One can use the expression `\invariant_for(E)` to refer to the invariants of `E`.
-There is also an expression `\static_invariant_for(T)` that means the static invariant of a type `T`. See [the _JML Reference Manual_](https://www.openjml.org/documentation/JML_Reference_Manual.pdf) for details on these.
+There is also an expression `\static_invariant_for(T)` that means the static invariant of a type `T`. See [the "JML Expressions" chapter of the _JML Reference Manual_](https://www.openjml.org/documentation/JML_Reference_Manual.pdf) for details on these.
 
 To be sure that invariants hold whenever a method is called, each non-helper method must restore its invariants before calling another method.
 This is necessary when calling a method in the same class
-(including recursive calls), since the called method will assume the invariant.
-For a call to a method in another class, consider that such a method might call back to the original method, which would then expect its invariants to hold.
+(including recursive calls), since the callee will immediately 
+assume the invariant.
+For a call to a method in another class, the callee might call back to the original method with the broken invariant, 
+leading to an invalid assumption of that invariant.
 Thus, JML requires that an object's invariants be re-established before calling another method. This is shown in the following code snippet.
 
 ```
