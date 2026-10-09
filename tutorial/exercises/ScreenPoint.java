@@ -33,8 +33,8 @@ public class ScreenPoint {
         int mv = r.nextInt(-4096, 4096);
 
         p.moveRight(mv);
-        //@ assert 0 <= p.x < MAX_SIZE;
+        //@ assert 0 <= p.x < MAX_SIZE;   // ERROR: may fail!
         p.moveUp(mv);
-        //@ assert 0 <= p.y < MAX_SIZE;
+        //@ assert 0 <= p.y < MAX_SIZE;   // ERROR: may fail!
     }
 }

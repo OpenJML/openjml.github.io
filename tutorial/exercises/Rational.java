@@ -19,8 +19,8 @@ public class Rational {
         if (oth == null) {
             return false;
         }
-        // Why would the following be correct? When would it be correct?
-        return n == oth.n && d == oth.d;
+        // When would the following be correct?
+        return n == oth.n && d == oth.d;   // ERROR: postcondition!
     }
         
 }
