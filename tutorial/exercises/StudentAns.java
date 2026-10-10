@@ -33,8 +33,8 @@ public class StudentAns {
 	
     //@ requires count < Integer.MAX_VALUE-1;
     public void createStudents() {
-        Student s1 = new Student("John", "Doe", 12, 3.7);
-        Student s2 = new Student("Jane", "Doe", 11, 2.5);
+        StudentAns s1 = new StudentAns("John", "Doe", 12, 3.7);
+        StudentAns s2 = new StudentAns("Jane", "Doe", 11, 3.9);
         //@ assert s1.id < s2.id;
     }
 }

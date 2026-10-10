@@ -1,3 +1,4 @@
+// openjml --esc Book.java
 public class Book {
 	//@ spec_public
 	private String title;
@@ -11,15 +12,14 @@ public class Book {
 	private static int TBABooks = 0; 
 
 	//@ public normal_behavior
-	//@ 	requires title != "";
-	//@ 	requires 0 < pages < Integer.MAX_VALUE;
-	//@ 	requires author != "";
-	//@ 	requires publication != "";
-	//@ 	ensures this.title == title;
-	//@ 	ensures this.pages == pages;
-	//@ 	ensures this.author == author;
-	//@ 	ensures this.publication == publication;
-	//@ pure
+	//@   requires title != "";
+	//@   requires 0 < pages < Integer.MAX_VALUE;
+	//@   requires author != "";
+	//@   requires publication != "";
+	//@   ensures this.title == title;
+	//@   ensures this.pages == pages;
+	//@   ensures this.author == author;
+	//@   ensures this.publication == publication;
 	public Book(String title, int pages, String author, String publication) {
 		this.title = title;
 		this.pages = pages;
@@ -28,13 +28,13 @@ public class Book {
 	}
 	
 	//@ public normal_behavior
-	//@ 	requires publication == "TBA";
-	//@ 	assigns TBABooks;
-	//@ 	ensures this.title == title;
-	//@ 	ensures this.pages == pages;
-	//@ 	ensures this.author == author;
-	//@ 	ensures this.publication == publication;
-	//@ 	ensures TBABooks == \old(TBABooks) + 1;
+	//@   requires publication == "TBA";
+	//@   assigns TBABooks;
+	//@   ensures this.title == title;
+	//@   ensures this.pages == pages;
+	//@   ensures this.author == author;
+	//@   ensures this.publication == publication;
+	//@   ensures TBABooks == \old(TBABooks) + 1;
 	public Book(String publication) {
 		//@ assume 0 < TBABooks+1 < Integer.MAX_VALUE;
 		TBABooks++;
@@ -45,9 +45,11 @@ public class Book {
 	}
 
 	public void createBooks() {
-		Book b1 = new Book("TBA"); 
-		Book b2 = new Book("1984", 328, "George Orwell", "06-08-49");
-		Book b3 = new Book("The Great Gatsby", 208, "F. Scott Fitzgerald", "04-10-25");
-		Book b4 = new Book("TBA");				
+            Book b1 = new Book("TBA");
+            String b1title = b1.title;
+            Book b2 = new Book("1984", 328, "George Orwell", "06-08-49");
+            //@ assert String.equals(b1.title, b1title);
+	    Book b3 = new Book("The Great Gatsby", 208, "F. Scott Fitzgerald", "04-10-25");
+            Book b4 = new Book("TBA");				
 	}
 }

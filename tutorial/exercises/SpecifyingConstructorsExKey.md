@@ -7,48 +7,13 @@ title: JML Tutorial - Exercises - Specifying Constructors
 ## **Question 1**
 **(a) Determine the specifications needed to verify the program below.**
 ```Java
-public class Student {
-    private /*@ spec_public @*/ String firstName = "";
-    private /*@ spec_public @*/ String lastName = "";
-    private /*@ spec_public @*/ int grade;
-    private /*@ spec_public @*/ double GPA;
-    private /*@ spec_public @*/ long id;
-    private /*@ spec_public @*/ static long count = 0;
-
-    //@ public normal_behavior
-    //@    requires firstName != "";
-    //@    requires lastName != "";
-    //@    requires 1 <= grade <= 12;
-    //@    requires 0 <= GPA <= 4.0 && !Double.isNaN(GPA);
-    //@    requires count < Long.MAX_VALUE;
-    //@    assignable count;
-    //@    ensures this.firstName == firstName;
-    //@    ensures this.lastName == lastName;
-    //@    ensures this.grade == grade;
-    //@    ensures this.GPA == GPA;
-    //@    ensures this.id == count;
-    //@    ensures count == \old(count) + 1;
-    public Student(String firstName, String lastName, int grade, double GPA) { 
-        // assumption moved to precondition
-        count++;
-		
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.grade = grade;
-        this.GPA = GPA;
-        this.id = count;
-    }
-	
-    //@ requires count < Integer.MAX_VALUE-1;
-    public void createStudents() {
-        Student s1 = new Student("John", "Doe", 12, 3.7);
-        Student s2 = new Student("Jane", "Doe", 11, 2.5);
-        //@ assert s1.id < s2.id;
-    }
-}
+{% include_relative Student.java %}
 ```
 
-Recall that when dealing with constructors we need to use the following syntax: `public normal_behavior`. `normal_behavior` essentially says that the constructor runs without throwing exceptions. Similar to method specifications, the `pure` modifier can only be used if the method default `assigns \nothing`. However, in this case we see that the constructor `Student()` is incrementing the global static variable `count` by one each time a new Student object is made, which is the reason for the frame condition `assignable count`.
+When dealing with constructors we need to use the the behavior syntax: `public normal_behavior`, says that the constructor runs without throwing exceptions. (See [the lesson on multiple behaviors](https://openjml.org/tutorial/MultipleBehaviors) for details.)
+
+
+However, in this case we see that the constructor `Student()` is incrementing the global static variable `count` by one each time a new Student object is made, which is the reason for the frame condition `assignable count`.
  
 Additionally, we know that when specifying constructors (like all other methods) we still need to include any preconditions and postconditions needed to verify the method. We might want to specify that the first and last name cannot be empty Strings, that the grade is in the range of 1-12 (first through senior), and that GPA is between 0.0 and 4.0, and we also require that the GPA is not NaN. Also, since we’re incrementing `count` by one in our constructor we need to take care of potential overflow errors, so we should also include that `count < Long.MAX_VALUE`. 
 

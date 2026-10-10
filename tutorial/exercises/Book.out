@@ -1,0 +1,13 @@
+Book.java:51: verify: The prover cannot establish an assertion (Assert) in method createBooks
+            //@ assert String.equals(b1.title, b1title);
+                ^
+Book.java:10: verify: The prover cannot establish an assertion (NullField) in method createBooks
+	private String publication; //mm-dd-yy
+	               ^
+Book.java:8: verify: The prover cannot establish an assertion (NullField) in method createBooks
+	private String author;
+	               ^
+Book.java:4: verify: The prover cannot establish an assertion (NullField) in method createBooks
+	private String title;
+	               ^
+4 verification failures

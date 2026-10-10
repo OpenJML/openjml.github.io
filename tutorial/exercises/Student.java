@@ -9,7 +9,7 @@ public class Student {
 
     public Student(String firstName, String lastName, int grade, double GPA) { 
         //@ assume count < Long.MAX_VALUE;
-        count++;
+        count++;   // ERROR: may fail!
 		
         this.firstName = firstName;
         this.lastName = lastName;

@@ -19,14 +19,17 @@ constructor. The second constructor uses the _specification_ of the first constr
 
 Both of these specifications are readily verified.
 
-For a constructor, `pure` means that nothing is assigned (that is, initialized) other than the
-fields of the new object itself. If something else were assigned, say a static field that was keeping a count of new objects, then the constructor could not be pure and would need an assignable clause:
+## Framing
+
+Specifying frame conditions for constructors is similar to specifying frame conditions for method specifications, although a constructor is always allowed to assign to the object being constructed. As with methods, the default frame condition is `assignable \everything`.  On the other hand, a frame condition of `assignable \nothing` means that only the fields of the object being constructed may be assigned by the constructor; in particular, no static fields of the class may be assigned when the constructor is `pure`.  See [the lesson on frame conditions](FrameConditions) for more about this subject; however, note that a constructor may not be specified as `spec_pure`, because the only way to call a constructor is with Java's `new` operator, which necessarily constructs an object on the heap.
+
+The following example shows that if there is a static field that a constructor should assign, then the constructor cannot be pure and would need an assignable clause:
+
 ```
 {% include_relative T_constructors2.java %}
 ``` 
 
-(More on pure methods [here](MethodsInSpecifications).)
-This specification is also readily verified, though it needs the precondition to be sure that we don't overflow the `count` field -- more on arithmetic overflows [here](ArithmeticModes).
+This specification is also readily verified, though it needs the precondition to be sure that we don't overflow the `count` field; see [the lesson on artithmetic](ArithmeticModes) for more about this topic.
 
 The implementation of these constructors is so simple, and common, that one might think that inferring the specification from the implementation should be easy. Indeed such specification inference is a not-yet-implemented goal that would reduce some of the specification-writing burden.
 
