@@ -8,42 +8,9 @@ title: JML Tutorial - Exercises - Specifying Constructors
 **(a) Determine the specifications needed to verify the program below.**
 **(b) Explain why the program can assert s1.id < s2.id in the createStudents() function.**
 ```Java
-public class Student {
-	
-	//@ spec_public
-	private String firstName;
-	//@ spec_public
-	private String lastName;
-	//@ spec_public
-	private int grade;
-	//@ spec_public
-	private double GPA;
-	//@ spec_public
-	private long id;
-	//@ spec_public
-	private static long count = 0;
-
-	public Student(String firstName, String lastName, int grade, double GPA) { 
-		//@ assume count+1 < Integer.MAX_VALUE;
-		count ++;
-		
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.grade = grade;
-		this.GPA = GPA;
-		this.id = count;
-		
-	}
-	
-	//@ requires count < Integer.MAX_VALUE-1;
-	public void createStudents() {
-		Student s1 = new Student("John", "Doe", 12, 3.7);
-		Student s2 = new Student("Jane", "Doe", 11, 2.5);
-		//@ assert s1.id < s2.id;
-	}
-}
+{% include_relative Student.java %}
 ```
-**Note:** `spec_public` will be discussed in the [“Visibility”](https://www.openjml.org/tutorial/Visibility) tutorial, but for now just understand that `spec_public` is used when we have private variables that we want to use in our JML specifications so that we don’t have any visibility errors.
+**Note:** The `spec_public` attribute is not important for this exercise, and only serves to avoid a visibility error. See the [Visibility section](https://www.openjml.org/tutorial/Visibility.html) of this tutorial for details.
 
 **Learning Objectives:**
 + Understand how to use constructor specification syntax

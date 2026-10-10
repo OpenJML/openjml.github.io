@@ -8,48 +8,52 @@ title: JML Tutorial - Exercises - Specifying Constructors
 **(a) Determine the specifications needed to verify the program below.**
 ```Java
 public class Student {
-	
-	//@ spec_public
-	private String firstName;
-	//@ spec_public
-	private String lastName;
-	//@ spec_public
-	private int grade;
-	//@ spec_public
-	private double GPA;
-	//@ spec_public
-	private long id;
-	//@ spec_public
-	private static long count = 0;
+    private /*@ spec_public @*/ String firstName = "";
+    private /*@ spec_public @*/ String lastName = "";
+    private /*@ spec_public @*/ int grade;
+    private /*@ spec_public @*/ double GPA;
+    private /*@ spec_public @*/ long id;
+    private /*@ spec_public @*/ static long count = 0;
 
-	public Student(String firstName, String lastName, int grade, double GPA) { 
-		//@ assume count+1 < Integer.MAX_VALUE;
-		count ++;
+    //@ public normal_behavior
+    //@    requires firstName != "";
+    //@    requires lastName != "";
+    //@    requires 1 <= grade <= 12;
+    //@    requires 0 <= GPA <= 4.0 && !Double.isNaN(GPA);
+    //@    requires count < Long.MAX_VALUE;
+    //@    assignable count;
+    //@    ensures this.firstName == firstName;
+    //@    ensures this.lastName == lastName;
+    //@    ensures this.grade == grade;
+    //@    ensures this.GPA == GPA;
+    //@    ensures this.id == count;
+    //@    ensures count == \old(count) + 1;
+    public Student(String firstName, String lastName, int grade, double GPA) { 
+        // assumption moved to precondition
+        count++;
 		
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.grade = grade;
-		this.GPA = GPA;
-		this.id = count;
-		
-	}
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.grade = grade;
+        this.GPA = GPA;
+        this.id = count;
+    }
 	
-	//@ requires count < Integer.MAX_VALUE-1;
-	public void createStudents() {
-		Student s1 = new Student("John", "Doe", 12, 3.7);
-		Student s2 = new Student("Jane", "Doe", 11, 2.5);
-		//@ assert s1.id < s2.id;
-	}
+    //@ requires count < Integer.MAX_VALUE-1;
+    public void createStudents() {
+        Student s1 = new Student("John", "Doe", 12, 3.7);
+        Student s2 = new Student("Jane", "Doe", 11, 2.5);
+        //@ assert s1.id < s2.id;
+    }
 }
 ```
-**Note:** `spec_public` will be discussed in the [“Visibility”](https://www.openjml.org/tutorial/Visibility) tutorial, but for now just understand that `spec_public` is used when we have private variables that we want to use in our JML specifications so that we don’t have any visibility errors.
 
-**Asnwer and Explanation:**
-Recall what you have read in the tutorial "Specifying Constructors," when dealing with constructors we need to use the following syntax: `public normal_behavior`. `normal_behavior` essentially says that the constructor runs without throwing exceptions. Similar to method specifications, the `pure` modifier can only be used if the method default `assigns \nothing`. However, in this case we see that the constructor `Student()` is incrementing the global static variable `count` by one each time a new Student object is made. This `count` variable is then used as the id of the Student object being created.
+Recall that when dealing with constructors we need to use the following syntax: `public normal_behavior`. `normal_behavior` essentially says that the constructor runs without throwing exceptions. Similar to method specifications, the `pure` modifier can only be used if the method default `assigns \nothing`. However, in this case we see that the constructor `Student()` is incrementing the global static variable `count` by one each time a new Student object is made, which is the reason for the frame condition `assignable count`.
  
-Additionally, we know that when specifying constructors (like all other methods) we still need to include any preconditions and postconditions to verify the method. We might want to specify that the first and last name cannot be empty Strings, that the grade is in the range of 1-12 (first through senior), and that GPA is between 0.0 and 4.0 - also that we ensure that is not NaN. Also, since we’re incrementing `count` by one in our constructor we need to take care of potential overflow errors, so we should also include that `count < Integer.MAX_VALUE`. 
+Additionally, we know that when specifying constructors (like all other methods) we still need to include any preconditions and postconditions needed to verify the method. We might want to specify that the first and last name cannot be empty Strings, that the grade is in the range of 1-12 (first through senior), and that GPA is between 0.0 and 4.0, and we also require that the GPA is not NaN. Also, since we’re incrementing `count` by one in our constructor we need to take care of potential overflow errors, so we should also include that `count < Long.MAX_VALUE`. 
 
-If all of these preconditions are met we can ensure that `this.variable = variable`, except for `id` which should be `this.id == count`. Note, however, that since we are dealing with Strings we could also write our postconditions in the format of `variable.equals(this.variable)`. Additionally, we can ensure that the `count` will always be equal to it's pre-state value plus one. So let's add all this together and write the following to verify the function.
+If all of these preconditions are met we can ensure that the fields are properly initialized. Note in particular the postcondition concerning the `count` field.
+
 ```Java
 public class Student {
 	
