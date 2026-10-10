@@ -1,0 +1,19 @@
+StudentAns.java:3: verify: The prover cannot establish an assertion (NullField) in method createStudents
+    private /*@ spec_public @*/ String firstName = "";
+                                       ^
+StudentAns.java:4: verify: The prover cannot establish an assertion (NullField) in method createStudents
+    private /*@ spec_public @*/ String lastName = "";
+                                       ^
+StudentAns.java:38: verify: The prover cannot establish an assertion (Assert) in method createStudents
+        //@ assert s1.id < s2.id;
+            ^
+.\Student.java:24: verify: The prover cannot establish an assertion (Assert) in method createStudents
+        //@ assert s1.id < s2.id;   // ERROR: may fail!
+            ^
+.\Student.java:3: verify: The prover cannot establish an assertion (NullField) in method createStudents
+    private /*@ spec_public @*/ String firstName = "";
+                                       ^
+.\Student.java:4: verify: The prover cannot establish an assertion (NullField) in method createStudents
+    private /*@ spec_public @*/ String lastName = "";
+                                       ^
+6 verification failures
