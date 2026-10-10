@@ -57,7 +57,7 @@ title: JML Tutorial - Exercises - Assume Statements
 + Understand the relationship between `assume` and `assert`
 + Understand the differences between `assume` and `assert`
 
-## **[Answer Key](AssumeExKey.md)**
+## **[Answer Key](AssumeExKey)**
 ## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**
 
 ## Resources
