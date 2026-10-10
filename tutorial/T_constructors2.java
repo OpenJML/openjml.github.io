@@ -5,7 +5,7 @@ public class T_constructors2 {
 
   //@ public normal_behavior
   //@  requires count < Integer.MAX_VALUE;
-  //@  assigns count;
+  //@  assignable count;
   //@  ensures count == \old(count) + 1;
   public T_constructors2() {
     count++;

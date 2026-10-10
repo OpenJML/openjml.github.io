@@ -20,7 +20,7 @@ constructor. The second constructor uses the _specification_ of the first constr
 Both of these specifications are readily verified.
 
 For a constructor, `pure` means that nothing is assigned (that is, initialized) other than the
-fields of the new object itself. If something else were assigned, say a static field that was keeping a count of new objects, then the costructor could not be pure and would have an assignable clause:
+fields of the new object itself. If something else were assigned, say a static field that was keeping a count of new objects, then the constructor could not be pure and would need an assignable clause:
 ```
 {% include_relative T_constructors2.java %}
 ``` 
