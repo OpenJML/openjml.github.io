@@ -35,6 +35,8 @@ fresh object; it either returns a primitive value or an object reference that wa
 already allocated in the pre-state. Consequently it is deterministic. 
 A method must be at least `spec_pure` to be used in a specification.
 
+Because constructors must be used with Java's `new` operator, which constructs a fresh object, a constructor cannot be `spec_pure`.
+
 **strictly_pure** methods: A `strictly_pure` method is a `spec_pure` method that does not
 allocate any new objects in the body of the method. Such a method has no effect on the 
 object heap at all; it may read heap values and perform computations on the method's
