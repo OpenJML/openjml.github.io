@@ -64,4 +64,8 @@ public class Book {
 + Gain more experience writing the specifications for constructors 
 
 ## **[Answer Key](SpecifyingConstructorsExKey.md)**
-## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**
+
+
+## Resources
++ [Question 1 Java](Student.java)
++ [All exercises](https://www.openjml.org/tutorial/exercises/exercises)

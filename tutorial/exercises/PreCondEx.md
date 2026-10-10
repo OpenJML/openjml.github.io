@@ -43,9 +43,8 @@ What preconditions will ensure that the assertion always passes? (Although it ma
 + Be able to identify preconditions that won’t cause a warning in OpenJML but are logically important to the code
 
 ## **[Answer Key](PreCondExKey.md)**
-## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**
 
 ## Resources
 + [Java code for question 1](PreCondEx1.java)
 + [Java code for question 2](PreCondEx2.java)
-
++ [All exercises](https://www.openjml.org/tutorial/exercises/exercises)
