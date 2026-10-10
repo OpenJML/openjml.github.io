@@ -1,65 +1,118 @@
-Every topic N should have:
+Every topic, named (say) X, should have:
 
-0. A link to N in index.md
-1. A tutorial chapter named N.md in this directory (tutorial).
-2. An entry in exercises/exercises.md
+0. An entry in exercises/exercises.md
    (structured the same as index.md here), probably of the form:
-   "  * [N](N)"
-   with the first "N" possibly being an appropriate English phrase.
-3. Some exercises in exercises/NEx.md
-   a. starting with a title of "title: JML Tutorial - Exercises - N"
-   b. A first level heading of the form "# N Exercises:"
+   "  * [X](X)"
+   with the first "X" possibly being an appropriate English phrase
+   for the topic instead of a name without spaces
+1. A tutorial chapter named X.md in this directory (tutorial):
+   a. starting with a title of the form
+       "
+       ---
+       title: JML Tutorial - X
+       ---
+       "
+       with the X possibly being a phrase.
+   b. Some explanatory text
+   c. A second level heading of the form
+      "
+      ## **[Exercises](https://www.openjml.org/tutorial/exercises/InstallationEx.html)**
+      "
+      with a body reading:
+      "
+      Follow the link in the above heading to work on the exercises for this lesson.
+      "
+   d. A second level heading of the form:
+      "
+      ## Resources
+      "
+      with the body being a list of relevant links, including links to
+      the Java code of any examples.
+2. Exercises in a file "exercises/XEx.md"
+   a. starting with a title of the form
+      "
+      ---
+      title: JML Tutorial - Exercises - X
+      ---
+      "
+   b. A first level heading of the form
+      "
+      # X Exercises:
+      "
    c. A second level heading of the form: 
-      "## [N tutorial](https://www.openjml.org/tutorial/N)"
+      "
+      ## [X tutorial](https://www.openjml.org/tutorial/X)
+      "
    d. a numbered list of questions, with each one having:
-      (i). A second level heading "## **Question 1**" ...
-           (be sure there are no spaces after the "**"
-      (ii). A boldfaced (**) question, with code named "NEx1.java",
-            if appropriate, starting with the comment line:
-	    "// openjml --esc NEx1.java"
-      (iii). If the question is about an entire class or interface,
-             use "```Java
-	          {% include_relative NEx1.java %}
-		  ```"
+      (i). A second level heading of the form
+           "
+	   ## **Question 1**
+	   "
+           (be sure there are no spaces after the first "**"
+	   or before the second "**")
+      (ii). A boldfaced (**) question,
+            illustrated, if appropriate by code in a file named (say)
+	    "XEx1.java". The file "XEx1.java should start with the comment line:
+	    "
+	    // openjml --esc XEx1.java
+	    "
+      (iii). If the question is about an entire class or interface, use:
+	     "
+	     ```Java
+	     {% include_relative XEx1.java %}
+	     ```
+	     "
 	     to include the source file
-      (iv). A file named "NEx1.out" if the code for NEx1.java has any
-            verification errors, with any such
+      (iv). If the file "XEx1.java" has any verification errors, then
+            add a file named (say) "XEx1.out", with any
             verification errors indicated by a comment at the end of
 	    the line of the form: "   // ERROR: ..."
             (with "..." giving some reason that doesn't make the
-	    question trivial.
-    e. a paragraph (or list) starting with "**Learning Objectives:**
+	    question trivial.)
+    e. a paragraph (or list) starting with
+       "
+       **Learning Objectives:**
+       "
     f. A second-level heading of the form
-       "## **[Answer Key](NExKey)**"
+       "
+       ## **[Answer Key](XExKey)**
+       "
     g. A second-level heading of the form
        "## Resources"
        followed by a list of relevant resources,
        including links to any Java code of the form
-       "+ [NEx1 Java code](NEx1.java)
-4. An answer key in exercises/NExKey.md with:
-   a. a title of the form "title: JML Tutorial - Exercises - N"
+       "+ [XEx1 Java code](XEx1.java)
+4. An answer key in exercises/XExKey.md with:
+   a. a title of the form "title: JML Tutorial - Exercises - X"
    b. a first level heading of the form:
-       "# N Exercises Key:"
+       "
+       # X Exercises Key:
+       "
    c. a second level heading linking to the tutorial section
       of the form: 
-      "## [N tutorial](https://www.openjml.org/tutorial/N)"
-   d. a numbered list of answers to the questions,
-      with each having:
+      "
+      ## [X tutorial](https://www.openjml.org/tutorial/X)
+      "
+   d. a numbered list of answers to the questions, with each having:
       (i). An introductory sentence or paragraph,
       (ii). Java + JML that solves the exercise,
-            from the file NEx1Ans.java, pasted into NExKey.md
-	    between ```Java
-	    and     ```
-	    with the comment to run OpenJML removed and
-	    with NEx1Ans replaced everywhere by NEx1
-      (iii). The NEx1Ans.java file should verify,
-             but if it does not, there should be an NEx1Ans.out
-	     file created by executing "make NEx1Ans.out"
+            from the file XEx1Ans.java, pasted into XExKey.md
+	    between the following lines
+	    ```Java
+	    ```
+	    but with the first line (the comment to run OpenJML) removed
+            and with all occurrences of XEx1Ans replaced everywhere by XEx1
+      (iii). The XEx1Ans.java file should verify,
+             but if it does not, there should be an XEx1Ans.out
+	     file created by executing "make XEx1Ans.out"
       (iv). Any additional explanation or thoughts on the question or solution.
    e. a second level heading of the form:
-      "## Resources"
+      "
+      ## Resources
+      "
       followed by a list including any relevant resources,
       with at least the following:
-      "+ [N Exercises](NEx)
-       + [All exercises]((https://www.openjml.org/tutorial/exercises/exercises)
+      "
+      + [X Exercises](XEx)
+      + [All exercises]((https://www.openjml.org/tutorial/exercises/exercises)
       " 
