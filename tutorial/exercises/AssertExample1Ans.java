@@ -16,7 +16,7 @@ public class AssertExample1Ans {
             max = c;
         }
         // third assert here
-        //@ assert max >= a && max >= b && max >= c && max == a || max == b || max == c;
+        //@ assert max >= a && max >= b && max >= c && (max == a || max == b || max == c);
     }
 
 }
