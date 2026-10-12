@@ -9,7 +9,7 @@ We know you are eager to just try out some code, but here is a quick set of poin
    * statically (without running the program) -- sometimes called Deductive Verification in the literature, but OpenJML calls it ESC (Extended Static Checking), or
    * dynamically by running test cases through an instrumented program, called RAC (Runtime Assertion Checking).
 
-When a program is _statically verified_ to be _correct_ using ESC, it means that for every possible run of the program, if the starting state satisfies the specification, then the program's behavior follows the specification; this will be guaranteed in all possible cases (assuming that the compiler and computer work as intended).
+When a program is _statically verified_ to be _correct_ using ESC, it means that for every possible run of the program, if the starting state satisfies the specification's assumptions about it, then the program's behavior follows the specification; this will be guaranteed in all possible cases (assuming that the compiler and computer work as intended).
 
 The tutorial is mostly focussed on ESC (though there are lessons on RAC as well):
 * The ESC approach is akin to symbolically executing a method for every possible legal set of inputs (every possible pre-state), so when the method verification is successful, the result is a more powerful statement of correctness than one can obtain by testing/RAC
