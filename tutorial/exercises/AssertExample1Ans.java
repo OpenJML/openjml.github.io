@@ -7,16 +7,16 @@ public class AssertExample1Ans {
         if (a >= b && a >= c) {
             max = a;
             // first assert here
-            //@ assert max >= a && max >= c;
+            //@ assert max >= a && max >= c && max == a;
         } else if (b >= a && b >= c) {
             max = b;
             // second assert here
-            //@ assert max >= a && max >= b;
+            //@ assert max >= a && max >= b && max == b;
         } else {
             max = c;
         }
         // third assert here
-        //@ assert max >= a && max >= b && max >= c;
+        //@ assert max >= a && max >= b && max >= c && max == a || max == b || max == c;
     }
 
 }
