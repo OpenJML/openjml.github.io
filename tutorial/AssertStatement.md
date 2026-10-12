@@ -14,17 +14,17 @@ An assert statement is simple: in a JML comment, it is just the keyword `assert`
 followed by a predicate and terminated with a semicolon, as in 
 the following example.
 
-```
+```Java
 {% include_relative T_assert1.java %}
 ```
 
 The above example verifies with OpenJML, but the following variation does not:
 
-```
+```Java
 {% include_relative T_assert2.java %}
 ```
 
-produces
+Indeed, running ESC on `T_assert2.java` produces the following.
 
 ```
 {% include_relative T_assert2.out %}
@@ -33,11 +33,13 @@ produces
 This verification error occurs because if `i` is 0, then `neg` is 0
 so the assertion will fail.
 In this second example, which is at fault: the code or the assert statement?
-Well, that depends on what the intent of the method is: should `neg` be a 
+The answer depends on what the intent of the method is: should `neg` be a 
 negative number or a non-positive number? The OpenJML tool can only identify
 the discrepancy between the code and the specification, giving the 
 software and/or specification writer the opportunity to consider the problem
 and make an appropriate correction.
+
+### Java Assert Statements
 
 Java has its own `assert` statement. However, by default, the Java assert 
 statements are ignored at runtime, unless explicitly enabled.
@@ -60,7 +62,7 @@ produces similar output:
 {% include_relative T_assert3.out %}
 ```
 
-## Check statement
+## Check Statements
 
 The `check` statement (e.g., `check neg < 0;`)
 is similar to an `assert` statement in that
@@ -91,7 +93,7 @@ This explanation points to a potentially confusing point about `assert` statemen
 If the given predicate is always false, then the implicit assumption,
 after the assert statement,
 is that the predicate is true,
-and that allows all of the following code to verify trivially;
+and that allows the following code to verify vacuously,
 since there is no pre-state for the following statement
 satisfying the asserted predicate.
 A `check` statement should be used to find subsequent errors that result
