@@ -30,7 +30,7 @@ public class AssertExample1 {
 }
 ```
 
-First, let’s understand what the code is doing. The method `max3` takes in three integer numbers `a`, `b`, and `c`, then compares each integer against the other two. When comparing the integers the `>=` operator is used, since we were not told that each integer would be distinct from the others. We are not given any definite pre- or postconditions that need to be met, but we are told to write the strongest assert statements that verify where indicated. Remember that `assert` is used when a condition is expected to hold in body of a method.
+First, let’s understand what the code is doing. The method `max3` takes in three integer numbers `a`, `b`, and `c`, then compares each integer against the other two. When comparing the integers the `>=` operator is used, since we were not told that each integer would be distinct from the others. 
 
 The third assert statement (at the end of the method body) says that the value of `max` is greater than or equal to all of the arguments and is equal to one of them. Do you see why the disjunction `max == a || max == b || max == c` is valid? What kinds of coding errors could that disjunction prevent?
 
