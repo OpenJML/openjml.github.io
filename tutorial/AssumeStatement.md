@@ -1,74 +1,75 @@
 ---
-title: JML Tutorial - Assume statements (assume clauses)
+title: JML Tutorial - Assume statements
 ---
-
-Preconditions in JML (the predicates in `requires` clauses) are assumed by JML
-to hold when verifying a method.
-That is, for purposes of verifying a method body, a precondition is equivalent to using an `assume` statement at the beginning of the method body to assume that the precondition holds.
-However, preconditions are verified to hold at calls sites,
-while assume statements within a method body need are not verified to be true
-(either at runtime or during static verification).
 
 ## Assume Statements
 
-Like an `assert` statement, a JML  `assume` statement may be used in the
-body of a method. The effect of an `assume` statement is to instruct
+Like an `assert` statement, an `assume` statement may be used in the
+body of a method. The effect of an assume statement is to instruct
 the verification engine to assume, *without proof*, that the given 
 predicate is true. Such statements can be used to introduce
 facts that are too difficult for the proof engine to prove
 (for example, as OpenJML uses SMT solvers for its proofs, such statements might include theorems involving multiplication or division).
 Assume statements can also be used to temporarily summarize the effect of preceding code 
-for the purpose of attempting to prove later code; then one goes back later
+for the purpose of attempting to prove later code.
+When used in this way, one should goes back later
 to work with the preceding code until the assumption is successfully 
-proven and the `assume` statement can be removed (or replaced with an `assert` statement).
+proven and the `assume` statement can be removed.
+(An assume statement can also be replaced with an assert statement if it serves a useful purpose in documenting the code.)
 
-For example, consider the following code:
-```
+For example, consider the following code.
+
+```Java
 {% include_relative  T_assume1.java %}
 ```
 
-Here we have stated a postcondition we want in the ensures clause and a sketch
-of an implementation to compute it. But we don't know yet how to 
-specify the behavior of loops (that is coming [later!](Loops)), so we add some 
-assumptions that we expect to be true. With those assumptions, the
-above example verifies.
+The idea of the `findZeroElement` method is to return an index into the array argument (`a`) that holds 0.
+The code is a linear search to compute that index.
+However, we don't know yet
+[how to specify the behavior of loops](Loops), so we add an
+assumptions that we expect to be true.
+With that assumption, the above example verifies.
 
-Do you see why the assumptions in the example are not always true?
-This is the danger of `assume` statements; while they
-can be very helpful in developing a proof,
+Do you see why the assumption in the example may not always be true?
+This shows is the danger of `assume` statements;
+while they can be very helpful in developing a proof,
 if the given predicate is not always true,
 then one can prove _invalid_ specifications or _incorrect_ implementations.
 You can even see that in the example above: if the array `a` does not
-contain any elements, then the `assume` statements will be
-false; thus the postcondition is incorrect.
+contain any elements, then the `assume` statement will be false;
+so the code cannot always return a index into `a` of an element holding 0.
+Do you see why the code needs `a` to have an element holding 0?
+Do you see why the assume statement in the code might be false in that case?
 
 The situation can even be worse. Consider the following drastic, if trivial, case.
-```
+```Java
 {% include_relative  T_assume2.java %}
 ```
-Here we have an `assert` statement that is explicitly false. So the verifier
+
+The assert statement above is explicitly false. So the verifier
 will always report that the assertion is not provable and will produce 
-this output:
-```
+the following output.
+
+```Java
 {% include_relative  T_assume2.out %}
 ```
 
-But now we add an erroneous `assume` statement, one that contradicts the
-precondition. Remember that the precondition is assumed at the start of a 
-method implementation and that the `assume` statement
-is also silently assumed at its location in the body.
+But suppose we add erroneous assume statements, such as the ones shown that contradict each other as in the following. (This may not be so obvious in practice, since the first assume statement might arise from the method's [precondition](Preconditions), which is assumed at the start of the method.)
+
 ```
 {% include_relative  T_assume3.java %}
 ```
-Now OpenJML issues no verification errors. The effect is just like 
+
+In this case OpenJML issues no verification errors. The effect is just like 
 the situation in logic where, once a contradiction is assumed, anything,
 even false statements, can be proven.
 
 Thus, to emphasize the point: `assume` statements can be very helpful in the course of developing 
 a specification and proof of a method implementation,
 but if the OpenJML proof engine can prove them,
-then they should be replaced with `assert` statements
-or removed altogether before a verification is considered sound.
+then they should be replaced with assert statements.
+In any case it is safest to either replace all the assume statements with assert statements or to independently prove that the assume statements are true,
+before a verification can be trusted.
 
 ## **[Exercises](https://www.openjml.org/tutorial/exercises/AssumeEx.html)**
 
