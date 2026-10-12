@@ -13,7 +13,7 @@ facts that are too difficult for the proof engine to prove
 
 Assume statements can also be used in other ways. For example, they can be used to temporarily summarize the effect of preceding code 
 for the purpose of attempting to prove later code.
-When used in this way, one should goes back later
+When used in this way, one should go back later
 to work with the preceding code until the assumption is successfully 
 proven and the `assume` statement can be removed.
 (An assume statement can also be replaced with an assert statement; either to test whether OpenJML can prove the predicate is true or to use the assert statement as documentation.)
