@@ -12,9 +12,9 @@ The problem is that there are no spaces before (or after) the at-signs (`@`) in 
 Using `openjml --require-white-space` on the above code makes all of the comments without white spaces (those starting with at-signs (`@`) be treated by JML as Java comments, so `//@requires false;` is considered to be a Java comment and thus has no effect on JML. The OpenJML tool will also treat the comment `/*@nonnull@*/` as a Java comment and so OpenJML won't complain about that.
 
 ## **Question 3**
-A fixed version of the `AnnotationSyntax` class puts whitespace after at-signs in the JML annotations. This would look, for example, like the following. (Where some some comments have been added about the expected errors that ESC will flag now.)
+A fixed version of the `AnnotationSyntax` class puts whitespace after at-signs in the JML annotations. This would look, for example, like the following. (In the code some comments have been added about the expected errors that ESC will flag now.)
 
-```
+```Java
 public class AnnotationSyntax {
 
     //@ requires false;   // ERROR: precondition conjunct is false!
@@ -31,13 +31,10 @@ public class AnnotationSyntax {
 }
 ```
 
-If the code above is checked with OpenJML, the call to the method `test` will cause a verification failure, since the [precondition](https://www.openjml.org/tutorial/Preconditions.html) of that method is `false`. Furthermore the assertion `false` can't be proven and so will be noted as a verification error. All this shows that OpenJML is workong on the example.
+If the code above is checked with OpenJML, the call to the method `test` will cause a verification failure, since the [precondition](https://www.openjml.org/tutorial/Preconditions.html) of that method is `false`. Furthermore the assertion `false` can't be proven and so will be noted as a verification error. All this shows that OpenJML is working on the example.
 
 **Learning Objectives:** 
 + Understand the difference between JML annotations and Java comments
 
-## **[Answer Key](SyntaxExKey)**
-## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**
-
 ## Resources
-+ [Question 1 Java file](AnnotationSynatx.java) the `AnnotationSyntax` class above.
++ [All exercises](exercises)
