@@ -3,16 +3,17 @@ title: JML Tutorial - Specifications in Method Bodies
 ---
 
 The basic unit of specification and verification in JML is the method,
-with the method body being compared to the method's specification.
-However, sometimes specifications within the body of a method can
-assist or are required to be able to prove that the body meets the
-method specification, and they can also be helpful in documenting
-a method body in a machine-checked way.
-Such specification statements are not, however,
+which has a specification outside of the body of the method.
+To verify a method, OpenJML compares the method's body against its specification. 
+
+However, it is also possible to write statements inside a method body to 
+help prove that the body meets the method's specification.
+Such statements can also be helpful in documenting
+a method's body in a machine-checked way.
+On the other hand, such specification statements are not
 part of the method's specification -- for example, they are not visible to 
 calling methods.
 
 The most common such specification statements are `assert` and `assume`;
-also common are `ghost` declaration statements. In addition, loops in a method
-body require a loop invariant specification or a loop specification,
-to allow reasoning about the effect of the loop.
+also common are [ghost declarations and statements](Ghost). 
+In addition, the are specifications to aid the verification of [loops](Loops).
