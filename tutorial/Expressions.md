@@ -2,34 +2,35 @@
 title: JML Tutorial - JML Expressions
 ---
 
-The lessons on [assert](AssertStatement) and [assume](AssumeStatement) (as well as coming lessons on [preconditions](Preconditions) and [postconditions](Postconditions)) all show examples of *expressions* used in JML clauses.
+The lessons on [assert](AssertStatement) and [assume](AssumeStatement) (as well as coming lessons on [preconditions](Preconditions) and [postconditions](Postconditions)) all show examples of *expressions* used in JML specifications.
 As expressions are a building block for nearly all other JML constructs, 
 we include lessons here to introduce JML expressions.
 
 JML expressions look very much  like Java expressions.
 Indeed, the JML expression syntax includes all of the Java expression
 syntax, with this exception: JML expressions are _not_ allowed to have
-side-effects. So the `++`, `--`, and _op_`=` (e.g., `+=`) operators are
-not allowed in JML expressions. The meaning of Java operators in 
-JML is also unchanged, except for two matters discussed in later lessons:
+effects (that is, they may _not_ change the program's state). 
+So the `++`, `--`, and _op_`=` (e.g., `+=`) operators are
+_not_ allowed in JML expressions. The meaning of other Java operators in 
+JML is unchanged, except for two kinds of additional checks that JML makes, which are discussed in later lessons:
 * consideration of [arithmetic modes](ArithmeticModes)
 * [well-definedness](WellDefinedExpressions)
 
 Note that the non-short-circuiting boolean operators `&` and `|` are legal
 in both Java and JML, though the short-circuiting versions `&&` and `||`
-are much more commonly used in Java because they can be more efficient. In
-static reasoning, however, execution efficiency does not matter. 
-In static reasoning, `&` and `|` are simpler to reason about, but 
-`&&` and `||` are often needed because of [well-definedness considerations](WellDefinedExpressions).
+are much more commonly used in Java because they can be more efficient (at runtime). 
+In static reasoning, however, `&` and `|` are often simpler for OpenJML to reason about, 
+but `&&` and `||` are often still needed due to [well-definedness considerations](WellDefinedExpressions).
 
-JML also adds to Java some operators and some expression syntax that are new. The new operators are these:
+JML also adds to Java some operators and some expression syntax. The new operators are these:
 
-* `==>` (implication): this binary operator takes two boolean operands, e.g., `p` and `q`; `p ==> q` is read as "p implies q" and means the same as logical implication, that is, the same as "not p or q". 
+* `==>` (implication): this binary operator takes two boolean operands, e.g., `p` and `q`; `p ==> q` is read as "p implies q" and means the same as logical implication, that is, the same as "not p or q".
 The implication operator is short-circuiting. That is, the value and well-definedness of the right-hand-side is not evaluated, unless the left-hand-side is true. In other words, `p ==> q` is precisely equivalent to `!p || q`.
 The implication operator has lower 
 precedence than `&&` and `||`, so `p && q ==> r || s` means
 `(p && q) ==> (r || s)`. `==>` is *right* associative, so that
 `p ==> q ==> r` means `p ==> (q ==> r)`, which is the same as `(p && q) ==> r`.
+
 * `<==>` (equivalence): this is also a binary operation between boolean values.
 `p <==> q` means the same as `p == q`, except that `<==>` has lower precedence than `&&` and `||` and `==>`, whereas `==` has higher precedence. 
 Thus `p && q == r || s` means `(p && (q == r)) || s`, whereas
@@ -37,6 +38,7 @@ Thus `p && q == r || s` means `(p && (q == r)) || s`, whereas
 Also `<==>` is left associative, so `p <==> q <==>r` means `(p <==> q) <==> r`), 
 though: (a) the meaning is the same as if it were right associative and (b) 
 expressions that rely on associativity of `<==>` may be confusing and so perhaps should be avoided.
+
 * `<=!=>` (inequivalence): this operator is simply the negation of `<==>`
 and has the same precedence as `<==>`. The operator `<=!=>` is also left associative; that is, `p <=!=> q <==> r` means `(p <=!=> q) <==> r`, though again, expressions relying on associativity of `<=!=>` and `<==>` may be confusing and so perhaps should be avoided.
 
