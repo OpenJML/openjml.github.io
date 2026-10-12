@@ -15,5 +15,6 @@ part of the method's specification -- for example, they are not visible to
 calling methods.
 
 The most common such specification statements are `assert` and `assume`;
-also common are [ghost declarations and statements](Ghost). 
-In addition, the are specifications to aid the verification of [loops](Loops).
+also common are specifications to aid the verification of [loops](Loops).
+In addition, JML includes [ghost declarations and statements](Ghost),
+which can be used to supplement other specification statements.
