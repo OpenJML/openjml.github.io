@@ -5,58 +5,21 @@ title: JML Tutorial - Exercises - Assert Statements
 ## [Assert Statements Tutorial](https://www.openjml.org/tutorial/AssertStatement)
 
 ## **Question 1**
-**Given the code below, write specifications to verify the method `max3` in the class below, including the assert statements where indicated. See [the tutorial on visibility](https://openjml.org/tutorial/Visibility.html) for the meaning of the `spec_public` annotation, which is not important for this exercise.**
+**Given the code below, write the strongest[^1] assert statements at the places indicated to verify the method `max3` in the class below.**
+
 ```Java
-public class AssertExample1 {
-
-    private /*@ spec_public @*/ int max;
-
-    public void max3(int a, int b, int c) {
-        if (a >= b && a >= c) {
-            max = a;
-            // first assert here
-        } else if (b >= a && b >= c) {
-            max = b;
-            // second assert here
-        } else {
-            max = c;
-        }
-        // third assert here
-    }
-
-}
+{% include_relative AssertExample1.java %}
 ```
 
 **Learning Objectives:** 
++ Gain practice using `assert` statements
 + Understand how `assert` can be used
-+ Understand the relationship between `assert` statements and postconditions 
 
 ## **Question 2**
-**Given the method below, write the strongest[^1] assert statements that will pass at the places indicated.**
-
-[^1]: An assert statement `assert P;` is stronger than assert statement `assert Q;` when the predicate `P` is stronger than the predicate `Q` (that is, when `P` implies `Q`). See [the tutorial section on preconditions](https://www.openjml.org/tutorial/Preconditions.html) for more about the strength of predicates.
+**Given the method below, write the strongest[^1] assert statements that will verify at the places indicated.**
 
 ```Java
-public boolean primeChecker(int num) {
-        //@ assume num > 0;
-	boolean isPrime = true;
-        int i;
-	for (i = 2; i < num/2; i++) {
-                //@ assume isPrime && 2 <= i;
-		if (num % i == 0) {
-			// first assert here
-			isPrime = false;
-			return isPrime;
-		}
-	}
-        //@ assume isPrime && 2 <= i;
-        if (num % i == 0) {
-            isPrime = false;
-            return isPrime;
-        }
-	// second assert here
-	return isPrime;
-}
+{% include_relative AssertExample2.java %}
 ```
 **Learning Objectives:** 
 + Gain more experience writing `assert` statements
@@ -69,3 +32,5 @@ public boolean primeChecker(int num) {
 + [Java code for question 2](AssertExample2.java)
 
 ## Footnotes
+
+[^1]: An assert statement `assert P;` is stronger than assert statement `assert Q;` when the predicate `P` is stronger than the predicate `Q` (that is, when `P` implies `Q`). See [the tutorial section on preconditions](https://www.openjml.org/tutorial/Preconditions.html) for more about the strength of predicates.
