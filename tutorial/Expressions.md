@@ -46,14 +46,15 @@ Another important addition to JML is the *chaining* of relational operators.
 That is, instead of writing `i <= j && j < k`,
 one can write `i <= j < k`.
 Similarly, `i > j > k` means `i > j & j > k`.
-The operators `<` and `<=` can each be chained together, as can the operators `>` and `>=`. However, the two groups cannot be mixed, so combinations involving both `<` and`>` are illegal. Another example is that `a <= b >= c` is illegal in JML. Furthermore, `==` does not chain and in fact has a lower precedence than the 
+The operators `<` and `<=` can each be chained together, as can the operators `>` and `>=`. However, the two groups cannot be mixed, so combinations involving both `<` and`>` are illegal; for example `a <= b >= c` is illegal in JML. 
+Furthermore, `==` does not chain and in fact has a lower precedence than the 
 relational operators; thus `a < b == c < d` means `(a < b) == (c < d)` in both Java and JML.  On the other hand, chained operations are particularly convenient for writing ranges of indices; as an example, one might constrain the index `i` into an array `arr` by writing `0 <= i < arr.length`.
 
 In addition quantified expressions are described [below](#QuantifiedExpressions) and two other advanced operators are presented separately in advanced topics lessons:
 * `<:` [Reasoning about types](TYPE)
 * `<#` `<#=` [Reasoning about locks](Locks)
 
-Finally, there are many keywords that designate either singleton values (e.g., `\result`) or function-like operations (e.g., `\typeof(...)`. These will be 
+Finally, there are many keywords that designate either singleton values (e.g., `\result`) or function-like operations (e.g., `\typeof(...)`). These will be 
 explained as needed in future lessons. All JML keywords used within expressions begin with a backslash, so they do not conflict with Java identifiers. For example the expression `0 <= \result < ary.length` says that the result of the current method (named `\result`) is a legal index into the array `ary`. 
 
 Of course, these JML operators and functions (and all other JML syntax) can only be used within JML annotations, not in Java code.
@@ -74,16 +75,15 @@ The second states that for _some_ index within the array, the value at that inde
 * `(\forall ...; R; V)` is the same as `(\forall ...;; R ==> V)`
 * `(\exists ...; R; V)` is the same as `(exists ...;; R && V)`
 
-However separating `R` and `V` makes it easier to have an efficient implementation for runtime-assertion-checking. Note that if the range predicate is false (for example if the array `a` has length 0 in `(\forall int i; 0 <= i < a.length; V)`, then, as in logic, a forall expression will be true, but the exists expression `(\forall int i; 0 <= i < a.length; V)` will be false.
+However separating `R` and `V` makes it easier to have an efficient implementation for runtime-assertion-checking. Note that if the range predicate is false (for example if the array `a` has length 0 in `(\forall int i; 0 <= i < a.length; V)`, then, as in logic, a forall expression will be true, but an exists expression with an empty range, such as `(\exists int i; 0 <= i < a.length; V)` will be false (with `a` has length 0).
 
-The scope of the declared variable extends as far to the right as possible. Thus, it is good practice, and avoids possible confusion about the scope of the declared variable, if one puts parentheses around the entire quantified expression; however, such parentheses are not required by JML.
+The scope of the declared variable in a quantified expression extends as far to the right as possible. Thus, it is good practice, and avoids possible confusion about the scope of the declared variable, if one puts parentheses around the entire quantified expression; however, such parentheses are not required by JML.
 
-Quantified expressions are commonly used in reasoning about loops, arrays, sequences and sets. For example, to say that every element of a set `s` (where the elements have type `T`) has the property `P` one could write the following expression: `(\forall T e; e \in s; P(e))`.
+Quantified expressions are commonly used in reasoning about loops, arrays, sequences and sets. For example, to say that every element `e` of a set `s` (where the elements have type `T`) has the property `P(e)` one could write the following expression: `(\forall T e; e \in s; P(e))`.
 
 ### choose
 
-The `\choose` predicate is similar to the `\exists` predicate. Whereas `(\exists ...\; R; V)` is true if there is some value of the quantified variable for which `R && V` is true,
-`\choose` can return that value (as the value of the expression). For example, the value of `(\choose int i; 0 <= i < a.length && a[i] == 0; i)` is some `int` for which the range predicate is true; in this example, that is a legal index (`i`) of array `a` holding the element 0. The type of the expression is always the type of value expression, which is based on the type of the declared local variable (`i` in the example).
+The `\choose` quantifier is similar to `\exists`. Whereas `(\exists T i; R; V)` is true if there is some value of the quantified variable (`i`) for which `R && V` is true, `(\choose T i; R; V)` returns some value of `i` that makes `R && V` true (as the value of the choose expression). For example, the value of `(\choose int i; 0 <= i < a.length; a[i] == 0)` is some `int` for which the range predicate is true; in this example, that is a legal index (`i`) of array `a` holding the element 0. The type of the expression is always the type of the declared local variable (`i` in the example).
 
 If there is more than one such value (in our example, more than one such index `i`), then the result of the expression might be any one of them, but it will always the same one for a semantically identical expression.
 But the fact that the value could be any one satisfying the predicate means that an assertion that uses that value must hold for all cases in which the predicate is true. For example in the expression `P(\choose int i; 0 <= i < a.length && a[i] == 0; i)`, the value of the overall expression should not depend on the value chosen for `i`.
