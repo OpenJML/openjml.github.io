@@ -15,7 +15,7 @@ for the purpose of attempting to prove later code.
 When used in this way, one should goes back later
 to work with the preceding code until the assumption is successfully 
 proven and the `assume` statement can be removed.
-(An assume statement can also be replaced with an assert statement if it serves a useful purpose in documenting the code.)
+(An assume statement can also be replaced with an assert statement; either to test whether OpenJML can prove the predicate is true or to use the assert statement as documentation.)
 
 For example, consider the following code.
 
@@ -37,7 +37,7 @@ if the given predicate is not always true,
 then one can prove _invalid_ specifications or _incorrect_ implementations.
 You can even see that in the example above: if the array `a` does not
 contain any elements, then the `assume` statement will be false;
-so the code cannot always return a index into `a` of an element holding 0.
+so the code cannot always return an index into `a` of an element holding 0.
 Do you see why the code needs `a` to have an element holding 0?
 Do you see why the assume statement in the code might be false in that case?
 
@@ -46,7 +46,7 @@ The situation can even be worse. Consider the following drastic, if trivial, cas
 {% include_relative  T_assume2.java %}
 ```
 
-The assert statement above is explicitly false. So the verifier
+The assert statement above is explicitly false. So OpenJML
 will always report that the assertion is not provable and will produce 
 the following output.
 
