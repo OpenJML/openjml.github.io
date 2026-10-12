@@ -102,4 +102,8 @@ them in place for static checking.
 
 Follow the link in the above heading to work on the exercises for this lesson.
 
+## Resources
+
++ [Reference Manual for JML](https://www.openjml.org/documentation/JML_Reference_Manual.pdf), where there is a chapter "JML Syntax" with more details.
+
 
