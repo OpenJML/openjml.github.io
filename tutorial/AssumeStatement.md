@@ -32,12 +32,12 @@ assumptions that we expect to be true.
 With that assumption, the above example verifies.
 
 Do you see why the assumption in the example may not always be true?
-This shows is the danger of `assume` statements;
+This shows is the danger of assume statements;
 while they can be very helpful in developing a proof,
 if the given predicate is not always true,
 then one can prove _invalid_ specifications or _incorrect_ implementations.
 You can even see that in the example above: if the array `a` does not
-contain any elements, then the `assume` statement will be false;
+contain any elements, then the predicate in the assume statement will be false;
 so the code cannot always return an index into `a` of an element holding 0.
 Do you see why the code needs `a` to have an element holding 0?
 Do you see why the assume statement in the code might be false in that case?
@@ -65,7 +65,7 @@ In this case OpenJML issues no verification errors. The effect is just like
 the situation in logic where, once a contradiction is assumed, anything,
 even false statements, can be proven.
 
-Thus, to emphasize the point: `assume` statements can be very helpful in the course of developing 
+Thus, to emphasize the point: assume statements can be very helpful in the course of developing 
 a specification and proof of a method implementation,
 but if the OpenJML proof engine can prove them,
 then they should be replaced with assert statements.
