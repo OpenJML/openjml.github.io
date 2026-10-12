@@ -1,0 +1,10 @@
+AnnotationSyntaxAns.java:13: verify: The prover cannot establish an assertion (Precondition: AnnotationSyntaxAns.java:6:) in method main
+        test(arr);    // ERROR: precondition failure!
+            ^
+AnnotationSyntaxAns.java:6: verify: Associated declaration: AnnotationSyntaxAns.java:13:
+    public static void test(/* @nonnull */ int[] a) {
+                       ^
+AnnotationSyntaxAns.java:4: verify: Precondition conjunct is false: false
+    //@ requires false;   // ERROR: precondition conjunct is false!
+                 ^
+3 verification failures

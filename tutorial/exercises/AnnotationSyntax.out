@@ -1,0 +1,4 @@
+AnnotationSyntax.java:6: error: Expected an identifier, found end of JML comment instead
+    public static void test(/*@nonnull*/ int[] a) {   // ERROR: consider this line!
+                                      ^
+1 error

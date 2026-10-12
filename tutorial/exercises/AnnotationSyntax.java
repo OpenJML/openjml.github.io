@@ -3,7 +3,7 @@ public class AnnotationSyntax {
 
     //@requires false;
     //@ensures true;
-    public static void test(/*@nonnull*/ int[] a) {
+    public static void test(/*@nonnull*/ int[] a) {   // ERROR: consider this line!
         //@assert false;   // ERROR: condition is false!
     }
 

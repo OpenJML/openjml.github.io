@@ -1,7 +1,7 @@
 // openjml --esc AnnotationSyntaxAns.java
 public class AnnotationSyntaxAns {
 
-    //@ requires false;
+    //@ requires false;   // ERROR: precondition conjunct is false!
     //@ ensures true;
     public static void test(/* @nonnull */ int[] a) {
         //@ assert false;   // ERROR: condition is false!
