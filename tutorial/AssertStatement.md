@@ -74,7 +74,7 @@ of the program:
 "just check whether the given predicate is true here".
 * An `assert` predicate tests the predicate and then _assumes that it is subsequently true_.
 An `assert` statement essentially says,
-"this predicate is supposed to be true, so please test it,
+"this predicate is supposed to be true, so test it,
 and assume it to be true for analyzing subsequent code."
 
 For example,
