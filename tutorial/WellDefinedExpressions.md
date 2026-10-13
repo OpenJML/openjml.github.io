@@ -83,4 +83,4 @@ Follow the link in the above heading to work on the exercises on this topic.
 + [T_WellDefined4 file](T_WellDefined4.java)
 
 ## Footnotes
-[^1]: A quantified expression of the form `(\choose T x; R; V)` is well-defined if the range (`R`) is not empty (that is, `R` is not always false).
+[^1]: A quantified expression of the form `(\choose T x; R; V)` is well-defined if the range (`R`) is well-defined and not empty (that is, `R` is not always false).
