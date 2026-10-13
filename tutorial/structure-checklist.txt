@@ -1,11 +1,15 @@
 Every topic, named (say) X, should have:
 
-0. An entry in exercises/exercises.md
+0. An entry in index.md in this directory (tutorial)
+   and an entry in exercises/exercises.md
    (structured the same as index.md here), probably of the form:
-   "  * [X](X)"
-   with the first "X" possibly being an appropriate English phrase
-   for the topic instead of a name without spaces
-1. A tutorial chapter named X.md in this directory (tutorial):
+   "
+   * [X](X)
+   "
+   with the first X possibly being an appropriate English phrase
+   for the topic instead of a name without spaces (like the second X).
+1. A TUTORIAL SECTION/LESSON
+   which is a file named X.md in this directory (tutorial), with the following:
    a. starting with a title of the form
        "
        ---
@@ -14,6 +18,7 @@ Every topic, named (say) X, should have:
        "
        with the X possibly being a phrase.
    b. Some explanatory text
+      (which is the main explanation of X)
    c. A second level heading of the form
       "
       ## **[Exercises](https://www.openjml.org/tutorial/exercises/InstallationEx.html)**
@@ -28,13 +33,16 @@ Every topic, named (say) X, should have:
       "
       with the body being a list of relevant links, including links to
       the Java code of any examples.
-2. Exercises in a file "exercises/XEx.md"
+
+2. EXERCISES,
+   in a file "exercises/XEx.md"
    a. starting with a title of the form
       "
       ---
       title: JML Tutorial - Exercises - X
       ---
       "
+      where the X may be an English phrase.
    b. A first level heading of the form
       "
       # X Exercises:
@@ -82,8 +90,11 @@ Every topic, named (say) X, should have:
        followed by a list of relevant resources,
        including links to any Java code of the form
        "+ [XEx1 Java code](XEx1.java)
-4. An answer key in exercises/XExKey.md with:
+
+3. An ANSWER KEY,
+   in a file named exercises/XExKey.md with:
    a. a title of the form "title: JML Tutorial - Exercises - X"
+      where X may be a phrase
    b. a first level heading of the form:
        "
        # X Exercises Key:
