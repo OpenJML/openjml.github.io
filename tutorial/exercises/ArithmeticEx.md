@@ -2,26 +2,16 @@
 title: JML Tutorial - Exercises - Arithmetic
 ---
 # Arithmetic Exercises:
-## [Arithmetic Tutorial](https://www.openjml.org/tutorial/ArithmeticModes)
+## [Arithmetic and Arithmetic Modes Tutorial](https://www.openjml.org/tutorial/ArithmeticModes)
 
 ## **Question 1**
 **Given the function below determine the strongest preconditions needed to verify the function.**
 ```Java
-public class ArithmeticExample1 {
-	//@ spec_public
-	private int sum;
-
-	//@ ensures 0 < sum < Integer.MAX_VALUE;
-	public void sumThreeNums(int n1, int n2, int n3) {
-		sum = n1 + n2 + n3;
-	}	
-}
+{% include_relative ArithmeticExample1.java %}
 ```
+
 **Learning Objectives:**
-+ Understand overflow and underflow errors
-+ Understand `Integer.MAX_VALUE`
-+ Gain more experience writing preconditions
-+ Gain more experience with the `assigns` clause
++ Understand overflow and underflow errors and how to use specifications to prevent them.
 
 ## **Question 2**
 **(a) The function given below is unable to be verified; determine where in the specifications it is failing, and fix it.**
