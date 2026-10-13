@@ -161,7 +161,7 @@ The `\sum` and `\product` quantifiers add up or multiply together all the values
 * `(\sum int i; 0 <= i < a.length; a[i])` and
 * `(\product int i; 0 <= i < a.length; a[i])`
 
-The type of these expressions is a mathematical type (that is, if integer-valued it is evaluated in [bigint-math mode](ArithmeticModes)), because overflow is a distinct possibility. However, the result could always be cast to a desired final type if desired.
+The type of these expressions is a mathematical type (that is, if integer-valued it is evaluated in [bigint-math mode](ArithmeticModes)), because overflow is a distinct possibility. However, the result could always be cast to a desired final type.
 
 If the range predicate is empty (i.e., false) then the sum is 0 and the product is 1. So these expressions are well-defined even when the range predicate is empty.
 
