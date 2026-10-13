@@ -70,5 +70,5 @@ T	F    |	   F	|      F         |
 ## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**
 
 ## Resources
-+ [Java code for question 1](JmlExprExample1.java)
-+ [Java code for question 2](JmlExprExample2.java)
++ [Java code for question 1](JMLExprExample1.java)
++ [Java code for question 2](JMLExprExample2.java)
