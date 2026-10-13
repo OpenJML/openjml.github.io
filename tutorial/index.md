@@ -47,7 +47,7 @@ example code; just make sure that the appropriate path to the `openjml` command 
 * JML Expressions
   * [JML Expressions](Expressions)
   * [Well-defined Expressions](WellDefinedExpressions)
-  * [Arithmetic](ArithmeticModes)
+  * [Arithmetic and Arithmetic Modes](ArithmeticModes)
   * [Null and non-null](Nullness)
 
 * Simple Method Specifications

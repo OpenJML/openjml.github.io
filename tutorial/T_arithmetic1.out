@@ -1,10 +1,7 @@
-T_arithmetic1.java:5: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method increment: overflow in int sum
-    return i+1;   // ERROR: may overflow!
-            ^
-T_arithmetic1.java:5: verify: The prover cannot establish an assertion (Postcondition: T_arithmetic1.java:3:) in method increment
-    return i+1;   // ERROR: may overflow!
-    ^
-T_arithmetic1.java:3: verify: Associated declaration: T_arithmetic1.java:5:
-  //@ ensures \result == i+1;
-      ^
-3 verification failures
+T_arithmetic1.java:5: verify: The prover cannot establish an assertion (Assert) in method increment
+    //@ assert new_i == i+1;   // ERROR: may fail!
+        ^
+T_arithmetic1.java:4: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method increment: overflow in int sum
+    int new_i = i+1;   // ERROR: may overflow!
+                 ^
+2 verification failures
