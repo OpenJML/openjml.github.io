@@ -2,7 +2,7 @@
 title: JML Tutorial - Well-Defined Expressions
 ---
 
-Much confusion over error messages can be avoided by understanding that all JML expressions must be *well-defined*. Informally, one can think of a well-defined expression as one that, if it were a Java expression, would not throw an exception; most expressions (aside for quantified expressions using the `\choose` quantifier) should also have an unambiguous meaning. JML requires that each expression in a JML context must be well-defined; the OpenJML tool will complain if it cannot prove that each such expression is well-defined.
+Much confusion over error messages can be avoided by understanding that all JML expressions must be *well-defined*. Informally, one can think of a well-defined expression as one that, if it were a Java expression, would not throw an exception; most expressions (aside from quantified expressions using the `\choose` quantifier[^1]) should also have an unambiguous meaning. JML requires that each expression in a JML context must be well-defined; the OpenJML tool will complain if it cannot prove that each such expression is well-defined.
 
 For example, `a[i]` is not well-defined if `i` is not in the range of the indices of `a`. So this example
 
@@ -81,3 +81,6 @@ Follow the link in the above heading to work on the exercises on this topic.
 + [T_WellDefined2 file](T_WellDefined2.java)
 + [T_WellDefined3 file](T_WellDefined3.java)
 + [T_WellDefined4 file](T_WellDefined4.java)
+
+## Footnotes
+[^1]: A quantified expression of the form `(\choose T x; R; V)` is well-defined if the range (`R`) is not empty (that is, `R` is not always false).
