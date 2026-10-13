@@ -116,7 +116,7 @@ Follow the link in the above heading to work on the exercises on this topic.
 
 ## Footnotes
 
-[^1]: These design elements of JML arise from the research reported in Chalin, P.: Logical foundations of program assertions: What do practitioners want? In _Proceedings of the 3rd International Conference on Software Engineering and Formal Method(SEFM)_. IEEE Computer Society, Los Alamitos, California (2005).
+[^1]: These design elements of JML arise from the research reported in [Chalin, P.: Logical foundations of program assertions: What do practitioners want?](https://ieeexplore.ieee.org/document/1575928) In _Proceedings of the 3rd International Conference on Software Engineering and Formal Method(SEFM)_. IEEE Computer Society, Los Alamitos, California (2005).
 
 [^2]: See Bloch, Joshua, "Extra, Extra - Read All About It: Nearly All Binary Searches and Mergesorts are Broken" in [Google Research Blog post](https://research.google/blog/extra-extra-read-all-about-it-nearly-all-binary-searches-and-mergesorts-are-broken/), June 2, 2006.
 
