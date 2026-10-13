@@ -18,11 +18,11 @@ produces this result
 
 The output here deserves some explanation:
 * First, OpenJML will continue looking for errors until it can find no more, but the order in which the errors are found is not guaranteed. So, the output you obtain by running the example above may have the error messages in a different order.
-* The tool explores all possible paths in the method, using all possible values of the inputs that conform to the preconditions (an implicit precondition here is that `a` is non-null --- which we'll discuss later [null and non-null defaults](Nullness)).
+* The tool explores all possible paths in the method, using all possible values of the inputs that conform to the preconditions (an implicit precondition here is that `a` is non-null --- we'll JML's [null and non-null defaults](Nullness)) later.
 * Now `a[i]` is well-defined only if `i` is in range for the array `a` (that is, `i` must necessarily be a legal index into `a`). But one possible combination of inputs is that `i` is actually in range, in which case the expression is well-defined and OpenJML goes on to see if the assertion can be proved true. As the precondition says nothing about the values in the array, the assertion cannot be proved true and a verification error message results.
 * The other two cases are when `i` is too large (at least as large as `a.length`) or too small (`i` is negative). In these cases the expression is not well-defined; OpenJML issues verification errors calling out this undefinedness.
 
-The rules for well-definedness of a JML expression build up from the leaves of the expression tree, with any compound expression requiring that each of its sub-expressions be well-defined. Note that even before OpenJML begins its work, an expression must not have any syntax (parsing) or type-checking errors. The following describes when particular kinds of expressions are well-defined:
+The rules for well-definedness of a JML expression build up from the leaves of the expression's parse tree; if a sub-expression is not well-defined, then the overall expression will not be well-defined. Note that even before OpenJML begins its work, an expression must not have any syntax (parsing) or type-checking errors. The following describes when particular kinds of expressions are well-defined:
 
 * Literals (`true`, `false`, `null`, numbers, character literals, and literal strings) are all well-defined,
 * Correctly resolved identifiers are well-defined,
@@ -41,16 +41,16 @@ if the left-operand is true, the right operand is well-defined
 * A method call expression such as `R.m(ES...)` or object creation expression such as `R.new T(ES...)` is well-defined if the receiver expression (`R`) is either absent or a type name or a well-defined expression and all the arguments (`ES...`) are well-defined
 * A switch expression (such as `switch (V) { ... }`) is well-defined if the switch value expression (`V`) is well-defined and the selected expression is well-defined. The switch expression is short-circuiting in the sense that any expression for cases that are not selected are not evaluated and so do not need to be well-defined.
 
-JML statements are well-defined if all their component sub-statements and sub-expressions are well-defined. That is, for a statement to be well-defined, each part must be well-defined; the even applies to if, if-else, and switch statements.
+JML statements are well-defined if all their component sub-statements and sub-expressions are well-defined. That is, for a statement to be well-defined, each part must be well-defined; this even applies to if, if-else, and switch statements.
 
 As for other JML operations
 * singleton JML expression identifiers like `\result` are well-defined expressions (presuming they are type-correct, as always)
 * functional-form JML expressions are well-defined if all expression arguments are well-defined; any additional conditions will be stated when the expression is introduced
-* a [quantified expression](Expressions#QuantifiedExpressions) (`Q x; R; V`) is well-defined if (a) the range expression (`R`) is well-defined for all values of the local variable (for its type) and (b) the value expression (`V`) is well-defined for each value of the local variable for which in range value is true (and for the `\choose` operation, the corresponding `\exists` expression is true)
+* a [quantified expression](Expressions#QuantifiedExpressions) (`Q x; R; V`) is well-defined if (a) the range expression (`R`) is well-defined for all values of the local variable (for its type) and (b) the value expression (`V`) is well-defined for each value of the local variable for which in range value is true (and for `\choose`, the range expression is well-defined and not empty.)
 
-In practice, one can make sure that JML expressions are well-defined by writing guarded expressions, such as `o != null ==> o.f == 0`. In that expression, the antecedent (`o != null`) ensures that `o.f` is well-defined, since when `o` is `null`, then the antecedent is false, and so the entire expression is well-defined.
+In practice, one can make sure that JML expressions are well-defined by writing guarded expressions, such as `d != 0 ==> n/d > 3`. In that expression, the antecedent (`d != 0`) ensures that the division `n/d` is well-defined, since when `d` is `0`, then the antecedent is false, and so the entire expression is well-defined.
 
-So, since in the example below, since `o` is declared to be non-null (which it would be by default--- see the lesson on [nullness](Nullness)), no definedness errors are issued:
+So, since in the example below, since `o` is declared to be non-null (which it would be by default in JML --- see the lesson on [nullness](Nullness)), no definedness errors are issued:
 ```
 {% include_relative T_WellDefined2.java %}
 ```
