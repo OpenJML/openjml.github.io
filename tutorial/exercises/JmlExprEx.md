@@ -5,7 +5,7 @@ title: JML Tutorial - Exercises - JML Expressions
 ## [JML Expressions Tutorial](https://www.openjml.org/tutorial/Expressions)
 
 ## **Question 1**
-**Look again at the `primeChecker` method below. This method checks if its argument is prime. Using a quantified expression, either `\exists` or `\forall`, write an expression in the assertion at the end that describes the property that there are no integers between 2 and `num/2` inclusive that evenly divide the argument `num`. (This expression could be used as a [postcondition](https://openjml.org/tutorial/Postconditions.html) for the method.)**
+**Look again at the `primeChecker` method below. This method checks if its argument is prime. Using a quantified expression, either `\exists` or `\forall`, write an expression in the assertion at the end that describes the property that there are no integers between 2 and `num/2` inclusive that evenly divide the argument `num`.**
 ```Java
 public boolean primeChecker(int num) {
         //@ assume 0 < num;
@@ -33,6 +33,9 @@ public boolean primeChecker(int num) {
 	return isPrime;
 }
 ```
+
+The predicate in the assert statement at the end that describes `num` could be adapted to be used as a [postcondition](https://openjml.org/tutorial/Postconditions.html) for the method.
+
 **Learning Objectives:**
 + Understand quantified expressions and be able to write them
 + Understand JML operators and be able to utilize them
