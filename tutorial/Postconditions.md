@@ -1,15 +1,17 @@
 ---
-title: JML Tutorial - Postconditions (ensures clauses)
+title: JML Tutorial - Postconditions
 ---
 
 A method's specification states _what_ the method does,
 but not _how_ it is done. What a method does is
 stated in its _postcondition_, which is written in one (or more) 
-_ensures_ clause(s). Such postconditions are asserted as a method is returning.
+_ensures_ clause(s).
 
-(Ensures clauses may be mixed in any order with its requires clauses, but good,
-and clearer, style suggests putting all requires clauses first and then
-all ensures clauses.)
+Such postconditions are asserted as a method is returning and describe the method's _post-state_. Since postconditions are asserted, JML checks them to ensure that they always hold in every possible post-state. Thus these postconditions may be [assumed by the method's caller](MethodCalls).
+
+Ensures clauses may be mixed in any order with a method's requires clauses, 
+but good style suggests putting all requires clauses first and then
+all ensures clauses. This will make method specifications clearer for readers.
 
 Consider this example of a method that computes the maximum of four int values.
 
@@ -17,15 +19,16 @@ Consider this example of a method that computes the maximum of four int values.
 {% include_relative T_ensures1.java %}
 ```
 
-The *ensures* clauses just prior to the method declaration state two 
-properties that are expected to hold about the result, which is designated
-by the keyword `\result`.
+The ensures clauses just prior to the method declaration state two 
+properties that are expected to hold about the result being returned, 
+which is designated by the keyword `\result`. They specify that:
 
 * The result must be equal to (at least) one of the four inputs.
 * The result must be greater than or equal to each of the four inputs.
 
-The body of the function computes this result. Note that the specification
-states the properties of the result but does not state how it is computed.
+The body of the method computes the specified result. 
+Note that the specification states the properties of the result
+but does not state how it is computed.
 In fact, the same specification could be used with a different implementation:
 ```Java
 {% include_relative T_ensures1a.java %}
@@ -33,7 +36,7 @@ In fact, the same specification could be used with a different implementation:
 
 Both of the above examples verify as correct with respect to the given specifications.
 
-Now consider a third example:
+A benefit of writing postconditions for methods is that they may help detect coding mistakes (assuming that the ensures clauses are as intended). Consider the following example, which does not verify.
 
 ```Java
 {% include_relative T_ensures2.java %}
@@ -82,7 +85,8 @@ a single postcondition predicate. Consequently an earlier predicate may be neede
 * In thinking about postconditions, be aware of the semantics of the `ensures` clause, namely,
 _if the method terminates normally (without an exception or error), 
 then the given postcondition must be true_.
-The converse, if the `ensures` predicate is true then the method terminates normally, is not the meaning and is not necessarily true.
+The converse, if the `ensures` predicate is true then the method terminates normally, is not the meaning of an ensures clause and is not necessarily true.
+(See the [lesson on termination](Termination) for more on this topic, and JML's `diverges` clause.)
 
 ## **[Exercises](https://www.openjml.org/tutorial/exercises/PostCondEx.html)**
 
