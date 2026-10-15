@@ -64,7 +64,7 @@ However, in our preferred solution below, we use separate requires clauses stati
 
 Note that we use `0.0 <= balance` because a balance might be zero, and that would suffice to purchase an item that is free.  The preconditions requiring the price to be non-negative and the quantity to be positive, together with the precondition `(price*n) <= balance` do, however, require that the balance is sufficient to purchase the given number of items.
 
-**Incorrect Version 2:**
+**Incorrect Version 1:**
 
 An incorrect solution is as follows.
 
@@ -88,7 +88,7 @@ The above specification doesn't require `(price*n) <= balance`, so the balance m
 {% include_relative PreCondEx2Wrong.out %}
 ```
 
-**Incorrect Version 3:**
+**Incorrect Version 2:**
 
 Another incorrect answer is as follows.
 
