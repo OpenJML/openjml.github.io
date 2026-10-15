@@ -21,7 +21,7 @@ So we could write the following trivial example with does verify.
 {% include_relative T_Exception1.java %}
 ```
 
-### Signals_only Clauses
+### Specifying what Exceptions may be Thrown: signals_only Clauses
 
 Note that the specification includes a second kind of clause,
 the `signals_only` clause.
@@ -29,7 +29,8 @@ This clause specifies the kinds of exceptions that may be thrown from the method
 Unlike Java, JML requires that a `signals_only` clause list all exceptions that may occur, including runtime exceptions (derived from `java.lang.RuntimeException`), so that each specification is clear about what exceptions might be thrown.
 
 However, if the `signals_only` clause is omitted, then the default is as if there was a `signals_only` clause that lists `java.lang.RuntimeException`
-and any declared exception types (the latter are often called "checked" exceptions).
+and all of the exception types declared in the method's header 
+(the latter are often called "checked" exceptions).
 
 We can specify that no exceptions can be thrown,
 with the clause `signals_only \nothing`,
@@ -61,6 +62,8 @@ The above produces the following output when checked with ESC.
 {% include_relative T_Exception1a.out %}
 ```
 
+### Specifying a Type of Exceptions that cannot be Thrown
+
 In order to say that a particular type of exception is never thrown,
 use a `signals` clause (for that exception type) with a `false` predicate.
 Then the `signals` clause says that, if that type of exception is thrown,
@@ -76,8 +79,8 @@ However, trying to verify the above example produces a verification failure (sin
 ```Java
 {% include_relative T_Exception2.out %}
 ```
-
-One fix for this error is to require that the method always be called with a non-null argument, as follows.
+One fix for this error is to require that the method always be called with a non-null argument, as the following correct class shows.
+Note that the array argument `a` is specified to be non-null, so it does not need to be specified as non-null in the second signals clause.
 
 ```Java
 {% include_relative T_Exception3.java %}
@@ -93,13 +96,9 @@ Consider this example in which there are two kinds of exceptions thrown.
 {% include_relative T_Exception4.java %}
 ```
 
-In the second `signals` clause, the expression `a != null` is required;
-without it, the later expression
-`a[i]` is not [well-defined](WellDefinedExpressions). 
-It is immaterial that there is a test for `a` being null
-in the other `signals` clause. 
-Note that if there are no `signals` clauses, then OpenJML complains that
-some expected conditions cannot be proved, as shown in the following example.
+Note that if there are no `signals` clauses (and no requires clause), 
+then OpenJML complains that some expected conditions cannot be proved, 
+as shown in the following example.
 
 ```Java
 {% include_relative T_Exception4a.java %}
