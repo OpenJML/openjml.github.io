@@ -7,6 +7,9 @@ title: JML Tutorial - Preconditions (requires clauses)
 Sometimes a method may work (or be well-defined) only for certain combinations of program states and actual arguments.
 Such restrictions are called *preconditions* and are written with one (or more) *requires* clause(s).
 
+When a JML tool verifies the body of a method that has preconditions, it assumes those preconditions in the method's _pre-state_; that is, JML assumes the preconditions hold at the beginning of the body (just after argument passing).
+These assumptions will be valid for each call, because JML tools verify (as an assertion) that the preconditions of a call hold for method call. Thus preconditions form part of the contract between the caller of a method and the method itself.
+
 For example, a method to compute an integer square root requires its
 input to be non-negative:
 ```Java
