@@ -27,8 +27,6 @@ The first two assumptions added above the assignment to `sum` make sure that int
 
 One could write a more constructive set of assumptions, but these would perhaps reveal too much about the algorithm if they were made into preconditions.
 
-All of the assumptions seem necessary for OpenJML to verify the method, as deleting any of them leads to potential overflow or underflow errors.
-
 Since the method is changing the field `sum` that is declared outside of the method, a [frame condition](https://openjml.org/tutorial/FrameConditions) would normally be needed to completely specify the method.
 
 **Learning Objectives:** 
@@ -56,7 +54,7 @@ public class ArithmeticExample2 {
 ```
 
 The problem in the Java code is the possibility of making `playerHealth` such a large negative number that Java cannot represent it as an `int`. The assumptions added prevent that problem.
-The first assume statement says that the argument `dmg` is non-negative, and the second says that `playerHealth` is positive. Thus, in Java's 2's-complement arithmetic, `playerHealth` is at least 1 and `dmg` is at most `Integer.MAX_VALUE`; so the subtraction inplict in the assignment, `playerHealth - dmg` can only reduce `playerHealth` to `1 - Integer.MAX_VALUE`, which is representable as an `int`.
+The first assume statement says that the argument `dmg` is non-negative, and the second says that `playerHealth` is positive. Thus, in Java's 2's-complement arithmetic, `playerHealth` is at least 1 and `dmg` is at most `Integer.MAX_VALUE`; so the subtraction implicit in the assignment, `playerHealth - dmg`, can only reduce the value of `playerHealth` to `1 - Integer.MAX_VALUE`, which is representable as an `int`. The first assumption would be appropriate as a [precondition](https://openjml.org/tutorial/Preconditions.html). The assumption that `0 < playerHealth` might also be appropriate as a precondition, but perhaps a more standard way of specifying such a property would be to use an [invariant](https://openjml.org/tutorial/Invariants.html).
 
 Note that there is no need to constrain `dmg` to be at most `Integer.MAX_VALUE` as it is an `int` argument, so it must fit into an `int`.
 
@@ -81,4 +79,6 @@ public class ArithmeticExample2 {
 ```
 
 As the comment above the original code indicates, the if-statement that tests the values of `dmg` and `playerHealth` ensures the same conditions that the assume statements of the solution to part (a), above. Indeed, this comment could be turned into a JML assert statement, which would verify at that point. The if-statement thus prevents the value of the computation `playerHealth - dmg` from having any underflow problem.
+
+The above code rewrite might make sense if the method could be called by untrusted clients.  If the method were only called by trusted code (e.g., if the method itself had protected visibility), then using preconditions might be a better solution, as there would be no runtime computation involved.
 
