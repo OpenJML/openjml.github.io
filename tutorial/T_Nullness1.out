@@ -1,19 +1,19 @@
 T_Nullness1.java:14: verify: The prover cannot establish an assertion (Precondition: T_Nullness1.java:4:) in method test
-    boolean b = has(ss,'a');  // ERROR: may violate implicit precondition!
+    boolean b = has(ss,'a');  // ERROR: may fail implicit precondition of has!
                    ^
 T_Nullness1.java:4: verify: Associated declaration: T_Nullness1.java:14:
   public static boolean has(String s, char c) {
                         ^
 T_Nullness1.java:14: verify: Precondition conjunct is false: _JML__tmp`143 != null
-    boolean b = has(ss,'a');  // ERROR: may violate implicit precondition!
+    boolean b = has(ss,'a');  // ERROR: may fail implicit precondition of has!
                     ^
 T_Nullness1.java:15: verify: The prover cannot establish an assertion (Precondition: T_Nullness1.java:4:) in method test
-    b = has(make(2), 'a');
+    b = has(make(2), 'a');   // ERROR: result of make may be null!
            ^
 T_Nullness1.java:4: verify: Associated declaration: T_Nullness1.java:15:
   public static boolean has(String s, char c) {
                         ^
 T_Nullness1.java:15: verify: Precondition conjunct is false: _JML__tmp`152 != null
-    b = has(make(2), 'a');
+    b = has(make(2), 'a');   // ERROR: result of make may be null!
                 ^
 6 verification failures
