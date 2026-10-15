@@ -6,10 +6,26 @@ This page describes how to limit the time spent on proof attempts.
 
 ## Timeouts
 
-You can set a timeout for a proof attempt with the `--timeout` option.
-The value given is an integer number of seconds. A limit of a few minutes 
-(e.g. 180) is reasonable. A shorter limit will let fast proofs be reported
-while not taking up too much time on longer proofs. 
+Two options limit the time the SMT solver spends on proofs. Both take a
+number of seconds; 0 means no limit.
+
+* `--timeout` limits each individual solver query. The default is 300.
+* `--timeout-method` limits the solver's total time for one method's proof,
+  over all of its queries. The default is 0, no limit.
+
+A method's proof may take several queries: the main proof, one more for each
+further verification failure after the first is reported, and one for each
+feasibility check (see `--check-feasibility`). So a method can take a multiple
+of the `--timeout` value. To bound the time for a whole method, use
+`--timeout-method`; for example, `--timeout=60 --timeout-method=180`.
+
+When either limit is reached, OpenJML reports that validity (or, for a
+feasibility check, feasibility) is unknown because a time limit was reached,
+and goes on to the next method. A shorter limit lets fast proofs be reported
+while not taking up too much time on long ones.
+
+These limits apply only to the solver. Time OpenJML itself spends, for example
+translating a method before it is sent to the solver, is not limited.
 
 ## Limiting errors
 
