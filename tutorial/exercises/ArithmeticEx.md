@@ -17,17 +17,7 @@ title: JML Tutorial - Exercises - Arithmetic
 **(a) The function given below cannot be verified; write an assume statement (or several assume statements) in the code, without changing the Java code, to allow it to be verified.**
 **(b) How could you edit the code to allow the function to verify without adding any specifications?**
 ```Java
-public class ArithmeticExample2 {
-    private int playerHealth;
-	
-    public int updatePlayerHealth(int dmg) {
-        playerHealth -= dmg;
-        if (playerHealth < 0) {
-            playerHealth = 0;
-        }
-        return playerHealth;
-    }
-}
+{% include_relative ArithmeticExample2.java %}
 ```
 **Learning Objectives:**
 + Gain more experience with handling overflow 
