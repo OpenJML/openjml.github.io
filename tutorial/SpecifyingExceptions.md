@@ -3,8 +3,8 @@ title: JML Tutorial - Specifying Exceptions
 ---
 
 JML can specify exception execution paths as well as normal execution paths.
-A normal execution has associated postconditions --- `ensures` clauses.
-OpenJML verifies that if the method exits normally,
+A normal execution is specified with one or more [ensures clauses](Postconditions).
+An ensures clause specifies that if the method exits normally,
 then the postcondition must be true.
 Similarly exits with exceptions use an exceptional postcondition,
 which is a `signals` clause in JML.
@@ -16,6 +16,7 @@ The meaning of such a signals clause is:
 if the method terminates with an exception derived from `E`,
 then the given predicate must be true.
 (In JML one does not specify behavior regarding Java Errors,
+which are derived from `java.lang.Error`,
 as these are mostly unrecoverable system errors like `OutOfMemoryError`
 or `StackOverflowError`.)
 
