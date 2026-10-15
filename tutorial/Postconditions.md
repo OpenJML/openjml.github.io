@@ -60,7 +60,9 @@ This is the kind of cut-and-paste error that can be easy to miss during code ins
 OpenJML is able to provide more debugging information than just the error
 message. Tutorial examples are given under the [debugging](Debugging) topic.
 
-While in this case the error was in the implementation, the error might 
+### Pitfalls in Specifying Postconditions
+
+While in the case above the error was in the implementation, the error might 
 instead be in the specification. In fact, it is possible that the 
 specification and implementation agree,
 but that they both differ from what the user intended.
