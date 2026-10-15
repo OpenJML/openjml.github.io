@@ -34,7 +34,7 @@ In fact, the same specification could be used with a different implementation:
 {% include_relative T_ensures1a.java %}
 ```
 
-Both of the above examples verify as correct with respect to the given specifications.
+Both of the above examples verify as correct with respect to the given specifications. Thus the specification often allows the code to be changed (e.g., optimized) without affecting clients. That is, as long as the specification is unchanged, clients should not care about changes to the method's implementation.
 
 A benefit of writing postconditions for methods is that they may help detect coding mistakes (assuming that the ensures clauses are as intended). Consider the following example, which does not verify.
 
