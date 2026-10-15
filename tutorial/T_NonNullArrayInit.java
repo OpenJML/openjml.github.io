@@ -1,7 +1,7 @@
 // openjml --esc T_NonNullArrayInit.java
 public class T_NonNullArrayInit {
-    private /*@ spec_public nullable @*/ String[] array;
-    private /*@ spec_public non_null @*/ String[] nna = array;
+    private /*@ nullable @*/ String[] array;
+    private /*@ non_null @*/ String[] nna = array;
 
     public final String emptyString = "";
 
