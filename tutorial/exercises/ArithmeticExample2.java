@@ -1,14 +1,12 @@
+// openjml --esc ArithmeticExample2.java
 public class ArithmeticExample2 {
-	//@ spec_public
-	private int playerHealth;
+    private int playerHealth;
 	
-	//@ requires 0 <= dmg < Integer.MAX_VALUE;
-	//@ requires 0 < playerHealth;
-	public int updatePlayerHealth(int dmg) {
-		if(playerHealth > dmg) {
-			return (playerHealth + dmg);
-		}else {
-			return 0;
-		}
-	}
+    public int updatePlayerHealth(int dmg) {
+        playerHealth -= dmg;
+        if (playerHealth < 0) {
+            playerHealth = 0;
+        }
+        return playerHealth;
+    }
 }

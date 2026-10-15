@@ -14,20 +14,19 @@ title: JML Tutorial - Exercises - Arithmetic
 + Understand overflow and underflow errors and how to use specifications to prevent them.
 
 ## **Question 2**
-**(a) The function given below is unable to be verified; determine where in the specifications it is failing, and fix it.**
-**(b) How could you edit the code to verify the function with the original specification?**
+**(a) The function given below cannot be verified; write an assume statement (or several assume statements) in the code, without changing the Java code, to allow it to be verified.**
+**(b) How could you edit the code to allow the function to verify without adding any specifications?**
 ```Java
-//@ spec_public
-private int playerHealth;
+public class ArithmeticExample2 {
+    private int playerHealth;
 	
-//@ requires dmg <= 0;
-//@ requires 0 < playerHealth;
-public int updatePlayerHealth(int dmg) {
-	if(playerHealth > dmg) {
-		return (playerHealth - dmg);
-	}else {
-		return 0;
-	}
+    public int updatePlayerHealth(int dmg) {
+        playerHealth -= dmg;
+        if (playerHealth < 0) {
+            playerHealth = 0;
+        }
+        return playerHealth;
+    }
 }
 ```
 **Learning Objectives:**

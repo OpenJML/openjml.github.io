@@ -1,4 +1,7 @@
-ArithmeticExample2.java:9: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method updatePlayerHealth: overflow in int sum
-			return (playerHealth + dmg);
-			                     ^
-1 verification failure
+ArithmeticExample2.java:6: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method updatePlayerHealth: overflow in int difference
+        playerHealth -= dmg;
+                     ^
+ArithmeticExample2.java:6: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method updatePlayerHealth: underflow in int difference
+        playerHealth -= dmg;
+                     ^
+2 verification failures
