@@ -15,7 +15,9 @@ title: JML Tutorial - Exercises - Arithmetic
 
 ## **Question 2**
 **(a) The method given below cannot be verified; write an assume statement (or several assume statements) in the code, without changing the Java code, to allow it to be verified.**
+
 **(b) How could you edit the code to allow the method to verify without adding any specifications?**
+
 ```Java
 {% include_relative ArithmeticExample2.java %}
 ```
