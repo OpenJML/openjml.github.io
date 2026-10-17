@@ -86,9 +86,9 @@ Quantified expressions are commonly used in reasoning about loops, arrays, seque
 The `\choose` quantifier is similar to `\exists`. Whereas `(\exists T i; R; V)` is true if there is some value of the quantified variable (`i`) for which `R && V` is true, `(\choose T i; R; V)` returns some value of `i` that makes `R && V` true (as the value of the choose expression). For example, the value of `(\choose int i; 0 <= i < a.length; a[i] == 0)` is some `int` for which the range predicate is true; in this example, that is a legal index (`i`) of array `a` holding the element 0. The type of the expression is always the type of the declared local variable (`i` in the example).
 
 If there is more than one such value (in our example, more than one such index `i`), then the result of the expression might be any one of them, but it will always the same one for a semantically identical expression.
-But the fact that the value could be any one satisfying the predicate means that an assertion that uses that value must hold for all cases in which the predicate is true. For example in the expression `P(\choose int i; 0 <= i < a.length && a[i] == 0; i)`, the value of the overall expression should not depend on the value chosen for `i`.
+But the fact that the value could be any one satisfying the predicate means that an assertion that uses that value must hold for all cases in which the predicate is true. For example in the expression `P(\choose int i; 0 <= i < a.length; a[i] == 0)`, the value of the overall expression should not depend on the value chosen.
 
-If `R` is false, (in our example, if there is no index `i` such that `0 <= i < a.length && a[i] == 0`), then the expression is not [well-defined](WellDefinedExpressions). Thus, to make sure that a `\choose` predicate is always well-defined, one should make sure that the range expression is never false.
+If `R` is false, (in our example, if there is no index `i` such that `0 <= i < a.length`), then the expression is not [well-defined](WellDefinedExpressions). Thus, to make sure that a `\choose` predicate is always well-defined, one should make sure that the range expression is never false.
  
 ### max and min
 
@@ -100,18 +100,18 @@ The implementation of these two expressions in OpenJML is in progress. Don’t c
 
 #### **As a shorthand notation**
 
-A first point to note is that these are each equivalent to a choose expression with a pair of forall and exists subexpressions inside.
+A first point to note is that these min and max quantified expressions are each equivalent to a choose expression with a pair of forall and exists subexpressions inside.
 That is, `x == (\max ...; R; v)` where `x` has a numeric type `T`,
 is equivalent to 
-`(\choose T v; (\exists T x; R; x == v) && (\forall T x; R; x <= v); v)`. That is, the value of the `\max` expression is one of the elements being considered and is at least as large as all of them. Similarly, the value of `x == (\min ...; R; v)` is equivalent to
-`(\choose T v; (\exists T x ; R; x == v) && (\forall T x ; R; v <= x); v)`, where `T` is again the type of `x`. That is, the value of the `\min` expression is a number that is one of the elements being considered and is no bigger than all of them. This can be see in the example below.
+`(\choose T v; (\exists T x; R; x == v); (\forall T x; R; x <= v))`. That is, the value of the `\max` expression is one of the elements being considered and is at least as large as all of them.
+Similarly, the value of `x == (\min ...; R; v)` is equivalent to
+`(\choose T v; (\exists T x ; R; x == v); (\forall T x ; R; v <= x))`, where `T` is again the type of `x`. That is, the value of the `\min` expression is a number that is one of the elements being considered and is no bigger than all of them. These equivalences are used in the example below.
 
 ```Java
-    //@ requires 0 < a.length;
-    //@ requires (\forall int i; 0 <= i < a.length; 0 < a[i]);
-    //@ ensures \result == (\min int m; 0 <= m < a.length; a[m]);
     //@ spec_pure
     public int minOfPosArray (int[] a) {
+        //@ assume 0 < a.length;
+        //@ assume (\forall int i; 0 <= i < a.length; 0 < a[i]);
         int val = a[0];
         int k;
         for (k = 0; k < a.length; k++) {
@@ -123,14 +123,14 @@ is equivalent to
         //@ assume k == a.length;
         //@ assume (\forall int m; 0 <= m < k; val <= a[m]);
         //@ assume (\exists int n; 0 <= n < a.length; val == a[n]);
+        //@ assert val == (\min int m; 0 <= m < a.length; a[m]);
         return val;
     }
 
-    //@ requires 0 < a.length;
-    //@ requires (\forall int i; 0 <= i < a.length; 0 < a[i]);
-    //@ ensures \result == (\max int m; 0 <= m < a.length; a[m]);
     //@ spec_pure
     public int maxOfPosArray (int[] a) {
+        //@ assume 0 < a.length;
+        //@ assume (\forall int i; 0 <= i < a.length; 0 < a[i]);
         int val = a[0];
         int k;
         for (k = 0; k < a.length; k++) {
@@ -142,6 +142,7 @@ is equivalent to
         //@ assume k == a.length;
         //@ assume (\forall int m; 0 <= m < k; a[m] <= val);
         //@ assume (\exists int n; 0 <= n < a.length; val == a[n]);
+        //@ assert val == (\max int m; 0 <= m < a.length; a[m]);
         return val;
     }
 ```
@@ -160,7 +161,7 @@ The `\sum` and `\product` quantifiers add up or multiply together all the values
 * `(\sum int i; 0 <= i < a.length; a[i])` and
 * `(\product int i; 0 <= i < a.length; a[i])`
 
-The type of these expressions is a mathematical type (that is, if integer-valued it is evaluated in [bigint-math mode](ArithmeticModes)), because overflow is a distinct possibility. However, the result could always be cast to a desired final type if desired.
+The type of these expressions is a mathematical type (that is, if integer-valued it is evaluated in [bigint-math mode](ArithmeticModes)), because overflow is a distinct possibility. However, the result could always be cast to a desired final type.
 
 If the range predicate is empty (i.e., false) then the sum is 0 and the product is 1. So these expressions are well-defined even when the range predicate is empty.
 

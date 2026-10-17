@@ -2,43 +2,24 @@
 title: JML Tutorial - Exercises - Arithmetic
 ---
 # Arithmetic Exercises:
-## [Arithmetic Tutorial](https://www.openjml.org/tutorial/ArithmeticModes)
+## [Arithmetic and Arithmetic Modes Tutorial](https://www.openjml.org/tutorial/ArithmeticModes)
 
 ## **Question 1**
-**Given the function below determine the strongest preconditions needed to verify the function.**
+**Given the method below determine the strongest preconditions needed to verify it.**
 ```Java
-public class ArithmeticExample1 {
-	//@ spec_public
-	private int sum;
-
-	//@ ensures 0 < sum < Integer.MAX_VALUE;
-	public void sumThreeNums(int n1, int n2, int n3) {
-		sum = n1 + n2 + n3;
-	}	
-}
+{% include_relative ArithmeticExample1.java %}
 ```
+
 **Learning Objectives:**
-+ Understand overflow and underflow errors
-+ Understand `Integer.MAX_VALUE`
-+ Gain more experience writing preconditions
-+ Gain more experience with the `assigns` clause
++ Understand overflow and underflow errors and how to use specifications to prevent them.
 
 ## **Question 2**
-**(a) The function given below is unable to be verified; determine where in the specifications it is failing, and fix it.**
-**(b) How could you edit the code to verify the function with the original specification?**
+**(a) The method given below cannot be verified; write an assume statement (or several assume statements) in the code, without changing the Java code, to allow it to be verified.**
+
+**(b) How could you edit the code to allow the method to verify without adding any specifications?**
+
 ```Java
-//@ spec_public
-private int playerHealth;
-	
-//@ requires dmg <= 0;
-//@ requires 0 < playerHealth;
-public int updatePlayerHealth(int dmg) {
-	if(playerHealth > dmg) {
-		return (playerHealth - dmg);
-	}else {
-		return 0;
-	}
-}
+{% include_relative ArithmeticExample2.java %}
 ```
 **Learning Objectives:**
 + Gain more experience with handling overflow 

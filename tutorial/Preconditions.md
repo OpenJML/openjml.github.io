@@ -1,11 +1,14 @@
 ---
-title: JML Tutorial - Preconditions (requires clauses)
+title: JML Tutorial - Preconditions
 ---
 
 ## Purpose and Use of Preconditions
 
 Sometimes a method may work (or be well-defined) only for certain combinations of program states and actual arguments.
 Such restrictions are called *preconditions* and are written with one (or more) *requires* clause(s).
+
+When a JML tool verifies the body of a method that has preconditions stated in requires clauses, it assumes those preconditions in the method's _pre-state_; that is, JML assumes the preconditions hold at the beginning of the method's body (just after argument passing).
+These assumptions will be valid for each call, because JML tools verify (as an assertion) that the preconditions of a call (of a method specified with requires clauses) hold for that call. Thus preconditions form part of the contract[^1] between the caller of a method and the method itself.
 
 For example, a method to compute an integer square root requires its
 input to be non-negative:
@@ -38,7 +41,7 @@ The order shown above results in a verification error (when the arguments are nu
 {% include_relative T_requires3.out %}
 ```
 
-## Special Considerations for Floating-Point Numbers and Java's NaN
+## Special Considerations for Floating-Point Numbers and NaN
 
 NaN stands for “not a number” and is used as the result of a floating point operation that results in an undefined answer. A common example of this would be trying to divide zero by zero or taking the square root of a negative number.
 
@@ -73,3 +76,7 @@ Follow the link in the above heading to work on the exercises on this topic.
 + [T_requires1 file](T_requires1.java)
 + [T_requires2 file](T_requires2.java)
 + [T_requires3 file](T_requires3.java)
+
+## Footnotes
+[^1]: See [B. Meyer, "Applying 'design by contract',"](https://ieeexplore.ieee.org/document/161279) in _IEEE Computer_, vol. 25, no. 10, pp. 40-51, Oct. 1992, doi: 10.1109/2.161279.
+

@@ -5,26 +5,37 @@ title: JML Tutorial - Exercises - JML Expressions
 ## [JML Expressions Tutorial](https://www.openjml.org/tutorial/Expressions)
 
 ## **Question 1**
-**Look again at the `primeChecker` method below. This method checks if its argument is prime. Using a quantified expression, either `\exists` or `\forall`, write an expression that says that `\result` is true just when there are no integers between 2 and `num/2` inclusive that evenly divide the argument `num`. (This expression could be used as a [postcondition](https://openjml.org/tutorial/Postconditions.html) for the method.)**
+**Look again at the `primeChecker` method below. This method checks if its argument is prime. Using a quantified expression, either `\exists` or `\forall`, write an expression in the assertion at the end that describes the property that there are no integers between 2 and `num/2` inclusive that evenly divide the argument `num`.**
 ```Java
-//@ requires num > 0;
 public boolean primeChecker(int num) {
-	boolean flag;
-	for (int i = 2; i <= num / 2; i++) {
-		//@ assume i > 0;
+        //@ assume 0 < num;
+	boolean isPrime = true;
+        int i;
+	for (i = 2; i < num/2; i++) {
+                //@ assume isPrime && 2 <= i < num/2;
+                //@ assume !(\exists int j; 2 <= j < i; num % j == 0);
 		if (num % i == 0) {
-			flag = false;
 			//@ assert num % i == 0;
-			//@ assert flag == false;
-			return flag;
+			isPrime = false;
+			return isPrime;
 		}
+                //@ assert isPrime && 2 <= i < num/2;
+                //@ assert !(\exists int j; 2 <= j < i; num % j == 0);
 	}
-
-	flag = true;
-	//@ assert flag == true;
-	return flag;
+        //@ assume isPrime && 2 <= i && i == num/2;
+        //@ assert !(\exists int j; 2 <= j < i; num % j == 0);
+        if (num % i == 0) {
+            isPrime = false;
+            return isPrime;
+        }
+        //@ assert isPrime;
+        // write an assert statement here about num
+	return isPrime;
 }
 ```
+
+The predicate in the assert statement at the end that describes `num` could be adapted to be used as a [postcondition](https://openjml.org/tutorial/Postconditions.html) for the method.
+
 **Learning Objectives:**
 + Understand quantified expressions and be able to write them
 + Understand JML operators and be able to utilize them
@@ -54,7 +65,10 @@ T	F    |	   F	|      F         |
 **Learning Objectives:**
 + Gain more experience using JML operators
 + Understand how the same JML statements can be used for different versions of the same code
-+ Recall "strongest" specifications
 
 ## **[Answer Key](JmlExprExKey.md)**
 ## **[All exercises](https://www.openjml.org/tutorial/exercises/exercises)**
+
+## Resources
++ [Java code for question 1](JMLExprExample1.java)
++ [Java code for question 2](JMLExprExample2.java)

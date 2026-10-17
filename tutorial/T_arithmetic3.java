@@ -1,7 +1,11 @@
 // openjml --esc T_arithmetic3.java
 public class T_arithmetic3 {
-  //@ ensures \result >= 0;
   public int abs(int i) {
-    return i >= 0 ? i : -i;   // ERROR: see text!
+      if (0 <= i) {
+          return i;
+      } else {
+          //@ assert -i > 0;
+          return -i;   // ERROR: see text!
+      }
   }
 }

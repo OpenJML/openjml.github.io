@@ -5,15 +5,11 @@ title: JML Tutorial - Exercises - Answers to Precondition Exercises
 
 ## **Question 1**
 
-A simple answer is equivalent to the following.
-```
-//@ requires 0 < a.length;
-```
-
+A simple answer is equivalent to the precondition `0 < a.length`
 (Any logically equivalent form of the precondition expression would work,
 such as `a.length > 0`. However, we think it good style to follow Rustan Leino's idea of writing such expressions with the smallest quantity on the left, so the equivalent expression `1 <= a.length` would be preferred.)
 
-This requires clause can be seen in the following code.
+This precondition can be seen in the following code.
 ```Java
     //@ requires 0 < a.length;
     public int element0(int a[]) {
@@ -33,11 +29,12 @@ b. the price is at least 0;
 
 c. the number of items is positive;
 
-c. that purchasing n items doesn't make the user's balance negative or increase.
+c. that purchasing `n` items doesn't make the user's balance negative or increase (due to [arithmetic overflow](https://openjml.org/tutorial/ArithmeticModes.html)).
 
 If all these requirements are met, the assertion in the code will pass.
 
-However, it is important to note that, since we are dealing with floating point numbers, the specification must require that the arguments passed in are not NaN (otherwise the assertion may fail). This can be done using the method `isNaN()` of the class `Double` which is used require that both the inputs `balance` and `price` are not NaN.
+However, it is important to note that, since we are dealing with floating point numbers, the specification must require that the arguments passed in are not NaN (otherwise the assertions will all be false). 
+This can be done using the method `isNaN()` of the class `Double` which is used require that both the inputs `balance` and `price` are not NaN.
 By requiring that the double arguments not be NaN, the specification operates in a more logical manner, and the user will get a verification error if they pass in a value that could be NaN. (OpenJML does not prohibit NaN arguments by default.) 
 In the following we use two requires clauses for these checks, but one could equivalently use one clause, such as the following.
 ```
@@ -48,7 +45,7 @@ Or equivalently the following.
 requires !(Double.isNaN(balance) || Double.isNaN(price));
 ```
 
-However, in our preferred solution below, we use separate requires clauses stating that each double argument must not be NaN. One advantage to using two separate requires clauses, is that verification error messages for calls to the method that could pass NaN to either argument will be easier to understand.
+However, in our preferred solution below, we use separate requires clauses stating that each double argument must not be NaN. One advantage to using two separate requires clauses, is that verification error messages for calls to the method that could pass NaN to either argument will be easier (for the client) to understand.
 
 ```Java
     //@ requires !Double.isNaN(balance);
@@ -67,7 +64,7 @@ However, in our preferred solution below, we use separate requires clauses stati
 
 Note that we use `0.0 <= balance` because a balance might be zero, and that would suffice to purchase an item that is free.  The preconditions requiring the price to be non-negative and the quantity to be positive, together with the precondition `(price*n) <= balance` do, however, require that the balance is sufficient to purchase the given number of items.
 
-**Incorrect Version 2:**
+**Incorrect Version 1:**
 
 An incorrect solution is as follows.
 
@@ -91,7 +88,7 @@ The above specification doesn't require `(price*n) <= balance`, so the balance m
 {% include_relative PreCondEx2Wrong.out %}
 ```
 
-**Incorrect Version 3:**
+**Incorrect Version 2:**
 
 Another incorrect answer is as follows.
 
