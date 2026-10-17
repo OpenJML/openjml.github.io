@@ -1,5 +1,5 @@
 org.jmlspecs.runtime.JmlAssertionError: T_RacOutput.java:10: verify: JML assertion is false
-    //@ assert len == 1;
+    //@ assert len == 1;   // ERROR: len is not necessarily 1!
         ^
 	at java.base/org.jmlspecs.runtime.Utils.createException(Utils.java:143)
 	at java.base/org.jmlspecs.runtime.Utils.assertionFailureL(Utils.java:96)

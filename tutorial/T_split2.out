@@ -16,7 +16,7 @@ T_split1.java:16: verify: Show statement expression i has value ( - 2147483610 )
     //@ show p,i;
                ^
 T_split1.java:18: verify: The prover cannot establish an assertion (Postcondition) in method m
-    return i;
+    return i;  // ERROR: ensures clause not satisfied!
     ^
 T_split1.java:4: verify: Associated declaration
   //@ ensures i == 2;

@@ -90,8 +90,11 @@ for f in *.java ; do
   E=${PIPESTATUS[0]}
   if [ $E -eq 124 ]; then
     X=1; echo "TIMEOUT after $TIMEOUT s - $f FAILED"
-  elif [ -e "$h" ]; then 
-    diff $logx $h || { X=1; echo $f FAILED; mv $logx $f.actual; }
+  elif [ -e "$h" ]; then
+    ## As for the examples, X.out1, X.out2, ... are accepted alternatives (e.g. another warning order)
+    n=0; m=$h
+    while [ -e "$m" ] && ! cmp -s $logx $m; do (( ++n )); m=$h$n; done
+    if [ ! -e "$m" ]; then diff $logx $h; X=1; echo $f FAILED; mv $logx $f.actual; fi
   elif [ "$E" != "0" ]; then
     X=1; echo "Exit code $E - $f FAILED" ; mv $logx $f.actual
   fi

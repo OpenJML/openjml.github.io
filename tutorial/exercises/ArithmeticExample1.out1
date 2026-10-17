@@ -1,0 +1,16 @@
+ArithmeticExample1.java:7: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method sumThreeNums: overflow in int sum
+        sum = n1 + n2 + n3;   // ERROR: may overflow!
+                      ^
+ArithmeticExample1.java:7: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method sumThreeNums: underflow in int sum
+        sum = n1 + n2 + n3;   // ERROR: may overflow!
+                      ^
+ArithmeticExample1.java:7: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method sumThreeNums: overflow in int sum
+        sum = n1 + n2 + n3;   // ERROR: may overflow!
+                 ^
+ArithmeticExample1.java:7: verify: The prover cannot establish an assertion (ArithmeticOperationRange) in method sumThreeNums: underflow in int sum
+        sum = n1 + n2 + n3;   // ERROR: may overflow!
+                 ^
+ArithmeticExample1.java:8: verify: The prover cannot establish an assertion (Assert) in method sumThreeNums
+	//@ assert 0 <= sum <= Integer.MAX_VALUE;   // ERROR: may fail!
+	    ^
+5 verification failures
