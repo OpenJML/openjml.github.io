@@ -42,11 +42,14 @@ If specifications are in separate files, the `openjml` tool must be able to find
 When a Java compiler compiles source files given on the command-line, those source files may mention other classes that are not on the command-line. The compiler finds those classes by looking in the _classpath_ for compiled `.class` files or the _sourcepath_ for source code files. Both files are lists of folders or .jar files in which to look for the desired file. Developers often do not bother with writing a sourcepath because it is by default (almost) the same as the classpath. So it is easy just to put all the needed folders on one classpath.
 
 Similarly specification files are looked for on a _specspath_, also a sequence of folders or jar files.
-When `openjml` reads a source or class file, 
-* it looks for a corresponding `.jml` file on the specspath.
-* If it does not find one, it looks for a .java file for that class on the specspath. 
-* If it does not find a .java file, it uses the .java file from the command-line (if one exists)
-* Otherwise, it uses a default set of specifications for the class and its methods.
+When `openjml` reads a class from its `.java` file (one on the command-line, or a referenced class whose source is used),
+* it looks for a corresponding `.jml` file on the specspath (if there is more than one, the first is used);
+* if it does not find one, it looks for a `.jml` file in the same folder as the `.java` file;
+* if it does not find one, it uses the specifications in the `.java` file itself.
+
+When `openjml` reads a class from its `.class` file (there is no `.java` file, or the `.class` file is newer),
+* it looks for a corresponding `.jml` file on the specspath;
+* if it does not find one, it uses a default set of specifications for the class and its methods. A `.java` file for the class, and a `.jml` file next to it, are not used.
 
 Now the specspath by default is (almost) the same as the sourcepath, which by default is (almost) the same as the classpath, so it is common practice to use just one classpath for all three paths.
 
