@@ -20,7 +20,7 @@ powered by the [OpenJML](https://www.openjml.org) tool.
 3. Unzip the release `.zip` file in that folder.
 4. Mac security settings can prevent running the 
    server if its path includes the Desktop.
-5. Run `./install-vscode-extension` from that folder (do not move the script or any other contents of the installation folder).
+5. Run `./install-vscode-extension` from that folder (on Windows, `install-vscode-extension.bat`; do not move the script or any other contents of the installation folder).
    This script also removes the quarantine that MacOS can put on new unsigned executables.
 
 The script installs the VS Code extension and sets `openjml.serverPath` automatically.
@@ -29,8 +29,11 @@ If the script fails it emits instructions for a manual workaround.
 ## Requirements
 
 The extension requires an OpenJML installation on the local machine.
-`openjml.serverPath` must point to the OpenJML installation folder or the `openjml-lsp` launcher script from the OpenJML distribution;
-the installer sets this automatically.
+`openjml.serverPath` must point to the OpenJML installation folder or the `openjml-lsp` launcher script from the OpenJML distribution
+(`openjml-lsp.bat` on Windows); the installer sets this automatically.
+
+**Windows:** use the Windows release with VS Code on Windows. Under WSL (VS Code connected to WSL), use the Linux
+release installed in WSL instead; the Windows release cannot run its LSP server from WSL.
 
 **Version requirements:**
 - VS Code 1.79 or later (the extension manifest declares `engines.vscode: ^1.79.0`; tested against 1.118).
